@@ -340,8 +340,11 @@ modern-rebuild: ## Rebuild the lakehouse from the immutable landing Parquet tree
 	@$(MODERN_PYTHON) modern/pipeline.py --type "$(if $(TYPE),$(TYPE),01)" $(MODERN_RUN_FLAGS)
 
 modern-dagster: ## Materialize the modern assets through Dagster.
-	@DAGSTER_HOME=$(CURDIR)/.runtime/dagster $(MODERN_VENV)/bin/dagster asset materialize \
-		-m northwind_modern_dagster --select '*'
+	@mkdir -p .runtime/dagster
+	@DAGSTER_HOME=$(CURDIR)/.runtime/dagster PYTHONPATH=modern/dagster \
+		$(MODERN_VENV)/bin/dagster asset materialize \
+		-m northwind_modern_dagster --select '*' \
+		--partition "$(if $(TYPE),$(TYPE),01)"
 
 modern-api: ## Serve the read-only reconciliation API on 127.0.0.1:8099.
 	@PYTHONPATH=modern/serving/api $(MODERN_VENV)/bin/uvicorn \

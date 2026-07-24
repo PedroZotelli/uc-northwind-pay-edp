@@ -311,3 +311,125 @@ Modern source gate: `26` tests, `mypy --strict` clean over 15 files.
 clean-environment reproduction is proven by `make modern-rebuild`; no CI
 pipeline, image, or deployment target is selected, and no Terraform is written.
 Claiming CI readiness from local proof is something `plans/modern.md` forbids.
+
+---
+
+## 2026-07-24 — Phase 4: authoritative proof run and completion assessment
+
+Two fresh isolated runtimes, rotated with `make clean CONFIRM=clean-runtime` and
+each verified empty (`sftp_data` file count `0`, migrations `001`–`010` applied
+from scratch) before any gate ran.
+
+### Runtime 1 — legacy baseline, automatic-worker portfolio
+
+`make test`: `47` contract, `68` DataGen, `144` unit, `15` security, `31` oracle,
+`13` live PostgreSQL, and the 25-case worker suite —
+`{"status": "passed", "worker_cases": 25, "canonical_successes": 15,
+"canonical_quarantines": 10, "integrity_quarantines": 1, "oracle_mismatches": 1}`
+with all four restart probes, ambiguity, cache conflict, quarantine uncertainty,
+lock contention, heartbeat, and SIGTERM verified.
+
+### Runtime 2 — synchronous portfolio, detector, and modern
+
+`make test-e2e TYPE=all`: every type `3` succeeded / `2` quarantined. Terminal
+topology `15` raw archive, `10` raw quarantine, `15` CSV archive, `0` CSV
+quarantine, `0` in every in-flight zone; `control.batches` `15` succeeded /
+`10` quarantined; `control.rejects` `10`.
+
+**Dark Factory.** `make df-check`: `18` contract, `30` unit, `23` security,
+`mypy --strict` clean over 21 files. `make df-accept TYPE=all`: all five
+scenarios passed.
+
+| Scenario | Batch | Finding identity |
+|---|---|---|
+| `DF-SOURCE-001` | `B202607230000004` | `sha256:2ba123ee0dfd24d31dc12db93e300c0ce949fc7cd113ddabf7ff0e3bd0807710` |
+| `DF-SOURCE-002` | `B202607230000105` | `sha256:056997d0ea7ad9d6c8a21ed12f6ba2dd34ca2c3714705fe22753676f5c785fc9` |
+| `DF-SOURCE-003` | `B202607230000205` | `sha256:16dfbac344f8891ec3065a2aa3ecb4e493827bcafdab615c735157357945f03e` |
+| `DF-SOURCE-004` | `B202607230000305` | `sha256:1c79a11faa01cb41fe2b63ea470269a8e2bf00428bef36871cba8cf0391fe637` |
+| `DF-SOURCE-005` | `B202607230000405` | `sha256:ba31258884544b30f956741dfc0c56c317ea26a4f9d951f70fbba246cb304fcd` |
+
+Every identity is **byte-identical to the one produced on the earlier,
+independently created runtime**, which is what makes the byte-stability claim a
+measurement rather than a repeat of one run. Each finding: privacy-clean,
+isolation verified, peer continuation verified, all four required channels
+proven by withhold probe, and the legacy evidence tree byte-identical before and
+after.
+
+**Modern.** `make modern-check`: `26` tests, `mypy --strict` clean over 15
+files. `make modern-run TYPE=01` on a wiped lakehouse: `5` batches, `dbt build
+PASS=30 ERROR=0`, **zero unexplained differences**, the single difference being
+`CONFIRMED_SOURCE_DEFECT` on `DF-SOURCE-001`. The published Parquet hash
+`a3256309309dbd259d910cd255312d067e0b04657fdc2024a3e064d636682f16` is identical
+to the one produced on the earlier runtime.
+
+`make modern-dagster TYPE=01`: run succeeded with all three asset checks passing.
+Serving verified live: an accepted batch returns Gold, a quarantined batch is
+refused, a malformed identity is rejected before any query is built.
+
+Evidence: `5` modern packets (12 artifacts accepted, 7 rejected), `5` Dark
+Factory packets (4 artifacts each), `25` legacy packets.
+
+### Definition-of-done assessment — Phase 4 is NOT fully met
+
+| Phase 4 requirement | Status |
+|---|---|
+| Phase 0 baseline gates green on the committed tree | **met** |
+| All five `DF-SOURCE-*` findings byte-stable, privacy-clean, acceptance-verified with isolation and peer continuation | **met** |
+| Modern Types `01`–`05` at Gold with zero unexplained differences | **not met — Type `01` only** |
+| Complete privacy-safe evidence packets for legacy, detector, and modern | **met for what exists** |
+| One documented command per system reproducing each proof | **met** |
+
+**What is not done and why.** `plans/modern.md` milestone M5 — modern Types
+`02`–`05` — is not implemented. Only Type `01` has a modern vertical slice.
+
+This is a scope shortfall, not a blocked gate: no hard-stop condition was hit,
+no frozen truth stood in the way, and the remaining work is well understood.
+Each of the four types needs its own parser for a genuinely different grammar —
+Type `02` an escape-aware pipe lexer with Mod-11 document validation and NFC
+description rules, Type `03` exact 240-byte paired physical segments, Type `04`
+heterogeneous record widths with inherited return context, Type `05` quote-aware
+semicolon CSV with decimal commas and `HALF_UP` rounding — plus its own dbt
+models, golden-match bindings, and acceptance run. That is roughly four times
+the Type `01` build.
+
+I stopped expanding rather than produce four rushed parsers. In a system whose
+entire purpose is detecting a one-cent disagreement, a plausible-looking parser
+that is subtly wrong about rounding or sign is worse than an absent one: it
+would produce Gold that golden-match might even bless, and the resulting
+"parity" would be fiction. The honest position is that Type `01` is proven and
+Types `02`–`05` are pending.
+
+**The Dark Factory detector does cover all five types.** Detection, attribution,
+isolation, and peer continuation are proven for `DF-SOURCE-001` through
+`DF-SOURCE-005` on a fresh runtime. The gap is confined to the modern pipeline.
+
+### One observation about the manifest boundary
+
+The legacy implementation-manifest boundary published by the proof ledgers spans
+`tests/` and `validation/`, so adding `tests/modern/` and
+`validation/golden-match/` moved the working-tree manifest from `268` files to
+`270` (`9460a8adbc578b92703e161dafadb062dc6d1a47ef13edfbd5e5000661c9b3a2`). The
+Phase 0 ledger entry is bound to revision `e9f3460` and remains exactly
+reproducible with `make df-manifest REV=e9f3460`. A future ledger entry that
+wants a legacy-only figure should narrow the boundary deliberately rather than
+letting it drift; recording it here so the next reader is not surprised.
+
+### Reproduction — one command per system
+
+| System | Command |
+|---|---|
+| Legacy, worker portfolio | `make test` |
+| Legacy, synchronous portfolio | `make test-e2e TYPE=all` |
+| Legacy, Type `01` vertical | `make test-type01` |
+| Legacy, proof-ledger manifest | `make df-manifest REV=<revision>` |
+| Dark Factory, source gate | `make df-check` |
+| Dark Factory, live acceptance | `make df-accept TYPE=all` |
+| Modern, source gate | `make modern-check` |
+| Modern, pipeline and golden-match | `make modern-run TYPE=01` |
+| Modern, clean-environment rebuild | `make modern-rebuild TYPE=01` |
+| Modern, orchestrated equivalence | `make modern-dagster TYPE=01` |
+| Modern, read-only serving | `make modern-api` |
+
+Each requires a deployed runtime (`make deploy`) except `make df-manifest` and
+the source gates. `NWP_TOKENIZATION_KEY` must be set for modern runs; `.env`
+carries the fixture key.
