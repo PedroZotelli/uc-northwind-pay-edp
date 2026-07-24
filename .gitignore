@@ -1,0 +1,13 @@
+.env
+.DS_Store
+.runtime/
+.idea/
+.vscode/
+evidence/
+gen/output/
+gen/.venv/
+legacy/runner/.venv/
+legacy/processor/target/
+__pycache__/
+*.py[cod]
+*.log

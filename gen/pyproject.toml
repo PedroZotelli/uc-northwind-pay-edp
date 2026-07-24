@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "northwind-pay-datagen"
+version = "0.1.0"
+description = "Deterministic source-system simulator for the NorthWind Pay legacy baseline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "PyYAML>=6.0,<7.0",
+]
+
+[project.optional-dependencies]
+test = [
+  "jsonschema>=4.26,<5.0",
+]
+dev = [
+  "jsonschema>=4.26,<5.0",
+  "mypy>=1.15,<2.0",
+  "types-PyYAML>=6.0,<7.0",
+]
+
+[project.scripts]
+datagen = "cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = [
+  "artifacts",
+  "checksum",
+  "cli",
+  "contract_loader",
+  "generation",
+  "manifest",
+  "models",
+  "paths",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["generators*"]
+namespaces = false
