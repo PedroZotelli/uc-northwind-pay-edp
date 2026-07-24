@@ -489,3 +489,53 @@ distinct grammar — an escape-aware pipe lexer with Mod-11 documents and NFC
 descriptions, exact 240-byte paired physical segments, and heterogeneous record
 widths with inherited return context — plus dbt models, golden-match bindings,
 and an acceptance run.
+
+---
+
+## 2026-07-24 — Phase 3, milestone M5 complete: modern Types 02, 03, and 04
+
+**Status:** all five modern types reach Gold with zero unexplained differences.
+
+Each type was added as one complete vertical slice, gated before the next
+began, and each required a genuinely different parser:
+
+| Type | Grammar the parser had to implement |
+|---|---|
+| `02` | Escape-aware pipe lexer where the field split happens *after* escape scanning, Mod-11 CPF/CNPJ, HMAC document tokens with one correlation scope, length-aware masking, NFC descriptions, preserved timestamp lexemes |
+| `03` | Exact 240-byte CRLF records, visible `~` filler, `H (L (A B)+ T)+ Z` grammar, logical rows assembled from adjacent A/B pairs sharing lot, sequence, and settlement identity, three separate token scopes with three separate keys |
+| `04` | Heterogeneous record lengths by discriminator, implied decimals with a separate sign character, tilde padding, `H (D | D R)+ T` where `RT` requires exactly one immediately following return, returns inheriting party context from the transfer they follow |
+
+Every type reproduced its contract's approved sanitized CSV **exactly** —
+tokens, masks, dates, signs, and amounts — from an implementation that never
+reads Java, legacy CSV, or legacy PostgreSQL.
+
+| Type | dbt | Canonical outcomes | Unexplained differences |
+|---|---|---|---:|
+| `01` | `PASS=30` | 3 accepted, 2 rejected | 0 |
+| `02` | `PASS=32` | 3 accepted, 2 rejected | 0 |
+| `03` | `PASS=25` | 3 accepted, 2 rejected | 0 |
+| `04` | `PASS=27` | 3 accepted, 2 rejected | 0 |
+| `05` | `PASS=29` | 3 accepted, 2 rejected | 0 |
+
+Each type's `DF-SOURCE-*` batch produces exactly one difference, classified
+`CONFIRMED_SOURCE_DEFECT`, with the source-owned declaration preserved
+unchanged: `173.44`/`173.45`, `173.44`/`173.45`, `198.49`/`198.50`,
+`999.99`/`1000.00`, and `0.99`/`1.00`.
+
+Modern source gate: `72` tests, `mypy --strict` clean over 40 files. Dagster
+materialized all five partitions with three asset checks each, all passing.
+`25` modern evidence packets — every canonical batch of every type. Serving
+returns Gold for all five types and refuses every quarantined batch.
+
+**Two defects found while expanding, both fixed at the source:**
+
+1. **The Type 04 account token used the wrong canonical input.** It hashed the
+   account number alone; the contract specifies `ispb:branch:account`. The
+   tokens were well-formed and stable, so only the byte-for-byte comparison
+   against the approved CSV caught it. Hashing the account alone would have
+   silently correlated the same account number at different institutions —
+   a privacy defect that looks like nothing until someone joins on it.
+2. **Golden-match assumed one record-key column name.** Type `03` keys its
+   sanitized rows by `source_record_number_a`, the A segment of its pair, so
+   the record-level comparison would have raised `KeyError` rather than
+   comparing. The key is now taken from the approved artifact itself.

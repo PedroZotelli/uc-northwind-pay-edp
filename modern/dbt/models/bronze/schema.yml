@@ -94,3 +94,54 @@ models:
         tests: [not_null]
       - name: computed_net_amount
         tests: [not_null]
+
+  - name: bronze_payment_slip_settlement
+    description: "Grain: one Type 03 settlement per adjacent A/B segment pair."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: settlement_id
+        tests: [not_null, unique]
+      - name: net_amount_brl
+        tests: [not_null]
+      - name: beneficiary_tax_id_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["CPF", "CNPJ"]
+
+  - name: bronze_payment_slip_control
+    description: "Grain: one row per Type 03 batch."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: declared_net_amount
+        tests: [not_null]
+
+  - name: bronze_ted_transfer_movement
+    description: "Grain: one Type 04 movement per source record."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: movement_id
+        tests: [not_null, unique]
+      - name: amount_brl
+        tests: [not_null]
+      - name: movement_kind
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["TRANSFER", "RETURN"]
+      - name: status_code
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["OK", "RT"]
+
+  - name: bronze_ted_transfer_control
+    description: "Grain: one row per Type 04 batch."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: declared_net_amount
+        tests: [not_null]

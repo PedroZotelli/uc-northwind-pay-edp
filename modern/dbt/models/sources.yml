@@ -23,3 +23,11 @@ sources:
         description: One privacy-safe Type 02 event per source record.
       - name: instant_payment_event_control
         description: Per-batch Type 02 controls published by the writer.
+      - name: ted_transfer_movement
+        description: One privacy-safe Type 04 movement per source record.
+      - name: ted_transfer_movement_control
+        description: Per-batch Type 04 controls published by the writer.
+      - name: payment_slip_settlement
+        description: One privacy-safe Type 03 settlement per A/B segment pair.
+      - name: payment_slip_settlement_control
+        description: Per-batch Type 03 controls published by the writer.

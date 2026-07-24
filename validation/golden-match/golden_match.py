@@ -136,12 +136,17 @@ def compare_records(
 ) -> list[Difference]:
     """Record level, keyed by ``(batch_id, source_record_number)``."""
 
-    expected = {
-        int(row["source_record_number"]): row for row in _read_expected_csv(expected_csv)
-    }
-    observed = {
-        int(row["source_record_number"]): row for row in modern_records
-    }
+    rows = _read_expected_csv(expected_csv)
+    # Types key their sanitized rows differently: most by one source record
+    # number, Type 03 by the A segment of its A/B pair. The key is taken from
+    # the approved artifact rather than assumed.
+    key_column = (
+        "source_record_number"
+        if rows and "source_record_number" in rows[0]
+        else "source_record_number_a"
+    )
+    expected = {int(row[key_column]): row for row in rows}
+    observed = {int(row[key_column]): row for row in modern_records}
     differences: list[Difference] = []
 
     for number in sorted(set(expected) | set(observed)):

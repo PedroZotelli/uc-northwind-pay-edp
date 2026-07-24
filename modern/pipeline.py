@@ -52,6 +52,20 @@ SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
         ("valid-boundary", "B202402290000102"),
         ("escaped-content", "B202607230000104"),
     ),
+    "03": (
+        ("malformed", "B202607230000203"),
+        ("valid-minimal", "B202607230000201"),
+        ("DF-SOURCE-003", "B202607230000205"),
+        ("valid-boundary", "B202402290000202"),
+        ("multi-lot", "B202607230000204"),
+    ),
+    "04": (
+        ("malformed", "B202607230000303"),
+        ("valid-minimal", "B202607230000301"),
+        ("DF-SOURCE-004", "B202607230000305"),
+        ("valid-boundary", "B200002290000302"),
+        ("all-returned-zero-net", "B202607230000304"),
+    ),
     "05": (
         ("malformed", "B202607230000403"),
         ("valid-minimal", "B202607230000401"),
@@ -64,6 +78,8 @@ SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
 CONTRACT_SLUG: Mapping[str, str] = {
     "01": "01-card-settlement",
     "02": "02-instant-payment-events",
+    "03": "03-payment-slip-settlement",
+    "04": "04-ted-transfer-settlement",
     "05": "05-merchant-fee-assessment",
 }
 
@@ -90,6 +106,28 @@ EXPECTED_ARTIFACT: Mapping[str, Mapping[str, tuple[str, str]]] = {
             "expected-escaped-content-reconciliation.yaml",
         ),
     },
+    "03": {
+        "valid-minimal": ("expected-sanitized.csv", "expected-reconciliation.yaml"),
+        "valid-boundary": (
+            "expected-valid-boundary-sanitized.csv",
+            "expected-valid-boundary-reconciliation.yaml",
+        ),
+        "multi-lot": (
+            "expected-multi-lot-sanitized.csv",
+            "expected-multi-lot-reconciliation.yaml",
+        ),
+    },
+    "04": {
+        "valid-minimal": ("expected-sanitized.csv", "expected-reconciliation.yaml"),
+        "valid-boundary": (
+            "expected-valid-boundary-sanitized.csv",
+            "expected-valid-boundary-reconciliation.yaml",
+        ),
+        "all-returned-zero-net": (
+            "expected-all-returned-zero-net-sanitized.csv",
+            "expected-all-returned-zero-net-reconciliation.yaml",
+        ),
+    },
     "05": {
         "valid-minimal": ("expected-sanitized.csv", "expected-reconciliation.yaml"),
         "valid-boundary": (
@@ -111,6 +149,14 @@ REJECTION_ARTIFACT: Mapping[str, Mapping[str, str]] = {
     "02": {
         "malformed": "expected-malformed-rejection.yaml",
         "DF-SOURCE-002": "expected-df-source-002-finding.yaml",
+    },
+    "03": {
+        "malformed": "expected-malformed-rejection.yaml",
+        "DF-SOURCE-003": "expected-df-source-003-finding.yaml",
+    },
+    "04": {
+        "malformed": "expected-malformed-rejection.yaml",
+        "DF-SOURCE-004": "expected-df-source-004-finding.yaml",
     },
     "05": {
         "malformed": "expected-malformed-rejection.yaml",
@@ -138,6 +184,14 @@ def _handler(type_number: str):
         from northwind_pay.types.type02_instant_payment import handler as type02
 
         return type02
+    if type_number == "03":
+        from northwind_pay.types.type03_payment_slip import handler as type03
+
+        return type03
+    if type_number == "04":
+        from northwind_pay.types.type04_ted_transfer import handler as type04
+
+        return type04
     if type_number == "05":
         from northwind_pay.types.type05_merchant_fee import handler as type05
 
@@ -257,6 +311,8 @@ def read_gold(type_number: str) -> dict[str, dict[str, Any]]:
     relation = {
         "01": "main_gold.gold_card_settlement_reconciliation",
         "02": "main_gold.gold_instant_payment_reconciliation",
+        "03": "main_gold.gold_payment_slip_reconciliation",
+        "04": "main_gold.gold_ted_transfer_reconciliation",
         "05": "main_gold.gold_merchant_fee_reconciliation",
     }[type_number]
     connection = duckdb.connect(str(DUCKDB_PATH), read_only=True)
@@ -283,6 +339,8 @@ def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
     relation = {
         "01": "reporting.card_settlement_reconciliation",
         "02": "reporting.instant_payment_reconciliation",
+        "03": "reporting.payment_slip_settlement_reconciliation",
+        "04": "reporting.ted_transfer_reconciliation",
         "05": "reporting.merchant_fee_reconciliation",
     }[type_number]
     import psycopg

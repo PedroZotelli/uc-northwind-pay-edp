@@ -15,6 +15,7 @@ import re
 
 TOKEN_PATTERN = re.compile(r"^tok_[0-9a-f]{24}$")
 DOCUMENT_TOKEN_PATTERN = re.compile(r"^doc_[0-9a-f]{24}$")
+ACCOUNT_TOKEN_PATTERN = re.compile(r"^tedacct_[0-9a-f]{24}$")
 MASKED_CPF_PATTERN = re.compile(r"^\*{7}[0-9]{4}$")
 
 
@@ -105,3 +106,53 @@ def mask_document(document: str) -> str:
         raise PrivacyError("document is not an eleven or fourteen digit identifier")
     stars = 7 if len(document) == 11 else 10
     return f"{'*' * stars}{document[-4:]}"
+
+
+def tokenize_account(
+    ispb: str,
+    branch: str,
+    account: str,
+    *,
+    key_variable: str = "NWP_TED_ACCOUNT_TOKEN_KEY",
+) -> str:
+    """Return ``tedacct_`` plus the first 24 hex characters of the HMAC.
+
+    The contract's canonical input is ``ispb:branch:account``, so the same
+    account number at two institutions tokenizes differently. Hashing the
+    account alone would silently correlate unrelated parties.
+    """
+
+    if not account.isdigit() or len(account) != 12:
+        raise PrivacyError("account number is not twelve digits")
+    if not ispb.isdigit() or len(ispb) != 8:
+        raise PrivacyError("institution code is not eight digits")
+    if not branch.isdigit() or len(branch) != 4:
+        raise PrivacyError("branch code is not four digits")
+    canonical = f"{ispb}:{branch}:{account}"
+    digest = hmac.new(_key(key_variable), canonical.encode("ascii"), hashlib.sha256)
+    token = f"tedacct_{digest.hexdigest()[:24]}"
+    if not ACCOUNT_TOKEN_PATTERN.match(token):
+        raise PrivacyError("derived account token does not match the contract")
+    return token
+
+
+def tokenize_with_prefix(
+    value: str,
+    *,
+    prefix: str,
+    key_variable: str,
+) -> str:
+    """Return ``<prefix>_`` plus the first 24 lowercase hex characters of the HMAC.
+
+    The shared shape for the several contract-approved tokenizations that differ
+    only in prefix, key, and canonical input. Each keeps its own key so a token
+    from one scope cannot be correlated with another.
+    """
+
+    if not value:
+        raise PrivacyError("tokenization input is empty")
+    digest = hmac.new(_key(key_variable), value.encode("ascii"), hashlib.sha256)
+    token = f"{prefix}_{digest.hexdigest()[:24]}"
+    if not re.match(rf"^{prefix}_[0-9a-f]{{24}}$", token):
+        raise PrivacyError("derived token does not match the contract")
+    return token
