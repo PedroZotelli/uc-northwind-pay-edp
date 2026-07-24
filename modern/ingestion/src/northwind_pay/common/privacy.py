@@ -14,6 +14,7 @@ import os
 import re
 
 TOKEN_PATTERN = re.compile(r"^tok_[0-9a-f]{24}$")
+DOCUMENT_TOKEN_PATTERN = re.compile(r"^doc_[0-9a-f]{24}$")
 MASKED_CPF_PATTERN = re.compile(r"^\*{7}[0-9]{4}$")
 
 
@@ -75,3 +76,32 @@ def assert_no_restricted_values(payload: str, restricted: tuple[str, ...]) -> No
             raise PrivacyError(
                 "a restricted value reached a candidate sanitized output"
             )
+
+
+def tokenize_document(
+    document: str,
+    *,
+    key_variable: str = "NWP_DOCUMENT_TOKEN_KEY",
+) -> str:
+    """Return ``doc_`` plus the first 24 lowercase hex characters of the HMAC.
+
+    One correlation scope covers both payer and payee documents, so the same
+    party tokenizes identically on either side of an event.
+    """
+
+    if not document.isdigit() or len(document) not in {11, 14}:
+        raise PrivacyError("document is not an eleven or fourteen digit identifier")
+    digest = hmac.new(_key(key_variable), document.encode("ascii"), hashlib.sha256)
+    token = f"doc_{digest.hexdigest()[:24]}"
+    if not DOCUMENT_TOKEN_PATTERN.match(token):
+        raise PrivacyError("derived document token does not match the contract")
+    return token
+
+
+def mask_document(document: str) -> str:
+    """Mask by length: seven asterisks for a CPF, ten for a CNPJ."""
+
+    if not document.isdigit() or len(document) not in {11, 14}:
+        raise PrivacyError("document is not an eleven or fourteen digit identifier")
+    stars = 7 if len(document) == 11 else 10
+    return f"{'*' * stars}{document[-4:]}"

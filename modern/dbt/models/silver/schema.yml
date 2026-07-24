@@ -27,3 +27,17 @@ models:
         tests: [not_null]
       - name: assessment_calculation_delta
         tests: [not_null]
+
+  - name: silver_instant_payment_event
+    description: "Grain: one conformed Type 02 event per source record."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: source_record_number
+        tests: [not_null]
+      - name: amount_brl
+        tests: [not_null]
+      - name: credit_amount
+        tests: [not_null]
+      - name: debit_amount
+        tests: [not_null]

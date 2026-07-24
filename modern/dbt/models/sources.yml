@@ -19,3 +19,7 @@ sources:
         description: >-
           Per-batch Type 05 controls published by the writer, carrying the
           source-owned declaration unchanged.
+      - name: instant_payment_event
+        description: One privacy-safe Type 02 event per source record.
+      - name: instant_payment_event_control
+        description: Per-batch Type 02 controls published by the writer.

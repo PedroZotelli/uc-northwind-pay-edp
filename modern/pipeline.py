@@ -45,6 +45,13 @@ SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
         ("valid-boundary", "B202402290000001"),
         ("negative-overpunch", "B202607230000002"),
     ),
+    "02": (
+        ("malformed", "B202607230000103"),
+        ("valid-minimal", "B202607230000101"),
+        ("DF-SOURCE-002", "B202607230000105"),
+        ("valid-boundary", "B202402290000102"),
+        ("escaped-content", "B202607230000104"),
+    ),
     "05": (
         ("malformed", "B202607230000403"),
         ("valid-minimal", "B202607230000401"),
@@ -56,6 +63,7 @@ SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
 
 CONTRACT_SLUG: Mapping[str, str] = {
     "01": "01-card-settlement",
+    "02": "02-instant-payment-events",
     "05": "05-merchant-fee-assessment",
 }
 
@@ -69,6 +77,17 @@ EXPECTED_ARTIFACT: Mapping[str, Mapping[str, tuple[str, str]]] = {
         "negative-overpunch": (
             "expected-negative-overpunch-sanitized.csv",
             "expected-negative-overpunch-reconciliation.yaml",
+        ),
+    },
+    "02": {
+        "valid-minimal": ("expected-sanitized.csv", "expected-reconciliation.yaml"),
+        "valid-boundary": (
+            "expected-valid-boundary-sanitized.csv",
+            "expected-valid-boundary-reconciliation.yaml",
+        ),
+        "escaped-content": (
+            "expected-escaped-content-sanitized.csv",
+            "expected-escaped-content-reconciliation.yaml",
         ),
     },
     "05": {
@@ -88,6 +107,10 @@ REJECTION_ARTIFACT: Mapping[str, Mapping[str, str]] = {
     "01": {
         "malformed": "expected-malformed-rejection.yaml",
         "DF-SOURCE-001": "expected-df-source-001-finding.yaml",
+    },
+    "02": {
+        "malformed": "expected-malformed-rejection.yaml",
+        "DF-SOURCE-002": "expected-df-source-002-finding.yaml",
     },
     "05": {
         "malformed": "expected-malformed-rejection.yaml",
@@ -111,6 +134,10 @@ def _handler(type_number: str):
         from northwind_pay.types.type01_card_settlement import handler as type01
 
         return type01
+    if type_number == "02":
+        from northwind_pay.types.type02_instant_payment import handler as type02
+
+        return type02
     if type_number == "05":
         from northwind_pay.types.type05_merchant_fee import handler as type05
 
@@ -229,6 +256,7 @@ def read_gold(type_number: str) -> dict[str, dict[str, Any]]:
 
     relation = {
         "01": "main_gold.gold_card_settlement_reconciliation",
+        "02": "main_gold.gold_instant_payment_reconciliation",
         "05": "main_gold.gold_merchant_fee_reconciliation",
     }[type_number]
     connection = duckdb.connect(str(DUCKDB_PATH), read_only=True)
@@ -254,6 +282,7 @@ def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
 
     relation = {
         "01": "reporting.card_settlement_reconciliation",
+        "02": "reporting.instant_payment_reconciliation",
         "05": "reporting.merchant_fee_reconciliation",
     }[type_number]
     import psycopg

@@ -60,3 +60,37 @@ models:
         tests: [not_null]
       - name: computed_assessed_fee
         tests: [not_null]
+
+  - name: bronze_instant_payment_event
+    description: "Grain: one privacy-safe Type 02 event per source record."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: source_record_number
+        tests: [not_null]
+      - name: end_to_end_id
+        tests: [not_null, unique]
+      - name: transaction_id
+        tests: [not_null, unique]
+      - name: amount_brl
+        tests: [not_null]
+      - name: direction
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["C", "D"]
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["SETTLED", "RETURNED"]
+
+  - name: bronze_instant_payment_control
+    description: "Grain: one row per Type 02 batch, declared and computed controls."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: declared_net_amount
+        tests: [not_null]
+      - name: computed_net_amount
+        tests: [not_null]
