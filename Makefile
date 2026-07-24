@@ -15,7 +15,8 @@ WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 .DEFAULT_GOAL := help
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
-	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime
+	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
+	df-manifest
 
 help: ## List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
@@ -249,6 +250,10 @@ test-worker-e2e: ## Run the live automatic-worker acceptance suite on a clean ru
 
 test: check test-postgres ## Run source/build, rollback-only PostgreSQL, and fresh worker acceptance.
 	@$(RUNNER_PYTHON) "$(WORKER_E2E_SUITE)"
+
+df-manifest: ## Recompute the legacy implementation manifest; REV=<rev> for a ledger entry.
+	@$(RUNNER_PYTHON) dark-factory/tools/tree_manifest.py \
+		$(if $(REV),--rev "$(REV)",)
 
 clean: ## Delete disposable runtime state after explicit confirmation.
 	@test "$(CONFIRM)" = "clean-runtime" || { echo "rerun with CONFIRM=clean-runtime" >&2; exit 2; }

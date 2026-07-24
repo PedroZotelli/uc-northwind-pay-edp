@@ -627,6 +627,114 @@ The corrections below were included before the final clean rerun:
    idempotently completes PostgreSQL control/evidence, and cleans journal state
    only after terminal verification.
 
+## Committed-tree re-proof ledger — 2026-07-24 (Dark Factory Phase 0)
+
+The five-type ledger above was produced from working-tree content that preceded
+the Type `01` parity refactor; only the Type `01` vertical was re-proven live on
+the final bytes. The Dark Factory autonomous mandate requires the *committed*
+tree to be re-proven before any Dark Factory code exists. This entry records
+that re-proof. It supersedes nothing: it is a second, independently dated proof
+of a different tree.
+
+### Provenance boundary
+
+Same published boundary as the earlier ledger — root `.dockerignore`,
+`.env.example`, `Makefile`, `compose.yaml`, plus every regular file under
+`contracts/`, `gen/`, `infra/`, `legacy/`, `tests/`, and `validation/`, with
+virtual environments, build/cache/runtime/generated-output directories,
+`*.egg-info`, evidence, `.git`, `.DS_Store`, and compiled Python excluded;
+byte-sorted relative paths; one `{sha256}  {relative_path}\n` record per file
+into a second SHA-256. The committed tree contains **268** files against the
+earlier 260. Exact rules and their rationale:
+[DR-001](../docs/decisions/001-phase-0-reproof-and-implementation-manifest.md).
+
+`make df-manifest REV=e9f3460` reproduces this exact value forever. Bare
+`make df-manifest` measures the current working tree instead, which diverges as
+soon as Dark Factory work lands, because the root `Makefile` is inside the
+published boundary. The ledger is bound to the revision, not to the checkout.
+
+| Identity | SHA-256 |
+|---|---|
+| Tested implementation/input manifest | `12ce7f449228ae70d4781066b009ce63d5b18e037795ab70c5e0c4e6cd0d0dea` |
+| Processor local image | `b4ee761a399c83a8edadb56af1c571fcb602b140577704587b8ab7e182bab362` |
+| SFTP local image | `55f6da53272257516760c1bb8db4c89f01a95fee7f282a3cd5d8597c2352114e` |
+| Applied migrations `001`–`010` manifest | `26e153f6c24a987ebb0e2729dee8b828b17283dc9838ba95ea4a0822b30b4be0` |
+| PostgreSQL pinned input digest | `57c72fd2a128e416c7fcc499958864df5301e940bca0a56f58fddf30ffc07777` |
+
+The Git base was `e9f3460` on `wktr-dark-factory-e2e`, with a clean working
+tree — unlike the earlier ledger, the manifest and the commit describe the same
+bytes. The SFTP image reproduced the earlier ledger's digest exactly; the
+processor image did not, which is expected because its build embeds the changed
+source tree. The applied-migration manifest is computed from
+`control.schema_migrations` (`sha256  name`, ordered by version) rather than
+from disk, so it proves what the database actually applied.
+
+### Runtime freshness
+
+The host already carried a `northwind-pay-legacy` Compose project whose
+`sftp_data` volume held 143 files under `raw/quarantine` with canonical batch
+identities already consumed. It was destroyed before the first gate. Freshness
+was then asserted positively — zero files in `sftp_data`, migrations `001`–`010`
+applied from scratch — not inferred from a clean exit code. The same assertion
+was repeated for the second runtime.
+
+### Source and build gates
+
+| Gate | Result |
+|---|---:|
+| Contracts | `47` passed |
+| DataGen | `68` passed |
+| Python unit | `144` passed |
+| Security | `15` passed |
+| Oracle | `31` passed |
+| Java | `78` passed, `0` failures, `0` skipped |
+| PostgreSQL (live, rollback-only) | `13` passed |
+| mypy `--strict` | clean on both boundaries |
+
+`make check` served the processor image from the local build cache, which
+proves only that build inputs were unchanged relative to an earlier build on
+this host. The Java suite was therefore re-executed with
+`docker compose build --no-cache processor`.
+
+### Automatic-worker portfolio — first fresh runtime
+
+```json
+{"cache_conflict": "verified_retry", "canonical_quarantines": 10,
+ "canonical_successes": 15, "daemon_sigterm": "verified",
+ "integrity_quarantines": 1, "lock_contention": "verified",
+ "oracle_mismatches": 1, "quarantine_uncertainty": "verified_retry",
+ "restart_database_commit": "verified", "restart_oracle_mismatch": "verified",
+ "restart_raw_archive": "verified", "restart_raw_quarantine": "verified",
+ "retained_cache_replay": "verified", "status": "passed", "worker_cases": 25}
+```
+
+### Synchronous `TYPE=all` — second fresh runtime
+
+The two portfolios reuse canonical immutable batch identities, so
+`make clean CONFIRM=clean-runtime` ran between them.
+
+| Type | Succeeded | Expected quarantine |
+|---|---:|---:|
+| `01` | 3 | 2 |
+| `02` | 3 | 2 |
+| `03` | 3 | 2 |
+| `04` | 3 | 2 |
+| `05` | 3 | 2 |
+
+| Observation | Count |
+|---|---:|
+| Raw archive / quarantine | `15` / `10` |
+| Raw incoming / processing | `0` / `0` |
+| CSV archive / quarantine | `15` / `0` |
+| CSV outgoing / processing | `0` / `0` |
+| `control.batches` | `25` (`15` succeeded, `10` quarantined) |
+| `control.rejects` | `10` |
+| `control.files` / `loads` / `procedure_runs` | `40` / `15` / `30` |
+| Evidence packets | `25` |
+
+Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
+migrations changed to produce this result. The committed baseline is green.
+
 ## Dark Factory handoff contract
 
 The legacy baseline is now an observed system, not implementation material for
