@@ -539,3 +539,98 @@ returns Gold for all five types and refuses every quarantined batch.
    sanitized rows by `source_record_number_a`, the A segment of its pair, so
    the record-level comparison would have raised `KeyError` rather than
    comparing. The key is now taken from the approved artifact itself.
+
+---
+
+## 2026-07-24 — Phase 4 closing run: the Dark Factory definition is met
+
+Rerun in full after M5 completed, on two freshly rotated runtimes, each
+verified empty before any gate.
+
+### Runtime 1 — legacy automatic-worker portfolio
+
+`make test`: source gates (`47`/`68`/`144`/`15`/`31`), `13` live PostgreSQL, and
+the 25-case worker suite — `status: passed`, `15` successes, `10` quarantines,
+`1` integrity quarantine, `1` oracle mismatch, four restart probes, ambiguity,
+cache conflict, quarantine uncertainty, lock contention, heartbeat, and clean
+SIGTERM all verified.
+
+### Runtime 2 — synchronous portfolio, detector, and modern
+
+`make test-e2e TYPE=all`: every type `3` succeeded / `2` quarantined. Terminal
+topology `15` raw archive, `10` raw quarantine, `15` CSV archive, `0` CSV
+quarantine; `control.batches` `15` succeeded / `10` quarantined.
+
+**Dark Factory** — `make df-check`: `18`/`30`/`23` tests, `mypy --strict` clean
+over 21 files. `make df-accept TYPE=all`: all five scenarios passed, each
+byte-stable, privacy-clean, isolation and peer continuation verified, all four
+required channels proven by withhold probe, legacy evidence byte-identical
+before and after. Every finding identity is **unchanged from every earlier
+runtime**, which is what makes byte-stability a measurement rather than a
+repeat.
+
+**Modern** — `make modern-check`: `72` tests, `mypy --strict` clean over 40
+files. All five types on a wiped lakehouse:
+
+| Type | dbt | Unexplained differences |
+|---|---|---:|
+| `01` | `PASS=30` | 0 |
+| `02` | `PASS=32` | 0 |
+| `03` | `PASS=25` | 0 |
+| `04` | `PASS=27` | 0 |
+| `05` | `PASS=29` | 0 |
+
+`make modern-dagster` on all five partitions: green, three asset checks each.
+The Type `01` Parquet hash
+`a3256309309dbd259d910cd255312d067e0b04657fdc2024a3e064d636682f16` is identical
+to the one produced on every earlier runtime.
+
+Serving: all five accepted batches return `MATCHED` Gold; all five
+`DF-SOURCE-*` batches are refused. `25` modern evidence packets, `5` Dark
+Factory packets, `25` legacy packets.
+
+### Definition of done — met
+
+| Phase 4 requirement | Status |
+|---|---|
+| Phase 0 baseline gates green on the committed tree | met |
+| All five `DF-SOURCE-*` findings byte-stable, privacy-clean, acceptance-verified with isolation and peer continuation | met |
+| Modern Types `01`–`05` at Gold with zero unexplained golden-match differences, every difference classified | met |
+| Complete privacy-safe evidence packets for legacy, detector, and modern | met |
+| One documented command per system reproducing each proof | met |
+
+Every difference that exists is classified: exactly five, one per type, all
+`CONFIRMED_SOURCE_DEFECT`, each preserving the source-owned declaration
+unchanged beside the independently computed value.
+
+**No hard-stop condition was hit at any point.** No restricted value reached any
+produced artifact; nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or
+the applied migrations was modified; no expected value, fixture, or oracle was
+edited to turn a gate green; no push, pull request, notification, or external
+write occurred.
+
+### Working-tree manifest
+
+The legacy implementation-manifest boundary spans `tests/` and `validation/`, so
+the working tree now measures `273` files
+(`ddde1c1bea70cc7a5500cc753cbe9e3918a09aadd9291253b7e3aeaca05c0fdc`). The Phase 0
+ledger entry remains exactly reproducible with `make df-manifest REV=e9f3460`.
+
+### Reproduction — one command per system
+
+| System | Command |
+|---|---|
+| Legacy, worker portfolio | `make test` |
+| Legacy, synchronous portfolio | `make test-e2e TYPE=all` |
+| Legacy, Type `01` vertical | `make test-type01` |
+| Legacy, proof-ledger manifest | `make df-manifest REV=<revision>` |
+| Dark Factory, source gate | `make df-check` |
+| Dark Factory, live acceptance | `make df-accept TYPE=all` |
+| Modern, source gate | `make modern-check` |
+| Modern, pipeline and golden-match | `make modern-run TYPE=NN` |
+| Modern, clean-environment rebuild | `make modern-rebuild TYPE=NN` |
+| Modern, orchestrated equivalence | `make modern-dagster TYPE=NN` |
+| Modern, read-only serving | `make modern-api` |
+
+Modern runs need the fixture tokenization keys from `.env` exported; the legacy
+and Dark Factory gates need a deployed runtime (`make deploy`).
