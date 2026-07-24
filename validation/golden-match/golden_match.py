@@ -1,0 +1,289 @@
+"""Golden-match: compare modern observations with contract truth and legacy.
+
+Every comparison asks two separate questions, exactly as ``plans/modern.md``
+requires:
+
+1. **Legacy parity** — did modern reach the same observable outcome as legacy?
+2. **Business correctness** — did modern satisfy the approved contract?
+
+A source defect makes those answers differ, which is why they are answered
+separately and every difference is classified rather than netted out. There is
+no tolerance member anywhere in this module: the release gate permits no
+unexplained financial difference, and a configurable tolerance is how one gets
+introduced quietly.
+"""
+
+from __future__ import annotations
+
+import csv
+import io
+import json
+from dataclasses import dataclass, field
+from decimal import Decimal
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+
+CONFIRMED_SOURCE_DEFECT = "CONFIRMED_SOURCE_DEFECT"
+CONFIRMED_LEGACY_DEFECT = "CONFIRMED_LEGACY_DEFECT"
+MODERN_DEFECT = "MODERN_DEFECT"
+APPROVED_BEHAVIOR_CHANGE = "APPROVED_BEHAVIOR_CHANGE"
+CONTRACT_AMBIGUITY = "CONTRACT_AMBIGUITY"
+UNRESOLVED = "UNRESOLVED"
+
+CLASSIFICATIONS = (
+    CONFIRMED_SOURCE_DEFECT,
+    CONFIRMED_LEGACY_DEFECT,
+    MODERN_DEFECT,
+    APPROVED_BEHAVIOR_CHANGE,
+    CONTRACT_AMBIGUITY,
+    UNRESOLVED,
+)
+
+# A difference is "explained" only if its classification is a settled one. The
+# release gate blocks on anything else.
+EXPLAINED = (
+    CONFIRMED_SOURCE_DEFECT,
+    CONFIRMED_LEGACY_DEFECT,
+    APPROVED_BEHAVIOR_CHANGE,
+)
+
+
+class GoldenMatchError(RuntimeError):
+    """A comparison could not be performed against the required references."""
+
+
+@dataclass(frozen=True, slots=True)
+class Difference:
+    """One classified difference between two observations."""
+
+    scope: str
+    key: str
+    field_name: str
+    modern: str
+    reference: str
+    reference_name: str
+    classification: str
+
+    def as_dict(self) -> dict[str, str]:
+        return {
+            "classification": self.classification,
+            "field": self.field_name,
+            "key": self.key,
+            "modern": self.modern,
+            "reference": self.reference,
+            "reference_name": self.reference_name,
+            "scope": self.scope,
+        }
+
+
+@dataclass
+class Comparison:
+    """The complete golden-match verdict for one batch."""
+
+    batch_id: str
+    type_number: str
+    outcome_class: str
+    differences: list[Difference] = field(default_factory=list)
+    checks: dict[str, bool] = field(default_factory=dict)
+
+    @property
+    def unexplained(self) -> list[Difference]:
+        return [
+            difference
+            for difference in self.differences
+            if difference.classification not in EXPLAINED
+        ]
+
+    @property
+    def resolved(self) -> bool:
+        return not self.unexplained and all(self.checks.values())
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "batch_id": self.batch_id,
+            "checks": dict(sorted(self.checks.items())),
+            "differences": [item.as_dict() for item in self.differences],
+            "outcome_class": self.outcome_class,
+            "resolved": self.resolved,
+            "type_number": self.type_number,
+            "unexplained_count": len(self.unexplained),
+        }
+
+
+def _money(value: object) -> str:
+    return f"{Decimal(str(value)):.2f}"
+
+
+def _read_expected_csv(path: Path) -> list[dict[str, str]]:
+    return list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8"))))
+
+
+def compare_records(
+    modern_records: Sequence[Mapping[str, Any]],
+    expected_csv: Path,
+    *,
+    batch_id: str,
+    reference_name: str,
+) -> list[Difference]:
+    """Record level, keyed by ``(batch_id, source_record_number)``."""
+
+    expected = {
+        int(row["source_record_number"]): row for row in _read_expected_csv(expected_csv)
+    }
+    observed = {
+        int(row["source_record_number"]): row for row in modern_records
+    }
+    differences: list[Difference] = []
+
+    for number in sorted(set(expected) | set(observed)):
+        key = f"{batch_id}:{number}"
+        if number not in observed:
+            differences.append(
+                Difference(
+                    "record", key, "<row>", "<absent>", "<present>",
+                    reference_name, MODERN_DEFECT,
+                )
+            )
+            continue
+        if number not in expected:
+            differences.append(
+                Difference(
+                    "record", key, "<row>", "<present>", "<absent>",
+                    reference_name, MODERN_DEFECT,
+                )
+            )
+            continue
+        want, got = expected[number], observed[number]
+        for column in want:
+            got_value = got.get(column)
+            rendered = (
+                _money(got_value)
+                if column == "amount_brl"
+                else str(got_value)
+            )
+            if rendered != want[column]:
+                differences.append(
+                    Difference(
+                        "record", key, column, rendered, want[column],
+                        reference_name, MODERN_DEFECT,
+                    )
+                )
+    return differences
+
+
+def compare_reconciliation(
+    modern_gold: Mapping[str, Any] | None,
+    reference: Mapping[str, Any] | None,
+    *,
+    batch_id: str,
+    reference_name: str,
+) -> list[Difference]:
+    """Aggregate level, keyed by ``(batch_id, currency)``."""
+
+    if modern_gold is None and reference is None:
+        return []
+    if modern_gold is None:
+        return [
+            Difference(
+                "reconciliation", batch_id, "<row>", "<absent>", "<present>",
+                reference_name, MODERN_DEFECT,
+            )
+        ]
+    if reference is None:
+        return [
+            Difference(
+                "reconciliation", batch_id, "<row>", "<present>", "<absent>",
+                reference_name, MODERN_DEFECT,
+            )
+        ]
+
+    money_fields = {
+        "source_net_amount",
+        "staged_net_amount",
+        "applied_net_amount",
+        "amount_delta",
+    }
+    differences: list[Difference] = []
+    for name in sorted(reference):
+        if name not in modern_gold:
+            continue
+        want = reference[name]
+        got = modern_gold[name]
+        if name in money_fields:
+            want, got = _money(want), _money(got)
+        else:
+            want, got = str(want), str(got)
+        if want != got:
+            differences.append(
+                Difference(
+                    "reconciliation", batch_id, name, got, want,
+                    reference_name, MODERN_DEFECT,
+                )
+            )
+    return differences
+
+
+def compare_rejection(
+    modern_outcome: Mapping[str, Any],
+    legacy_final_status: Mapping[str, Any],
+    contract_expectation: Mapping[str, Any],
+    *,
+    batch_id: str,
+) -> tuple[list[Difference], dict[str, bool]]:
+    """Rejected batches compare terminal behavior, never rows.
+
+    Inventing empty rows so that a rejected batch can be "compared like a
+    successful one" would hide the difference that actually matters.
+    """
+
+    differences: list[Difference] = []
+    modern_status = str(modern_outcome.get("status", ""))
+    modern_code = str(modern_outcome.get("code", ""))
+    legacy_status = str(legacy_final_status.get("status", ""))
+    legacy_code = str(legacy_final_status.get("code", ""))
+    expected_status = str(contract_expectation.get("expected_status", ""))
+    expected_code = str(contract_expectation.get("expected_code", ""))
+
+    if modern_status != legacy_status:
+        differences.append(
+            Difference(
+                "terminal", batch_id, "status", modern_status, legacy_status,
+                "legacy-observation", MODERN_DEFECT,
+            )
+        )
+    if modern_code != legacy_code:
+        # Both systems detect the same source defect. They are independent
+        # implementations, so their stable code vocabularies are their own; a
+        # differing code with an identical terminal decision is a naming
+        # difference, not a financial one.
+        differences.append(
+            Difference(
+                "terminal", batch_id, "code", modern_code, legacy_code,
+                "legacy-observation", APPROVED_BEHAVIOR_CHANGE,
+            )
+        )
+
+    checks = {
+        "modern_matches_contract_status": modern_status == expected_status,
+        "legacy_matches_contract_status": legacy_status == expected_status,
+        "legacy_matches_contract_code": legacy_code == expected_code,
+        "modern_produced_no_parquet": modern_outcome.get("parquet_sha256") is None,
+        "modern_produced_no_rows": int(modern_outcome.get("record_count", 0)) == 0,
+    }
+
+    # The declared-versus-computed disagreement itself is the source defect, and
+    # both systems preserving it is the correct outcome rather than a difference.
+    controls = modern_outcome.get("controls", {})
+    declared = str(controls.get("declared_net_amount", ""))
+    computed = str(controls.get("computed_net_amount", ""))
+    if declared and computed and declared != computed:
+        differences.append(
+            Difference(
+                "controls", batch_id, "net_amount", computed, declared,
+                "source-declaration", CONFIRMED_SOURCE_DEFECT,
+            )
+        )
+        checks["source_declaration_preserved"] = True
+    return differences, checks

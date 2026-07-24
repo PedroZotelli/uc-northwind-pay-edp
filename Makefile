@@ -12,6 +12,12 @@ MAX_BATCHES ?= 100
 SUPPORTED_TYPES := 01 02 03 04 05
 WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 
+# Modern: an independent second implementation with its own environment.
+MODERN_VENV := modern/.venv
+MODERN_PYTHON := $(MODERN_VENV)/bin/python
+MODERN_SRC := modern/ingestion/src
+MODERN_DUCKDB := modern/lakehouse/ducklake/northwind_modern.duckdb
+
 # Dark Factory: additive, read-only, and never part of a legacy gate.
 DF_SRC := dark-factory/src
 DF_SUITE := dark-factory/tests/end-to-end/run_detector_suite.py
@@ -23,7 +29,8 @@ DF_DEFAULT_ROOTS := .runtime/e2e-evidence,.runtime/e2e-type02-evidence,.runtime/
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
 	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
-	df-manifest df-check df-detect df-accept
+	df-manifest df-check df-detect df-accept \
+	modern-init modern-check modern-run modern-dbt modern-rebuild modern-dagster modern-api
 
 help: ## List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
@@ -301,6 +308,44 @@ df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all five
 		--type "$(TYPE)" \
 		--legacy-evidence-root "$(if $(LEGACY_EVIDENCE),$(LEGACY_EVIDENCE),$(DF_DEFAULT_ROOTS))" \
 		--evidence-root "$(DF_EVIDENCE)"
+
+modern-init: ## Create the modern virtual environment from pinned requirements.
+	@$(PYTHON) -m venv $(MODERN_VENV)
+	@$(MODERN_PYTHON) -m pip install --quiet --upgrade pip
+	@$(MODERN_PYTHON) -m pip install --quiet -r modern/requirements.txt
+	@echo "modern environment initialized"
+
+modern-check: ## Run modern unit, contract, and privacy suites plus strict typing.
+	@PYTHONPATH=$(MODERN_SRC) $(MODERN_PYTHON) -m unittest discover \
+		--start-directory tests/modern \
+		--pattern 'test_*.py' \
+		--verbose
+	@PYTHONPATH=$(MODERN_SRC) $(MODERN_PYTHON) -m mypy \
+		--python-version 3.12 \
+		--strict \
+		--no-incremental \
+		$(MODERN_SRC)/northwind_pay
+
+modern-run: ## Run the modern pipeline for one TYPE, closing golden-match.
+	@case "$(TYPE)" in 01|02|03|04|05) ;; \
+		*) echo "TYPE must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
+	esac
+	@$(MODERN_PYTHON) modern/pipeline.py --type "$(TYPE)" $(MODERN_RUN_FLAGS)
+
+modern-dbt: ## Build and test the modern Bronze, Silver, and Gold models.
+	@cd modern/dbt && DBT_PROFILES_DIR=. ../.venv/bin/dbt build --no-use-colors
+
+modern-rebuild: ## Rebuild the lakehouse from the immutable landing Parquet tree.
+	@rm -rf $(MODERN_DUCKDB) .runtime/dlt .runtime/dbt
+	@$(MODERN_PYTHON) modern/pipeline.py --type "$(if $(TYPE),$(TYPE),01)" $(MODERN_RUN_FLAGS)
+
+modern-dagster: ## Materialize the modern assets through Dagster.
+	@DAGSTER_HOME=$(CURDIR)/.runtime/dagster $(MODERN_VENV)/bin/dagster asset materialize \
+		-m northwind_modern_dagster --select '*'
+
+modern-api: ## Serve the read-only reconciliation API on 127.0.0.1:8099.
+	@PYTHONPATH=modern/serving/api $(MODERN_VENV)/bin/uvicorn \
+		app:application --host 127.0.0.1 --port 8099
 
 clean: ## Delete disposable runtime state after explicit confirmation.
 	@test "$(CONFIRM)" = "clean-runtime" || { echo "rerun with CONFIRM=clean-runtime" >&2; exit 2; }

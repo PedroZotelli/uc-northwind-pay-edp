@@ -215,3 +215,60 @@ see that in `observations[].independence` without consulting a document. See
 
 Source gate after expansion: `18` contract, `30` unit, `23` security,
 `mypy --strict` clean over 21 files.
+
+---
+
+## 2026-07-24 — Phase 3, milestones M0–M3: modern Type 01 through closed golden-match
+
+**Status:** passed. Design decisions:
+[DR-008](../docs/decisions/008-modern-pipeline-design.md), which settles all ten
+questions `plans/modern.md` defers.
+
+**M0 — task specification.** Every handoff has one owner, one input contract,
+and one accepted output. The modern environment is deliberately separate from
+`legacy/runner/.venv`: sharing one resolver would couple the frozen oracle's
+dependency set to the new implementation's.
+
+**M1 — Type 01 Python to Parquet.** Independent `model → parser → schema →
+writer → handler`, implemented from `layout.yaml`, `csv.yaml`, and
+`privacy.yaml` rather than from Java. Exact `Decimal` money, COBOL overpunch
+decoded from the contract's own character tables, HMAC-SHA-256 tokenization, CPF
+masking, and a full-candidate restricted-value scan before publication.
+
+The first run reproduced the contract's approved `expected-sanitized.csv`
+**byte for byte** — tokens, masks, timestamps, and amounts — from an independent
+implementation.
+
+**M2 — lakehouse and dbt.** dlt registers already-canonical Parquet into DuckDB
+and owns load identity; it never parses or reshapes. dbt builds Bronze, Silver,
+and Gold with 26 tests including structural privacy assertions and a
+no-unexplained-financial-delta gate. `dbt build`: `PASS=30 ERROR=0`.
+
+**M3 — golden-match closed.** Zero unexplained differences across all five
+canonical Type 01 outcomes.
+
+| Scenario | Class | Differences | Resolved |
+|---|---|---|---|
+| `valid-minimal` | accepted | 0 | yes |
+| `valid-boundary` | accepted | 0 | yes |
+| `negative-overpunch` | accepted | 0 | yes |
+| `malformed` | rejected | 0 | yes |
+| `DF-SOURCE-001` | rejected | 1, `CONFIRMED_SOURCE_DEFECT` | yes |
+
+Accepted batches are compared at record level against the contract's expected
+sanitized CSV and at aggregate level against both the contract's expected
+reconciliation and the live legacy `reporting.card_settlement_reconciliation`.
+Rejected batches are compared on terminal behavior only — inventing empty rows
+so a rejection could be "compared like a success" would hide the difference that
+matters.
+
+**One silent gap was found and closed rather than accepted.** The first
+golden-match run reported success while never contacting legacy at all:
+`psycopg` was absent from the modern environment and the legacy read was
+wrapped in a bare `except` that degraded to contract-only comparison. A skipped
+legacy comparison is now an explicit caller choice (`--skip-legacy-comparison`)
+and an unreachable runtime or a missing legacy row is a hard failure. Reported
+legacy parity that was never measured is worse than no claim.
+
+Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
+migrations was modified.
