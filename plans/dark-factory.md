@@ -7,7 +7,110 @@ next session; it is not evidence that a Dark Factory component exists.
 
 The [legacy baseline](legacy.md) is complete and observable. The
 [modern pipeline](modern.md) remains planned and is not a prerequisite for the
-first Dark Factory slice.
+first Dark Factory slice. It is, however, part of the complete Dark Factory
+goal: a factory is only "100% running" when it autonomously builds the modern
+pipeline and closes every golden-match against the legacy oracle.
+
+## Autonomous end-to-end execution mandate — 2026-07-24
+
+This section authorizes a lights-out run. A session explicitly invoked to
+"execute the autonomous mandate" of this plan proceeds end-to-end without
+waiting for human approval, under the rules below. For that run only, this
+section supersedes the "stop for review" checkpoints later in this document
+and the "pending design decisions belong to a future design turn" deferral in
+`plans/modern.md`. Interactive sessions that were not invoked with the
+mandate keep the original stop-for-review behavior.
+
+### Standing authorization
+
+- The executing agent decides every open design question itself: the finding
+  schema, directory ownership, Python packaging, Parquet canonicalization,
+  the dlt role, dbt grains and keys, golden-match keys, the Dagster model,
+  and anything comparable.
+- Every such decision is recorded as a numbered decision record in
+  `docs/decisions/NNN-short-title.md` (context, decision, alternatives
+  considered, consequences) in the same commit that first implements it.
+- Human review happens after the run — from decision records, commits, the
+  run journal, and evidence — not during it.
+
+### Phase 0 — re-prove the committed baseline (mandatory first act)
+
+The 2026-07-24 proof ledger identifies implementation manifest
+`d3e6e95a…` (260 files). The committed tree differs (268 files) because the
+Type `01` parity refactor landed after the authoritative five-type proof;
+only the Type `01` vertical was re-proven live on the final bytes. Therefore,
+before any Dark Factory code:
+
+1. `make init && make deploy && make status`.
+2. `make check`.
+3. `make test` — the full 25-case automatic-worker portfolio — on that fresh
+   runtime.
+4. `make clean CONFIRM=clean-runtime`, redeploy, then `make test-e2e TYPE=all`
+   (the two portfolios reuse canonical batch IDs and must not share one
+   runtime).
+5. Append a dated ledger entry to `plans/legacy.md` with the results and a
+   freshly computed manifest hash of the committed tree.
+
+Nothing in `legacy/`, `contracts/`, `gen/`, `infra/`, or applied migrations
+may change to make Phase 0 pass. A red gate here is a blocker report, not a
+license to fix legacy.
+
+### Phase 1 — Type 01 detector slice
+
+Execute Steps 1–6 of the build sequence below, in order, honoring every gate.
+"Stop for review" becomes a decision record plus self-review; the
+deterministic gates themselves are unchanged and mandatory.
+
+### Phase 2 — detector expansion
+
+`DF-SOURCE-002` through `DF-SOURCE-005`, one completed type at a time. Each
+type passes all six step gates and its acceptance target before the next
+type begins.
+
+### Phase 3 — the modern pipeline, built as the factory's product
+
+Execute `plans/modern.md` milestones M0–M6 under all of that plan's
+boundaries: Type `01` first through the closed golden-match (M0–M3), then
+Dagster and evidence (M4), then Types `02`–`05` one vertical slice at a time
+(M5), then serve and harden (M6). The detector may consume modern
+observations only as an additional read-only channel; it never computes
+modern business results.
+
+### Phase 4 — definition of "Dark Factory 100% running"
+
+The run is complete only when, each on a fresh isolated runtime:
+
+- Phase 0 baseline gates are green on the committed tree;
+- detector findings for all five `DF-SOURCE-*` scenarios are byte-stable,
+  privacy-clean, and acceptance-verified with isolation and peer
+  continuation proven;
+- modern Types `01`–`05` reach Gold with zero unexplained golden-match
+  differences, every difference classified per `plans/modern.md`;
+- complete privacy-safe evidence packets exist for legacy, detector, and
+  modern runs;
+- one documented top-level command per system reproduces each proof.
+
+### Rules of engagement
+
+- Work only in the dedicated worktree and its branch. Commit in small,
+  gate-passing increments. Never push, open PRs, send notifications, or make
+  any external write unless separately instructed.
+- The non-negotiable boundaries below apply to every phase of the run.
+- Never weaken, edit, or "fix" an expected value, contract fixture, or
+  oracle to turn a red gate green. Green must come from the referee.
+- Fresh isolated runtime for every authoritative acceptance; never clean
+  state implicitly.
+- Maintain `plans/df-run-journal.md`: one dated entry per phase and gate
+  with status, evidence paths, decision-record references, and blockers.
+- Hard-stop conditions — halt and report instead of continuing: any
+  restricted value outside the privacy allowlist in a produced artifact; any
+  mutation of frozen legacy inputs; a gate that cannot pass without changing
+  frozen truth; Docker or the local runtime unavailable.
+
+### Prerequisites
+
+Docker with Compose running, GNU Make, Python 3.12+, and free local ports
+for the SFTP/PostgreSQL stack.
 
 ## First objective
 
@@ -198,7 +301,14 @@ Expansion happens one completed type at a time.
 
 ## Next-session starting point
 
-Begin with Step 1 only: inspect the Type `01` source-defect oracle and existing
-evidence shape, propose the closed finding contract and directory ownership,
-and stop for review before implementation. Preserve the evidence boundary:
-legacy is implemented, Dark Factory is pending, and modern is planned.
+A session invoked to execute the autonomous mandate begins with Phase 0 and
+runs end-to-end under the mandate's rules; the out-of-scope list above yields
+to the mandate's phased scope (modern implementation enters in Phase 3, still
+under `plans/modern.md` boundaries; external writes and production deployment
+remain excluded).
+
+Any other session begins with Step 1 only: inspect the Type `01` source-defect
+oracle and existing evidence shape, propose the closed finding contract and
+directory ownership, and stop for review before implementation. Preserve the
+evidence boundary: legacy is implemented, Dark Factory is pending, and modern
+is planned.
