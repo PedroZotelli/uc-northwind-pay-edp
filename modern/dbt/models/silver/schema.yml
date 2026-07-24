@@ -15,3 +15,15 @@ models:
           - not_null
           - accepted_values:
               values: ["PURCHASE", "REFUND"]
+
+  - name: silver_merchant_fee_assessment
+    description: "Grain: one conformed Type 05 assessment per source row."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: source_record_number
+        tests: [not_null]
+      - name: assessed_fee_brl
+        tests: [not_null]
+      - name: assessment_calculation_delta
+        tests: [not_null]

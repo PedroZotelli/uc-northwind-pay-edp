@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- The release gate: Gold may not publish an unexplained financial difference.
 -- A batch whose declaration disagrees with the computed total never reaches
 -- Gold at all, so any non-zero delta here is a modern defect.

@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Silver conforms; it must not change a monetary total.
 
 with bronze as (

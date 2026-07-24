@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Silver: conformed entity at the same grain as Bronze.
 -- Adds settled direction and a parsed instant; changes no monetary value.
 

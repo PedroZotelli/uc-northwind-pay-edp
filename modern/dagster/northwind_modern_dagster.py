@@ -8,6 +8,7 @@ orchestrated execution provably equivalent rather than merely similar.
 
 # Dagster resolves the `context` annotation at decoration time, so this module
 # deliberately does not use `from __future__ import annotations`.
+import json
 import sys
 from pathlib import Path
 from typing import Any, Dict
@@ -18,6 +19,7 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "modern"))
 import pipeline  # noqa: E402
 
 from dagster import (  # noqa: E402
+    AssetCheckExecutionContext,
     AssetCheckResult,
     AssetExecutionContext,
     Definitions,
@@ -85,7 +87,7 @@ def dbt_models(
     context: AssetExecutionContext,
     lakehouse_registration: Dict[str, Any],
 ) -> Output[Dict[str, Any]]:
-    result = pipeline.build_models()
+    result = pipeline.build_models(context.partition_key)
     return Output(result, metadata={"summary": MetadataValue.text(result["summary"])})
 
 
@@ -126,47 +128,94 @@ def golden_match_report(
     )
 
 
-@asset_check(asset=golden_match_report, description="No unexplained difference may reach Gold.")
-def no_unexplained_differences(golden_match_report: Dict[str, Any]) -> AssetCheckResult:
-    unexplained = int(golden_match_report["unexplained_differences"])
+# The checks read published evidence rather than the in-memory asset value.
+# A partitioned asset input arrives as a mapping keyed by partition once more
+# than one partition exists, so reading the artifacts is both partition-
+# independent and a stronger statement: it asserts what was actually written.
+
+
+def _packets() -> Dict[str, Dict[str, Any]]:
+    root = pipeline.EVIDENCE_ROOT
+    if not root.is_dir():
+        return {}
+    found: Dict[str, Dict[str, Any]] = {}
+    for directory in sorted(root.iterdir()):
+        final = directory / "final-status.json"
+        if final.is_file():
+            found[directory.name] = json.loads(final.read_text(encoding="utf-8"))
+    return found
+
+
+@asset_check(
+    asset=golden_match_report,
+    description="No unexplained difference may reach Gold, in any packet.",
+)
+def no_unexplained_differences(
+    context: AssetCheckExecutionContext,
+) -> AssetCheckResult:
+    unexplained = 0
+    unresolved = []
+    for batch_id in _packets():
+        path = pipeline.EVIDENCE_ROOT / batch_id / "difference-adjudication.json"
+        if not path.is_file():
+            unresolved.append(batch_id)
+            continue
+        adjudication = json.loads(path.read_text(encoding="utf-8"))
+        unexplained += len(adjudication.get("unexplained", []))
+        if not adjudication.get("resolved"):
+            unresolved.append(batch_id)
     return AssetCheckResult(
-        passed=unexplained == 0,
-        metadata={"unexplained_differences": MetadataValue.int(unexplained)},
+        passed=unexplained == 0 and not unresolved,
+        metadata={
+            "unexplained_differences": MetadataValue.int(unexplained),
+            "unresolved_batches": MetadataValue.text(", ".join(unresolved)),
+        },
     )
 
 
 @asset_check(
     asset=golden_match_report,
-    description="Every canonical batch produced a complete evidence packet.",
+    description="Every packet carries exactly the artifacts its outcome allows.",
 )
-def evidence_complete(golden_match_report: Dict[str, Any]) -> AssetCheckResult:
-    packets = golden_match_report["evidence_packets"]
-    present = [
-        name
-        for name in packets
-        if (pipeline.EVIDENCE_ROOT / name / "final-status.json").is_file()
-    ]
+def evidence_complete(context: AssetCheckExecutionContext) -> AssetCheckResult:
+    from northwind_pay.evidence import REJECTED_FILES, SUCCESS_FILES
+
+    incomplete = []
+    packets = _packets()
+    for batch_id, final in packets.items():
+        expected = (
+            SUCCESS_FILES if final.get("status") == "succeeded" else REJECTED_FILES
+        )
+        present = {
+            path.name for path in (pipeline.EVIDENCE_ROOT / batch_id).iterdir()
+        }
+        if present != set(expected):
+            incomplete.append(batch_id)
     return AssetCheckResult(
-        passed=len(present) == len(packets) and bool(packets),
-        metadata={"packets": MetadataValue.int(len(present))},
+        passed=bool(packets) and not incomplete,
+        metadata={
+            "packets": MetadataValue.int(len(packets)),
+            "incomplete": MetadataValue.text(", ".join(incomplete)),
+        },
     )
 
 
 @asset_check(
     asset=landing_parquet,
-    description="A rejected batch must publish no Parquet at all.",
+    description="A rejected batch must have no landing artifact at all.",
 )
 def rejected_batches_publish_nothing(
-    landing_parquet: Dict[str, Any],
+    context: AssetCheckExecutionContext,
 ) -> AssetCheckResult:
     offenders = [
-        name
-        for name, value in landing_parquet.items()
-        if value["status"] != "succeeded" and value.get("parquet_sha256") is not None
+        batch_id
+        for batch_id, final in _packets().items()
+        if final.get("status") != "succeeded"
+        and (pipeline.LANDING_ROOT / batch_id).exists()
     ]
     return AssetCheckResult(
         passed=not offenders,
-        metadata={"offending_scenarios": MetadataValue.text(", ".join(offenders))},
+        metadata={"offending_batches": MetadataValue.text(", ".join(offenders))},
     )
 
 

@@ -45,9 +45,19 @@ SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
         ("valid-boundary", "B202402290000001"),
         ("negative-overpunch", "B202607230000002"),
     ),
+    "05": (
+        ("malformed", "B202607230000403"),
+        ("valid-minimal", "B202607230000401"),
+        ("DF-SOURCE-005", "B202607230000405"),
+        ("valid-boundary", "B200002290000402"),
+        ("rounding-half-up", "B202607230000404"),
+    ),
 }
 
-CONTRACT_SLUG: Mapping[str, str] = {"01": "01-card-settlement"}
+CONTRACT_SLUG: Mapping[str, str] = {
+    "01": "01-card-settlement",
+    "05": "05-merchant-fee-assessment",
+}
 
 EXPECTED_ARTIFACT: Mapping[str, Mapping[str, tuple[str, str]]] = {
     "01": {
@@ -60,14 +70,29 @@ EXPECTED_ARTIFACT: Mapping[str, Mapping[str, tuple[str, str]]] = {
             "expected-negative-overpunch-sanitized.csv",
             "expected-negative-overpunch-reconciliation.yaml",
         ),
-    }
+    },
+    "05": {
+        "valid-minimal": ("expected-sanitized.csv", "expected-reconciliation.yaml"),
+        "valid-boundary": (
+            "expected-valid-boundary-sanitized.csv",
+            "expected-valid-boundary-reconciliation.yaml",
+        ),
+        "rounding-half-up": (
+            "expected-rounding-half-up-sanitized.csv",
+            "expected-rounding-half-up-reconciliation.yaml",
+        ),
+    },
 }
 
 REJECTION_ARTIFACT: Mapping[str, Mapping[str, str]] = {
     "01": {
         "malformed": "expected-malformed-rejection.yaml",
         "DF-SOURCE-001": "expected-df-source-001-finding.yaml",
-    }
+    },
+    "05": {
+        "malformed": "expected-malformed-rejection.yaml",
+        "DF-SOURCE-005": "expected-df-source-005-finding.yaml",
+    },
 }
 
 
@@ -83,9 +108,13 @@ class StageResults:
 
 def _handler(type_number: str):
     if type_number == "01":
-        from northwind_pay.types.type01_card_settlement import handler
+        from northwind_pay.types.type01_card_settlement import handler as type01
 
-        return handler
+        return type01
+    if type_number == "05":
+        from northwind_pay.types.type05_merchant_fee import handler as type05
+
+        return type05
     raise SystemExit(f"type {type_number} is not implemented in the modern pipeline")
 
 
@@ -153,15 +182,24 @@ def register(type_number: str) -> dict[str, Any]:
     }
 
 
-def build_models() -> dict[str, Any]:
-    """Stage 5: dbt Bronze, Silver, and Gold with their quality gates."""
+def build_models(type_number: str | None = None) -> dict[str, Any]:
+    """Stage 5: dbt Bronze, Silver, and Gold with their quality gates.
+
+    Scoped to one type when asked. Models are tagged per type so a single-type
+    run does not fail on another type's landing tables, which may legitimately
+    not exist yet during expansion.
+    """
 
     environment = {**os.environ, "DBT_PROFILES_DIR": str(DBT_DIR)}
+    selection = (
+        ["--select", f"tag:type_{type_number}"] if type_number is not None else []
+    )
     completed = subprocess.run(
         [
             str(REPOSITORY_ROOT / "modern" / ".venv" / "bin" / "dbt"),
             "build",
             "--no-use-colors",
+            *selection,
         ],
         cwd=DBT_DIR,
         env=environment,
@@ -189,7 +227,10 @@ def read_gold(type_number: str) -> dict[str, dict[str, Any]]:
 
     import duckdb
 
-    relation = {"01": "main_gold.gold_card_settlement_reconciliation"}[type_number]
+    relation = {
+        "01": "main_gold.gold_card_settlement_reconciliation",
+        "05": "main_gold.gold_merchant_fee_reconciliation",
+    }[type_number]
     connection = duckdb.connect(str(DUCKDB_PATH), read_only=True)
     try:
         cursor = connection.execute(f"select * from {relation}")
@@ -211,7 +252,10 @@ def _yaml(path: Path) -> dict[str, Any]:
 def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
     """Read the legacy reconciliation observation read-only, if it is available."""
 
-    relation = {"01": "reporting.card_settlement_reconciliation"}[type_number]
+    relation = {
+        "01": "reporting.card_settlement_reconciliation",
+        "05": "reporting.merchant_fee_reconciliation",
+    }[type_number]
     import psycopg
 
     dotenv = REPOSITORY_ROOT / ".env"
@@ -423,7 +467,7 @@ def run(type_number: str, *, skip_legacy: bool = False) -> dict[str, Any]:
     generate_bundles(type_number)
     outcomes = ingest(type_number)
     registration_result = register(type_number)
-    dbt_result = build_models()
+    dbt_result = build_models(type_number)
     gold = read_gold(type_number)
     results = StageResults(
         outcomes=outcomes,

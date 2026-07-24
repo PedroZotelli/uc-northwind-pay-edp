@@ -433,3 +433,59 @@ letting it drift; recording it here so the next reader is not surprised.
 Each requires a deployed runtime (`make deploy`) except `make df-manifest` and
 the source gates. `NWP_TOKENIZATION_KEY` must be set for modern runs; `.env`
 carries the fixture key.
+
+---
+
+## 2026-07-24 — Phase 3, milestone M5 (partial): modern Type 05
+
+**Status:** Type `05` complete with zero unexplained differences. Types `02`,
+`03`, and `04` remain unimplemented.
+
+Type `05` Merchant Fee Assessment adds a genuinely different grammar: a
+single-pass quote-aware semicolon lexer with doubled-quote escaping, decimal
+commas at two different scales, `dd/MM/yyyy` dates, NFC description validation,
+CNPJ Mod-11 check digits, and exact `HALF_UP` fee calculation.
+
+| Scenario | Class | Differences | Resolved |
+|---|---|---|---|
+| `valid-minimal` | accepted | 0 | yes |
+| `valid-boundary` | accepted | 0 | yes |
+| `rounding-half-up` | accepted | 0 | yes |
+| `malformed` | rejected | 0 | yes |
+| `DF-SOURCE-005` | rejected | 1, `CONFIRMED_SOURCE_DEFECT` | yes |
+
+`dbt build --select tag:type_05`: `PASS=29 ERROR=0`. Modern source gate: `41`
+tests, `mypy --strict` clean over 22 files. Dagster materialized partitions `01`
+and `05` with all three asset checks passing. Serving returns Type `05` Gold.
+
+**Three defects were found by running it, and fixed rather than classified away:**
+
+1. **dbt built every type's models on a single-type run**, so a Type `01` run
+   failed on Type `05`'s landing tables before they existed. Models are now
+   tagged per type and the build is scoped, which is also what makes expansion
+   safe: adding a type cannot break an existing one's gate.
+2. **The rejection-code vocabulary was invented rather than read.** Modern
+   emitted `INVALID_QUOTING` where the contract's `canonical_rejection_codes`
+   declares `INVALID_CSV_QUOTING`, and golden-match dutifully classified the
+   difference as `APPROVED_BEHAVIOR_CHANGE`. That classification was wrong: an
+   independent implementation still owes the contract's stable code vocabulary,
+   and accepting it would have let a fixable mismatch be recorded as approved.
+   Every Type `05` code now comes from the layout contract.
+3. **The source-defect comparison was keyed to Type `01`'s control names.**
+   It looked for `declared_net_amount`/`computed_net_amount`, so Type `05`'s
+   `assessed_fee` disagreement produced no difference at all — the batch was
+   correctly rejected, but the finding that explains *why* was silently missing.
+   Pairs are now discovered from the controls themselves, so every type's
+   vocabulary is covered without a list that can miss one.
+
+A fourth was found in the Dagster asset checks: they read the in-memory asset
+value, which Dagster delivers as a partition-keyed mapping once a second
+partition exists, so they broke the moment Type `05` was materialized. They now
+read published evidence, which is partition-independent and a stronger claim —
+it asserts what was actually written rather than what was returned.
+
+**Remaining:** Types `02`, `03`, and `04`. Each needs its own parser for a
+distinct grammar — an escape-aware pipe lexer with Mod-11 documents and NFC
+descriptions, exact 240-byte paired physical segments, and heterogeneous record
+widths with inherited return context — plus dbt models, golden-match bindings,
+and an acceptance run.

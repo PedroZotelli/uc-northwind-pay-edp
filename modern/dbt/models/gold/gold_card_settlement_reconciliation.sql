@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Gold: governed reconciliation, one row per (batch_id, currency).
 --
 -- The grain deliberately equals the legacy reporting grain so golden-match

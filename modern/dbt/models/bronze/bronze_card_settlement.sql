@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Bronze: typed and source-aligned, with minimal reinterpretation.
 -- Grain: one row per (batch_id, source_record_number).
 -- Bronze never re-parses; ingestion already decided every value here.

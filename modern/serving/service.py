@@ -28,6 +28,7 @@ EVIDENCE_ROOT = REPOSITORY_ROOT / "evidence" / "modern"
 # this map is unreachable by construction, not by convention.
 GOLD_RELATIONS: Mapping[str, str] = {
     "01": "main_gold.gold_card_settlement_reconciliation",
+    "05": "main_gold.gold_merchant_fee_reconciliation",
 }
 
 BATCH_ID_LENGTH = 16

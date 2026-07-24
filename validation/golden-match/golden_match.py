@@ -116,6 +116,13 @@ def _money(value: object) -> str:
     return f"{Decimal(str(value)):.2f}"
 
 
+def _at_scale(value: Decimal, reference: str) -> str:
+    """Render a Decimal at the fractional scale the reference text uses."""
+
+    places = len(reference.split(".")[1]) if "." in reference else 0
+    return f"{value:.{places}f}"
+
+
 def _read_expected_csv(path: Path) -> list[dict[str, str]]:
     return list(csv.DictReader(io.StringIO(path.read_text(encoding="utf-8"))))
 
@@ -158,9 +165,12 @@ def compare_records(
         want, got = expected[number], observed[number]
         for column in want:
             got_value = got.get(column)
+            # Render a Decimal at the scale the approved artifact uses, so a
+            # money column and a rate column are each compared at their own
+            # contract scale instead of one hard-coded scale for both.
             rendered = (
-                _money(got_value)
-                if column == "amount_brl"
+                _at_scale(got_value, want[column])
+                if isinstance(got_value, Decimal)
                 else str(got_value)
             )
             if rendered != want[column]:
@@ -275,15 +285,27 @@ def compare_rejection(
 
     # The declared-versus-computed disagreement itself is the source defect, and
     # both systems preserving it is the correct outcome rather than a difference.
+    # Pairs are discovered rather than named, so every type's control vocabulary
+    # is covered without a per-type list that can silently miss one.
     controls = modern_outcome.get("controls", {})
-    declared = str(controls.get("declared_net_amount", ""))
-    computed = str(controls.get("computed_net_amount", ""))
-    if declared and computed and declared != computed:
-        differences.append(
-            Difference(
-                "controls", batch_id, "net_amount", computed, declared,
-                "source-declaration", CONFIRMED_SOURCE_DEFECT,
+    preserved = False
+    for key in sorted(controls):
+        if not key.startswith("declared_"):
+            continue
+        name = key[len("declared_") :]
+        computed_key = f"computed_{name}"
+        if computed_key not in controls:
+            continue
+        declared = str(controls[key])
+        computed = str(controls[computed_key])
+        if declared != computed:
+            differences.append(
+                Difference(
+                    "controls", batch_id, name, computed, declared,
+                    "source-declaration", CONFIRMED_SOURCE_DEFECT,
+                )
             )
-        )
+            preserved = True
+    if preserved:
         checks["source_declaration_preserved"] = True
     return differences, checks

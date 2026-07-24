@@ -29,3 +29,34 @@ models:
         tests: [not_null]
       - name: computed_net_amount
         tests: [not_null]
+
+  - name: bronze_merchant_fee_assessment
+    description: "Grain: one privacy-safe Type 05 fee assessment per source row."
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: source_record_number
+        tests: [not_null]
+      - name: assessment_id
+        tests: [not_null, unique]
+      - name: merchant_tax_id_masked
+        tests: [not_null]
+      - name: gross_amount_brl
+        tests: [not_null]
+      - name: assessed_fee_brl
+        tests: [not_null]
+      - name: rounding_mode
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["HALF_UP"]
+
+  - name: bronze_merchant_fee_control
+    description: "Grain: one row per Type 05 batch, declared and computed controls."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: declared_assessed_fee
+        tests: [not_null]
+      - name: computed_assessed_fee
+        tests: [not_null]

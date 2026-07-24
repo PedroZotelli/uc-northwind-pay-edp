@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Bronze controls: the source-owned declaration and the independently computed
 -- totals, typed once here because they travel as canonical contract text.
 

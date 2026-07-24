@@ -1,3 +1,5 @@
+{{ config(tags=['type_01']) }}
+
 -- Privacy: no Bronze column may carry a sixteen-digit clear card number.
 -- Structural rather than value-based, so it holds for data it has never seen.
 
