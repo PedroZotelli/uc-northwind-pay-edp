@@ -1,0 +1,43 @@
+# Dark Factory scenario bindings.
+#
+# Binds each canonical DF-SOURCE-* seed to the exact immutable identities the
+# detector is allowed to observe. Every path below points at a frozen legacy
+# artifact that the detector opens read-only and never regenerates.
+#
+# required_peers reproduces the legacy definition of peer continuation: the two
+# accepted batches whose scenarios execute after the source-defect batch, so a
+# peer success proves the affected batch did not stop unrelated work.
+
+version: 1
+
+detector:
+  name: northwind-pay-dark-factory-source-control-detector
+  version: "1.0.0"
+  method: declared-versus-independently-computed-controls
+
+finding:
+  schema_version: "1.0.0"
+  finding_version: 1
+  code: DF-SOURCE-CONTROL-MISMATCH
+
+scenarios:
+  - scenario: DF-SOURCE-001
+    type_number: "01"
+    contract_slug: 01-card-settlement
+    contract_code: CRD_SETTLE01
+    batch_id: B202607230000004
+    terminal_code: SOURCE_CONTROL_TOTAL_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/01-card-settlement/main/expected-df-source-001-finding.yaml
+    raw_fixture: contracts/types/01-card-settlement/main/df-source-001.dat
+    raw_encoding: ISO-8859-1
+    staging_relation: staging.card_settlement
+    operational_relation: legacy.card_settlement
+    reporting_relation: reporting.card_settlement_reconciliation
+    control_plane_controls:
+      count: detail_count
+      net_amount: net_amount
+    required_peers:
+      - B202402290000001
+      - B202607230000002

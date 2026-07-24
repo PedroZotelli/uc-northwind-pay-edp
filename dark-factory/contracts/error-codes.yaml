@@ -1,0 +1,87 @@
+# Dark Factory stable error codes.
+#
+# A refusal is a first-class, testable outcome. Every way the detector can
+# decline to produce a finding has a stable code here, so a red gate names a
+# reason instead of surfacing a stack trace. Codes are append-only: removing or
+# renaming one is a contract change.
+
+version: 1
+
+codes:
+  DF-E-OBSERVATION-MISSING:
+    exit_status: 3
+    meaning: >-
+      A required observation channel is absent or unreadable. The detector
+      cannot describe a state it did not observe.
+
+  DF-E-CROSS-BATCH-OBSERVATION:
+    exit_status: 3
+    meaning: >-
+      An observation names a different batch than the one requested. Evidence
+      from another batch is never admissible.
+
+  DF-E-AMBIGUOUS-OBSERVATION:
+    exit_status: 3
+    meaning: >-
+      More than one candidate observation exists for a single channel, so no
+      single observation of record can be identified.
+
+  DF-E-LINEAGE-CONFLICT:
+    exit_status: 3
+    meaning: >-
+      Batch identity, type identity, raw hash, or manifest hash disagree across
+      channels. The observation set does not describe one immutable artifact.
+
+  DF-E-CONTRADICTORY-OBSERVATION:
+    exit_status: 3
+    meaning: >-
+      Two channels report different values for the same control. The detector
+      refuses rather than choosing a winner.
+
+  DF-E-NO-MISMATCH:
+    exit_status: 4
+    meaning: >-
+      Declared and computed controls agree. This is the correct outcome for a
+      healthy batch and produces no finding.
+
+  DF-E-ATTRIBUTION-INCONCLUSIVE:
+    exit_status: 5
+    meaning: >-
+      The observations do not support exactly one attribution under the
+      conclusiveness rule. Fails closed with no finding.
+
+  DF-E-ISOLATION-UNPROVEN:
+    exit_status: 5
+    meaning: >-
+      Batch-scoped isolation could not be observed: sanitized output exists,
+      business rows exist, or the quarantine bundle is absent.
+
+  DF-E-CONTINUATION-UNPROVEN:
+    exit_status: 5
+    meaning: >-
+      A required peer batch did not reach a successful, reconciled terminal
+      state, so peer continuation is not established.
+
+  DF-E-PRIVACY-VIOLATION:
+    exit_status: 6
+    meaning: >-
+      A restricted value, or a value outside the privacy allowlist, reached the
+      candidate finding. The finding is discarded and never written. This is a
+      hard-stop condition for the run.
+
+  DF-E-SCHEMA-VIOLATION:
+    exit_status: 6
+    meaning: >-
+      The candidate finding does not satisfy the closed finding schema.
+
+  DF-E-EVIDENCE-CONFLICT:
+    exit_status: 7
+    meaning: >-
+      A Dark Factory evidence packet already exists for this batch with
+      different content. Dark Factory evidence is immutable.
+
+  DF-E-RUNTIME-UNAVAILABLE:
+    exit_status: 8
+    meaning: >-
+      PostgreSQL or SFTP could not be reached read-only. Not a finding; the
+      detector has nothing to observe.

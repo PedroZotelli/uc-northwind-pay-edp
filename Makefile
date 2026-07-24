@@ -12,11 +12,18 @@ MAX_BATCHES ?= 100
 SUPPORTED_TYPES := 01 02 03 04 05
 WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 
+# Dark Factory: additive, read-only, and never part of a legacy gate.
+DF_SRC := dark-factory/src
+DF_SUITE := dark-factory/tests/end-to-end/run_detector_suite.py
+DF_EVIDENCE ?= evidence/dark-factory
+# The synchronous typed suites keep isolated evidence roots, one per type.
+DF_DEFAULT_ROOTS := .runtime/e2e-evidence,.runtime/e2e-type02-evidence,.runtime/e2e-type03-evidence,.runtime/e2e-type04-evidence,.runtime/e2e-type05-evidence
+
 .DEFAULT_GOAL := help
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
 	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
-	df-manifest
+	df-manifest df-check df-detect df-accept
 
 help: ## List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
@@ -254,6 +261,46 @@ test: check test-postgres ## Run source/build, rollback-only PostgreSQL, and fre
 df-manifest: ## Recompute the legacy implementation manifest; REV=<rev> for a ledger entry.
 	@$(RUNNER_PYTHON) dark-factory/tools/tree_manifest.py \
 		$(if $(REV),--rev "$(REV)",)
+
+df-check: ## Run Dark Factory contract, unit, and security suites plus strict typing.
+	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m unittest discover \
+		--start-directory dark-factory/tests/contract \
+		--pattern 'test_*.py' \
+		--verbose
+	@PYTHONPATH=$(DF_SRC):dark-factory/tests/unit $(RUNNER_PYTHON) -m unittest discover \
+		--start-directory dark-factory/tests/unit \
+		--pattern 'test_*.py' \
+		--verbose
+	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m unittest discover \
+		--start-directory dark-factory/tests/security \
+		--pattern 'test_*.py' \
+		--verbose
+	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m mypy \
+		--python-version 3.12 \
+		--strict \
+		--no-incremental \
+		dark-factory/src/darkfactory \
+		dark-factory/tools/tree_manifest.py
+	@$(RUNNER_PYTHON) -m json.tool dark-factory/contracts/finding.schema.json >/dev/null
+
+df-detect: ## Run the detector for one TYPE against a deployed legacy runtime.
+	@case "$(TYPE)" in 01|02|03|04|05) ;; \
+		*) echo "TYPE for df-detect must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
+	esac
+	@test -n "$(LEGACY_EVIDENCE)" || { echo "set LEGACY_EVIDENCE=<path>" >&2; exit 2; }
+	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m darkfactory.cli \
+		--type "$(TYPE)" \
+		--legacy-evidence-root "$(LEGACY_EVIDENCE)" \
+		--evidence-root "$(DF_EVIDENCE)"
+
+df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all five.
+	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
+		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
+	esac
+	@$(RUNNER_PYTHON) $(DF_SUITE) \
+		--type "$(TYPE)" \
+		--legacy-evidence-root "$(if $(LEGACY_EVIDENCE),$(LEGACY_EVIDENCE),$(DF_DEFAULT_ROOTS))" \
+		--evidence-root "$(DF_EVIDENCE)"
 
 clean: ## Delete disposable runtime state after explicit confirmation.
 	@test "$(CONFIRM)" = "clean-runtime" || { echo "rerun with CONFIRM=clean-runtime" >&2; exit 2; }

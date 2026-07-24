@@ -1,0 +1,149 @@
+{
+  "approval": {
+    "state": "not_requested"
+  },
+  "attribution": {
+    "basis": [
+      {
+        "channels": [
+          "legacy-source-manifest",
+          "legacy-java-processor",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "declaration-source-owned-and-consistent",
+        "satisfied": true
+      },
+      {
+        "channels": [
+          "legacy-java-processor",
+          "legacy-postgres-diagnostic",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "independent-computation-agreement",
+        "satisfied": true
+      },
+      {
+        "channels": [
+          "legacy-source-manifest",
+          "legacy-java-processor",
+          "legacy-postgres-diagnostic",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "declared-differs-from-computed",
+        "satisfied": true
+      }
+    ],
+    "confidence": "conclusive",
+    "owner": "source_system_of_record"
+  },
+  "batch": {
+    "batch_id": "B202607230000004",
+    "contract_code": "CRD_SETTLE01",
+    "contract_version": 1,
+    "layout_version": "001",
+    "type_number": "01"
+  },
+  "continuation": {
+    "observed": true,
+    "peers": [
+      {
+        "batch_id": "B202402290000001",
+        "reconciliation_status": "MATCHED",
+        "status": "succeeded"
+      },
+      {
+        "batch_id": "B202607230000002",
+        "reconciliation_status": "MATCHED",
+        "status": "succeeded"
+      }
+    ]
+  },
+  "controls": {
+    "compared": [
+      {
+        "computed": "2",
+        "control": "detail_count",
+        "declared": "2",
+        "matches": true,
+        "value_class": "count"
+      },
+      {
+        "computed": "173.45",
+        "control": "net_amount",
+        "declared": "173.44",
+        "matches": false,
+        "value_class": "money"
+      }
+    ],
+    "difference_count": 1
+  },
+  "finding_code": "DF-SOURCE-CONTROL-MISMATCH",
+  "finding_version": 1,
+  "isolation": {
+    "business_row_count": 0,
+    "observed": true,
+    "postgres_business_mutation": false,
+    "quarantine_scope": "batch",
+    "raw_quarantine_present": true,
+    "sanitized_csv_present": false,
+    "staging_row_count": 0
+  },
+  "method": {
+    "comparison": "declared-versus-independently-computed-controls",
+    "detector": "northwind-pay-dark-factory-source-control-detector",
+    "detector_version": "1.0.0"
+  },
+  "observations": [
+    {
+      "channel": "legacy-source-manifest",
+      "independence": "source_declaration",
+      "reference": "sha256:0e730ad7c51eef1a429870b4ae08a7d6dbb9794e69798f69307a4b3d732ef0cc",
+      "role": "system_of_record"
+    },
+    {
+      "channel": "legacy-java-processor",
+      "independence": "independent_computation",
+      "reference": "sha256:c7b3326a3efe7cb4af81158c6703d678e0e6aa6955b55d1dc0b5bfd51a4df55b",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-postgres-diagnostic",
+      "independence": "independent_computation",
+      "reference": "sha256:a1352cec28211a0ea968388a859a65ce048757c0749db726a73112c277c160cb",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-postgres-control-plane",
+      "independence": "persisted_record",
+      "reference": "sha256:4c4edf6c7cef2568b0ab48266114545f2fd001c7b98f0b442819675e7346f08f",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-sftp-transport",
+      "independence": "transport_observation",
+      "reference": "sha256:13986b77cfdf5fca61ff27a573d6f40cafa67d0e75fbffed605613902a166281",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-contract-oracle",
+      "independence": "contract_comparison",
+      "reference": "sha256:0e25f5f10bc53cfd90d1cc4ba22b10c77bed81291d001001276b8df4cff63267",
+      "role": "source_of_correctness"
+    }
+  ],
+  "references": {
+    "contract_oracle_sha256": "sha256:0e25f5f10bc53cfd90d1cc4ba22b10c77bed81291d001001276b8df4cff63267",
+    "raw_sha256": "sha256:4b72707c859c755fe9aeba6ec67996fb7b084ab0992231c8d60358bdfdd13980",
+    "source_manifest_sha256": "sha256:0e730ad7c51eef1a429870b4ae08a7d6dbb9794e69798f69307a4b3d732ef0cc"
+  },
+  "remediation": {
+    "state": "not_requested"
+  },
+  "scenario": "DF-SOURCE-001",
+  "schema_version": "1.0.0",
+  "terminal": {
+    "code": "SOURCE_CONTROL_TOTAL_MISMATCH",
+    "stage": "java-validation",
+    "status": "quarantined"
+  }
+}
