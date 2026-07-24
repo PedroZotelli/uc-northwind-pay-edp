@@ -1,0 +1,163 @@
+{
+  "approval": {
+    "state": "not_requested"
+  },
+  "attribution": {
+    "basis": [
+      {
+        "channels": [
+          "legacy-source-manifest",
+          "legacy-java-processor",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "declaration-source-owned-and-consistent",
+        "satisfied": true
+      },
+      {
+        "channels": [
+          "legacy-java-processor",
+          "legacy-postgres-diagnostic",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "independent-computation-agreement",
+        "satisfied": true
+      },
+      {
+        "channels": [
+          "legacy-source-manifest",
+          "legacy-java-processor",
+          "legacy-postgres-diagnostic",
+          "legacy-postgres-control-plane"
+        ],
+        "rule": "declared-differs-from-computed",
+        "satisfied": true
+      }
+    ],
+    "confidence": "conclusive",
+    "owner": "source_system_of_record"
+  },
+  "batch": {
+    "batch_id": "B202607230000105",
+    "contract_code": "PIX_EVENTS01",
+    "contract_version": 1,
+    "layout_version": "001",
+    "type_number": "02"
+  },
+  "continuation": {
+    "observed": true,
+    "peers": [
+      {
+        "batch_id": "B202402290000102",
+        "reconciliation_status": "MATCHED",
+        "status": "succeeded"
+      },
+      {
+        "batch_id": "B202607230000104",
+        "reconciliation_status": "MATCHED",
+        "status": "succeeded"
+      }
+    ]
+  },
+  "controls": {
+    "compared": [
+      {
+        "computed": "200.00",
+        "control": "credit_amount",
+        "declared": "200.00",
+        "matches": true,
+        "value_class": "money"
+      },
+      {
+        "computed": "26.55",
+        "control": "debit_amount",
+        "declared": "26.55",
+        "matches": true,
+        "value_class": "money"
+      },
+      {
+        "computed": "2",
+        "control": "event_count",
+        "declared": "2",
+        "matches": true,
+        "value_class": "count"
+      },
+      {
+        "computed": "173.45",
+        "control": "net_amount",
+        "declared": "173.44",
+        "matches": false,
+        "value_class": "money"
+      }
+    ],
+    "difference_count": 1
+  },
+  "finding_code": "DF-SOURCE-CONTROL-MISMATCH",
+  "finding_version": 1,
+  "isolation": {
+    "business_row_count": 0,
+    "observed": true,
+    "postgres_business_mutation": false,
+    "quarantine_scope": "batch",
+    "raw_quarantine_present": true,
+    "sanitized_csv_present": false,
+    "staging_row_count": 0
+  },
+  "method": {
+    "comparison": "declared-versus-independently-computed-controls",
+    "detector": "northwind-pay-dark-factory-source-control-detector",
+    "detector_version": "1.0.0"
+  },
+  "observations": [
+    {
+      "channel": "legacy-source-manifest",
+      "independence": "source_declaration",
+      "reference": "sha256:07be4fb1860d4cd4d397d19373d66675b725019c53c56ae05996e10097d8e096",
+      "role": "system_of_record"
+    },
+    {
+      "channel": "legacy-java-processor",
+      "independence": "independent_computation",
+      "reference": "sha256:3031e6a6e0b38cc0a6dae77940b19026731c4d3dc6b201f1994d10180639b8e0",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-postgres-diagnostic",
+      "independence": "derived_projection",
+      "reference": "sha256:a23fbb219894bc5fee1a6f26520e5170d91688df99dccc449c8f56e07d9bb45e",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-postgres-control-plane",
+      "independence": "persisted_record",
+      "reference": "sha256:6a01bc58bd341012d7bcbe369f5a7e7ac7b0dea9a51cc799e1a22290089d0b2d",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-sftp-transport",
+      "independence": "transport_observation",
+      "reference": "sha256:27d873e717a168ea5d379f5da6c669cdc2bc55a5613277f7389818cce7d3e88e",
+      "role": "source_of_observation"
+    },
+    {
+      "channel": "legacy-contract-oracle",
+      "independence": "contract_comparison",
+      "reference": "sha256:81f54880f1835ab2db8a9e4c140960b8fbe95366ffcb1d0a0d3e272fbfec5dc7",
+      "role": "source_of_correctness"
+    }
+  ],
+  "references": {
+    "contract_oracle_sha256": "sha256:81f54880f1835ab2db8a9e4c140960b8fbe95366ffcb1d0a0d3e272fbfec5dc7",
+    "raw_sha256": "sha256:685c2617e7f07951181eaf646f349f6dd798638a7d14e4d268ef8f9d87d0d87d",
+    "source_manifest_sha256": "sha256:07be4fb1860d4cd4d397d19373d66675b725019c53c56ae05996e10097d8e096"
+  },
+  "remediation": {
+    "state": "not_requested"
+  },
+  "scenario": "DF-SOURCE-002",
+  "schema_version": "1.0.0",
+  "terminal": {
+    "code": "SOURCE_CONTROL_NET_MISMATCH",
+    "stage": "java-validation",
+    "status": "quarantined"
+  }
+}

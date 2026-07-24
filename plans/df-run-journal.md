@@ -173,3 +173,45 @@ accepted:**
 
 Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
 migrations was modified. No expected value, fixture, or oracle was edited.
+
+---
+
+## 2026-07-24 — Phase 2: detector expansion, DF-SOURCE-002 through 005
+
+**Status:** passed, one completed type at a time in order `02 → 03 → 04 → 05`.
+Each type passed all six step gates and its acceptance target before the next
+began.
+
+The detector is contract-driven and type-generic: control pairs are discovered
+by pairing `declared_*` with `computed_*` keys in the legacy processor result
+rather than from a per-type field list, so expansion added scenario bindings,
+frozen expected findings, and gate runs — not new detection logic. The one
+per-type binding that could not be derived is the mapping from the control
+plane's generic `computed_count` / `computed_net_amount` columns to each type's
+control names, which is declared explicitly in `scenarios.yaml`.
+
+| Type | Scenario | Batch | Difference | Finding identity |
+|---|---|---|---|---|
+| `02` | `DF-SOURCE-002` | `B202607230000105` | `net_amount` `173.44` → `173.45` | `sha256:056997d0…` |
+| `03` | `DF-SOURCE-003` | `B202607230000205` | `net_amount` `198.49` → `198.50` | `sha256:16dfbac3…` |
+| `04` | `DF-SOURCE-004` | `B202607230000305` | `net_amount` `999.99` → `1000.00` | `sha256:1c79a11f…` |
+| `05` | `DF-SOURCE-005` | `B202607230000405` | `assessed_fee` `0.99` → `1.00` | `sha256:ba312588…` |
+
+Every type: byte-stable, privacy-clean, isolation verified, peer continuation
+verified, all four required channels proven by withhold probe, legacy evidence
+byte-identical before and after, terminal code equal to the frozen legacy
+oracle's.
+
+**An honest difference between Type 01 and Types 02–05 is recorded in the
+findings themselves.** Type `01` publishes `postgres-diagnostic.json` with
+`mode: read_only` — a genuine independent SQL recomputation — so its diagnostic
+channel carries `independence: independent_computation`. Types `02`–`05` publish
+`mode: source-parser-observation`, a projection of the Java result, so theirs
+carries `derived_projection`. The classification is read from the artifact's own
+`mode`, not from a table maintained by hand, and it means Types `02`–`05` reach
+`conclusive` on a strictly weaker corroboration set than Type `01`. A reader can
+see that in `observations[].independence` without consulting a document. See
+[DR-006](../docs/decisions/006-evidence-based-attribution.md).
+
+Source gate after expansion: `18` contract, `30` unit, `23` security,
+`mypy --strict` clean over 21 files.

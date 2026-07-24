@@ -60,6 +60,39 @@ class FindingContractTest(unittest.TestCase):
         for scenario, fixture in self.fixtures.items():
             self.assertEqual(fixture["scenario"], scenario)
 
+    def test_all_five_source_defect_seeds_are_registered(self) -> None:
+        """Expansion is complete: every DF-SOURCE seed has a binding."""
+
+        self.assertEqual(
+            sorted(self.contract.scenarios),
+            [f"DF-SOURCE-00{index}" for index in range(1, 6)],
+        )
+        self.assertEqual(
+            sorted(
+                scenario.type_number
+                for scenario in self.contract.scenarios.values()
+            ),
+            ["01", "02", "03", "04", "05"],
+        )
+
+    def test_each_scenario_binds_a_distinct_batch_and_relation_set(self) -> None:
+        """A copied binding would make two types observe the same rows."""
+
+        scenarios = list(self.contract.scenarios.values())
+        for attribute in (
+            "batch_id",
+            "staging_relation",
+            "operational_relation",
+            "reporting_relation",
+            "contract_code",
+        ):
+            values = [getattr(scenario, attribute) for scenario in scenarios]
+            self.assertEqual(
+                len(set(values)), len(values), f"duplicate {attribute} binding"
+            )
+        peers = [peer for scenario in scenarios for peer in scenario.required_peers]
+        self.assertEqual(len(set(peers)), len(peers), "duplicate peer binding")
+
     def test_every_registered_scenario_binds_frozen_legacy_artifacts(self) -> None:
         for name, scenario in self.contract.scenarios.items():
             with self.subTest(scenario=name):
