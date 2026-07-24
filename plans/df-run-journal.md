@@ -272,3 +272,42 @@ legacy parity that was never measured is worse than no claim.
 
 Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
 migrations was modified.
+
+## 2026-07-24 — Phase 3, milestones M4 and M6: orchestration, evidence, and serving
+
+**Status:** passed for Type 01.
+
+**M4 — Dagster and modern evidence.** Four partitioned assets — `landing_parquet`,
+`lakehouse_registration`, `dbt_models`, `golden_match_report` — plus three asset
+checks: no unexplained difference, every batch produced a complete evidence
+packet, and a rejected batch published no Parquet. `dagster asset materialize`
+completed with all three checks passing.
+
+Every asset calls the same function `modern/pipeline.py` calls, so direct and
+orchestrated execution are equivalent by construction rather than by testing two
+code paths against each other. Retries are limited to transient boundaries: a
+contract, privacy, or golden-match failure is deterministic, and retrying it
+burns the same result while hiding the signal.
+
+Evidence packets follow the two schemas `plans/modern.md` defines — twelve
+artifacts for an accepted batch, seven for a rejected one — and the writer
+refuses a packet that is missing an artifact or that carries one for a stage
+that never ran. A rejected batch therefore cannot claim a dbt or Gold result it
+never produced.
+
+**M6 — serve and harden.** A read-only FastAPI surface (`/health`,
+`/batches/{id}/status`, `/batches/{id}/reconciliation`,
+`/batches/{id}/golden-match`) and three narrow MCP tools, both calling one
+service layer that enforces the serving rules for every caller: only approved
+Gold is reachable, there is no route that accepts SQL, and a batch whose
+golden-match is unresolved cannot be served at all. Verified live: an accepted
+batch returns its reconciliation, a quarantined batch is refused, and a
+malformed identity is rejected before any query is built.
+
+Modern source gate: `26` tests, `mypy --strict` clean over 15 files.
+
+**Deployment and CI remain explicitly out of scope**, as
+[DR-008](../docs/decisions/008-modern-pipeline-design.md) records. Local
+clean-environment reproduction is proven by `make modern-rebuild`; no CI
+pipeline, image, or deployment target is selected, and no Terraform is written.
+Claiming CI readiness from local proof is something `plans/modern.md` forbids.

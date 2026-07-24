@@ -19,8 +19,8 @@ import tempfile
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-import pyarrow as pa
-import pyarrow.parquet as pq
+import pyarrow as pa  # type: ignore[import-untyped]  # pyarrow ships no py.typed marker
+import pyarrow.parquet as pq  # type: ignore[import-untyped]  # pyarrow ships no py.typed marker
 
 COMPRESSION = "zstd"
 COMPRESSION_LEVEL = 3

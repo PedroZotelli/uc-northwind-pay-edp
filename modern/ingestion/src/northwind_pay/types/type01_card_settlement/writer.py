@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Sequence
 
-import pyarrow as pa
+import pyarrow as pa  # type: ignore[import-untyped]  # pyarrow ships no py.typed marker
 
 from ...common.parquet import canonical_metadata
 from .model import SanitizedRecord
