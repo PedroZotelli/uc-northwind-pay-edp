@@ -40,9 +40,9 @@ rehearsed.
 
 | | |
 |---|---|
-| `legacy/` — 29,732 lines | "The system that works. **Frozen.** Nothing may modify it to make a test pass." |
-| `modern/` — 6,888 | "The same job, rebuilt independently. Twenty-three percent of the size." |
-| `contracts/` — 5,748 | "**Neither of them is allowed to define what correct means.** This folder does." |
+| `legacy/` — 30,193 lines | "The system that works. **Frozen.** Nothing may modify it to make a test pass." |
+| `modern/` — 6,386 | "The same job, rebuilt independently. **A fifth of the size** — and one type short, which the room will spot in card 04." |
+| `contracts/` — 5,998 | "**Neither of them is allowed to define what correct means.** This folder does." |
 
 ## The line to land
 

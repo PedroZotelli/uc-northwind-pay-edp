@@ -25,15 +25,15 @@ other's code. When they disagree, `contracts/` decides which one is wrong.
 
 | Folder | Lines | What it is |
 |---|---:|---|
-| [`legacy/`](legacy/README.md) | 29,732 | The system that works. **A frozen oracle** — never modified to make a gate pass |
-| [`tests/`](tests/README.md) | 22,343 | Live acceptance, contract oracles, unit, PostgreSQL, security |
+| [`legacy/`](legacy/README.md) | 30,193 | The system that works. **A frozen oracle** — never modified to make a gate pass |
+| [`tests/`](tests/README.md) | 22,788 | Live acceptance, contract oracles, unit, PostgreSQL, security |
 | [`gen/`](gen/README.md) | 9,336 | DataGen: the simulated source system |
-| [`modern/`](modern/README.md) | 6,888 | The independent second implementation |
-| [`factory/`](factory/README.md) | 5,996 | The source-defect detector |
-| [`contracts/`](contracts/README.md) | 5,748 | **The source of correctness.** Five file types, their fixtures, their oracles |
-| [`validation/`](validation/README.md) | 3,768 | The two referees: legacy oracles and golden-match |
+| [`modern/`](modern/README.md) | 6,386 | The independent second implementation |
+| [`factory/`](factory/README.md) | 6,182 | The source-defect detector |
+| [`contracts/`](contracts/README.md) | 5,998 | **The source of correctness.** Five file types, their fixtures, their oracles |
+| [`validation/`](validation/README.md) | 3,942 | The two referees: legacy oracles and golden-match |
 | [`plans/`](docs/README.md) | 2,233 | What is being built and why |
-| [`infra/`](infra/README.md) | 107 | The SFTP image and the role/zone matrix |
+| [`infra/`](infra/README.md) | 295 | The SFTP image and the role/zone matrix |
 
 Every folder documents itself. Start at the [documentation
 index](docs/README.md).
@@ -66,7 +66,8 @@ old code is correct; its *inputs* were not.
 | PostgreSQL, Types `01`–`05` | Migrations `001`–`010`, typed loaders, secured procedures, rollback and reconciliation tests |
 | Synchronous runner and continuous worker | Implemented across all five types, with bounded discovery, a host lock, and a terminal-recovery journal |
 | Live five-type legacy acceptance | Verified 2026-07-24: 15 successes, 10 expected quarantines, 25 evidence packets |
-| Modern pipeline, Types `01`–`05` | Implemented end to end: ingestion → Parquet → dlt → DuckDB → dbt Gold → golden-match → evidence, orchestrated by Dagster and served read-only |
+| Modern pipeline, Types `01`–`04` | Implemented end to end: ingestion → Parquet → dlt → DuckDB → dbt Gold → golden-match → evidence, orchestrated by Dagster and served read-only |
+| Modern pipeline, Type `05` | **Not built.** The specification, its oracle, and a live legacy execution are docked in [`spec/`](spec/type-05-merchant-fee-assessment/INVENTORY.md) awaiting the factory |
 | Factory detector | Implemented: read-only observation, evidence-based attribution, byte-stable findings, five approved expected findings |
 | Types `06`–`10` | Deferred until their contracts and legacy observations exist |
 | Authorization, audit, observability, CI | Milestone 6; not implemented |

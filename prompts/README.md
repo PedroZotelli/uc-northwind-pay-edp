@@ -69,7 +69,22 @@ Check these two things or the ending changes:
 | Check | If it fails |
 |---|---|
 | `/fab` appears in a fresh Claude Code session | Card 06 has a plain-text fallback that works without the skill |
-| `gh auth status` and push rights | The run ends at commits + evidence instead of a PR. Still a fine ending — just know in advance |
+| `git push --dry-run origin HEAD` reports `[new branch]` | See below |
+
+**The push path was broken and is now fixed.** The remote was `git@github.com:…`
+over SSH, and this machine has no working key — `Permission denied (publickey)`.
+`gh` is authenticated over **HTTPS** and its credential helper is already wired
+for `https://github.com`, so the remote was switched:
+
+```bash
+git remote set-url origin https://github.com/luanmorenommaciel/uc-northwind-pay-edp.git
+```
+
+Verified 2026-07-25 with a dry-run push of both the demo branch and a
+`factory/…` branch: both report `[new branch]`. Without this, card 08 ends at
+commits and evidence rather than a pull request.
+
+To go back to SSH: `git remote set-url origin git@github.com:luanmorenommaciel/uc-northwind-pay-edp.git`
 
 Terminal: 16 pt minimum, dark background, ~100 columns. Nothing here needs more.
 

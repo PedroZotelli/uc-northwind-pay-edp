@@ -22,19 +22,18 @@ modern/
 │           ├── type01_card_settlement/
 │           ├── type02_instant_payment_events/
 │           ├── type03_payment_slip_settlement/
-│           ├── type04_ted_transfer_settlement/
-│           └── type05_merchant_fee_assessment/
+│           └── type04_ted_transfer_settlement/
 │
 ├── lakehouse/dlt/registration.py  148   landing Parquet → DuckDB catalog
 │
-├── dbt/                          1,131
+├── dbt/                          1,054
 │   ├── macros/                          release_gate · conserves_totals
-│   ├── models/bronze/  10 sql            5 detail + 5 control
-│   ├── models/silver/   5 sql
-│   ├── models/gold/     5 sql
-│   └── tests/          18 sql            singular assertions, tagged per type
+│   ├── models/bronze/   8 sql            4 detail + 4 control
+│   ├── models/silver/   4 sql
+│   ├── models/gold/     4 sql
+│   └── tests/          14 sql            singular assertions, tagged per type
 │
-├── dagster/…dagster.py            229   4 assets × 5 partitions + 3 checks
+├── dagster/…dagster.py            229   4 assets × 4 partitions + 3 checks
 │
 └── serving/                        245
     ├── service.py                 137   the two serving rules, enforced once
@@ -133,7 +132,7 @@ Every model and test carries a `type_NN` tag. `pipeline.py` scopes a
 single-type run with `--select tag:type_NN`, so tagging is not decoration —
 **an untagged or mistagged test silently never runs.**
 
-Two gates are defined once in `macros/` and applied by all five types:
+Two gates are defined once in `macros/` and applied by every implemented type:
 
 - **`release_gate(relation, delta_columns)`** — Gold may not publish an
   unexplained financial difference. `status` must be `MATCHED` and every named
@@ -164,7 +163,11 @@ The real deltas, and the only ones the release gate checks:
 | `02` | `count_delta` | `net_amount_delta` |
 | `03` | `count_delta` | `net_amount_delta` |
 | `04` | **`transfer_count_delta`** | `net_amount_delta` |
-| `05` | `count_delta` | `assessed_fee_delta`, `assessment_calculation_delta` |
+| `05` | *(not built)* | *(not built)* — the contract specifies `count_delta` and `assessed_fee_delta`, `assessment_calculation_delta` |
+
+Type `05` has no Gold model here. Its contract is deployed and its oracle is
+docked in [`spec/`](../spec/type-05-merchant-fee-assessment/INVENTORY.md); the
+vertical itself is the work order.
 
 Note Type 04 does not have a `count_delta`. Each model's header comment lists
 its own constants by name.

@@ -16,7 +16,8 @@ description of work not yet started.
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
 | Dark Factory | Implemented under `factory/`; all five `DF-SOURCE-*` scenarios acceptance-verified and byte-stable |
-| Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`05` reach Gold with zero unexplained golden-match differences |
+| Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`04` reach Gold with zero unexplained golden-match differences |
+| Modern Type `05` | **Not built.** Contract, oracle, and a live legacy execution are docked in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md) as an open work order. Do not search git history for a prior implementation — build it from the contract |
 | Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
 The proven shared baseline is five types. Types `06`–`10` require new contracts
@@ -336,7 +337,9 @@ is recorded in the
 
 ## Build order
 
-**M0–M6 were executed for Types `01`–`05` during the 2026-07-24 run.** They are
+**M0–M6 were executed for Types `01`–`05` during the 2026-07-24 run.** Type `05`'s
+modern vertical has since been withdrawn and reissued as an open work order, so
+the route below is live for it again. They are
 kept here as the standing route for any *new* type: a sixth type repeats this
 order rather than inventing one. Read the imperative mood as "what a type must
 go through," not as outstanding work.
