@@ -75,8 +75,21 @@ preserve the lie, refuse the batch, name who lied.
    `03-sanitized-out/valid-minimal.sanitized.csv` — every transformation between
    them is specified in `01-specification/` and none of it is discretionary.
 2. **Prove the legacy side runs.** `make run TYPE=05 SCENARIO=valid-minimal`
-   must succeed and `DF-SOURCE-005` must be refused. Confirm the ground truth
-   before you trust anything you build against it.
+   must succeed.
+
+   For the refusal, **read the evidence rather than re-running**: batch
+   identities are immutable, and `DF-SOURCE-005` has already been processed on
+   this runtime by the acceptance portfolio. Re-running it reports
+   *"a quarantined raw batch has no recoverable evidence packet"*, which is a
+   collision, not a failure. The proof is already on disk:
+
+   ```bash
+   ls .runtime/e2e-type05-evidence/B202607230000405/
+   docker exec northwind-pay-legacy-postgres-1 psql -U northwind_admin \
+     -d northwind_legacy -t -A -F' | ' -c \
+     "select batch_id, status, failure_code from control.batches
+      where batch_id='B202607230000405'"
+   ```
 3. **Build the modern vertical.** Ingestion → canonical Parquet → dlt → DuckDB
    → dbt Bronze/Silver/Gold → golden-match → evidence. Types `01`–`04` are your
    pattern; follow their conventions rather than inventing new ones.

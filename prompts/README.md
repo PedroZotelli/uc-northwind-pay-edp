@@ -43,7 +43,21 @@ make deploy                          # ~40s
 make test-e2e TYPE=all               # ~3 min — produces the legacy observations
 make df-accept TYPE=all              # ~30s — produces the findings
 make modern-run TYPE=01              # ~60s — produces modern evidence for card 03
+
+# REQUIRED. modern/landing/ survives `make clean`, and the Type 05 Parquet from
+# before the deletion is still there. Leave it and the factory's first publish
+# dies with "a different Parquet publication already exists for this batch".
+rm -rf modern/landing/B202607230000401 \
+       modern/landing/B202607230000404 \
+       modern/landing/B200002290000402 \
+       modern/landing/.NW_MERCHANT_FEES*
 ```
+
+**Rehearsed 2026-07-25.** The factory built the modern Type 05 from this pack in
+one pass: golden-match resolved, zero unexplained differences, and
+`DF-SOURCE-005` classified `CONFIRMED_SOURCE_DEFECT` — computed `1.00` against
+declared `0.99`. The build is on branch `rehearsal/type-05-modern` if you need
+to cut to it.
 
 Then **open a second shell and leave it clean.** Run the demo there so your setup
 is not in scrollback.
@@ -112,6 +126,8 @@ real chance of the better version.
 | Detector says `DF-E-OBSERVATION-MISSING` | The e2e portfolio has not run on this runtime |
 | Everything quarantines with `PRIVACY_VIOLATION` | `.env` not loaded — `set -a; . ./.env; set +a` |
 | The build circles for more than ~4 minutes | Card 07. If that does not move it, say so plainly and cut to card 09 using the committed evidence |
+| `a different Parquet publication already exists` | The pre-flight `rm -rf modern/landing/...` was skipped |
+| dlt fails on `computed_detail_count` | A failed publish orphaned `modern/landing/.NW_*`. Remove it and re-run |
 
 Errors on screen are fine and on-brand for this material. **A silent stall is
 not.** An honest *"it is struggling, here is what it has done so far"* costs you
