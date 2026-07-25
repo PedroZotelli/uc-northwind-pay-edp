@@ -16,11 +16,20 @@ them the approved output.
 ```
 spec/type-05-merchant-fee-assessment/
 ├── WORK-ORDER.md          this file
-└── INVENTORY.md           the specification, the oracle, and what is missing
+├── INVENTORY.md           a guided tour of everything below
+├── 01-specification/      the four contract YAMLs
+├── 02-raw-in/             5 raw source files
+├── 03-sanitized-out/      what the Java privacy boundary produces
+├── 04-reconciliation/     the approved totals
+├── 05-rejections/         the approved refusals, incl. the source defect
+├── 06-legacy-execution/   one real run, 13 artifacts
+└── 07-deliverable-shape/  what a finished modernization looks like
 ```
 
-**Declarative only. No code in this folder, by design.** You receive a
-specification and proof of behaviour — not a translation. See `INVENTORY.md`.
+**No implementation code is delivered.** You get the specification, real inputs,
+the outputs the current system produces, one complete execution, and the shape
+of the deliverable. You do not get a translation — if you did, you would be
+porting, and the referee would be comparing a copy with its original.
 
 Already deployed by the platform team, ahead of this request:
 
@@ -34,8 +43,10 @@ Already deployed by the platform team, ahead of this request:
 
 ## Your task
 
-1. **Read the specification.** `contracts/types/05-merchant-fee-assessment/` —
-   four YAMLs plus `main/`, which holds the approved output for every scenario.
+1. **Read the pack.** `INVENTORY.md` walks all seven folders. Start by diffing
+   `02-raw-in/valid-minimal.csv` against
+   `03-sanitized-out/valid-minimal.sanitized.csv` — every transformation between
+   them is specified in `01-specification/` and none of it is discretionary.
 2. **Prove the legacy side runs.** `make run TYPE=05 SCENARIO=valid-minimal`
    must succeed and `DF-SOURCE-005` must be refused. Confirm the ground truth
    before you trust anything you build against it.

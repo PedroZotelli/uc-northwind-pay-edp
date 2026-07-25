@@ -1,0 +1,22 @@
+{
+  "batch_id": "B202607230000401",
+  "csv_sha256": "cc13c6fa4ea028b7b7cbfaaf5b755a09cd8edcc424739515429388bd15978c48",
+  "file_type": "05",
+  "net_amount": "12.36",
+  "row_count": 2,
+  "source_controls": {
+    "assessed_fee": "12.36",
+    "calculated_fee": "12.36",
+    "currency": "BRL",
+    "gross_amount": "1001.00",
+    "row_count": 2
+  },
+  "stage_controls": {
+    "assessed_fee": "12.36",
+    "calculated_fee": "12.36",
+    "currency": "BRL",
+    "gross_amount": "1001.00",
+    "row_count": 2
+  },
+  "status": "recovered_committed_batch"
+}

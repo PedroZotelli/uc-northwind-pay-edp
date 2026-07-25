@@ -1,0 +1,72 @@
+{
+  "actual": {
+    "reconciliation": {
+      "applied_assessed_fee": "12.36",
+      "applied_calculated_fee": "12.36",
+      "applied_count": 2,
+      "applied_gross_amount": "1001.00",
+      "assessed_fee_delta": "0.00",
+      "assessment_calculation_delta": "0.00",
+      "batch_id": "B202607230000401",
+      "calculated_fee_delta": "0.00",
+      "count_delta": 0,
+      "currency": "BRL",
+      "gross_amount_delta": "0.00",
+      "reject_count": 0,
+      "source_assessed_fee": "12.36",
+      "source_calculated_fee": "12.36",
+      "source_count": 2,
+      "source_gross_amount": "1001.00",
+      "staged_assessed_fee": "12.36",
+      "staged_calculated_fee": "12.36",
+      "staged_count": 2,
+      "staged_gross_amount": "1001.00",
+      "status": "MATCHED"
+    },
+    "sanitized": {
+      "assessed_fee": "12.36",
+      "batch_id": "B202607230000401",
+      "calculated_fee": "12.36",
+      "csv_sha256": "cc13c6fa4ea028b7b7cbfaaf5b755a09cd8edcc424739515429388bd15978c48",
+      "gross_amount": "1001.00",
+      "row_count": 2,
+      "status": "succeeded"
+    }
+  },
+  "expected": {
+    "reconciliation": {
+      "applied_assessed_fee": "12.36",
+      "applied_calculated_fee": "12.36",
+      "applied_count": 2,
+      "applied_gross_amount": "1001.00",
+      "assessed_fee_delta": "0.00",
+      "assessment_calculation_delta": "0.00",
+      "batch_id": "B202607230000401",
+      "calculated_fee_delta": "0.00",
+      "count_delta": 0,
+      "currency": "BRL",
+      "gross_amount_delta": "0.00",
+      "reject_count": 0,
+      "source_assessed_fee": "12.36",
+      "source_calculated_fee": "12.36",
+      "source_count": 2,
+      "source_gross_amount": "1001.00",
+      "staged_assessed_fee": "12.36",
+      "staged_calculated_fee": "12.36",
+      "staged_count": 2,
+      "staged_gross_amount": "1001.00",
+      "status": "MATCHED"
+    },
+    "sanitized": {
+      "assessed_fee": "12.36",
+      "batch_id": "B202607230000401",
+      "calculated_fee": "12.36",
+      "csv_sha256": "cc13c6fa4ea028b7b7cbfaaf5b755a09cd8edcc424739515429388bd15978c48",
+      "gross_amount": "1001.00",
+      "row_count": 2,
+      "status": "succeeded"
+    }
+  },
+  "matches": true,
+  "oracle_status": "oracle_matched"
+}

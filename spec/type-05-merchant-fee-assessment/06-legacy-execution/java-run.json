@@ -1,0 +1,12 @@
+{
+  "assessed_fee": "12.36",
+  "batch_id": "B202607230000401",
+  "calculated_fee": "12.36",
+  "code": null,
+  "csv_file": "NW_MERCHANT_FEES_20260723_B202607230000401_SANITIZED.csv",
+  "csv_sha256": "cc13c6fa4ea028b7b7cbfaaf5b755a09cd8edcc424739515429388bd15978c48",
+  "file_type": "05",
+  "gross_amount": "1001.00",
+  "row_count": 2,
+  "status": "succeeded"
+}

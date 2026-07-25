@@ -247,7 +247,12 @@ motion matches the rest of the deck.
    - "the factory found a legacy defect" — it did not; there are zero;
    - "the agent wrote all this unsupervised with no corrections" — the
      run was autonomous, but it found and fixed four vacuous gates
-     along the way, which is the better story anyway;
+     along the way, which is the better story anyway. **Six gates were
+     vacuous in total: four caught by the run, two caught afterwards by a
+     human reading code.** Both numbers are true and they measure different
+     things — say which one you mean. Act 3B slide 60 states both;
+     Act 0 slide 07's "corrected itself four times" refers to the run and
+     is correct as written;
    - "production-ready" or "CI-ready" — `plans/modern.md` forbids
      claiming either from local proof, and no CI exists;
    - "modern replaces legacy" — legacy is the frozen oracle; modern is
@@ -1131,9 +1136,13 @@ credit-that-flows, bundle logic).
 - Withhold sweep: 4 of 4 channels → `DF-E-ATTRIBUTION-INCONCLUSIVE`
 - Determinism: identical `finding_id` across runs and across four
   runtimes built from scratch on different days
-- 4 vacuous gates found and fixed by the run itself (unfalsifiable
-  withhold probe; cached Java suite; golden-match never contacting
-  legacy; Type 04 token scope)
+- **6 vacuous gates in total.** 4 found and fixed by the run itself
+  (unfalsifiable withhold probe; cached Java suite; golden-match never
+  contacting legacy; Type 04 token scope) and 2 found afterwards by reading
+  code (dbt release gate existed for Type 01 only, so Types 02–05 ran none;
+  rejected-batch parity built its "legacy observation" out of the contract
+  and so compared the contract with itself). Act 3B slide 60 carries all six,
+  labelled by who found them.
 
 **KurvPay (real engagement — Act 4)**
 - 29/32 file types migrated (didactic docs also cite 26/28
@@ -1238,7 +1247,9 @@ credit-that-flows, bundle logic).
 | Anthropic Agent Skills (`SKILL.md`, progressive disclosure) | The lesson → skill mechanism behind the flywheel — Act 1 slide 24 |
 | `presentation/images/gen/df-*.jpg` | Act 0 and Act 1 cinematic backgrounds (Higgsfield `soul_location`) |
 | `applications` export (`product = dark-factory-v1`) | The room numbers on Act 0 slides 03–04 (§5). Kept outside the repo — it carries names, e-mails and WhatsApp numbers; only aggregates ever reach a slide |
-| `presentation/demo.md` | Verified commands, real output, the corrected reveal (Acts 3A, 3B) |
+| `presentation/demo.md` | Verified commands, real output, the corrected reveal, the six vacuous gates, and the Track A / Track B choice (Acts 3A, 3B) |
+| `docs/cvg-aut-systems-spine-steps-v5.pdf` | The real Converge pass names and their inputs/outputs — Act 3A slide 45's nine sealed boxes |
+| `docs/decisions/011-autonomous-execution-mandate…md` | The dated grant of autonomy and its rules of engagement — Act 3B slide 59 |
 | `docs/wrksp-secret-dark-factory-v1.pdf` | Funnel, scoring, moat discipline, offer mechanics (Acts 0, 5) |
 | `docs/boot-uc-northwind-pay-edp-oss-v2.pdf` | Case framing, Shapiro ladder, bootcamp arc (Acts 1, 2, 5) |
 | `docs/asd-agentic-loop-v1.0.html` | Five layers, hop map, misconceptions, two seats (Acts 1, 3A) |
@@ -1254,18 +1265,25 @@ credit-that-flows, bundle logic).
 
 ## 8. Open items
 
-1. **Acts 3A, 3B, 4 and 5 slides** — not yet authored into
-   `workshop-dark-factory.html`. Acts 0–2 are the built reference for tone,
-   density, and component use. **Act 3A is next**, and it is mostly live
-   screens rather than slides, so its slide count will be small: the
-   ignition command, the split-screen layout, the lights-out concept, the
-   two seats, and the Converge/Task-Spec silhouettes.
-   *Note for Act 3B:* it inherits two obligations — the three-question
-   instrument panel from Act 1 slide 25, and the overpunch byte planted on
-   Act 2 slide 31 (`…1734E` accepted → `…1734D` defective).
+1. **Acts 4 and 5 slides** — not yet authored into
+   `workshop-dark-factory.html`. Acts 0–3B are the built reference for tone,
+   density, and component use. **Act 4 is next** (KurvPay, 20 min, gold) and
+   it is the easiest remaining act: the numbers exist in §5, the scar story
+   is written, and `docs/kurv-edp-v2.pdf` is the single source. Act 5 (30
+   min, purple) is the last one and it has two genuine unknowns — the Monday
+   workflows and the offer numbers.
+   *Note for Act 4:* the flywheel forward-reference on Act 1 slide 24
+   promises "~55–60 lessons distilled into 4 permanent skills" will be
+   counted here. Land it or cut the promise.
    *Note for Act 5:* the ladder recap must use Shapiro's real level names
    (see the Act 1 correction) and should reuse the slide-20 staircase so
-   the callback is visual, not just verbal.
+   the callback is visual, not just verbal. Act 3B slide 61 already gives the
+   room four free takeaways, so Act 5's "your Monday" beat must not repeat
+   them — pick different material.
+2. **Track B is unbuilt and out of reach for today.** A sixth file type
+   arriving live needs a Type 06 kit (~2 days). If it is ever prepared,
+   Act 3B slides 48–49 are the splice point. Recorded so the option is not
+   silently forgotten.
 3. **Monday workflows** — select the 2–3 to show in Act 5.
 4. **Offer screens** — price ladder + credit rule numbers for Act 5.
 5. **Schedule conflict** — internal 19h30–23h30 vs public 09h00–13h00

@@ -1,56 +1,117 @@
-# Inventory — what you received
+# The pack — what you received
 
-**This folder is declarative only. There is no code in it, and there will not
-be.** You receive a specification and proof of behaviour. You do not receive a
-translation — if you did, you would be porting, and the referee would be
-comparing a copy with its original.
+Everything below is **in this folder**. Open it, diff it, run against it. No
+implementation code was delivered: you get the specification, real inputs, the
+outputs the current system produces, one complete execution, and the shape of
+what you must hand back.
+
+```
+spec/type-05-merchant-fee-assessment/
+├── WORK-ORDER.md            the task, the guardrails, done-when
+├── INVENTORY.md             this file
+├── 01-specification/        the four contract YAMLs + the type README
+├── 02-raw-in/               5 raw source files, exactly as the source emits them
+├── 03-sanitized-out/        what the Java privacy boundary produces from them
+├── 04-reconciliation/       the approved totals for each accepted batch
+├── 05-rejections/           the approved refusals — including the source defect
+├── 06-legacy-execution/     ONE REAL RUN. 13 artifacts, produced 2026-07-25
+└── 07-deliverable-shape/    what a finished modernization looks like
+```
 
 ---
 
-## 1 · The specification — `contracts/types/05-merchant-fee-assessment/`
+## 01 · Specification
 
-Four files, four questions. This is the whole of what "correct" means.
+| File | Answers |
+|---|---|
+| `layout.yaml` | How do I read the bytes? Semicolon delimiter, decimal commas, localized dates, quoting, record grammar, `canonical_rejection_codes` |
+| `csv.yaml` | What do I emit? Column list, types, patterns, database target, natural key |
+| `privacy.yaml` | What must never leave? Restricted fields and their approved transformation |
+| `reconciliation.yaml` | How do I know it added up? Controls, procedure order, report relation, tolerances (**all zero**) |
+| `README.md` | Why this layout exists and what it exercises |
 
-| File | Lines | Answers |
-|---|---:|---|
-| `layout.yaml` | 134 | How do I read the bytes? Semicolon delimiter, decimal commas, localized dates, quoting, record grammar, `canonical_rejection_codes` |
-| `csv.yaml` | 45 | What do I emit? Sanitized columns, types, patterns, database target, natural key |
-| `privacy.yaml` | 62 | What must never leave? Restricted fields, approved transformations, prohibited destinations |
-| `reconciliation.yaml` | 111 | How do I know it added up? Controls, procedure order, report relation, tolerances (all zero), success criteria |
-| `README.md` | 71 | Why this layout exists and what it exercises |
+## 02 · Raw in — what the source sends
 
-## 2 · The oracle — `contracts/types/05-merchant-fee-assessment/main/`
+`valid-minimal.csv` · `valid-boundary.csv` · `rounding-half-up.csv` ·
+`malformed.csv` · **`df-source-005.csv`**
 
-Five inputs, and for every one of them the **approved output**. Human-reviewed,
-committed, and frozen. This is what will grade your work.
+Semicolon-delimited, decimal commas, UTF-8. Real restricted identifiers in the
+tax-id column — this is production-shaped synthetic data, treat it as sensitive.
 
-| Scenario | Input | Approved output |
-|---|---|---|
-| `valid-minimal` | `valid-minimal.csv` | `expected-sanitized.csv` · `expected-reconciliation.yaml` |
-| `valid-boundary` | `valid-boundary.csv` | `expected-valid-boundary-sanitized.csv` · `…-reconciliation.yaml` |
-| `rounding-half-up` | `rounding-half-up.csv` | `expected-rounding-half-up-sanitized.csv` · `…-reconciliation.yaml` |
-| `malformed` | `malformed.csv` | `expected-malformed-rejection.yaml` — must be **refused** |
-| **`DF-SOURCE-005`** | `df-source-005.csv` | `expected-df-source-005-finding.yaml` — must be **refused and attributed** |
+## 03 · Sanitized out — what the Java produces
 
-**`DF-SOURCE-005` is the important one.** The source declares an assessed fee of
-`0.99` where its own rows compute `1.00` under HALF_UP. You must reach `1.00`,
-**preserve the `0.99` exactly as published**, refuse the batch, and attribute the
-defect to the source system. Do not repair it. Repairing it destroys the evidence
-that something upstream is broken.
+The privacy boundary's output for each accepted batch. **This is the interface
+you must reproduce.** Tax identifiers masked, amounts at contract scale, columns
+in contract order.
 
-## 3 · Proof the legacy behaves this way
+Compare `02-raw-in/valid-minimal.csv` against
+`03-sanitized-out/valid-minimal.sanitized.csv` side by side. Every
+transformation between those two files is specified in `01-specification/`.
+Nothing there is discretionary.
 
-Not a document — a command. Run it before you build anything:
+## 04 · Reconciliation — the approved totals
+
+Per accepted batch: source count, staged count, applied count, gross, assessed
+fee, calculated fee, the deltas, and `status: MATCHED`. Byte-exact. These are
+what your Gold layer must reproduce.
+
+## 05 · Rejections — the approved refusals
+
+| File | Meaning |
+|---|---|
+| `malformed.rejection.yaml` | A grammar violation. Refused with a canonical code |
+| **`df-source-005.finding.yaml`** | **The source lied.** It declares an assessed fee its own rows contradict |
+
+`df-source-005` is the fixture that matters. The source declares `0.99`; the
+rows compute `1.00` under HALF_UP. You must reach `1.00`, **preserve the `0.99`
+exactly as published**, refuse the batch, and attribute the defect to the source
+system. **Do not repair it.** Repairing it destroys the evidence that something
+upstream is broken.
+
+## 06 · Legacy execution — one real run
+
+Batch `B202607230000401`, `valid-minimal`, executed 2026-07-25. Thirteen
+artifacts, not logs:
+
+| Artifact | Shows |
+|---|---|
+| `source-manifest.json` | What the source declared |
+| `raw-publication.json` · `raw-intake.json` | Transport, hashes, zone transitions |
+| `java-run.json` | What the Java computed vs what was declared |
+| `sanitized-csv.sha256` · `raw-file.sha256` | Byte identity of both sides |
+| `postgres-load.json` · `procedure-run.json` | The load and the governed procedures |
+| `postgres-diagnostic.json` | An **independent** SQL recomputation of the controls |
+| `reconciliation.json` | The reporting result |
+| `expected-diff.json` | The oracle's verdict |
+| `final-status.json` | The terminal outcome |
+
+Reproduce it yourself:
 
 ```bash
-make run TYPE=05 SCENARIO=valid-minimal     # accepted, reconciles MATCHED
+make run TYPE=05 SCENARIO=valid-minimal     # accepted, MATCHED
 make run TYPE=05 SCENARIO=DF-SOURCE-005     # refused, quarantined
 ```
 
-The legacy vertical is installed and running: the Java privacy boundary, the
-PostgreSQL loader, migrations `007`–`010`, the source generator, the independent
-oracle, and the workflow adapter. **You may read any of it. You may not modify
-any of it, and you may not port from it** — build from the specification above.
+## 07 · Deliverable shape — what you hand back
+
+Taken from a type that **is** already modernized, so there is no ambiguity about
+the target:
+
+| File | |
+|---|---|
+| `EXAMPLE-golden-match.json` | The referee's verdict. `resolved: true`, `unexplained_count: 0` |
+| `EXAMPLE-final-status.json` | The terminal outcome of a modern run |
+| `EXAMPLE-difference-adjudication-source-defect.json` | How a source defect is classified rather than netted out |
+
+Your Type 05 run must produce the same shapes:
+
+```json
+{ "batch_id": "B202607230000401", "outcome_class": "accepted",
+  "resolved": true, "unexplained_count": 0, "differences": [] }
+```
+
+and for the defect batch, a difference classified `CONFIRMED_SOURCE_DEFECT` —
+never `MODERN_DEFECT`, never absent.
 
 ---
 
@@ -59,26 +120,18 @@ any of it, and you may not port from it** — build from the specification above
 | | Status |
 |---|---|
 | `modern/ingestion/.../type05_*/` — model, parser, schema, writer, handler | ❌ **not built** |
-| `modern/dbt/models/bronze/` — detail + control | ❌ **not built** |
-| `modern/dbt/models/silver/` | ❌ **not built** |
-| `modern/dbt/models/gold/` — reconciliation at the legacy grain | ❌ **not built** |
+| `modern/dbt/models/{bronze,silver,gold}/` for this type | ❌ **not built** |
 | `modern/dbt/tests/assert_type05_*` — release gate, conservation, privacy, HALF_UP | ❌ **not built** |
 | `tests/modern/test_modern_type05.py` | ❌ **not built** |
-| `"05"` in `pipeline.py` (4 maps), `registration.py`, `service.py` | ❌ **not wired** |
-| `05` entries in `modern/dbt/models/*/schema.yml` and `sources.yml` | ❌ **not wired** |
-
-Prove it:
+| `"05"` in `pipeline.py`, `registration.py`, `service.py`, dbt schemas | ❌ **not wired** |
 
 ```bash
 ls modern/ingestion/src/northwind_pay/types/
-→ type01_card_settlement  type02_instant_payment_events
-  type03_payment_slip_settlement  type04_ted_transfer_settlement
+→ type01  type02  type03  type04       # four. not five.
 ```
-
-Four. Not five.
 
 ## The arithmetic
 
-**~5,800 lines of ground truth already exist. About 1,000 lines are missing.**
+**~5,800 lines of ground truth exist. About 1,000 lines are missing.**
 
 That thousand is the work. The other 5,800 is what will grade it.
