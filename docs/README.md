@@ -10,6 +10,7 @@ implementation without becoming a second contract.
 | [Dark Factory starting brief](../plans/dark-factory.md) | Exact next-session boundary and Type 01 first acceptance target |
 | [Modern target plan](../plans/modern.md) | Planned independent modern pipeline and its relationship to legacy and Dark Factory |
 | [Workshop run of show](workshop-run-of-show-v1.md) | Demonstration sequence and narrative |
+| [Dark Factory live demo script](workshop-dark-factory-demo.md) | Operator cheat-sheet for Acts 3A/3B, with verified commands and the corrected reveal |
 | [Type 01 verification map](../tests/README.md) | Every named Type 01 test surface and its shared infrastructure coverage |
 | [Java processor](../legacy/processor/README.md) | Raw-to-sanitized conversion and privacy boundary |
 | [PostgreSQL](../legacy/postgres/README.md) | Typed loading, procedures, and reconciliation |
