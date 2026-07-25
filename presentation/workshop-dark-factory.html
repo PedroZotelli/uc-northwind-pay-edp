@@ -3027,6 +3027,116 @@ digit   <span class="c">0 1 2 3 4 5 6 7 8 9</span>
     </div>
   </section>
 
+  <!-- S40a · THE WORK ORDER — what the customer actually handed over (demo card 05) -->
+  <section class="slide" data-act="ACT 3A" data-act-name="The work order" data-accent="cyan">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="width:100%;max-width:1740px;margin:0 auto;">
+      <div class="gradient-text" style="font-family:var(--font-display);font-style:italic;font-size:clamp(17px,1.9vw,26px);line-height:1.15;margin-bottom:6px;">before anything ignites — this is what arrived from the customer</div>
+      <h2 class="slide__heading" style="font-size:clamp(27px,4.1vw,54px);">A specification, an oracle, and one real execution. <span class="gradient-text">No implementation code.</span></h2>
+      <p class="slide__body" style="max-width:1300px;margin-top:clamp(9px,1.5vh,15px);font-size:clamp(15px,1.5vw,19.5px);">Thirty-six artefacts across seven folders. Everything needed to <b>judge</b> an answer, and nothing that hands one over. If the pack contained a translation, the referee would be comparing a copy against its original — which proves nothing at all.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.1vw,16px);margin-top:clamp(16px,2.8vh,30px);">
+        <div style="border:1px solid var(--border-bright);border-top:3px solid var(--cyan);border-radius:13px;background:linear-gradient(180deg,rgba(34,211,238,0.07),var(--surface) 62%);padding:clamp(13px,2vh,19px) clamp(11px,1.1vw,17px);">
+          <div style="font-family:var(--font-mono);font-size:9.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">01 · specification &nbsp;<b style="color:var(--text);">5</b></div>
+          <div style="font-family:var(--font-display);font-size:clamp(16px,1.6vw,22px);line-height:1.05;color:var(--text);">The contract YAMLs</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.12vw,15px);line-height:1.42;color:var(--text-dim);margin-top:7px;">Layout, rules, privacy, rounding. <b style="color:var(--text);font-weight:600;">HALF_UP, stated explicitly</b> — because Python's default is not.</p>
+        </div>
+        <div style="border:1px solid var(--border-bright);border-top:3px solid var(--accent);border-radius:13px;background:linear-gradient(180deg,rgba(74,158,255,0.07),var(--surface) 62%);padding:clamp(13px,2vh,19px) clamp(11px,1.1vw,17px);">
+          <div style="font-family:var(--font-mono);font-size:9.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">02–03 · in / out &nbsp;<b style="color:var(--text);">8</b></div>
+          <div style="font-family:var(--font-display);font-size:clamp(16px,1.6vw,22px);line-height:1.05;color:var(--text);">Raw in, sanitized out</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.12vw,15px);line-height:1.42;color:var(--text-dim);margin-top:7px;">Five real source files and what the privacy boundary produces from them. <b style="color:var(--text);font-weight:600;">Diff them and the spec is visible.</b></p>
+        </div>
+        <div style="border:1px solid rgba(212,175,55,0.4);border-top:3px solid var(--gold);border-radius:13px;background:linear-gradient(180deg,rgba(212,175,55,0.08),var(--surface) 62%);padding:clamp(13px,2vh,19px) clamp(11px,1.1vw,17px);">
+          <div style="font-family:var(--font-mono);font-size:9.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">04–05 · the oracle &nbsp;<b style="color:var(--text);">5</b></div>
+          <div class="gradient-gold" style="font-family:var(--font-display);font-size:clamp(16px,1.6vw,22px);line-height:1.05;">The approved answers</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.12vw,15px);line-height:1.42;color:var(--text-dim);margin-top:7px;">Reconciliation totals and the approved <b style="color:var(--gold);font-weight:600;">refusals</b>. This is the part that outranks both implementations.</p>
+        </div>
+        <div style="border:1px solid rgba(63,185,80,0.45);border-top:3px solid var(--green);border-radius:13px;background:linear-gradient(180deg,rgba(63,185,80,0.09),var(--surface) 62%);padding:clamp(13px,2vh,19px) clamp(11px,1.1vw,17px);">
+          <div style="font-family:var(--font-mono);font-size:9.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">06–07 · proof &nbsp;<b style="color:var(--text);">16</b></div>
+          <div class="gradient-green" style="font-family:var(--font-display);font-size:clamp(16px,1.6vw,22px);line-height:1.05;">One real run, 13 artefacts</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.12vw,15px);line-height:1.42;color:var(--text-dim);margin-top:7px;">A live legacy execution end to end, plus the shape a finished vertical takes. <b style="color:var(--text);font-weight:600;">Evidence, not a description.</b></p>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:clamp(15px,2.6vh,26px);">
+        <div class="callout gold" style="margin:0;">
+          <div class="co-kicker">the question I ask before I let it start</div>
+          <div class="co-body">Not <i>“is this a good spec?”</i> — <b>“is this adjudicatable?”</b> Can something other than the agent decide whether the answer is right? If the answer is no, there is nothing to automate yet. <b>No oracle, no build.</b></div>
+        </div>
+        <div class="callout accent" style="margin:0;">
+          <div class="co-kicker">what is deliberately absent</div>
+          <div class="co-body">Zero <span style="font-family:var(--font-mono);font-size:0.92em;">.py</span>, zero <span style="font-family:var(--font-mono);font-size:0.92em;">.sql</span> in the pack. The legacy implementation exists and may be read for behaviour — <b>porting it reproduces its defects and then calls the result parity.</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S40b · FOUR OF FIVE — the gap on the floor, before the room is told (demo card 04) -->
+  <section class="slide" data-act="ACT 3A" data-act-name="Four of five" data-accent="cyan">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="width:100%;max-width:1700px;margin:0 auto;">
+      <div class="gradient-text" style="font-family:var(--font-display);font-style:italic;font-size:clamp(17px,1.9vw,26px);line-height:1.15;margin-bottom:6px;">say nothing here for ten seconds — let them find it</div>
+      <h2 class="slide__heading" style="font-size:clamp(28px,4.3vw,56px);">The legacy runs five types. <span class="gradient-text">The modern floor has four.</span></h2>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.1vw,17px);margin-top:clamp(20px,3.4vh,36px);">
+        <div style="border:1px solid rgba(63,185,80,0.45);border-radius:14px;background:linear-gradient(180deg,rgba(63,185,80,0.10),var(--surface) 64%);box-shadow:0 0 30px -16px rgba(63,185,80,0.5);padding:clamp(15px,2.3vh,22px) clamp(11px,1.1vw,17px);min-height:clamp(150px,20vh,210px);display:flex;flex-direction:column;">
+          <div class="gradient-green" style="font-family:var(--font-display);font-size:clamp(30px,3.4vw,48px);line-height:1;">01</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.2vw,16px);line-height:1.35;color:var(--text);margin-top:9px;">Card settlement</div>
+          <div style="margin-top:auto;padding-top:10px;"><span class="pill green">Gold</span></div>
+        </div>
+        <div style="border:1px solid rgba(63,185,80,0.45);border-radius:14px;background:linear-gradient(180deg,rgba(63,185,80,0.10),var(--surface) 64%);box-shadow:0 0 30px -16px rgba(63,185,80,0.5);padding:clamp(15px,2.3vh,22px) clamp(11px,1.1vw,17px);min-height:clamp(150px,20vh,210px);display:flex;flex-direction:column;">
+          <div class="gradient-green" style="font-family:var(--font-display);font-size:clamp(30px,3.4vw,48px);line-height:1;">02</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.2vw,16px);line-height:1.35;color:var(--text);margin-top:9px;">Instant payment events</div>
+          <div style="margin-top:auto;padding-top:10px;"><span class="pill green">Gold</span></div>
+        </div>
+        <div style="border:1px solid rgba(63,185,80,0.45);border-radius:14px;background:linear-gradient(180deg,rgba(63,185,80,0.10),var(--surface) 64%);box-shadow:0 0 30px -16px rgba(63,185,80,0.5);padding:clamp(15px,2.3vh,22px) clamp(11px,1.1vw,17px);min-height:clamp(150px,20vh,210px);display:flex;flex-direction:column;">
+          <div class="gradient-green" style="font-family:var(--font-display);font-size:clamp(30px,3.4vw,48px);line-height:1;">03</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.2vw,16px);line-height:1.35;color:var(--text);margin-top:9px;">Payment slip settlement</div>
+          <div style="margin-top:auto;padding-top:10px;"><span class="pill green">Gold</span></div>
+        </div>
+        <div style="border:1px solid rgba(63,185,80,0.45);border-radius:14px;background:linear-gradient(180deg,rgba(63,185,80,0.10),var(--surface) 64%);box-shadow:0 0 30px -16px rgba(63,185,80,0.5);padding:clamp(15px,2.3vh,22px) clamp(11px,1.1vw,17px);min-height:clamp(150px,20vh,210px);display:flex;flex-direction:column;">
+          <div class="gradient-green" style="font-family:var(--font-display);font-size:clamp(30px,3.4vw,48px);line-height:1;">04</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.2vw,16px);line-height:1.35;color:var(--text);margin-top:9px;">TED transfer settlement</div>
+          <div style="margin-top:auto;padding-top:10px;"><span class="pill green">Gold</span></div>
+        </div>
+        <div style="border:2px dashed rgba(248,81,73,0.55);border-radius:14px;background:repeating-linear-gradient(135deg,rgba(248,81,73,0.05) 0 10px,transparent 10px 20px);padding:clamp(15px,2.3vh,22px) clamp(11px,1.1vw,17px);min-height:clamp(150px,20vh,210px);display:flex;flex-direction:column;">
+          <div class="gradient-red" style="font-family:var(--font-display);font-size:clamp(30px,3.4vw,48px);line-height:1;opacity:0.85;">05</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.2vw,16px);line-height:1.35;color:var(--text-dim);margin-top:9px;">Merchant fee assessment</div>
+          <div style="margin-top:auto;padding-top:10px;"><span class="pill red">nothing built</span></div>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:clamp(18px,3vh,30px);">
+        <div class="callout accent" style="margin:0;">
+          <div class="co-kicker">what already exists for 05</div>
+          <div class="co-body">Contract and oracle · migrations <span style="font-family:var(--font-mono);font-size:0.92em;">007</span>–<span style="font-family:var(--font-mono);font-size:0.92em;">010</span> applied · the Java privacy boundary · the loader · the generator. <b>The legacy half is done and live.</b> The modern half is an empty seat.</div>
+        </div>
+        <div class="callout red" style="margin:0;">
+          <div class="co-kicker">and the thing hiding in it</div>
+          <div class="co-body">One batch in that pack declares an assessed fee of <b>0.99</b> where its own detail rows compute <b>1.00</b>. Nobody has told the factory this. <b>Finding it is the job.</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S40c · THE INVOCATION — the live /fab handoff (demo card 06). Alternative to S41: see note. -->
+  <section class="slide slide--silent" data-act="ACT 3A" data-act-name="The invocation" data-accent="cyan">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1500px;">
+      <div class="kicker cyan" style="margin:0 auto clamp(18px,3vh,32px);">the last thing a human does for the next hour</div>
+      <div class="code-block" data-lang="invocation" style="text-align:left;font-size:clamp(13px,1.5vw,21px);line-height:1.9;padding:clamp(26px,4vh,44px) clamp(24px,2.6vw,46px);border-color:rgba(34,211,238,0.4);box-shadow:0 0 70px -22px rgba(34,211,238,0.5);">
+<span class="c">&gt;</span> <span class="k">/fab</span> <span class="r">translate</span> <span class="n">spec/type-05-merchant-fee-assessment</span>
+</div>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.5vw,24px);margin-top:clamp(20px,3.2vh,34px);">
+        <span class="pill cyan">one line</span>
+        <span class="pill green">zero keystrokes after this</span>
+        <span class="pill gold">auto-allow on</span>
+      </div>
+      <div class="slide__heading" style="font-size:clamp(28px,4.4vw,60px);margin-top:clamp(24px,4vh,44px);">Now I <span class="gradient-text">step back</span> — and stay back.</div>
+      <p class="slide__body" style="max-width:1060px;margin:clamp(18px,3vh,30px) auto 0;font-size:clamp(15px,1.65vw,21px);text-wrap:balance;">If I am going to claim nobody is in the loop, I have to actually not be in the loop. <b>Including the parts that go wrong</b> — especially those.</p>
+    </div>
+  </section>
+
   <!-- S41 · THE IGNITION — one command, ceremonial -->
   <section class="slide slide--silent" data-act="ACT 3A" data-act-name="Ignition" data-accent="cyan">
     <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
@@ -4869,7 +4979,7 @@ a lesson earns a callable skill when
       <div class="slide__display" style="font-size:clamp(34px,5.4vw,84px);line-height:1.04;">The lights are off.</div>
       <div class="slide__display gradient-purple" style="font-size:clamp(34px,5.4vw,84px);line-height:1.04;margin-top:clamp(8px,1.4vh,16px);">The factory is still running.</div>
       <p class="slide__body" style="max-width:1000px;margin:clamp(26px,4vh,42px) auto 0;font-size:clamp(16px,1.75vw,23px);text-wrap:balance;">Right now the real one is in production, doing this for money — with nobody watching. <b>Thank you for watching this one.</b></p>
-      <span style="display:block;font-family:var(--font-mono);font-size:clamp(9px,0.88vw,11px);letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);opacity:0.7;margin-top:clamp(24px,3.8vh,40px);">Dark Factory Operation · Engenharia de Dados Academy · 25.07.2026 · deck v1 · 80 slides</span>
+      <span style="display:block;font-family:var(--font-mono);font-size:clamp(9px,0.88vw,11px);letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);opacity:0.7;margin-top:clamp(24px,3.8vh,40px);">Dark Factory Operation · Engenharia de Dados Academy · 25.07.2026 · deck v1 · 83 slides</span>
     </div>
   </section>
 
