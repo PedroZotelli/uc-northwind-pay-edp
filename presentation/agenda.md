@@ -9,7 +9,7 @@
 > **Supersedes** `docs/workshop-run-of-show-v1.md` (Run of Show v2) and
 > `docs/content.md` (the standalone master content document), which were
 > merged into this file. The operator cheat-sheet
-> [`demo-script.md`](demo-script.md)
+> [`demo.md`](demo.md)
 > stays separate: it holds the verified commands and their real output
 > for Acts 3A/3B. This document is the narrative; that one is the
 > keyboard.
@@ -379,7 +379,7 @@ cent, two detail rows. All five types at the close.
 **Beats.** ~18 min of the 45 is the seven-beat terminal sequence; the
 rest is the trail-walk, the gates, and the AHA breathing room. Exact
 commands and their verified output live in
-[`demo-script.md`](demo-script.md) —
+[`demo.md`](demo.md) —
 keep it on the second screen.
 
 1. **Walk the trail it already left.** Task-spec picked up, plan

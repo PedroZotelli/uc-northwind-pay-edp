@@ -38,6 +38,14 @@ Four mechanisms, in increasing order of strength:
 2. **SFTP** authenticates as the `operator` role and the adapter exposes only
    `listdir`/`stat`/`open(mode="r")`. It never constructs a legacy
    `SftpClient`, which has `put`, `rename`, and `remove`.
+
+   To be precise about what this does *not* buy: `operator` is the **widest**
+   SFTP role, not the narrowest. It holds group write on all eight zones
+   (`2770`) because the archive step needs it, and it is chosen here only
+   because it is the one role that can *see* every zone. The read-only
+   guarantee therefore rests on mechanism 4 below — the AST test — and not on
+   the operating system. An OS-enforced version would need a fifth role with
+   read-only zone membership; see [`infra/README.md`](../../infra/README.md).
 3. **The filesystem** is read through a single `_read_bytes` helper; nothing in
    `darkfactory.observations` opens a path for writing, and no module in the
    package imports `os.remove`, `shutil`, or `Path.write_*`.

@@ -3,6 +3,13 @@
 -- Gold: governed Type 04 reconciliation, one row per (batch_id, currency),
 -- at the legacy reporting grain. Transfers and returns are counted separately
 -- because the contract's controls distinguish them.
+--
+-- CONSTANT COLUMNS: `return_count_delta`, `gross_amount_delta`,
+-- `return_amount_delta`, and `reject_count` are literals, and the `source_*`
+-- return and gross columns are aliases of their `staged_*` counterparts. They
+-- exist so the grain matches the legacy report. Never assert on them. Real
+-- deltas are `transfer_count_delta` (note: not `count_delta`) and
+-- `net_amount_delta`.
 
 with control as (
     select * from {{ ref('bronze_ted_transfer_control') }}

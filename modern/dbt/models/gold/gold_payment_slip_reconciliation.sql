@@ -2,6 +2,13 @@
 
 -- Gold: governed Type 03 reconciliation, one row per (batch_id, currency),
 -- at the legacy reporting grain.
+--
+-- CONSTANT COLUMNS: `face_amount_delta`, `discount_amount_delta`,
+-- `fee_amount_delta`, `orphan_segment_count_delta`, and `reject_count` are
+-- literals, and the three `source_*_amount` columns are aliases of their
+-- `staged_*` counterparts. They exist so the grain matches the legacy report.
+-- Never assert on them. Real deltas are `count_delta` and `net_amount_delta`;
+-- per-settlement arithmetic is proven in assert_type03_privacy_and_net.
 
 with control as (
     select * from {{ ref('bronze_payment_slip_control') }}

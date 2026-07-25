@@ -2,7 +2,15 @@
 
 - Date: 2026-07-24
 - Phase: 1, Step 1
-- Status: accepted
+- Status: accepted; packaging superseded by
+  [DR-010](010-factory-rename-and-flat-source-layout.md)
+
+> **Superseded in part.** The directory is now `factory/` and its source is flat
+> under `factory/src/` with no `darkfactory` package layer. Every path below
+> reads as written on 2026-07-24 and is left unchanged, because a decision
+> record is a dated account of what was decided, not navigation. The **ownership
+> rules in this record still stand in full**: the component owns nothing outside
+> itself, writes to no other tree, and runs on the legacy runner's environment.
 
 ## Context
 

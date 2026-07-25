@@ -8,10 +8,10 @@ from decimal import Decimal
 from pathlib import Path
 
 from northwind_pay.common import privacy
-from northwind_pay.types.type03_payment_slip import parser as type03_parser
-from northwind_pay.types.type03_payment_slip import schema as type03_schema
-from northwind_pay.types.type04_ted_transfer import parser as type04_parser
-from northwind_pay.types.type04_ted_transfer import schema as type04_schema
+from northwind_pay.types.type03_payment_slip_settlement import parser as type03_parser
+from northwind_pay.types.type03_payment_slip_settlement import schema as type03_schema
+from northwind_pay.types.type04_ted_transfer_settlement import parser as type04_parser
+from northwind_pay.types.type04_ted_transfer_settlement import schema as type04_schema
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 TYPE03 = REPOSITORY_ROOT / "contracts" / "types" / "03-payment-slip-settlement" / "main"

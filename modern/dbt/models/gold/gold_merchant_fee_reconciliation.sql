@@ -2,6 +2,13 @@
 
 -- Gold: governed Type 05 reconciliation, one row per (batch_id, currency).
 -- Columns and deltas mirror the legacy reporting grain exactly.
+--
+-- CONSTANT COLUMNS: `gross_amount_delta`, `calculated_fee_delta`, and
+-- `reject_count` are literals, and `source_gross_amount` /
+-- `source_calculated_fee` are aliases of their `staged_*` counterparts. They
+-- exist so the grain matches the legacy report. Never assert on them. Real
+-- deltas are `count_delta`, `assessed_fee_delta`, and
+-- `assessment_calculation_delta` — the last being the HALF_UP rounding proof.
 
 with control as (
     select * from {{ ref('bronze_merchant_fee_control') }}

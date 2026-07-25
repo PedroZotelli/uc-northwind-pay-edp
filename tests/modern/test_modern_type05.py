@@ -9,7 +9,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from northwind_pay.common.documents import DocumentError, mask_cnpj, validate_cnpj
-from northwind_pay.types.type05_merchant_fee import parser, schema, writer
+from northwind_pay.types.type05_merchant_fee_assessment import parser, schema, writer
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 MAIN = REPOSITORY_ROOT / "contracts" / "types" / "05-merchant-fee-assessment" / "main"

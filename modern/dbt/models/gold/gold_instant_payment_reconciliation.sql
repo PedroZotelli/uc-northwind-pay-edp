@@ -2,6 +2,13 @@
 
 -- Gold: governed Type 02 reconciliation, one row per (batch_id, currency),
 -- at the legacy reporting grain.
+--
+-- CONSTANT COLUMNS: `credit_amount_delta`, `debit_amount_delta`,
+-- `returned_count_delta`, and `reject_count` are literals, and
+-- `source_credit_amount` / `source_debit_amount` / `source_returned_count` are
+-- aliases of their `staged_*` counterparts — so those pairs are self-equal by
+-- construction. They exist so the grain matches the legacy report. Never
+-- assert on them. Real deltas are `count_delta` and `net_amount_delta`.
 
 with control as (
     select * from {{ ref('bronze_instant_payment_control') }}

@@ -6,6 +6,11 @@
 -- compares like with like. source_* is the source-owned declaration, staged_*
 -- is what Bronze holds, applied_* is what Silver holds. Deltas are applied
 -- minus source, exactly as the legacy reconciliation contract defines them.
+--
+-- CONSTANT COLUMN: `reject_count` is literal 0. It exists so the grain matches
+-- the legacy report; it is not a computed comparison. Never assert on it — the
+-- assertion would pass without testing anything. Real deltas for this type are
+-- `count_delta` and `amount_delta`; those are what the release gate checks.
 
 with control as (
     select * from {{ ref('bronze_card_settlement_control') }}

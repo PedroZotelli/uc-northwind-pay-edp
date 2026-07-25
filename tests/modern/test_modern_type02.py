@@ -10,7 +10,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from northwind_pay.common import privacy
-from northwind_pay.types.type02_instant_payment import parser, schema
+from northwind_pay.types.type02_instant_payment_events import parser, schema
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 MAIN = REPOSITORY_ROOT / "contracts" / "types" / "02-instant-payment-events" / "main"

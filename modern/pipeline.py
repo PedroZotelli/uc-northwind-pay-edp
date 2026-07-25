@@ -36,6 +36,34 @@ EVIDENCE_ROOT = REPOSITORY_ROOT / "evidence" / "modern"
 DBT_DIR = REPOSITORY_ROOT / "modern" / "dbt"
 CONTRACTS = REPOSITORY_ROOT / "contracts" / "types"
 
+
+def _load_dotenv() -> None:
+    """Populate the process environment from `.env`, exactly as legacy does.
+
+    `legacy/runner/config.py` loads `.env` for the legacy stack; modern needs
+    the same and previously did not. `NWP_TOKENIZATION_KEY` is read through
+    `os.environ`, so without this every valid batch quarantines with
+    `PRIVACY_VIOLATION` at the validate stage — a failure that reads like a
+    privacy defect and is actually a missing environment file.
+
+    `setdefault` means an explicit export still wins over the file.
+    """
+
+    dotenv = REPOSITORY_ROOT / ".env"
+    if not dotenv.is_file():
+        return
+    for line in dotenv.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        name, value = stripped.split("=", 1)
+        os.environ.setdefault(name.strip(), value.strip())
+
+
+# Imported by both this runner and the Dagster module, so one call covers every
+# entry point into the modern pipeline.
+_load_dotenv()
+
 # Canonical scenarios per type, in the order the legacy suites run them.
 SCENARIOS: Mapping[str, tuple[tuple[str, str], ...]] = {
     "01": (
@@ -181,19 +209,19 @@ def _handler(type_number: str):
 
         return type01
     if type_number == "02":
-        from northwind_pay.types.type02_instant_payment import handler as type02
+        from northwind_pay.types.type02_instant_payment_events import handler as type02
 
         return type02
     if type_number == "03":
-        from northwind_pay.types.type03_payment_slip import handler as type03
+        from northwind_pay.types.type03_payment_slip_settlement import handler as type03
 
         return type03
     if type_number == "04":
-        from northwind_pay.types.type04_ted_transfer import handler as type04
+        from northwind_pay.types.type04_ted_transfer_settlement import handler as type04
 
         return type04
     if type_number == "05":
-        from northwind_pay.types.type05_merchant_fee import handler as type05
+        from northwind_pay.types.type05_merchant_fee_assessment import handler as type05
 
         return type05
     raise SystemExit(f"type {type_number} is not implemented in the modern pipeline")
@@ -333,39 +361,27 @@ def _yaml(path: Path) -> dict[str, Any]:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
-    """Read the legacy reconciliation observation read-only, if it is available."""
+def _legacy_row(statement: str, parameters: tuple[Any, ...]) -> dict[str, Any] | None:
+    """Read one row from the legacy database, read-only, or fail loudly.
 
-    relation = {
-        "01": "reporting.card_settlement_reconciliation",
-        "02": "reporting.instant_payment_reconciliation",
-        "03": "reporting.payment_slip_settlement_reconciliation",
-        "04": "reporting.ted_transfer_reconciliation",
-        "05": "reporting.merchant_fee_reconciliation",
-    }[type_number]
+    Every legacy observation goes through here so the read-only session and the
+    refusal-to-degrade rule are stated once rather than per call site.
+    """
+
     import psycopg
 
-    dotenv = REPOSITORY_ROOT / ".env"
-    settings: dict[str, str] = {}
-    if dotenv.is_file():
-        for line in dotenv.read_text(encoding="utf-8").splitlines():
-            if "=" in line and not line.strip().startswith("#"):
-                name, value = line.split("=", 1)
-                settings[name.strip()] = value.strip()
     try:
         with psycopg.connect(
-            host=settings.get("POSTGRES_HOST", "127.0.0.1"),
-            port=int(settings.get("POSTGRES_PORT", "54329")),
-            dbname=settings.get("POSTGRES_DB", "northwind_legacy"),
-            user=settings.get("POSTGRES_USER", "northwind_loader"),
-            password=settings.get("POSTGRES_PASSWORD", ""),
+            host=os.environ.get("POSTGRES_HOST", "127.0.0.1"),
+            port=int(os.environ.get("POSTGRES_PORT", "54329")),
+            dbname=os.environ.get("POSTGRES_DB", "northwind_legacy"),
+            user=os.environ.get("POSTGRES_USER", "northwind_loader"),
+            password=os.environ.get("POSTGRES_PASSWORD", ""),
             connect_timeout=5,
         ) as connection:
             connection.read_only = True
             with connection.cursor() as cursor:
-                cursor.execute(
-                    f"select * from {relation} where batch_id = %s", (batch_id,)
-                )
+                cursor.execute(statement, parameters)
                 row = cursor.fetchone()
                 if row is None:
                     return None
@@ -379,6 +395,36 @@ def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
             "the legacy runtime is not reachable for golden-match; deploy it "
             "or pass --skip-legacy-comparison explicitly"
         ) from exc
+
+
+def _legacy_reporting(batch_id: str, type_number: str) -> dict[str, Any] | None:
+    """Read the legacy reconciliation observation read-only, if it is available."""
+
+    relation = {
+        "01": "reporting.card_settlement_reconciliation",
+        "02": "reporting.instant_payment_reconciliation",
+        "03": "reporting.payment_slip_settlement_reconciliation",
+        "04": "reporting.ted_transfer_reconciliation",
+        "05": "reporting.merchant_fee_reconciliation",
+    }[type_number]
+    return _legacy_row(f"select * from {relation} where batch_id = %s", (batch_id,))
+
+
+def _legacy_terminal_status(batch_id: str) -> dict[str, Any] | None:
+    """Read the terminal outcome legacy actually recorded for a rejected batch.
+
+    This is the legacy-parity half of a rejected comparison. It must be read
+    from `control.batches`, never reconstructed from the contract: a synthesized
+    observation makes the legacy checks compare the contract with itself.
+    """
+
+    row = _legacy_row(
+        "select status, failure_code from control.batches where batch_id = %s",
+        (batch_id,),
+    )
+    if row is None:
+        return None
+    return {"status": row["status"], "code": row["failure_code"] or ""}
 
 
 def _modern_records(batch_id: str) -> list[dict[str, Any]]:
@@ -457,10 +503,15 @@ def compare(
             )
         else:
             expectation = _yaml(main / REJECTION_ARTIFACT[type_number][scenario])
-            legacy_final = {
-                "status": expectation.get("expected_status"),
-                "code": expectation.get("expected_code"),
-            }
+            if skip_legacy:
+                legacy_final = None
+            else:
+                legacy_final = _legacy_terminal_status(batch_id)
+                if legacy_final is None:
+                    raise SystemExit(
+                        f"legacy has no control.batches row for {batch_id}; "
+                        "golden-match cannot claim terminal parity"
+                    )
             differences, checks = golden_match.compare_rejection(
                 outcome,
                 legacy_final,

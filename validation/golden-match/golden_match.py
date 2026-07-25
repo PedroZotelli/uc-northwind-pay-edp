@@ -19,7 +19,7 @@ import csv
 import io
 import json
 from dataclasses import dataclass, field
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -113,7 +113,27 @@ class Comparison:
 
 
 def _money(value: object) -> str:
-    return f"{Decimal(str(value)):.2f}"
+    """Render an exact two-place money lexeme, refusing to repair one.
+
+    The previous implementation was `f"{Decimal(str(value)):.2f}"`, which pads
+    and rounds — and rounds ROUND_HALF_EVEN, not the contract's HALF_UP, so
+    `173.445` became `173.44` where the contract says `173.45`.
+
+    Both behaviours are wrong here for the same reason: a value that is not
+    already exact at two places is a *difference*, and quietly normalizing it is
+    the tolerance this module's docstring says does not exist.
+    `validation/oracle/canonical.py` states the same rule for the legacy
+    oracles: referees compare observations, they never repair them.
+    """
+
+    number = Decimal(str(value))
+    exact = number.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    if exact != number:
+        raise GoldenMatchError(
+            "money value is not exact at two decimal places and golden-match "
+            "will not round it"
+        )
+    return f"{exact:.2f}"
 
 
 def _at_scale(value: Decimal, reference: str) -> str:
@@ -242,7 +262,7 @@ def compare_reconciliation(
 
 def compare_rejection(
     modern_outcome: Mapping[str, Any],
-    legacy_final_status: Mapping[str, Any],
+    legacy_final_status: Mapping[str, Any] | None,
     contract_expectation: Mapping[str, Any],
     *,
     batch_id: str,
@@ -251,15 +271,35 @@ def compare_rejection(
 
     Inventing empty rows so that a rejected batch can be "compared like a
     successful one" would hide the difference that actually matters.
+
+    ``legacy_final_status`` must be a **live legacy observation** — the row this
+    batch left behind in ``control.batches`` — or ``None`` when the caller has
+    explicitly opted out of contacting legacy. It must never be synthesized from
+    ``contract_expectation``: doing so makes ``legacy_matches_contract_*`` compare
+    the contract with itself, so the checks pass by construction and the emitted
+    differences claim a legacy reference that was never read.
     """
 
     differences: list[Difference] = []
     modern_status = str(modern_outcome.get("status", ""))
     modern_code = str(modern_outcome.get("code", ""))
-    legacy_status = str(legacy_final_status.get("status", ""))
-    legacy_code = str(legacy_final_status.get("code", ""))
     expected_status = str(contract_expectation.get("expected_status", ""))
     expected_code = str(contract_expectation.get("expected_code", ""))
+
+    checks = {
+        "modern_matches_contract_status": modern_status == expected_status,
+        "modern_produced_no_parquet": modern_outcome.get("parquet_sha256") is None,
+        "modern_produced_no_rows": int(modern_outcome.get("record_count", 0)) == 0,
+    }
+
+    if legacy_final_status is None:
+        # Degrade loudly, not silently. The business-correctness half above still
+        # holds; the legacy-parity half is recorded as not asked.
+        checks["legacy_terminal_comparison_skipped_by_request"] = True
+        return differences, checks
+
+    legacy_status = str(legacy_final_status.get("status", ""))
+    legacy_code = str(legacy_final_status.get("code", ""))
 
     if modern_status != legacy_status:
         differences.append(
@@ -280,13 +320,9 @@ def compare_rejection(
             )
         )
 
-    checks = {
-        "modern_matches_contract_status": modern_status == expected_status,
-        "legacy_matches_contract_status": legacy_status == expected_status,
-        "legacy_matches_contract_code": legacy_code == expected_code,
-        "modern_produced_no_parquet": modern_outcome.get("parquet_sha256") is None,
-        "modern_produced_no_rows": int(modern_outcome.get("record_count", 0)) == 0,
-    }
+    checks["legacy_terminal_observed"] = True
+    checks["legacy_matches_contract_status"] = legacy_status == expected_status
+    checks["legacy_matches_contract_code"] = legacy_code == expected_code
 
     # The declared-versus-computed disagreement itself is the source defect, and
     # both systems preserving it is the correct outcome rather than a difference.

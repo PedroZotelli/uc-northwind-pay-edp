@@ -24,7 +24,7 @@ own folder. This page is the map to all of it.
 | Document | Use it for |
 |---|---|
 | [Master content & run of show](../presentation/agenda.md) | The single narrative source: act order, timings, beats, key lines, numbers, quotes, and the rehearsal checklist |
-| [Live demo script](../presentation/demo-script.md) | Operator cheat-sheet for Acts 3A/3B — verified commands, the corrected reveal, and the failure protocol |
+| [Live demo script](../presentation/demo.md) | Operator cheat-sheet for Acts 3A/3B — verified commands, the corrected reveal, and the failure protocol |
 
 ## Component guides — each folder documents itself
 
@@ -97,7 +97,7 @@ or a memory points at one of these, this is where it went:
 | Was | Now |
 |---|---|
 | `docs/content.md`, `docs/workshop-run-of-show-v1.md` | [`presentation/agenda.md`](../presentation/agenda.md) — merged into one narrative source |
-| `docs/workshop-dark-factory-demo.md` | [`presentation/demo-script.md`](../presentation/demo-script.md) — beside the agenda it serves |
+| `docs/workshop-dark-factory-demo.md` | [`presentation/demo.md`](../presentation/demo.md) — beside the agenda it serves |
 | `plans/dark-factory.md` (the old starting brief) | Retired. Mandate + first acceptance target → [DR-011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md); standing boundaries → [`plans/dark-factory.md`](../plans/dark-factory.md) §9, which is now the doctrine document under that name |
 | `plans/df-run-journal.md` | [`docs/decisions/run-journal-2026-07-24.md`](decisions/run-journal-2026-07-24.md) — filed with the decisions it is evidence for |
 | Developer, operator, and standalone architecture docs | [`plans/legacy.md`](../plans/legacy.md) |
