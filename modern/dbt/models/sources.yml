@@ -13,12 +13,6 @@ sources:
         description: >-
           Per-batch controls published by the writer. Carries the source-owned
           declaration unchanged, even when it is wrong.
-      - name: merchant_fee_assessment
-        description: One privacy-safe Type 05 fee assessment per source row.
-      - name: merchant_fee_assessment_control
-        description: >-
-          Per-batch Type 05 controls published by the writer, carrying the
-          source-owned declaration unchanged.
       - name: instant_payment_event
         description: One privacy-safe Type 02 event per source record.
       - name: instant_payment_event_control

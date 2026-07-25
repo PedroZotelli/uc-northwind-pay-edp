@@ -29,7 +29,7 @@ DF_DEFAULT_ROOTS := .runtime/e2e-evidence,.runtime/e2e-type02-evidence,.runtime/
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
 	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
-	df-manifest df-check df-detect df-accept \
+	df-manifest df-check df-detect df-accept retool \
 	modern-init modern-check modern-run modern-dbt modern-rebuild modern-dagster modern-api
 
 help: ## List supported targets, compatibility aliases, and input variables.
@@ -224,7 +224,7 @@ run-type: run ## Compatibility alias for run.
 
 run-file: ## Run one explicit typed FILE with sibling checksum and manifest.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE for run-file must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
+		*) echo "TYPE for run-file must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
 	esac
 	@test -n "$(FILE)" || { echo "set FILE=<raw-file-path>" >&2; exit 2; }
 	@$(RUNNER_PYTHON) legacy/runner/run_type.py \
@@ -292,7 +292,7 @@ df-check: ## Run Dark Factory contract, unit, and security suites plus strict ty
 
 df-detect: ## Run the detector for one TYPE against a deployed legacy runtime.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE for df-detect must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
+		*) echo "TYPE for df-detect must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
 	esac
 	@test -n "$(LEGACY_EVIDENCE)" || { echo "set LEGACY_EVIDENCE=<path>" >&2; exit 2; }
 	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m cli \
@@ -300,7 +300,7 @@ df-detect: ## Run the detector for one TYPE against a deployed legacy runtime.
 		--legacy-evidence-root "$(LEGACY_EVIDENCE)" \
 		--evidence-root "$(DF_EVIDENCE)"
 
-df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all five.
+df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all four.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
@@ -308,6 +308,36 @@ df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all five
 		--type "$(TYPE)" \
 		--legacy-evidence-root "$(if $(LEGACY_EVIDENCE),$(LEGACY_EVIDENCE),$(DF_DEFAULT_ROOTS))" \
 		--evidence-root "$(DF_EVIDENCE)"
+
+retool: ## Retool the line for a docked type: print the work order and the gates.
+	@test -d "spec/type-$(TYPE)-"* 2>/dev/null || { \
+		echo "no docked kit for TYPE=$(TYPE) under spec/" >&2; exit 2; }
+	@echo "=============================================================="
+	@echo " RETOOL  —  type $(TYPE)"
+	@echo "=============================================================="
+	@echo
+	@echo "The line is being retooled for a new part. The kit is docked in"
+	@echo "spec/ and is NOT installed. Nothing downstream of the sanitized"
+	@echo "CSV exists for this type."
+	@echo
+	@ls -1 spec/type-$(TYPE)-*/
+	@echo
+	@echo "--- current state -------------------------------------------"
+	@printf "  modern verticals built : "
+	@ls -1 modern/ingestion/src/northwind_pay/types/ 2>/dev/null \
+		| grep -c '^type' || echo 0
+	@printf "  this type installed    : "
+	@test -d "contracts/types/$(TYPE)-"* 2>/dev/null \
+		&& echo "yes" || echo "NO  <- start here"
+	@echo
+	@echo "--- the loop ------------------------------------------------"
+	@echo "  act    : make run / make modern-run / make modern-dbt"
+	@echo "  observe: evidence/modern/<batch>/*.json"
+	@echo "  gate   : golden-match resolved && unexplained_count == 0"
+	@echo "  halt   : privacy leak | frozen write | unpassable gate"
+	@echo
+	@echo "--- work order ----------------------------------------------"
+	@cat spec/type-$(TYPE)-*/WORK-ORDER.md
 
 modern-init: ## Create the modern virtual environment from pinned requirements.
 	@$(PYTHON) -m venv $(MODERN_VENV)

@@ -1,4 +1,4 @@
-# Operação Dark Factory — Master Content & Run of Show
+# Dark Factory Operation — Master Content & Run of Show
 
 > **Purpose.** The single source of truth for the workshop: the run of
 > show (act order, durations, gates) *and* the content each act draws
@@ -14,8 +14,11 @@
 > for Acts 3A/3B. This document is the narrative; that one is the
 > keyboard.
 >
-> Lives beside the deck it feeds: `presentation/tmpl-agentic-engineering.html`
-> and `presentation/images/`.
+> Lives beside the deck it feeds: `presentation/workshop-dark-factory.html`
+> and `presentation/images/`. The older
+> `presentation/tmpl-agentic-engineering.html` is now the **design-system
+> template only** — it is never presented; it is the source of the tokens,
+> components, chrome, and runtime the workshop deck inherits.
 
 ---
 
@@ -61,6 +64,145 @@ conclude** when you take its evidence away.
 - Act 4's KurvPay scar story is unaffected and still true — there, the
   *golden itself* was defective. The doctrine line **"the golden is
   evidence, not truth"** survives both stories.
+
+## 0.1 Deck build state — updated 2026-07-25
+
+**The deck is `presentation/workshop-dark-factory.html`.** It inherits the
+design system, navigation chrome, and runtime JS from
+`tmpl-agentic-engineering.html` byte-for-byte; only the title, meta,
+favicon hue, and slide counter were changed. Every act authored into it
+must reuse the existing components (`card`, `callout`, `stat-cell`,
+`aud-cell`, `nv-card`, `pill`, `kicker`, `slide--hands`, `slide--silent`)
+rather than inventing new ones.
+
+**Slide 25 — "The three questions" (added 2026-07-25).** The last teaching
+beat of Act 1, immediately before the "green is not true" closer. Osmani's
+three diagnostic questions — *how quickly will we know we're wrong · how
+cleanly can we undo · what would prove we're right* — rendered as a
+**verification instrument panel**, a visual register the deck did not have:
+three bays, each with a status LED reading `NO SIGNAL`, the failure answer lit
+and the correct answer dimmed. Hover or tab a bay and it powers on — LED flips
+to `ANSWERED`, the failure fades, the standard illuminates. New component
+`.vq-*` in the design system (bay, LED, readout rows, scanline, corner
+brackets); reuses `.callout`, `.pill`, `.pyr-hint` and the gold governance
+accent. Verified at 1600×900 and 1366×768: no clipping, three columns hold,
+keyboard-reachable, honours `prefers-reduced-motion`.
+
+> **This slide creates an obligation.** Each bay is stamped *"answered live in
+> Act 3B"* and the closing callout promises the room will see the panel again
+> "filled in by the machine, not by me." Act 3B must therefore land the same
+> three bays with the run's real answers — beat 2 (the gates) answers Q1,
+> beat 5 (containment) answers Q2, beats 7–8 (withhold + determinism) answer
+> Q3. If that callback is cut, cut the promise on slide 25 too.
+
+**Built so far: 38 slides — Act 0 (8), Act 1 (18), Act 2 (12). No `.todo`
+tokens remain.** Act 1's and Act 2's slide-by-slide tables and beats live in
+their own sections below; only Act 0 is itemised here.
+
+| # | Slide | State |
+|---|---|---|
+| 01 | Title — "The factory that runs with the lights off" | done |
+| 02 | Act 0 divider — The Selection Mechanism | done |
+| 03 | Who is in this room — 561 / 249 / 44% | done · real data |
+| 04 | Where this room said it stands — pool × room | done · real data |
+| 05 | The frame — "it is the one that scored you" | done |
+| 06 | The promise | done |
+| 07 | The honesty contract | done |
+| 08 | The agenda | done |
+| 09–26 | **Act 1 — 18 slides** | done · see the Act 1 section |
+| 27–38 | **Act 2 — 12 slides** | done · see the Act 2 section |
+
+**Assets.** Four cinematic backgrounds generated with Higgsfield
+(`soul_location`, 16:9 → 2048×1152, downsampled to the repo's `*-opt.jpg`
+convention, ~120–150 KB each):
+`images/gen/df-hero-opt.jpg` (lights-out factory floor),
+`df-ato0-opt.jpg` (a few violet nodes lit among thousands of dim ones —
+the selection mechanism with no words), `df-promessa-opt.jpg` (one machine
+working alone under a single violet light), and `df-ato1-opt.jpg` (five
+ascending blue light strips in a dark machine hall — the five layers and
+the ruler, with no words). Note: `soul_location` ignores `width`/`height`
+and defaults to 3:4 — pass `aspect_ratio: "16:9"` or the frame comes back
+portrait.
+
+**Act 2 backgrounds (2026-07-25), same pipeline:** `df-ato2-opt.jpg` (an
+industrial stairwell descending into blackness under one red lamp — the
+descent), `df-legacy-opt.jpg` (a single sealed cabinet alone in an empty
+hall, one red indicator still lit — the machine nobody opens),
+`df-risco-opt.jpg` (an analogue console reading perfectly calm above a
+flooded, mirror-still floor — working and being wrong), `df-oraculo-opt.jpg`
+(a blank monolith on a plinth under one hard shaft of light — the oracle).
+
+> **Warning for future image work.** `soul_location` will sometimes bake a
+> *garbled pseudo-text caption* into the frame — invented letterforms that
+> look like a title card, usually in the exact left-hand area reserved for
+> typography. Two Act 2 images came back this way and were regenerated. The
+> phrase that worked: enumerate the ban (*"no lettering, no signage, no
+> title card, no watermark, no caption, no glyphs, no numbers — zero text of
+> any kind"*) and avoid nouns that invite writing (**inscriptions**,
+> **labels**, **gauges reading X**). **Always eyeball the render before
+> committing it**; gibberish text on a projector is the single most
+> expensive AI tell in a deck like this.
+
+**Act 0 data — landed 2026-07-25.** Pulled from the `applications` export
+(`product = dark-factory-v1`, 703 submissions from 561 distinct people,
+142 repeat attempts). Deduplicated by e-mail; a person counts as selected
+if any of their submissions was approved. All nine `.todo` placeholders
+are gone and the bar widths carry the real percentages. Numbers are a
+**snapshot** — the slide-03 callout tells the operator to re-run the query
+live or drop the word "live". The full figures are in §5.
+
+**Slide 04 was redesigned, not just filled.** The real distribution broke
+the original design: the form only ever offered **four rungs (L1–L4)**, so
+L0 and L5 bars at 0% would have implied a choice nobody was given. And the
+room is not "middle-heavy" — the gate admitted **nobody below L3**. The
+slide is now two cards side by side, pool × room, which makes the selection
+mechanism visible instead of merely asserted. It is a stronger Act 0 beat
+and it sets up Act 1 slide 20 and the Act 5 close.
+
+**Act 1 was rebuilt and expanded on 2026-07-25** — from 9 slides to 17,
+by folding in five concepts from the design-system template and
+verifying every external claim against its primary source. That pass
+also caught a **naming error carried by every earlier draft**: the
+autonomy levels were labelled with our paraphrases, not Dan Shapiro's
+actual level names. See the correction table in the Act 1 section — it
+changes what is said out loud on stage.
+
+**Geometry reuse.** The rings SVG (slide 15), the orbital loop (18), the
+flywheel (24) and the autonomy curve (21) reuse the template's exact
+geometry — same `viewBox`, radii, ring classes and orbit insets — with
+all copy re-authored in English. That is deliberate: the template's
+`hr-ring`, `ring-spin`, `df-card` and `sdd-glow` animations are already
+in the deck's inherited CSS, so nothing new had to be invented and the
+motion matches the rest of the deck.
+
+## 0.2 Deck conventions — binding for every act
+
+1. **Language: English, end-to-end.** Slide copy, headings, tags, act
+   names, code comments, and the HUD are all English. `<html lang="en">`.
+   No Portuguese survives in any presented string. (This reverses the
+   earlier pt-BR assumption inherited from the template.)
+2. **Naming.** The operation is **"Dark Factory Operation"** — that exact
+   string is the hero badge on slide 01 and the canonical name everywhere.
+   Never "Operação Dark Factory".
+3. **Tags.** Every tag, chip, and badge uses the `.pill` component — solid
+   fill, black text, mono uppercase, diamond `◆` prefix — matching the
+   slide-01 hero badge. Do not use outline/bracket-style `[ LABEL ]` tags.
+4. **Act colour semantics.** Act 0 purple · Act 1 accent-blue · Act 2 red ·
+   Act 3A cyan · Act 3B green · Act 4 gold · Act 5 purple. The colour
+   carries the argument; it is not decoration.
+5. **Every slide declares its act** via `data-act`, `data-act-name`, and
+   `data-accent` on the `<section>`. The presenter HUD reads these — a
+   slide without them shows a blank act label.
+6. **Sourced numbers.** Any number on screen carries its source
+   (`.sc-src` / `.aud-src`) or it does not go on screen.
+7. **Time-of-day words are not settled.** The schedule conflict (open item
+   below) is still open, so slides currently mix "today" and "tonight".
+   Prefer duration-relative phrasing ("in about two hours", "before we
+   finish") until the schedule lands, then sweep the whole deck once.
+8. **Colour continuity across acts.** The autonomy rungs keep the same
+   colours everywhere they appear — L1 accent-blue · L2 cyan · L3 gold ·
+   L4 purple · L5 green. Act 0 slide 04 and Act 1 slide 15 must agree, and
+   Act 5's recap must too.
 
 ## 1. Governing rules
 
@@ -189,22 +331,98 @@ design in `docs/wrksp-secret-dark-factory-v1.pdf` §3–4.
 legible — nothing more. Best practices appear later as live-run
 callbacks, not slides.
 
+**Built: 17 slides (09–25), 2026-07-25.** Expanded from the first
+9-slide draft by folding in five concepts from the design-system
+template (its slides 20–24: the four-rung ladder, the concentric rings,
+the closed loop, the calibrated-autonomy curve, the factory flywheel),
+all re-authored in English with sourced detail. The act now has a spine:
+**four rungs → the anatomy → the ruler → the evidence.**
+
+| # | Slide | Shape |
+|---|---|---|
+| 09 | Act 1 divider — Fundamentals, not a 101 | poster over `df-ato1` |
+| 10 | Three names, three questions — Loop · Converge · ASD | 3 cards |
+| 11 | The four rungs: prompt → context → harness → agentic | `.ladder` staircase |
+| 12 | The five layers — and who is allowed to decide | 5 rows + 2 callouts |
+| 13 | The hop map — the model never invokes anything | flow, mono |
+| 14 | A whole agent in 40 lines — the receipt | terminal |
+| 15 | The architecture, in rings | full-bleed SVG |
+| 16 | Context engineering — the attention budget, 4 levers | 3 + 4 cards |
+| 17 | Harness engineering — what is in it, and MCP placed | 6 cards + 2 callouts |
+| 18 | How the rings close the loop | orbital diagram |
+| 19 | Belief × reality — six misconceptions | `.guard-card` ×6 |
+| 20 | The autonomy ruler L0–L5 | 6-rung staircase |
+| 21 | Autonomy is calibrated, not switched | curve + rules + anti-pattern |
+| 22 | The evidence, both directions — METR × StrongDM | 2 cards |
+| 23 | L3 is a trap, L5 is the target | 2 cards |
+| 24 | The factory flywheel | orbital over `darkfactory-bg` |
+| 25 | The seed — “green evals, not truth” | silent |
+
+### ⚠ Naming correction — 2026-07-25
+
+**The level names in every earlier draft were wrong.** The bootcamp PDF
+(p.17) and the template both label the six levels with the *car
+analogy* — “Manual / lane-keeping / autopilot / Waymo with a driver /
+robotaxi / dark factory” — and with role descriptions (“you became a
+manager”, “you became a PM”). Those are our paraphrases, not Shapiro's
+level names. **His actual names are:**
+
+| Level | Shapiro's name | Car analogy (his framing device) |
+|---|---|---|
+| L0 | Spicy autocomplete | the car has cruise control |
+| L1 | The coding intern | lane-keeping |
+| L2 | The junior developer | autopilot on the motorway |
+| L3 | The developer | a Waymo with a safety driver |
+| L4 | The engineering team | a robotaxi |
+| L5 | The dark software factory | not a car any more |
+
+The deck now carries **both** — his name as the rung title, the car
+analogy as the subtitle — which is the honest rendering and reads better
+on stage. Also corrected: the essay is **“The Five Levels: from Spicy
+Autocomplete to the Dark Factory,” danshapiro.com, January 2026** (Dan
+Shapiro is CEO of Glowforge). The ~90% figure attaches to **L2**, not to
+a vague middle. Do not say “L1 delegated tasks” or “L2 pairing” on
+stage — those were ours.
+
 **Beats**
 1. **Three names, three questions.** The Agentic Loop — how does a
    running system work? Converge — how does it deliver a project?
    ASD — how do you build the machine itself? (First appearance of the
    stars: names only.)
-2. **The five layers.** L1 Model (pure text function, stateless) ·
+2. **The four rungs.** Prompt engineering (the right sentence) →
+   context engineering (the right information) → harness engineering
+   (the right system) → agentic engineering (the whole discipline, in
+   an autonomous loop). Each is a named discipline with published
+   literature; each assumes the one below already works.
+3. **The five layers.** L1 Model (pure text function, stateless) ·
    L2 Harness (a normal program: owns the API key, the while-loop,
    permissions) · L3 Tools (schemas offered as text) · L4 Environment
    (filesystem, git, databases, CLIs) · L5 Referee (deterministic
    gates and evals; exit 0/1 decides — the model's opinion is never
    consulted). *The model thinks, the harness acts, the referee
-   judges* — only text and exit codes ever cross between them.
-3. **The hop map + the misconception.** The model never invokes
-   anything — it asks (emits a request blob); the harness calls.
-   The while-loop wraps the hops; the referee judges outside them.
-4. **The misconception table** (senior-room hook):
+   judges* — only text and exit codes ever cross between them. Land
+   the formula the field converged on: **Agent = Model + Harness.**
+4. **The hop map + the receipt.** The model never invokes anything — it
+   asks (emits a request blob); the harness calls. The while-loop wraps
+   hops 1–4; the referee judges outside them. Then the forty-line demo
+   where the model is scripted, so only the machinery is visible.
+5. **The architecture, in rings.** Model at the core; six rings around
+   it — prompt/spec, context, harness, loop, eval, governance. Take a
+   ring away, lose a guarantee. Say the bridge out loud: *the five
+   layers tell you who decides; the rings tell you what to build.*
+6. **Context engineering, up close.** A finite attention budget ·
+   context rot (quality degrades before the window fills) · and the
+   four levers: just-in-time retrieval, compaction, notes on disk,
+   sub-agent isolation. This is why a four-hour run does not drown.
+7. **Harness engineering, up close.** The six parts you own:
+   instructions, capability, containment, orchestration, **verification**,
+   observability. Place MCP correctly — plumbing, three primitives,
+   Linux Foundation since Dec 2025. Land the punchline: *the model got
+   commoditized; the harness did not.*
+8. **The closed loop.** Intent → context → harness → loop → eval →
+   delivery, with the engines interchangeable in the middle. The
+   reviewer is deliberately from a different vendor than the writer.
+9. **The misconception table** (senior-room hook):
    - "The model runs commands" → the harness runs them
    - "The model remembers our conversation" → the transcript is re-sent
      in full every call
@@ -215,27 +433,37 @@ callbacks, not slides.
      schemas
    - "Autonomy means a smarter model" → autonomy = a scheduler replaces
      the trigger and a referee replaces judgment
-5. **The autonomy ladder** (Shapiro L0→L5 on the NHTSA frame):
-   L0 Manual · L1 delegated tasks · L2 pairing in flow (where 90% of
-   "AI-native" devs live) · L3 you became a manager reviewing diffs
-   (where almost everyone stalls — and feels worse) · L4 you became a
-   PM (spec, plan, come back in 12h) · L5 the autonomous factory
-   (specs in, validated software out; humans not needed in the middle).
-   Place the room honestly: most of the market lives at L2–L3.
-6. Close on the destination: "The factory you're about to see is L5."
-   Plant the anti-hype seed that pays off twice later: **the loop
-   converges to green evals, not to truth.**
-
-**Slide/screen topics**
-- Three names / three questions table
-- Five-layer ladder diagram
-- Hop map (chat → assemble → emit → execute → transcript → referee)
-- Misconception table (belief vs. reality)
-- Autonomy ladder L0–L5 with "you are here" marker at L2–L3
-- "Tonight = L5" destination slide
+10. **The autonomy ruler** (Shapiro L0→L5 on the NHTSA frame — use his
+    names, see the correction above). Place the room honestly: the gate
+    admitted nobody below L3, and 70% of the room is on L3.
+11. **Autonomy is calibrated.** Climb a level when the work is
+    reversible, small-blast-radius, and covered by an eval that has
+    actually failed something. Drop a level the moment it is
+    irreversible, wide, or the eval has never said no. Goals,
+    permissions and accountability stay human at every level. The
+    anti-pattern is **the switch**.
+12. **The evidence, both directions.** METR's RCT for the trap
+    (believed +20%, measured −19%) and StrongDM for the destination
+    (three engineers, two rules, an agent shipped as a spec with zero
+    code). Neither number is mine — that is the point.
+13. **The flywheel.** Runs leave lessons; lessons become memory; a
+    recurring lesson is promoted to a skill; better skills make better
+    agents. This is the one thing L5 does that L4 cannot. Forward-links
+    to Act 4's measured ~55–60 lessons → 4 skills.
+14. Close on the destination and the seed: **the loop converges to
+    green evals, not to truth.**
 
 **Key lines**
 - "The model never invokes anything. It asks; the harness calls."
+- "Agent = model + harness. If you are not the model, you are the
+  harness."
+- "Filling the window is not using it."
+- "The model got commoditized. The harness did not."
+- "A harness whose only completion signal is 'done' has no verification
+  layer — it has a suggestion box."
+- "They felt 20% faster. They were 19% slower. Feeling is not a metric."
+- "Validation replaces code review."
+- "Autonomy is earned with evidence — never decreed with a button."
 - "Eval is the ring that frees you — without it you never trust
   autonomy."
 - "Most of the market is parked at L3, reviewing diffs, feeling it got
@@ -243,14 +471,42 @@ callbacks, not slides.
 - "The loop converges to green evals, not to truth."
 
 **Assets/sources.** `docs/asd-agentic-loop-v1.0.html` (five layers,
-hop map, misconceptions, two seats); Shapiro ladder in
-`docs/boot-uc-northwind-pay-edp-oss-v2.pdf` p.17 and workshop PDF p.12.
+hop map, misconceptions, two seats); `presentation/tmpl-agentic-engineering.html`
+(the rings SVG, the orbital loop, the autonomy curve — geometry reused
+verbatim, all copy re-authored). External, all cited on-slide:
+- Dan Shapiro · “The Five Levels: from Spicy Autocomplete to the Dark
+  Factory” · danshapiro.com · Jan 2026 — the ruler
+- METR · “Measuring the Impact of AI Tools on Developer Productivity”
+  RCT, 2025 · arXiv:2507.09089 — 16 maintainers, 246 tasks, +24%
+  forecast / +20% believed / −19% measured
+- StrongDM · “Software Factories and the Agentic Moment” · Feb 2026,
+  with Simon Willison's write-up — three engineers, two rules, Attractor
+  shipped as three markdown files and zero code
+- Anthropic · “Effective context engineering for AI agents” · 2025 —
+  attention budget, JIT retrieval, compaction, note-taking, sub-agents
+- Chroma · “Context Rot” · 2025 — 18 frontier models
+- OpenAI · “Harness engineering” · Feb 2026 — “the environment was
+  underspecified”
+- Böckeler (martinfowler.com) and Osmani on harness engineering —
+  *Agent = Model + Harness*
+- Model Context Protocol — Anthropic Nov 2024 → Linux Foundation
+  Agentic AI Foundation, Dec 2025; primitives Tools / Resources / Prompts
+- Anthropic Agent Skills — `SKILL.md` and progressive disclosure
+  (discovery → activation → execution), the mechanism behind the flywheel
+
 Converge/Task-Spec silhouette source:
 `docs/cvg-aut-systems-spine-steps-v5.pdf`, `docs/task-spec-v3.2.0.pdf`
 (updates to come — fold in on arrival).
 
-**Gate.** The room has the vocabulary, knows where it stands, and L5 is
-named as tonight's destination.
+**Stage discipline for this act.** Everything above is public
+literature, so it is all sayable. The named stars stay silhouettes:
+Converge appears as “brief in, validated software out” and nothing more;
+ASD is named once and deferred to Act 5. Never spoken: Fork, HMAC,
+safe-to-delegate, the contents of the passes.
+
+**Gate.** The room has the vocabulary, knows where it stands, has seen
+that both the trap and the destination are documented by other people,
+and L5 is named as tonight's destination.
 
 ---
 
@@ -259,53 +515,165 @@ named as tonight's destination.
 **Objective.** The room understands the legacy, feels the
 works-but-wrong risk, and holds the unanswered question.
 
-**Beats — a descent into the mine**
-1. **The company.** Transactions in; every cycle the core spits 30+
-   raw file types onto SFTP — proprietary positional layouts, COBOL
-   overpunch, PII in the clear.
-2. **The machine nobody touches.** Raw SFTP → Java black box (reads
-   raw, anonymizes, emits sanitized CSV) → ~300 PL/pgSQL procedures
-   closing the day. Business rules trapped inside the procedures.
-   Show a real raw file — let them feel the overpunch. (Respect the
-   privacy allowlist: safe reference and derived controls only.)
-3. **The real risk.** Not downtime — *working and being wrong*. One
-   swapped offset, one inverted sign: plausible-but-wrong money that
-   green tests miss and an audit finds three months later. The numbers
-   are the table stakes of the business.
-4. **The BRD read-along (interactive).** Present the business
-   requirements document as an artifact; read it together, interrogate
-   it. Plants "understand before you build" — the value the factory
-   demonstrates an hour later. (The room talks here.)
-5. **The frozen budget.** Board wants to migrate; quote: 12–18 months
-   of a full team. It froze on the question nobody could answer —
-   through-line goes on screen and stays.
-6. **The design secret.** The answer isn't more people — it's a
-   factory. And the elegant part: **the legacy, defects and all, is
-   the oracle.** Every translation is validated against the past, cent
-   by cent.
+**Built: 12 slides (27–38), 2026-07-25.** Authored entirely from the
+repository — `plans/legacy.md`, `plans/modern.md`, `contracts/types/`, and
+the Type 01 fixtures. No external research; this act is repo archaeology.
+Three layouts appear here that exist nowhere else in the deck, so Act 2
+does not look like Act 1: the **five-column code-proof cards**
+(`.unit-card` / `.uc-code`), the **interactive requirement stack**
+(`.pyr-step`, the deck's only click-to-expand slide), and the
+**logo-tile** strip.
 
-**Slide/screen topics**
-- NorthWind Pay topology (SFTP → Java → SFTP → Postgres → recon team)
-- A real raw file on screen (allowlisted fields)
-- "Works-but-wrong" risk slide (the plausible-wrong cent)
-- The BRD document itself (read-along artifact)
-- The frozen budget + the question (through-line slide)
-- "The legacy is the oracle" concept slide
+| # | Slide | Shape |
+|---|---|---|
+| 27 | Act 2 divider — NorthWind Pay | poster over `df-ato2` |
+| 28 | A processor that works, a pipeline nobody owns | 4 stat-cells over `df-legacy` |
+| 29 | Every arrow is an explicit interface | full-width topology SVG |
+| 30 | “Just parse the file” — five times, five problems | 5 code-proof cards |
+| 31 | One character carries the last digit and the sign | redacted bytes + decode table |
+| 32 | “Correct” is four different questions | 4 cards (2×2) |
+| 33 | Working and being wrong | poster over `df-risco` + 3 strips |
+| 34 | Understand it before you build it — **the BRD** | interactive 6-layer stack |
+| 35 | It froze on one question | silent · the through-line |
+| 36 | The legacy, with all its defects, is the oracle | poster over `df-oraculo` |
+| 37 | The new system is not a replacement | decision-flow SVG |
+| 38 | What the factory is going to build tonight | 5 zones + stack + limits |
+
+### Scope note — the modern decision was added deliberately
+
+The original Act 2 beats ended at “the legacy is the oracle.” Slides 37–38
+extend that with **the modern decision** — why the new system is an
+independent second implementation rather than a rewrite in place, and what
+its zones and stack are. This was an explicit instruction (2026-07-25) and
+it is the right call: it is a *design decision*, which is Act 2's job
+(“understand before you build”), and it sets up Act 3 without opening the
+factory. If Act 2 ever runs long, 38 is the slide to cut — 37 carries the
+argument on its own.
+
+### Two content rules this act had to solve
+
+1. **No raw row may go on a projector.** §1.5 forbids PAN, CPF and raw
+   rows in anything shown. Slide 31 nevertheless has to make the room
+   *feel* the bytes. Resolution: show the real header and trailer verbatim,
+   show the detail rows with the PAN and CPF spans **blocked out**, and say
+   out loud that the redaction is the contract working, not a slide
+   decision. The privacy discipline gets demonstrated instead of described,
+   which is stronger than either alternative.
+2. **“HMAC” is on the never-speak list** (§1.2). The Type 01 privacy
+   contract names HMAC-SHA-256 as the tokenization algorithm. The slide and
+   the BRD layer therefore say **“a keyed token”** and **“fail closed if
+   the key is missing”** — accurate, and it does not spend a word the
+   Bootcamp needs. Do not restore the algorithm name on stage.
+
+### The plant that pays off in Act 3B
+
+Slide 31 teaches the COBOL overpunch decode table and lands on *“one
+character carries the last digit and the sign — remember this byte.”* It
+uses batch `B202607230000001`, the **accepted** batch, whose trailer reads
+`…1734E` → `173.45`, correctly declared.
+
+Act 3B's defect batch `B202607230000004` differs from it by **exactly one
+character**: the trailer reads `…1734D` → `173.44`. Same fourteen digits,
+one byte apart. That is the whole one-cent finding, and the room will be
+able to read it unaided because of this slide. **Do not spoil it in Act 2** —
+slide 31 must stay on the accepted batch, and the two `.pill` tags at the
+bottom right (“remember this byte” / “it comes back in Act 3”) are the only
+foreshadowing allowed.
+
+**Beats — a descent into the mine**
+1. **The company.** Transactions in; every cycle the core drops 30+ raw
+   file types onto SFTP — proprietary positional layouts, COBOL overpunch,
+   PII in the clear. The business rules live inside ~300 stored procedures
+   and a Java parser whose author left: executable and unreadable at the
+   same time. Say plainly that this repository implements **five** of those
+   types, end to end.
+2. **The machine nobody touches.** Walk the topology left to right and
+   name every boundary: system of record → SFTP raw → Java 21 privacy
+   boundary → SFTP CSV → PostgreSQL (one transaction) → independent oracle
+   → archive or quarantine. The doctrine line is *“every arrow is an
+   explicit interface”* — DataGen does not call Java, Java does not write
+   PostgreSQL, procedures do not read SFTP. Then the payoff for later:
+   **sealed interfaces are what make the system observable from outside
+   without being modified.**
+3. **Five types, five grammars.** One slide, five code-proof cards: fixed
+   width with the sign in the last byte · UTF-8 pipes where the delimiter
+   appears inside the data · exactly-240-byte paired segments · one length
+   per record type with inherited context · semicolons with decimal commas
+   and exact `HALF_UP`. The point is not the formats; it is that **there is
+   no shared parser**, five times over, times thirty-plus types.
+4. **The craft, and the discipline.** Slide 31 — see the plant above.
+5. **Four truth roles.** System of record (what was declared) · source of
+   observation (what happened) · source of correctness (what should have
+   happened) · executable contract (what was agreed, in Git). No component
+   may merge them, and a source-defect scenario **keeps the wrong
+   declaration exactly as written**. This is the single most load-bearing
+   slide in the act: without it, the Act 3B reveal is just a bug story.
+6. **The real risk.** Not downtime — *working and being wrong*. Contrast
+   the three cards: an outage costs hours; a plausible-wrong number costs a
+   quarter and your credibility; and a test written from the same
+   misunderstanding as the code **agrees with the code**. Green means
+   consistent, not correct.
+7. **The BRD read-along (interactive).** Six layers, five rules each, for
+   *one* file type — transport & identity, record grammar, money & sign,
+   privacy, controls & reconciliation, terminal behaviour. Click each layer
+   and interrogate it together; **this is where the room talks.** Close on
+   the uncomfortable line: *“you cannot delegate what you cannot specify.”*
+8. **The frozen budget and the question.** 12–18 months, 8–12 developers,
+   approved twice, started zero times. It did not die on cost — it froze on
+   *“who guarantees the new number matches the old one, cent by cent?”*
+   The question goes on screen and stays, including through the break.
+9. **The design secret.** The legacy, defects and all, is the oracle —
+   frozen, observable, already trusted. And immediately the limit: an
+   oracle is **evidence, not truth**. Flag that it gets tested from both
+   directions tonight (here, and in Act 4 where the golden itself lied).
+10. **The modern decision.** Same contracts, same raw bytes, two
+    independent implementations, one golden-match gate. Why not rewrite in
+    place: a rewrite that reuses the old logic inherits the old bugs and
+    cannot detect them. Why not trust the tests: they pass on the same
+    misunderstanding. What it buys: **every disagreement becomes cheap to
+    find and expensive to ignore.** Then the zones (restricted raw →
+    landing → Bronze → Silver → Gold), the stack, and the claim limits.
 
 **Key lines**
-- "The real risk is not the system going down. It's the system working
-  — and being wrong."
-- "Every file is surgery; the patient is the day's closing numbers."
+- "The rules are executable and unreadable at the same time."
+- "Every arrow is an explicit interface."
+- "Five layouts, five grammars, five ways to be wrong about money."
+- "One character carries the last digit and the sign."
+- "You are watching the privacy boundary work right now."
+- "The real risk is not the system going down. It's the system working —
+  and being wrong."
+- "A test written from the same misunderstanding as the code agrees with
+  the code."
+- "You cannot delegate what you cannot specify."
 - "The legacy, with all its defects, is the oracle."
+- "An oracle is evidence, not truth."
+- "You need a second implementation — not a second reading of the first
+  one."
 
-**Assets/sources.** Legacy topology and case framing:
-`docs/boot-uc-northwind-pay-edp-oss-v2.pdf` (fig. 02) and bootcamp
-landing page; repo reality: `README.md`, `plans/legacy.md`,
-`contracts/`, and the consolidated legacy architecture in
-`plans/legacy.md`. **BRD: to be drafted** (from contracts + plans —
-longest-lead content item).
+**Assets/sources.** Everything on these twelve slides traces to the
+repository, and each slide carries its source line:
+- `plans/legacy.md` — topology, boundary rules, the four truth roles, the
+  proof ledgers, and the frozen baseline
+- `plans/modern.md` — the independent-second-implementation decision, the
+  zone model, the shared boundaries, and the claim limits (no CI, not
+  production-ready, modern does not replace legacy)
+- `contracts/types/registry.yaml` — the five types and their distinct
+  problems
+- `contracts/types/01-card-settlement/layout.yaml` — byte offsets, record
+  lengths, the overpunch table, cross-record rules
+- `contracts/types/01-card-settlement/privacy.yaml` — tokenize/mask rules,
+  prohibited outputs, fail-closed behaviour
+- `contracts/types/01-card-settlement/reconciliation.yaml` — source/stage/
+  operational controls, procedure order, zero count-delta tolerance
+- `contracts/types/01-card-settlement/main/valid-minimal.dat` — the real
+  bytes on slide 31
+- Case framing and the didactic figures (30+ types, ~300 procedures, 4–6
+  reconcilers, 12–18 months): `docs/boot-uc-northwind-pay-edp-oss-v2.pdf`.
+  **These are labelled “didactic case” on the slide**; the repository
+  figures are labelled separately.
 
-**Gate.** Legacy understood, risk felt, question held.
+**Gate.** Legacy understood, risk felt, question held — and the room knows
+why the answer is a second implementation rather than a bigger team.
 
 ---
 
@@ -359,7 +727,7 @@ moment — visibly working behind the speaker.
 **Assets/sources.** ASD deck (two seats, launcher receipt); Converge
 spine silhouette from `docs/cvg-aut-systems-spine-steps-v5.pdf`;
 Task-Spec anatomy (silhouette only) from `docs/task-spec-v3.2.0.pdf`;
-pre-flight commands in `presentation/demo-script.md`.
+pre-flight commands in `presentation/demo.md`.
 
 **Gate.** The machine is understood while visibly working.
 
@@ -422,6 +790,12 @@ keep it on the second screen.
 8. **Determinism.** Run the detector twice; identical `finding_id`
    hash. *"Byte-identical on four runtimes built from scratch on
    different days. The finding is a fact, not a generation."*
+   → **Bring the panel back here.** Act 1 slide 25 left three bays reading
+   `NO SIGNAL`. Put them back on screen with the machine's own answers:
+   Q1 *the gate stalls that type, at that stage* · Q2 *staging 0, business 0
+   — never written* · Q3 *four channels withheld, four refusals, and a hash
+   that repeats.* Say it plainly: **"Two hours ago these were questions I
+   asked you. The machine just answered all three."**
 9. **Close the loop — all five types.** Five lines, five types, five
    source defects, **zero unexplained differences.** COBOL overpunch,
    escaped pipes, 240-byte paired segments, heterogeneous widths,
@@ -479,7 +853,7 @@ while proving nothing, and the run caught each:
   close; the PR.
 
 **Assets/sources.** The live harness + repo;
-`presentation/demo-script.md` (verified commands and output);
+`presentation/demo.md` (verified commands and output);
 `.runtime/e2e-evidence/`, `evidence/modern/`, `evidence/factory/`;
 backup recording.
 
@@ -595,11 +969,40 @@ credit-that-flows, bundle logic).
       ~100 columns.
 - [ ] **Backup recording** of a successful run, cued and tested.
 - [ ] **Checkpoint worktree** saved just before the reveal.
+- [x] **Supabase room numbers pulled** (2026-07-25) and all nine `.todo`
+      placeholders on Act 0 slides 03–04 replaced with real values; bar
+      widths carry the real percentages. Slide 04 was redesigned to
+      pool × room — see §0.1. **Still to do at door time:** re-run the
+      query and confirm 561 / 249 / 44% have not moved, or drop the word
+      "live" from slide 03.
+- [x] **English pass** on Acts 0–1 — no Portuguese in any presented string,
+      every tag on the `.pill` component, act name "Dark Factory
+      Operation". Also fixed: `<title>`, the meta description, and the two
+      navigation `aria-label`s, which were still pt-BR. The inherited
+      CSS/JS comments are still Portuguese — harmless, never presented,
+      left as-is because the design system is inherited verbatim.
+- [ ] **Time-of-day sweep** once the schedule conflict is resolved — the
+      deck currently mixes "today" and "tonight" (§0.2 item 7).
+- [x] **Autonomy level names corrected** (2026-07-25) to Dan Shapiro's
+      own — spicy autocomplete · coding intern · junior developer ·
+      developer · engineering team · dark software factory — with the car
+      analogy kept as the subtitle. **Rehearse the new words:** the old
+      paraphrases ("L1 delegated tasks", "L2 pairing", "you became a
+      manager") must not come out on stage, and Act 5's recap has to
+      match.
+- [ ] **Sources legible from the back row** — Act 1 carries eight
+      on-slide citations at ~9–11px mono. Check them on the real
+      projector; if they do not read, they still belong in the deck for
+      the repo, but say the attribution out loud.
 - [ ] **Stage-language pass** on every slide (name-never-open rule:
       Converge and Task-Spec at silhouette level only; Fork, HMAC,
       safe-to-delegate, pass internals never spoken). Same pass must
       catch any surviving "legacy defect" phrasing — see §1.4.
-- [ ] **Act 2 BRD** drafted, reviewed, and printed/on-screen ready.
+- [x] **Act 2 BRD** drafted (2026-07-25) — derived from the Type 01
+      contracts and built as the interactive six-layer stack on slide 34,
+      thirty rules in total. **Still to do:** rehearse it as a
+      *conversation*, not a reading. Decide in advance which two layers you
+      open live; opening all six burns the act's whole budget.
 - [ ] **Offer screens final:** price ladder + credit rule locked.
 - [ ] **Schedule confirmed:** internal ementa says 19h30–23h30; public
       page says 09h00–13h00 BRT. Resolve before publishing timings.
@@ -644,6 +1047,39 @@ credit-that-flows, bundle logic).
   oracle mismatch
 - No CI exists; nothing here is production-ready or CI-ready
 
+**The external evidence (Act 1 — all published, all cited on-slide)**
+- **METR RCT, 2025** (arXiv:2507.09089): 16 experienced open-source
+  maintainers, 246 real tasks in their own repositories (avg 22k+ stars,
+  1M+ lines). Forecast **+24%** faster · believed **+20%** faster ·
+  measured **19% slower**. With AI allowed they spent less time writing
+  and more time prompting, waiting and reviewing.
+- **StrongDM, Feb 2026** — “Software Factories and the Agentic Moment”
+  (write-up by Simon Willison): AI team founded July 2025, **3 people**,
+  two rules — *code must not be written by humans; code must not be
+  reviewed by humans*. Their agent, Attractor, ships as a repository of
+  **three markdown files and zero lines of code**. Doctrine:
+  **validation replaces code review.**
+- **Chroma, 2025** — context rot measured across **18 frontier models**:
+  quality degrades as input grows, before the window fills.
+- **MCP** — Anthropic, Nov 2024 → **Linux Foundation** Agentic AI
+  Foundation, Dec 2025. Primitives: Tools, Resources, Prompts.
+- **Shapiro, Jan 2026** — the ruler; **~90%** of self-described
+  “AI-native” developers sit at **L2**.
+- Say these as *other people's* numbers. That is what makes them work.
+
+**The room (Act 0 — snapshot 2026-07-25, on slides 03–04)**
+- **561** distinct people applied (703 submissions, 142 repeat attempts)
+- **249** selected · **44%** approval rate (below the 50–60% target)
+- 312 turned away — all routed, none simply rejected
+- Applicant pool by self-declared level: L1 **21%** · L2 **32%** ·
+  L3 **33%** · L4 **13%** (the form offered only L1–L4)
+- The room by level: L1 **0%** · L2 **0%** · L3 **70%** · L4 **30%** —
+  the gate admitted nobody below L3
+- Room seniority: 133 senior · 57 staff/lead · 39 pleno (**76% senior or
+  above**)
+- Source: `applications` export, `product = dark-factory-v1`. Deduplicated
+  by e-mail; selected = any submission approved. Re-run before doors open.
+
 **The funnel (Act 0 context, internal)**
 - ~50–60% target approval rate; 2 waves
 - 12.2% of low-ticket buyers historically migrate to high ticket
@@ -680,27 +1116,61 @@ credit-that-flows, bundle logic).
 
 | Source | Feeds |
 |---|---|
-| `presentation/demo-script.md` | Verified commands, real output, the corrected reveal (Acts 3A, 3B) |
+| `presentation/workshop-dark-factory.html` | **The deck itself** — Acts 0 and 1 built (17 slides), Acts 2–5 pending |
+| `presentation/tmpl-agentic-engineering.html` | Design system, components, chrome, runtime JS — template only, never presented. Also the source of the rings / orbital / curve **geometry** reused in Act 1 slides 15, 18, 21 and 24 |
+| Shapiro · “The Five Levels” (danshapiro.com, Jan 2026) | The autonomy ruler — Act 1 slides 20–21, Act 5 recap. **Use his level names**, not our paraphrases |
+| METR · RCT 2025 · arXiv:2507.09089 | The L2/L3 trap, measured — Act 1 slide 22 |
+| StrongDM · “Software Factories and the Agentic Moment” (Feb 2026) | Independent proof that L5 ships real software — Act 1 slide 22 |
+| Anthropic · “Effective context engineering for AI agents” (2025) · Chroma · “Context Rot” (2025) | Attention budget and the four levers — Act 1 slide 16 |
+| OpenAI · “Harness engineering” (Feb 2026) · Böckeler / martinfowler.com · Osmani | Harness engineering and *Agent = Model + Harness* — Act 1 slides 11, 17 |
+| Anthropic Agent Skills (`SKILL.md`, progressive disclosure) | The lesson → skill mechanism behind the flywheel — Act 1 slide 24 |
+| `presentation/images/gen/df-*.jpg` | Act 0 and Act 1 cinematic backgrounds (Higgsfield `soul_location`) |
+| `applications` export (`product = dark-factory-v1`) | The room numbers on Act 0 slides 03–04 (§5). Kept outside the repo — it carries names, e-mails and WhatsApp numbers; only aggregates ever reach a slide |
+| `presentation/demo.md` | Verified commands, real output, the corrected reveal (Acts 3A, 3B) |
 | `docs/wrksp-secret-dark-factory-v1.pdf` | Funnel, scoring, moat discipline, offer mechanics (Acts 0, 5) |
 | `docs/boot-uc-northwind-pay-edp-oss-v2.pdf` | Case framing, Shapiro ladder, bootcamp arc (Acts 1, 2, 5) |
 | `docs/asd-agentic-loop-v1.0.html` | Five layers, hop map, misconceptions, two seats (Acts 1, 3A) |
 | `docs/cvg-aut-systems-spine-steps-v5.pdf` | Converge silhouette (Act 3A) — updates pending |
 | `docs/task-spec-v3.2.0.pdf` | Task-Spec silhouette (Act 3A) — updates pending |
 | `docs/kurv-edp-v2.pdf` | Numbers, stalled types, flywheel (Act 4) |
-| `README.md`, `plans/legacy.md`, `contracts/` | Legacy reality + BRD raw material (Act 2) |
+| `README.md`, `plans/legacy.md` | Legacy topology, boundary rules, four truth roles, proof ledgers (Act 2) |
+| `contracts/types/registry.yaml` + each `layout.yaml` | The five types and their grammars — Act 2 slides 30–31 |
+| `contracts/types/01-card-settlement/` (`layout` · `privacy` · `reconciliation`) | The BRD's thirty rules — Act 2 slide 34 |
+| `contracts/types/01-card-settlement/main/valid-minimal.dat` | The real bytes shown redacted on Act 2 slide 31 |
 | `plans/modern.md` | Claim limits — what may not be said on stage (§1.4) |
 | Past presentations (to be provided) | Slide raw material, all acts |
 
 ## 8. Open items
 
-1. **Act 2 BRD** — to be drafted from contracts + plans (longest lead).
-2. **Monday workflows** — select the 2–3 to show in Act 5.
-3. **Schedule conflict** — internal 19h30–23h30 vs public 09h00–13h00
-   BRT. Resolve before publishing timings.
-4. **Converge / Task-Spec updated docs** — fold into Act 3A silhouettes
+1. **Acts 3A, 3B, 4 and 5 slides** — not yet authored into
+   `workshop-dark-factory.html`. Acts 0–2 are the built reference for tone,
+   density, and component use. **Act 3A is next**, and it is mostly live
+   screens rather than slides, so its slide count will be small: the
+   ignition command, the split-screen layout, the lights-out concept, the
+   two seats, and the Converge/Task-Spec silhouettes.
+   *Note for Act 3B:* it inherits two obligations — the three-question
+   instrument panel from Act 1 slide 25, and the overpunch byte planted on
+   Act 2 slide 31 (`…1734E` accepted → `…1734D` defective).
+   *Note for Act 5:* the ladder recap must use Shapiro's real level names
+   (see the Act 1 correction) and should reuse the slide-20 staircase so
+   the callback is visual, not just verbal.
+3. **Monday workflows** — select the 2–3 to show in Act 5.
+4. **Offer screens** — price ladder + credit rule numbers for Act 5.
+5. **Schedule conflict** — internal 19h30–23h30 vs public 09h00–13h00
+   BRT. Resolve before publishing timings, then run the time-of-day sweep
+   over the deck (§0.2 item 7).
+6. **Converge / Task-Spec updated docs** — fold into Act 3A silhouettes
    on arrival.
-5. **Past presentations** — glue into acts on arrival.
+7. **Past presentations** — glue into acts on arrival.
+8. **Door-time re-check** of the room numbers — see the §4 checklist.
 
 *Closed:* demo type decision (Type 01 / `B202607230000004`, settled
-2026-07-25); planted legacy defect (not needed — the real
-source-system finding replaced it).
+2026-07-25); planted legacy defect (not needed — the real source-system
+finding replaced it); deck language (English end-to-end, settled
+2026-07-25); deck file and design-system inheritance (settled 2026-07-25 —
+see §0.1); Supabase room numbers (landed 2026-07-25 — figures in §5,
+slide 04 redesigned to pool × room); Act 1 slides (built and then
+expanded 2026-07-25 — 17 slides, see the Act 1 section); autonomy level
+names (corrected 2026-07-25 to Shapiro's own — see the Act 1 section);
+Act 2 slides (built 2026-07-25 — 12 slides, see the Act 2 section); Act 2
+BRD (drafted 2026-07-25 as the interactive stack on slide 34).
