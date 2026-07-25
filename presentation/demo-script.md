@@ -5,8 +5,10 @@ the output shown is what it actually printed. Keep this on the second screen.
 
 ## Read this first: the scripted AHA has changed
 
-`workshop-run-of-show-v1.md` Act 3B scripts the reveal as *"it's the legacy — a
-silent defect summing wrong cents for years… the factory indicted the oracle."*
+Earlier drafts of the run of show scripted Act 3B's reveal as *"it's the legacy —
+a silent defect summing wrong cents for years… the factory indicted the oracle."*
+([`agenda.md`](agenda.md) now carries the corrected
+version; this note stays as the record of why.)
 
 **That is not what this system found.** The golden-match closed with **zero**
 `CONFIRMED_LEGACY_DEFECT`. The legacy baseline is correct on all five types.
@@ -139,7 +141,7 @@ B202607230000004 | quarantined
 ### Beat 5 — Run the detector live (3 min)
 
 ```bash
-PYTHONPATH=dark-factory/src legacy/runner/.venv/bin/python -m darkfactory.cli \
+PYTHONPATH=factory/src legacy/runner/.venv/bin/python -m cli \
   --type 01 --legacy-evidence-root .runtime/e2e-evidence --no-publish \
   | python3 -m json.tool
 ```
@@ -162,7 +164,7 @@ Point at four things only — do not read the JSON aloud:
 ```bash
 for ch in legacy-source-manifest legacy-java-processor \
           legacy-postgres-control-plane legacy-postgres-diagnostic; do
-  out=$(PYTHONPATH=dark-factory/src legacy/runner/.venv/bin/python -m darkfactory.cli \
+  out=$(PYTHONPATH=factory/src legacy/runner/.venv/bin/python -m cli \
         --type 01 --legacy-evidence-root .runtime/e2e-evidence --no-publish \
         --withhold "$ch" 2>&1 >/dev/null)
   printf "  withhold %-32s -> %s\n" "$ch" "${out:-CONCLUSIVE}"
@@ -189,7 +191,7 @@ gate that cannot fail is worse than a red one."*
 
 ```bash
 for i in 1 2; do
-  PYTHONPATH=dark-factory/src legacy/runner/.venv/bin/python -m darkfactory.cli \
+  PYTHONPATH=factory/src legacy/runner/.venv/bin/python -m cli \
     --type 01 --legacy-evidence-root .runtime/e2e-evidence --no-publish \
   | python3 -c "import json,sys;print(json.load(sys.stdin)['finding_id'])"
 done
@@ -257,7 +259,7 @@ Four gates in this build passed while proving nothing, and the run caught each:
 | Runtime is dirty / batch IDs collide | `make clean CONFIRM=clean-runtime && make deploy && make test-e2e TYPE=all` (~4 min) |
 | Detector says `DF-E-OBSERVATION-MISSING` | The e2e portfolio has not run on this runtime — run it |
 | Modern command fails on a key | The `export` block above was not sourced in that shell |
-| Everything stalls | `evidence/dark-factory/` and `evidence/modern/` are already on disk from the pre-flight — read the packets instead of regenerating |
+| Everything stalls | `evidence/factory/` and `evidence/modern/` are already on disk from the pre-flight — read the packets instead of regenerating |
 
 Errors on screen are fine and on-brand for this material. A stall is not — fall
 back to reading the committed evidence packets.

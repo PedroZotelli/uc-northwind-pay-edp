@@ -1,7 +1,8 @@
 # Dark Factory autonomous run journal
 
 One dated entry per phase and gate of the lights-out run authorized by the
-"Autonomous end-to-end execution mandate" in [`dark-factory.md`](dark-factory.md).
+"Autonomous end-to-end execution mandate", now recorded as
+[DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md).
 Each entry records status, evidence paths, decision-record references, and
 blockers. Decision records live in [`../docs/decisions/`](../docs/decisions/).
 

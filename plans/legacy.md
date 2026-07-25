@@ -776,8 +776,9 @@ Type `01` is the first bounded Dark Factory acceptance target:
 The implementation was verified from local working-tree content rather than a
 committed release. Clean-checkout recreation and CI remain release-hardening
 work, but they do not block a local read-only Dark Factory vertical slice.
-Continue with the [Dark Factory starting brief](dark-factory.md). The
-[modern target plan](modern.md) is a separate future implementation.
+The Dark Factory that consumes this baseline is described in
+[dark-factory-stages.md](dark-factory-stages.md); the
+[modern target plan](modern.md) is the separate independent implementation.
 
 ## Legacy stopping boundary before Dark Factory — complete
 

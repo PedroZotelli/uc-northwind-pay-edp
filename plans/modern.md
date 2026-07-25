@@ -2,22 +2,28 @@
 
 ## Status and evidence boundary
 
-The modern pipeline is a target architecture, not a current implementation.
-The completed [legacy baseline](legacy.md) is the observable reference for the
-next phases.
+**Built, as of 2026-07-25.** The modern pipeline was implemented by the
+autonomous run recorded in [`df-run-journal.md`](df-run-journal.md)
+(Phase 3, milestones M0–M6). This document is no longer a forward-looking
+plan: it is the **specification the implementation must keep satisfying** —
+the boundaries, the golden-match rules, the per-type completion checklist,
+and the definition of done. Read it as the contract for changes, not as a
+description of work not yet started.
 
 | Area | Live repository state |
 |---|---|
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
-| Dark Factory | Next implementation phase; starting brief exists, but no runtime or agent loop exists |
-| Modern pipeline | Planned only; no `modern/` source tree, Parquet, lakehouse, dbt, Dagster, API, or MCP implementation exists |
-| Release boundary | The implementation is local working-tree content; no committed-release or clean-checkout CI claim exists |
+| Dark Factory | Implemented under `factory/`; all five `DF-SOURCE-*` scenarios acceptance-verified and byte-stable |
+| Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`05` reach Gold with zero unexplained golden-match differences |
+| Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
-The earlier version of this plan described a planning-only repository and ten
-existing legacy types. That is no longer accurate. The proven shared baseline
-is five types. Types `06`–`10` require new contracts and observations before
-they can enter either legacy parity or modern implementation scope.
+The proven shared baseline is five types. Types `06`–`10` require new contracts
+and observations before they can enter either legacy parity or modern scope.
+
+Where this document and the code disagree, the code and `contracts/` win, and
+the document is the bug — with one exception: the boundaries and prohibitions
+below are binding on the code, not descriptive of it.
 
 ## Relationship among legacy, Dark Factory, and modern
 
@@ -26,20 +32,22 @@ These are separate systems with separate evidence:
 ```mermaid
 flowchart LR
     C["Executable contracts<br/>and canonical truth"] --> L["Completed legacy<br/>Types 01-05"]
-    C --> M["Planned modern pipeline<br/>independent implementation"]
+    C --> M["Modern pipeline<br/>independent implementation"]
     L --> LO["Legacy observations<br/>status, controls, recon, evidence"]
     M --> MO["Modern observations<br/>Parquet, Gold, evidence"]
     C --> GM["Golden-match correctness gate"]
     LO --> GM
     MO --> GM
-    LO --> DF["Dark Factory<br/>next phase"]
-    MO -. "optional later observation channel" .-> DF
+    LO --> DF["Dark Factory detector"]
+    MO -. "additional read-only channel" .-> DF
 ```
 
-- Legacy is complete and can be observed now.
-- Dark Factory may begin against the legacy observation surfaces without
-  waiting for modern.
-- Modern is a future independent implementation, not part of Dark Factory.
+- Legacy is the frozen oracle and can be observed at any time.
+- Modern is an **independent second implementation**, not part of the Dark
+  Factory, and it does not replace legacy. Its whole purpose is to disagree
+  detectably.
+- The detector consumes modern observations only as an additional read-only
+  channel; it never computes modern business results.
 - Golden-match compares observations; it is not the Dark Factory.
 - Neither modern nor Dark Factory may rewrite legacy observations or contract
   expectations to manufacture agreement.
@@ -174,7 +182,8 @@ uc-northwind-pay-edp/
 ├── plans/
 │   ├── legacy.md                      completed oracle baseline
 │   ├── modern.md                      this target plan
-│   └── dark-factory.md                next-phase starting brief
+│   ├── dark-factory-stages.md         factory doctrine, stages, gates
+│   └── df-run-journal.md              dated record of the autonomous run
 ├── modern/                            not implemented
 │   ├── ingestion/
 │   │   └── src/northwind_pay/
@@ -321,8 +330,9 @@ Dark Factory must not:
 - treat a model judgment as correctness evidence;
 - make an external change without its own contract and approval gate.
 
-The next session should begin from
-[`plans/dark-factory.md`](dark-factory.md), not by creating `modern/`.
+The doctrine these boundaries serve is stated in
+[`plans/dark-factory-stages.md`](dark-factory-stages.md); the run that built
+this pipeline is recorded in [`plans/df-run-journal.md`](df-run-journal.md).
 
 ## Build order
 
