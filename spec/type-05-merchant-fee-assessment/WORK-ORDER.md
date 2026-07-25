@@ -41,6 +41,33 @@ Already deployed by the platform team, ahead of this request:
 - `validation/oracle/type05_oracle.py`
 - `Type05WorkflowAdapter` in the runner
 
+## ⚠️ Acceptance criterion #1 — the money
+
+Everything else is secondary to this. The `DF-SOURCE-005` batch carries a
+declared assessed fee its own detail rows contradict:
+
+| | Required |
+|---|---|
+| Your parser must compute | **`1.00`** — the true HALF_UP value |
+| The source's declaration | **`0.99`, preserved byte-exact. Never repaired.** |
+| golden-match classification | **`CONFIRMED_SOURCE_DEFECT`** — never `MODERN_DEFECT`, never absent |
+| Terminal outcome | refused, quarantined, zero rows written |
+| `assessment_calculation_delta`, accepted batches | exactly **`0.00`** |
+| `unexplained_count` | **`0`** |
+
+**Do not repair the source's number.** A system that silently corrects its input
+has destroyed the evidence that something upstream is broken. Compute the truth,
+preserve the lie, refuse the batch, name who lied.
+
+> ⚠️ **Python's default rounding is `ROUND_HALF_EVEN`. This contract mandates
+> `HALF_UP`.** Both `round()` and `f"{value:.2f}"` will quietly give you banker's
+> rounding — `0.125` becomes `0.12`, not `0.13`. Use
+> `Decimal.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)`.
+>
+> Get this wrong and every structural test still passes: the tokens are
+> well-formed, the row counts match, the types are right. Only byte-for-byte
+> comparison against the approved output catches a one-cent error.
+
 ## Your task
 
 1. **Read the pack.** `INVENTORY.md` walks all seven folders. Start by diffing

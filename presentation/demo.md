@@ -409,6 +409,27 @@ sha256:2ba123ee0dfd24d31dc12db93e300c0ce949fc7cd113ddabf7ff0e3bd0807710
 > So the question is not 'do I trust the model.' It is: **are my gates good
 > enough to be the last line?** Here is what I learned by finding out."
 
+**Then give them the ladder.** This is ours, not borrowed — and the rung that
+matters is L4, which almost nobody can claim:
+
+| | Level | Meaning |
+|---|---|---|
+| L1 | **Suggest** | It drafts. You apply |
+| L2 | **Assist** | It patches. You approve each one |
+| L3 | **Unattended** | It runs with guardrails. You review after |
+| **L4** | **Adjudicated** | **An independent oracle decides whether it is right** — not the agent, not you |
+| **L5** | **Self-delivering** | Work order in, pull request out. Evidence for a human to approve |
+
+> "Almost every autonomous-coding demo you have seen is **L3.** Unattended, yes —
+> but nothing independent grades the result. The interesting rung is **L4**, and
+> you cannot reach it without an oracle you are forbidden to touch. **That is the
+> whole reason this repository builds the same system twice.**"
+
+*Credit where due:* the L1–L3 shape comes from
+[Loop Engineering](https://github.com/cobusgreyling/loop-engineering), whose scale
+stops at L3 — unattended with guardrails. L4 and L5 are this repository's
+addition, and they are the two that required an oracle.
+
 ### 5.2 · The mandate (2 min)
 
 ```bash
@@ -549,6 +570,17 @@ type04_ted_transfer_settlement  type05_merchant_fee_assessment
 > not going to write it."
 
 ### 7.3 · Hand it to the factory (3 min)
+
+> **The prompt cards live in [`prompts/`](../prompts/README.md).** Card 06 is the
+> invocation; the rest walk the whole hour. Keep `prompts/README.md` on the second
+> screen.
+
+The invocation is one line, because the policy lives in the repository:
+
+```
+/fab translate spec/type-05-merchant-fee-assessment
+```
+
 
 State the goal out loud, then paste it:
 
