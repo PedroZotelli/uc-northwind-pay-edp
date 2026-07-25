@@ -48,7 +48,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Live automatic-worker proof | Live verified 2026-07-24 through the full `make test` gate |
 | Type `01` parity proof | Re-standardized and independently live verified 2026-07-24 through `make test-type01` |
 | Legacy stopping boundary | Complete |
-| Dark Factory | Next phase; not implemented |
+| Dark Factory | Implemented under `factory/` as a read-only detector; all five `DF-SOURCE-*` scenarios acceptance-verified 2026-07-24 |
 
 The authoritative evidence comes from separate clean synchronous and
 automatic-worker runtimes. It records the current checkout's integrated
@@ -737,15 +737,20 @@ migrations changed to produce this result. The committed baseline is green.
 
 ## Dark Factory handoff contract
 
-The legacy baseline is now an observed system, not implementation material for
-the Dark Factory to rewrite. `DF-SOURCE-001` through `DF-SOURCE-005` are
-seeded source-system-defect fixtures and acceptance labels. They prove that
-the legacy process exposes enough information for a future observer to detect,
-attribute, isolate, and record a mismatch; they do not prove that a Dark
-Factory runtime exists.
+The legacy baseline is an observed system, not implementation material for the
+Dark Factory to rewrite. `DF-SOURCE-001` through `DF-SOURCE-005` are seeded
+source-system-defect fixtures and acceptance labels. They prove that the legacy
+process exposes enough information for an observer to detect, attribute,
+isolate, and record a mismatch.
 
-There is currently no Dark Factory agent loop, finding classifier, remediation
-engine, approval gate, or orchestration service. The next phase must:
+**That observer now exists.** The read-only detector under `factory/` consumes
+this baseline and was acceptance-verified against all five scenarios on
+2026-07-24. What still does not exist, by design: a remediation engine, an
+approval gate, or any surface that writes back. The detector observes and
+reports; it never repairs.
+
+The contract below is what the detector operates under, and what any future
+observer must also honor:
 
 - consume contracts, manifests, hashes, independently computed controls,
   reconciliation, terminal status, and evidence read-only;
@@ -777,7 +782,7 @@ The implementation was verified from local working-tree content rather than a
 committed release. Clean-checkout recreation and CI remain release-hardening
 work, but they do not block a local read-only Dark Factory vertical slice.
 The Dark Factory that consumes this baseline is described in
-[dark-factory-stages.md](dark-factory-stages.md); the
+[dark-factory.md](dark-factory.md); the
 [modern target plan](modern.md) is the separate independent implementation.
 
 ## Legacy stopping boundary before Dark Factory — complete

@@ -1,10 +1,16 @@
 # Dark Factory autonomous run journal
 
-One dated entry per phase and gate of the lights-out run authorized by the
-"Autonomous end-to-end execution mandate", now recorded as
-[DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md).
+**A run record, not a decision.** This is the evidence the numbered decision
+records in this folder were made under: one dated entry per phase and gate of
+the lights-out run authorized by the "Autonomous end-to-end execution mandate",
+now recorded as
+[DR-011](011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md).
 Each entry records status, evidence paths, decision-record references, and
-blockers. Decision records live in [`../docs/decisions/`](../docs/decisions/).
+blockers, and carries the per-phase attestation that no frozen input was
+modified.
+
+**Frozen.** The run it describes completed on 2026-07-24. Extend it only if a
+new autonomous run happens; never rewrite an entry.
 
 Worktree: `sc-coherent-qubit-9d9e`. Branch: `wktr-dark-factory-e2e`.
 No pushes, pull requests, notifications, or external writes occur in this run.
@@ -19,7 +25,7 @@ Docker 29.6.2 with Compose v5.3.1, GNU Make 3.81, Python 3.12.11 available at
 `/opt/homebrew/bin/python3.12`, local ports `2222` and `54329` free. The host
 default interpreter is 3.14.6, so the runner virtual environment was created
 with `PYTHON=/opt/homebrew/bin/python3.12 make init` — see
-[DR-001](../docs/decisions/001-phase-0-reproof-and-implementation-manifest.md).
+[DR-001](001-phase-0-reproof-and-implementation-manifest.md).
 
 The machine already carried a `northwind-pay-legacy` Compose project whose
 `sftp_data` volume held 143 files under `raw/quarantine`, including canonical
@@ -125,7 +131,7 @@ Implementation manifest of the committed tree recomputed under the ledger's
 published boundary: `268` files,
 `12ce7f449228ae70d4781066b009ce63d5b18e037795ab70c5e0c4e6cd0d0dea`. Working
 tree was clean at the time of computation. Recorded as a dated ledger entry in
-[`legacy.md`](legacy.md). Method and its rationale: [DR-001](../docs/decisions/001-phase-0-reproof-and-implementation-manifest.md).
+[`legacy.md`](../../plans/legacy.md). Method and its rationale: [DR-001](001-phase-0-reproof-and-implementation-manifest.md).
 
 **Phase 0 verdict: the committed baseline is re-proven green. No blockers. No
 frozen input was modified.**
@@ -135,12 +141,12 @@ frozen input was modified.**
 ## 2026-07-24 — Phase 1: Type 01 detector slice, Steps 1–6
 
 **Status:** passed. Decision records
-[DR-002](../docs/decisions/002-dark-factory-ownership-and-packaging.md),
-[DR-003](../docs/decisions/003-finding-contract-canonical-json-and-identity.md),
-[DR-004](../docs/decisions/004-privacy-allowlist-and-restricted-value-scan.md),
-[DR-005](../docs/decisions/005-read-only-observation-adapters.md),
-[DR-006](../docs/decisions/006-evidence-based-attribution.md),
-[DR-007](../docs/decisions/007-dark-factory-evidence-packet.md).
+[DR-002](002-dark-factory-ownership-and-packaging.md),
+[DR-003](003-finding-contract-canonical-json-and-identity.md),
+[DR-004](004-privacy-allowlist-and-restricted-value-scan.md),
+[DR-005](005-read-only-observation-adapters.md),
+[DR-006](006-evidence-based-attribution.md),
+[DR-007](007-dark-factory-evidence-packet.md).
 
 | Step | Gate | Result |
 |---|---|---|
@@ -165,12 +171,12 @@ accepted:**
 1. The Step 4 withhold probe passed with every channel withheld, because the
    attribution rule required "at least two" corroborating channels and three
    were available. The rule now requires its complete channel set — see
-   [DR-006](../docs/decisions/006-evidence-based-attribution.md).
+   [DR-006](006-evidence-based-attribution.md).
 2. The privacy corpus scan reported violations for values carrying no restricted
    content — zero-padding runs, the batch identity, and hex digests. Scoping was
    corrected and the alphabetic corpus match was removed with a structural
    argument in its place — see
-   [DR-004](../docs/decisions/004-privacy-allowlist-and-restricted-value-scan.md).
+   [DR-004](004-privacy-allowlist-and-restricted-value-scan.md).
 
 Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
 migrations was modified. No expected value, fixture, or oracle was edited.
@@ -212,7 +218,7 @@ carries `derived_projection`. The classification is read from the artifact's own
 `mode`, not from a table maintained by hand, and it means Types `02`–`05` reach
 `conclusive` on a strictly weaker corroboration set than Type `01`. A reader can
 see that in `observations[].independence` without consulting a document. See
-[DR-006](../docs/decisions/006-evidence-based-attribution.md).
+[DR-006](006-evidence-based-attribution.md).
 
 Source gate after expansion: `18` contract, `30` unit, `23` security,
 `mypy --strict` clean over 21 files.
@@ -222,7 +228,7 @@ Source gate after expansion: `18` contract, `30` unit, `23` security,
 ## 2026-07-24 — Phase 3, milestones M0–M3: modern Type 01 through closed golden-match
 
 **Status:** passed. Design decisions:
-[DR-008](../docs/decisions/008-modern-pipeline-design.md), which settles all ten
+[DR-008](008-modern-pipeline-design.md), which settles all ten
 questions `plans/modern.md` defers.
 
 **M0 — task specification.** Every handoff has one owner, one input contract,
@@ -308,7 +314,7 @@ malformed identity is rejected before any query is built.
 Modern source gate: `26` tests, `mypy --strict` clean over 15 files.
 
 **Deployment and CI remain explicitly out of scope**, as
-[DR-008](../docs/decisions/008-modern-pipeline-design.md) records. Local
+[DR-008](008-modern-pipeline-design.md) records. Local
 clean-environment reproduction is proven by `make modern-rebuild`; no CI
 pipeline, image, or deployment target is selected, and no Terraform is written.
 Claiming CI readiness from local proof is something `plans/modern.md` forbids.

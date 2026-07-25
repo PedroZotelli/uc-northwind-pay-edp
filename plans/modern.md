@@ -1,9 +1,10 @@
-# NorthWind Pay EDP — modern target plan
+# NorthWind Pay EDP — modern pipeline specification
 
 ## Status and evidence boundary
 
 **Built, as of 2026-07-25.** The modern pipeline was implemented by the
-autonomous run recorded in [`df-run-journal.md`](df-run-journal.md)
+autonomous run recorded in the
+[run journal](../docs/decisions/run-journal-2026-07-24.md)
 (Phase 3, milestones M0–M6). This document is no longer a forward-looking
 plan: it is the **specification the implementation must keep satisfying** —
 the boundaries, the golden-match rules, the per-type completion checklist,
@@ -181,10 +182,9 @@ uc-northwind-pay-edp/
 │   └── types/                         approved Types 01-05
 ├── plans/
 │   ├── legacy.md                      completed oracle baseline
-│   ├── modern.md                      this target plan
-│   ├── dark-factory-stages.md         factory doctrine, stages, gates
-│   └── df-run-journal.md              dated record of the autonomous run
-├── modern/                            not implemented
+│   ├── modern.md                      this specification
+│   └── dark-factory.md                factory doctrine, stages, gates
+├── modern/                            implemented
 │   ├── ingestion/
 │   │   └── src/northwind_pay/
 │   │       ├── common/
@@ -207,15 +207,14 @@ uc-northwind-pay-edp/
 │   │   ├── models/gold/
 │   │   └── tests/
 │   ├── dagster/
-│   ├── serving/
-│   │   ├── api/
-│   │   └── mcp/
-│   └── observability/
+│   └── serving/
+│       ├── api/
+│       └── mcp/
 ├── validation/
 │   ├── oracle/                        completed legacy oracle
-│   └── golden-match/                  planned comparison boundary
+│   └── golden-match/                  comparison boundary
 ├── tests/
-│   └── modern/                        planned layered modern tests
+│   └── modern/                        layered modern tests
 └── evidence/
     └── modern/                         generated and normally ignored
 ```
@@ -331,10 +330,16 @@ Dark Factory must not:
 - make an external change without its own contract and approval gate.
 
 The doctrine these boundaries serve is stated in
-[`plans/dark-factory-stages.md`](dark-factory-stages.md); the run that built
-this pipeline is recorded in [`plans/df-run-journal.md`](df-run-journal.md).
+[`plans/dark-factory.md`](dark-factory.md); the run that built this pipeline
+is recorded in the
+[run journal](../docs/decisions/run-journal-2026-07-24.md).
 
 ## Build order
+
+**M0–M6 were executed for Types `01`–`05` during the 2026-07-24 run.** They are
+kept here as the standing route for any *new* type: a sixth type repeats this
+order rather than inventing one. Read the imperative mood as "what a type must
+go through," not as outstanding work.
 
 ### Milestone 0 — approve the modern task specification
 
@@ -454,7 +459,12 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
   independent Java, PostgreSQL, and oracle observations.
 - Modern must be independent from Java and PL/pgSQL calculations.
 
-### Pending before modern coding
+### Settled by DR-008
+
+The ten questions this plan once deferred were all decided during the
+autonomous run and are recorded in
+[DR-008 — Modern pipeline design: the ten decisions M0 defers](../docs/decisions/008-modern-pipeline-design.md).
+That record, not this list, is the authority on each:
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.
@@ -465,10 +475,12 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 7. Record and aggregate keys for golden-match.
 8. Dagster asset, partition, retry, and backfill model.
 9. First read-only FastAPI endpoint and MCP tools.
-10. CI and deployment boundary.
+10. CI and deployment boundary — decided as **out of scope**: no CI exists, no
+    deployment target is selected, and no Terraform is written. Claiming CI
+    readiness from local proof remains forbidden.
 
-These decisions belong to a future modern design turn. They are not blockers
-for beginning the read-only Dark Factory slice.
+Reopening any of these means a new numbered decision record superseding the
+relevant part of DR-008, not an edit to this list.
 
 ## Modern definition of done
 

@@ -172,4 +172,4 @@ And its corollary, learned the hard way here more than once:
 - [Documentation index](docs/README.md) — plans, workshop, every component guide, and the decision records
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md)
-- [Dark Factory stages, gates, and doctrine](plans/dark-factory-stages.md)
+- [Dark Factory stages, gates, and doctrine](plans/dark-factory.md)

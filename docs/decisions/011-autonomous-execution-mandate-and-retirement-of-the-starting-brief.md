@@ -2,7 +2,12 @@
 
 **Date:** 2026-07-25
 **Status:** Accepted
-**Supersedes the navigational role of:** `plans/dark-factory.md` (deleted)
+**Retires:** the Dark Factory *starting brief*, formerly `plans/dark-factory.md`
+
+> **Name reuse — read carefully.** `plans/dark-factory.md` exists today, but it
+> is a *different document*: the doctrine file (stages, gates, prohibitions),
+> which took that name after the brief was retired. This record is about the
+> brief, not the doctrine file.
 
 ## Context
 
@@ -14,7 +19,8 @@ document written before any detector existed. It opened with
 
 That statement is now false. `factory/` contains the implemented detector,
 `modern/` contains the independent second implementation, and the closing entry
-of `plans/df-run-journal.md` records that the Dark Factory definition is met.
+of the [run journal](run-journal-2026-07-24.md) records that the Dark Factory
+definition is met.
 
 A brief whose run has already completed is not a plan — it is a historical
 authorization plus a set of still-binding rules. Left in `plans/`, it misleads
@@ -35,9 +41,10 @@ Three things in it were still load-bearing and are preserved here:
 
 Retire `plans/dark-factory.md`. Record the mandate and the acceptance target
 here. Move the non-negotiable boundaries into
-[`plans/dark-factory-stages.md`](../../plans/dark-factory-stages.md) §9, "What
-the factory must never do", where they are stated as standing doctrine rather
-than as setup for a first slice.
+[`plans/dark-factory.md`](../../plans/dark-factory.md) §9, "What the factory
+must never do", where they are stated as standing doctrine rather than as
+setup for a first slice. That file is the doctrine document, which took over
+the `dark-factory.md` name once the brief was retired.
 
 ### The autonomous end-to-end execution mandate — 2026-07-24
 
@@ -90,7 +97,7 @@ in small, gate-passing increments; never push, open PRs, send notifications, or
 make any external write unless separately instructed. Never weaken, edit, or
 "fix" an expected value, contract fixture, or oracle to turn a red gate green —
 green must come from the referee. Fresh isolated runtime for every authoritative
-acceptance. Maintain `plans/df-run-journal.md`, one dated entry per phase and
+acceptance. Maintain the run journal, one dated entry per phase and
 gate. Hard-stop and report on: any restricted value outside the privacy
 allowlist in a produced artifact; any mutation of frozen legacy inputs; a gate
 that cannot pass without changing frozen truth; Docker or the runtime
@@ -129,8 +136,8 @@ The legacy proof route is `make test-type01`.
   the remainder is a build sequence, an out-of-scope list, and a
   "next-session starting point" for a session that has already run. Correcting
   the header would leave a document whose whole body is spent.
-- **Fold the brief into `plans/dark-factory-stages.md` wholesale.** Rejected:
-  the stages document is a teaching document about how the factory works.
+- **Fold the brief into the doctrine document wholesale.** Rejected: that
+  document is a teaching document about how the factory works.
   Splicing a dated authorization into it would blur the distinction between
   standing doctrine and a one-time grant of autonomy.
 - **Delete the brief outright.** Rejected: the mandate is the audit trail for
@@ -139,12 +146,13 @@ The legacy proof route is `make test-type01`.
 
 ## Consequences
 
-- `plans/` drops to four engineering documents: `legacy.md` (the frozen oracle),
-  `modern.md` (the second implementation), `dark-factory-stages.md` (doctrine),
-  and `df-run-journal.md` (what actually ran).
+- `plans/` drops to three engineering documents: `legacy.md` (the frozen
+  oracle), `modern.md` (the second implementation), and `dark-factory.md`
+  (doctrine). The run journal moved to `docs/decisions/run-journal-2026-07-24.md`,
+  since it is a dated record rather than a plan.
 - Records 001, 002, and 010 still cite `plans/dark-factory.md`. They are dated
   records of what was decided at the time and are not rewritten; this record is
   where that path now resolves.
 - The docstring in `test_finding_contract.py` is updated to point here.
 - `plans/modern.md` and `plans/legacy.md` lose their "next phase" pointers into
-  the brief; both now point at the stages document.
+  the brief; both now point at the doctrine document.

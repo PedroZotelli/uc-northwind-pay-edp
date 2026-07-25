@@ -17,8 +17,7 @@ own folder. This page is the map to all of it.
 |---|---|
 | [Completed legacy baseline](../plans/legacy.md) | Consolidated architecture, ownership, operation, change control, and the proof ledger |
 | [Modern pipeline spec](../plans/modern.md) | The independent second implementation: boundaries, golden-match rules, per-type checklist |
-| [Dark Factory stages](../plans/dark-factory-stages.md) | The doctrine: seven stages, four gate kinds, and what the factory must never do |
-| [Run journal](../plans/df-run-journal.md) | One dated entry per phase and gate of the autonomous run |
+| [Dark Factory](../plans/dark-factory.md) | The doctrine: seven stages, four gate kinds, and what the factory must never do |
 
 ## Workshop
 
@@ -64,6 +63,13 @@ never rewritten.
 | [010](decisions/010-factory-rename-and-flat-source-layout.md) | `factory/` rename and the flat source layout |
 | [011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md) | The autonomous execution mandate, and retirement of the starting brief |
 
+Alongside the numbered decisions, one **run record** — not a decision, but the
+evidence the decisions were made under:
+
+| Record | |
+|---|---|
+| [Run journal 2026-07-24](decisions/run-journal-2026-07-24.md) | One dated entry per phase and gate of the autonomous run, with the per-phase attestation that no frozen input was modified |
+
 Records 001–007 keep their original `dark-factory/` path references. They are
 dated records of what was decided at the time, not navigation; 010 carries the
 path mapping.
@@ -92,7 +98,8 @@ or a memory points at one of these, this is where it went:
 |---|---|
 | `docs/content.md`, `docs/workshop-run-of-show-v1.md` | [`presentation/agenda.md`](../presentation/agenda.md) — merged into one narrative source |
 | `docs/workshop-dark-factory-demo.md` | [`presentation/demo-script.md`](../presentation/demo-script.md) — beside the agenda it serves |
-| `plans/dark-factory.md` (starting brief) | Retired. Mandate + first acceptance target → [DR-011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md); standing boundaries → [`plans/dark-factory-stages.md`](../plans/dark-factory-stages.md) §9 |
+| `plans/dark-factory.md` (the old starting brief) | Retired. Mandate + first acceptance target → [DR-011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md); standing boundaries → [`plans/dark-factory.md`](../plans/dark-factory.md) §9, which is now the doctrine document under that name |
+| `plans/df-run-journal.md` | [`docs/decisions/run-journal-2026-07-24.md`](decisions/run-journal-2026-07-24.md) — filed with the decisions it is evidence for |
 | Developer, operator, and standalone architecture docs | [`plans/legacy.md`](../plans/legacy.md) |
 | `dark-factory/` paths in records 001–007 | `factory/` — see [DR-010](decisions/010-factory-rename-and-flat-source-layout.md) |
 
