@@ -322,13 +322,18 @@ retool: ## Retool the line for a docked type: print the work order and the gates
 	@echo
 	@ls -1 spec/type-$(TYPE)-*/
 	@echo
+	@echo "  declarative only — no code is delivered"
+	@echo
 	@echo "--- current state -------------------------------------------"
 	@printf "  modern verticals built : "
 	@ls -1 modern/ingestion/src/northwind_pay/types/ 2>/dev/null \
 		| grep -c '^type' || echo 0
-	@printf "  this type installed    : "
+	@printf "  specification         : "
 	@test -d "contracts/types/$(TYPE)-"* 2>/dev/null \
-		&& echo "yes" || echo "NO  <- start here"
+		&& echo "installed, legacy runs" || echo "MISSING"
+	@printf "  modern vertical        : "
+	@test -d "modern/ingestion/src/northwind_pay/types/type$(TYPE)_"* 2>/dev/null \
+		&& echo "built" || echo "NOT BUILT  <- this is the job"
 	@echo
 	@echo "--- the loop ------------------------------------------------"
 	@echo "  act    : make run / make modern-run / make modern-dbt"

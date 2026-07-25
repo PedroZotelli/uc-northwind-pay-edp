@@ -16,9 +16,11 @@ them the approved output.
 ```
 spec/type-05-merchant-fee-assessment/
 ├── WORK-ORDER.md          this file
-├── INVENTORY.md           what arrived and where each piece belongs
-└── tests/                 the kit's own proof suite, awaiting installation
+└── INVENTORY.md           the specification, the oracle, and what is missing
 ```
+
+**Declarative only. No code in this folder, by design.** You receive a
+specification and proof of behaviour — not a translation. See `INVENTORY.md`.
 
 Already deployed by the platform team, ahead of this request:
 
@@ -32,14 +34,18 @@ Already deployed by the platform team, ahead of this request:
 
 ## Your task
 
-1. **Install the kit's proof suite.** Four test files in `tests/` here belong in
-   the estate's suites — `INVENTORY.md` says where.
+1. **Read the specification.** `contracts/types/05-merchant-fee-assessment/` —
+   four YAMLs plus `main/`, which holds the approved output for every scenario.
 2. **Prove the legacy side runs.** `make run TYPE=05 SCENARIO=valid-minimal`
    must succeed and `DF-SOURCE-005` must be refused. Confirm the ground truth
    before you trust anything you build against it.
 3. **Build the modern vertical.** Ingestion → canonical Parquet → dlt → DuckDB
    → dbt Bronze/Silver/Gold → golden-match → evidence. Types `01`–`04` are your
    pattern; follow their conventions rather than inventing new ones.
+
+**Build from the specification, not from the legacy code.** You may read
+`legacy/` to understand behaviour. Porting it reproduces its defects and then
+calls the result parity.
 
 ## Frozen — read, never write
 

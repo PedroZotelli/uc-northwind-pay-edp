@@ -95,9 +95,10 @@ keyboard-reachable, honours `prefers-reduced-motion`.
 > beat 5 (containment) answers Q2, beats 7–8 (withhold + determinism) answer
 > Q3. If that callback is cut, cut the promise on slide 25 too.
 
-**Built so far: 38 slides — Act 0 (8), Act 1 (18), Act 2 (12). No `.todo`
-tokens remain.** Act 1's and Act 2's slide-by-slide tables and beats live in
-their own sections below; only Act 0 is itemised here.
+**Built so far: 61 slides — Act 0 (8), Act 1 (18), Act 2 (12), Break (1),
+Act 3A (7), Act 3B (15). No `.todo` tokens remain.** Each act's
+slide-by-slide table and beats live in its own section below; only Act 0 is
+itemised here.
 
 | # | Slide | State |
 |---|---|---|
@@ -111,6 +112,9 @@ their own sections below; only Act 0 is itemised here.
 | 08 | The agenda | done |
 | 09–26 | **Act 1 — 18 slides** | done · see the Act 1 section |
 | 27–38 | **Act 2 — 12 slides** | done · see the Act 2 section |
+| 39 | **Break** — the question, alone | done |
+| 40–46 | **Act 3A — 7 slides** | done · see the Act 3A section |
+| 47–61 | **Act 3B — 15 slides** | done · see the Act 3B section |
 
 **Assets.** Four cinematic backgrounds generated with Higgsfield
 (`soul_location`, 16:9 → 2048×1152, downsampled to the repo's `*-opt.jpg`
@@ -142,6 +146,28 @@ flooded, mirror-still floor — working and being wrong), `df-oraculo-opt.jpg`
 > **labels**, **gauges reading X**). **Always eyeball the render before
 > committing it**; gibberish text on a projector is the single most
 > expensive AI tell in a deck like this.
+
+**Act 3 backgrounds (2026-07-25):** `df-ato3a-opt.jpg` (a cyan ignition flare
+at the end of a long machine aisle, robot arms just catching the light — the
+moment of ignition), `df-ato3b-opt.jpg` (a production hall running at speed
+in the dark, lit only by green status indicators and their reflections — no
+human anywhere), `df-gates-opt.jpg` (a row of heavy gates standing wide open
+in a dark corridor, amber light behind them — gates that cannot fail). All
+three came back clean on the first attempt with the enumerated no-text ban.
+
+**New design-system components (2026-07-25), appended to the style block:**
+- `.fog` / `.fog-inner` / `.fog-seal` — the **silhouette treatment**. A real
+  artefact is rendered inside and then blurred and hatched, with a seal
+  reading “interior closed” over it. Used for Task-Spec (slide 44) and for
+  all nine Converge boxes (slide 45). The name-never-open rule stops being a
+  spoken caveat and becomes *visible*: the audience can see there is
+  something in the box and that it is deliberately shut.
+- `.vq-bay--on` — the powered-on state of the Act 1 instrument panel,
+  applied permanently so slide 58 can show the same three bays with the
+  run's real answers. Mirrors every `:hover` declaration; no JS.
+- `.wh-row` / `.wh-ch` / `.wh-verd` — the **withhold matrix** on slide 54:
+  one row per removed evidence channel, the withheld one struck through in
+  red, the verdict on the right. Five rows carry the whole money shot.
 
 **Act 0 data — landed 2026-07-25.** Pulled from the `applications` export
 (`product = dark-factory-v1`, 703 submissions from 561 distinct people,
@@ -679,6 +705,12 @@ why the answer is a second implementation rather than a bigger team.
 
 ## Break (10 min) — the question stays on screen
 
+**Built: 1 slide (39).** Silent. The through-line question inside a glowing
+red frame, the act-marker reading "Break · 10 minutes", and one line
+underneath: *"When we come back, a machine answers it. Nobody types code from
+here on."* Slide 35 already promised the question would survive the break;
+this pays that promise.
+
 ---
 
 ## Act 3A — The Anatomy, ignition first (25 min)
@@ -686,48 +718,102 @@ why the answer is a second implementation rather than a bigger team.
 **Objective.** The room understands the machine that is — at that very
 moment — visibly working behind the speaker.
 
-**The pattern: ignite, then explain over a running machine.**
+**Built: 7 slides (40–46), 2026-07-25.** Deliberately few. This act's
+content is a running terminal and a second screen; the deck is scaffolding
+around them, and every slide is designed to be talked over rather than read.
+
+| # | Slide | Shape |
+|---|---|---|
+| 40 | Act 3A divider — The Anatomy | poster over `df-ato3a` |
+| 41 | The ignition — one command | silent · ceremonial code block |
+| 42 | “Dark” because nobody needs to see | 3 cards + honest-analogy callout |
+| 43 | The launcher never believes the thinker | **nesting SVG** — the two seats |
+| 44 | Task-Spec — no eval, no task | **silhouette**: in · sealed · out |
+| 45 | Stop writing the system. Compile it. | **nine sealed boxes** — the spine |
+| 46 | Four things on the second screen | 4 cards + hard-stop callout |
+
+### The two decisions I made without you
+
+You said "go for it" with four questions open. Two I answered from the
+repository; two were forced by the calendar. All four are recorded here so
+they can be reversed on purpose rather than by accident.
+
+1. **Six gates, and four — both are true.** `demo.md` §5.3 says six checks
+   were vacuous: *"four were found by the autonomous run itself, two were
+   found last night, reading code."* The commit `cc0c5d7` says "close six
+   vacuous gates." The agenda said four in three places. **The numbers
+   measure different things** — the run caught four; a human reading code
+   afterwards caught two more; six existed. So Act 0 slide 07 ("it corrected
+   itself four times") is *correct as written* and stays, and Act 3B slide 60
+   states both numbers explicitly in its opening line. Nothing needs
+   retracting.
+2. **Track A, not Track B.** `demo.md` offers a Track B where a sixth file
+   type arrives and the factory builds it live. It needs a Type 06 kit that
+   does not exist and takes about two days to build. The workshop is today.
+   Act 3B is therefore the hybrid the run-of-show always specified: **ignite
+   live, narrate the completed evidence while it runs.** If Track B is ever
+   prepared, slides 48–49 are where it would splice in, and the seven-beat
+   sequence after them still works unchanged.
+3. **Auto-allow closes Act 3B** (slides 59–61) rather than opening Act 5.
+   It is the strongest material in the demo script and it lands while the run
+   is still on screen and the room is hot. Act 5 stays about the bridge and
+   the offer.
+4. **Converge and Task-Spec silhouettes were built from what the repo
+   supports** — the real pass names and their real inputs/outputs, from
+   `docs/cvg-aut-systems-spine-steps-v5.pdf`. If updated docs arrive, slides
+   44–45 are the two to revisit; nothing else in Act 3 depends on them.
+
+### On showing the spine without opening it
+
+§1.2 permits pass names, inputs and outputs at silhouette level and forbids
+the contents. Slide 45 therefore names all nine boxes — Capture (optional),
+Intent, Structure, Decompose, **Consensus**, Tasking, Register, Harness, The
+Loop — with what enters and what exits each, and renders every interior as a
+**visibly sealed, hatched, blurred panel**. The audience can see that there
+is something inside and that it is deliberately shut. That is a far better
+tease than a bullet promising depth, and it is auditable: the slide claims
+exactly what §1.2 allows and nothing more.
+
+The invariant is on the slide because it is public doctrine and it is the
+whole design: *every pass lowers altitude, binds an engine, and ends at a
+gate. Pass 8 does not lower — it closes.* Plus the line that makes the
+factory argument land early: **the framework is factory-shaped from pass 1,
+so when you decide to step out there is nothing to retrofit.**
 
 **Beats**
-1. **Ignition (~3 min, ceremonial).** One visible chat invocation
-   fires the factory on the chosen type. From this moment nobody
-   touches the keyboard in the loop. Said out loud: *"While I explain
-   how this works, it is working."*
-2. **Live telemetry as backdrop.** Second screen: Linear cards moving
-   column to column, branches appearing, a PR opening. Planned
-   check-ins every few minutes ("look — it just passed the parser
-   gate") stitch theory to evidence.
-3. **The anatomy, silhouette-level:**
-   - **What a Dark Factory is.** "Lights-out manufacturing" is the
-     literal industry term: queue in, validated software out, humans
-     not in the execution path.
-   - **Chat invoking CLIs that do determinism** — the harness idea;
-     the two seats (the CLI as a tool *inside* the loop; the CLI as
-     launcher + referee *outside* it, never believing the
-     self-report).
-   - **Task-Spec** — the atomic unit: *"no eval, no task."*
-   - **Converge** — the spine at 360°: pass names, inputs, outputs,
-     fog inside every box. "What happens inside each pass is five
-     nights of engineering." (The tease, delivered as fact.)
-
-**Slide/screen topics**
-- The ignition command (big, single, ceremonial)
-- Split-screen layout: slides + live Linear/PR telemetry
-- "Lights-out factory" concept slide (Fanuc reference)
-- Two-seats diagram (CLI inside vs. outside the loop)
-- Task-Spec silhouette card ("no eval, no task")
-- Converge spine silhouette (names + fog)
+1. **Ignition (~3 min, ceremonial).** One visible invocation fires the
+   factory. Said out loud: *"While I explain how this works, it is working."*
+   From this moment nobody touches the keyboard.
+2. **What lights-out actually means.** The literal industry category; what
+   goes dark (the execution path) versus what stays lit (intent, limits,
+   accountability). Then the honest limit: a lights-out plant builds **one
+   part, to a fixed spec, with a jig that catches the bad ones** — tonight's
+   factory is exactly that narrow.
+3. **The two seats.** The same binary inside the loop (a tool the model asks
+   for) and outside it (launcher + referee). Walk the nesting: trigger →
+   orchestrator → launcher → spawned loop → post-gate → done/retry/park.
+   Land the self-report being **discarded unread**.
+4. **Task-Spec, silhouette.** What enters, what exits, what it guarantees.
+   *"No eval, no task."* Close on the commodity trick: once the eval defines
+   done, the executor is a slot — which is why Act 1's engines were
+   interchangeable.
+5. **Converge, silhouette.** The nine boxes, all sealed. *"Stop writing the
+   system. Compile it."*
+6. **What to watch.** Cards moving (a gate let them move) · branches
+   appearing (blast radius is a branch) · **something going red** (the best
+   moment of the night — it does not ask, it reads the error and retries) ·
+   a PR opening (because the referee exited zero). Then the hard stops, and
+   the admission that not peeking is the whole point.
 
 **Key lines**
 - "While I explain how this works, it is working."
 - "The launcher never believes the thinker. It checks the world."
 - "No eval, no task."
-- "What happens inside each pass is five nights of engineering."
-
-**Assets/sources.** ASD deck (two seats, launcher receipt); Converge
-spine silhouette from `docs/cvg-aut-systems-spine-steps-v5.pdf`;
-Task-Spec anatomy (silhouette only) from `docs/task-spec-v3.2.0.pdf`;
-pre-flight commands in `presentation/demo.md`.
+- "Six tiers, and what each one is allowed to promise. That is the Bootcamp."
+- "Stop writing the system. Compile it."
+- "You are converged when an eval passed — not when you feel done."
+- "If I am going to claim nobody is in the loop, I have to actually not be in
+  the loop — including now, while it would be easy to peek."
 
 **Gate.** The machine is understood while visibly working.
 
@@ -744,62 +830,94 @@ pre-flight commands in `presentation/demo.md`.
 **Demo target — settled.** Type `01`, batch `B202607230000004`. One
 cent, two detail rows. All five types at the close.
 
-**Beats.** ~18 min of the 45 is the seven-beat terminal sequence; the
-rest is the trail-walk, the gates, and the AHA breathing room. Exact
-commands and their verified output live in
-[`demo.md`](demo.md) —
-keep it on the second screen.
+**Built: 15 slides (47–61), 2026-07-25.** Every command behind these slides
+is already verified in [`demo.md`](demo.md) — keep it on the second screen.
+The slides are captions and diagrams around a live terminal, not substitutes
+for it.
 
-1. **Walk the trail it already left.** Task-spec picked up, plan
-   drafted, cross-provider adversary refuted the plan — show the
-   objections and what changed. Cross-model disagreement is the point
-   (anti-sycophancy, visceral for seniors).
-2. **Watch the gates pass.** Narrate altitude, not code. "Green means
-   the referee said so — not the model."
-3. **The lie, in the source's own words.** The source manifest declares
-   `net_amount: 173.44`. *"Hold that number."*
-4. **Three independent implementations, one answer.** Legacy Java
-   parser, read-only PostgreSQL SQL, modern Python parser — all three
-   computed `173.45`; all three kept the source's `173.44` exactly as
-   written. *"Three implementations that share no code. Nobody rounded
-   it away, nobody 'helpfully' corrected it."*
-5. **The divergence, then containment.** Numbers don't match. Room's
-   instinct: "the new code has a bug." Let it breathe. Then: staging
-   rows `0`, business rows `0`, status `quarantined`. *"Not rolled
-   back — never written. The cent never entered the database."*
-   And the blast radius is one batch: the two batches after it
-   succeeded and reconciled.
-6. **Run the detector live — the attribution.** Point at four things
-   only, never read JSON aloud: `attribution.owner:
-   "source_system_of_record"` (**who**); `attribution.basis[]` — three
-   named rules with the channels that fed each (*"the explanation is a
-   list a test can check, not a sentence a model wrote"*);
-   `controls.compared[]` — `detail_count` matches, `net_amount` does
-   not; `observations[].independence` — each channel labelled.
-   *"No card number. No document. No raw row. Nothing in here you
-   wouldn't put in a ticket."*
-7. **Take its evidence away — the money shot.** Withhold any single
-   channel and the detector returns `DF-E-ATTRIBUTION-INCONCLUSIVE`.
-   *"Remove any single piece of evidence and it refuses to conclude.
-   It does not lower a confidence score — it declines. That is the
-   difference between a system that reasons from evidence and one that
-   produces opinions."* Worth telling: the **first** version of this
-   rule passed *every* withhold probe, because it asked for "at least
-   two of three." The gate was green and proved nothing. The run
-   caught it and tightened it.
-8. **Determinism.** Run the detector twice; identical `finding_id`
-   hash. *"Byte-identical on four runtimes built from scratch on
-   different days. The finding is a fact, not a generation."*
-   → **Bring the panel back here.** Act 1 slide 25 left three bays reading
-   `NO SIGNAL`. Put them back on screen with the machine's own answers:
-   Q1 *the gate stalls that type, at that stage* · Q2 *staging 0, business 0
-   — never written* · Q3 *four channels withheld, four refusals, and a hash
-   that repeats.* Say it plainly: **"Two hours ago these were questions I
-   asked you. The machine just answered all three."**
-9. **Close the loop — all five types.** Five lines, five types, five
-   source defects, **zero unexplained differences.** COBOL overpunch,
-   escaped pipes, 240-byte paired segments, heterogeneous widths,
-   semicolon CSV with decimal commas — every difference classified.
+| # | Slide | Shape |
+|---|---|---|
+| 47 | Act 3B divider — Lights Off | poster over `df-ato3b` |
+| 48 | A different vendor tore up its plan | 2 cards + refuted arrow |
+| 49 | Green means the referee said so | 4 gate strips |
+| 50 | The upstream says 173.44 — hold that number | silent · manifest |
+| 51 | All three computed 173.45 | **triptych** + the byte callback |
+| 52 | Not rolled back. Never written. | stat-cells + 3 batch rows |
+| 53 | It names the owner | 4 point-at cards |
+| 54 | Remove any single witness | **withhold matrix** ← money shot |
+| 55 | The confession | silent · 2 cards |
+| 56 | A fact, not a generation | twin hashes + 3 cards |
+| 57 | Five types, five findings, zero unexplained | 5-row table + 3 stats |
+| 58 | Filled in by the run — not by me | **the Act 1 panel, lit** |
+| 59 | Auto-allow moves the review onto your gates | mandate rules + the red-green box |
+| 60 | A gate that cannot fail is worse than no gate | 6 cards over `df-gates` |
+| 61 | Take these four | 4 practice cards + closing line |
+
+### Two callbacks this act is now obliged to land
+
+1. **The instrument panel.** Act 1 slide 25 stamps each of three bays
+   *"answered live in Act 3B."* Slide 58 is that payment: the same three
+   bays, permanently powered on, with the run's real answers — the control
+   gate stopped it before the CSV existed (Q1), zero rows so there is
+   nothing to undo (Q2), a finding that refuses to exist without its evidence
+   and hashes identically everywhere (Q3). **If 58 is cut, cut the promise on
+   25.**
+2. **The overpunch byte.** Act 2 slide 31 taught the decode table on the
+   accepted batch, whose trailer ends `…1734E` → `173.45`. Slide 51's second
+   callout closes it: this batch ends `…1734D` → `173.44`. *Same fourteen
+   digits. One character apart.* Do not explain the mechanic again here — the
+   room already owns it, and the payoff is that they read it themselves.
+
+**Beats.** ~18 min of the 45 is the seven-beat terminal sequence; the
+rest is the trail-walk, the gates, and the AHA breathing room.
+
+1. **Walk the trail it already left.** Task-spec picked up, plan drafted,
+   cross-provider adversary refuted the plan — show the objections and what
+   changed. The takeaway question for the room: *who is allowed to tell your
+   system no, and can it overrule them?*
+2. **Watch the gates pass.** Contract · privacy · control · golden-match.
+   Narrate which gate the run is standing on, never the code.
+3. **The lie, in the source's own words.** `net_amount: 173.44`.
+   *"Hold that number."*
+4. **Three independent implementations, one answer.** Java, SQL, Python —
+   all computed `173.45`, all preserved `173.44` exactly. *"A system that
+   silently fixes its source has destroyed the evidence that something
+   upstream is broken."*
+5. **The divergence, then containment.** Let the room say "the new code has a
+   bug." Then staging `0`, business `0`, `quarantined`. *"Not rolled back —
+   never written."* And the blast radius: the two adjacent batches succeeded
+   and reconciled.
+6. **Run the detector live — the attribution.** Point at four things only,
+   never read JSON aloud: `owner` (who) · `basis[]` (a list a test can check,
+   not a sentence a model wrote) · `controls.compared[]` · `independence`.
+   Then invite them to scroll it looking for what is *missing*.
+7. **Take its evidence away — the money shot.** Four channels, four
+   withholds, four `DF-E-ATTRIBUTION-INCONCLUSIVE`. *"It does not lower a
+   confidence score. It declines."*
+8. **The confession, immediately.** The first version of that probe passed
+   with any channel removed — "at least two of three" could not fail. The run
+   caught it at hour six and tightened it. Say plainly: *the version of this
+   talk that omits this slide is a worse talk, and you would have had no way
+   to know.*
+9. **Determinism.** Twin `finding_id` hashes, identical across four runtimes
+   built on different days. Then the portable test: *run any agentic system
+   twice and diff the output.*
+10. **Close the loop — all five types.** Five findings, zero unexplained
+    differences, zero legacy defects. *"The old system was right the whole
+    time. Its inputs were not."*
+11. **The panel, filled in.** Callback 1 above.
+12. **Auto-allow is a bet on your gates.** The Cline reframe — ticking
+    auto-approve does not remove the review, it moves it onto your gates.
+    Then DR-011's rules of engagement, and what they all have in common:
+    they exist to stop the agent **making the red thing green**.
+13. **Six gates that could not fail.** Four found by the run, two found
+    afterwards by reading. Land #4 hardest — the same account at two
+    different banks would have shared a token, and only byte-for-byte
+    comparison against a human-approved file caught it.
+14. **What you actually do.** Freeze your oracles · mutation-test your gates
+    · make evidence an artefact, not a log line · let it refuse. Close on:
+    *"go and try to break one of your own gates this week. If you can't make
+    it go red, it was never protecting you."*
 
 **Key line — said aloud at the AHA**
 > "Three independent implementations each computed 173.45. The source
@@ -814,24 +932,19 @@ Then the doctrine callback:
 > golden-match exists. Eval engineering is not optional in a financial
 > system."
 
-**Optional +5 min — the honest engineering beat.** Lands hard with
-senior engineers and is entirely true. Four gates in this build passed
-while proving nothing, and the run caught each:
-1. The withhold probe was unfalsifiable (beat 7).
-2. `make check` served the Java suite from a **build cache** — 78 tests
-   "passed" without executing on the committed bytes.
-3. Golden-match reported **legacy parity while never contacting
-   legacy** — a missing driver plus a bare `except` degraded it to
-   contract-only comparison.
-4. The Type 04 account token hashed the account number alone where the
-   contract says `ispb:branch:account`. Tokens were well-formed,
-   deterministic, stable — every structural test passed. Only
-   byte-for-byte comparison against the approved output caught it.
-   That bug would have made the same account at two different banks
-   share a token.
-
-> "Every one of those was green. Green is not the goal — **green for
-> the right reason** is. That is what eval engineering buys you."
+**Key lines**
+- "Who is allowed to tell it no, and can it overrule them?"
+- "Green means the referee said so — not the model."
+- "Not rolled back — never written. The cent never entered the database."
+- "A bad file does not take the night down."
+- "The explanation is a list a test can check, not a sentence a model wrote."
+- "It does not lower a confidence score. It declines."
+- "The gate was green and proved nothing."
+- "The finding is a fact, not a generation."
+- "The old system was right the whole time. Its inputs were not."
+- "Auto-allow does not remove the review. It moves it onto your gates."
+- "A gate that cannot fail is worse than no gate."
+- "If you can't make it go red, it was never protecting you."
 
 **Production notes**
 - Run duration must not depend on talking pace: pre-time stages; early
@@ -845,20 +958,19 @@ while proving nothing, and the run caught each:
   disk from the pre-flight.
 - Rehearse second-screen choreography (Linear + PR view) as
   deliberately as the slides.
-
-**Slide/screen topics**
-- (Mostly live screens) adversary objections view; the source manifest;
-  the three-implementation comparison; the containment query; the
-  detector output; the withhold sweep; the twin hashes; the five-type
-  close; the PR.
+- **Slides 50 and 55 are silent slides.** Do not fill the silence. Slide 50
+  is where the room memorises 173.44; slide 55 is where they decide whether
+  to trust you. Both need a beat.
 
 **Assets/sources.** The live harness + repo;
-`presentation/demo.md` (verified commands and output);
+[`demo.md`](demo.md) (verified commands and output);
 `.runtime/e2e-evidence/`, `evidence/modern/`, `evidence/factory/`;
+`docs/decisions/011-autonomous-execution-mandate…md` (slide 59's rules);
 backup recording.
 
 **Gate.** Witnessed: migrate, validate, attribute — and refuse to
-conclude without evidence. L5 became a thing seen.
+conclude without evidence. L5 became a thing seen. And the room leaves
+Act 3 with four things it can do on Monday having bought nothing.
 
 ---
 
