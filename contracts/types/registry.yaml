@@ -70,7 +70,6 @@ types:
       - separate amount sign and magnitude
       - conditional return records
       - account tokenization and tax-ID masking
-
   - number: "05"
     status: approved-for-implementation
     folder: 05-merchant-fee-assessment

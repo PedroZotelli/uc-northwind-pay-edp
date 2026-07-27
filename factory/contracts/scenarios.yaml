@@ -1,0 +1,127 @@
+# Dark Factory scenario bindings.
+#
+# Binds each canonical DF-SOURCE-* seed to the exact immutable identities the
+# detector is allowed to observe. Every path below points at a frozen legacy
+# artifact that the detector opens read-only and never regenerates.
+#
+# required_peers reproduces the legacy definition of peer continuation: the two
+# accepted batches whose scenarios execute after the source-defect batch, so a
+# peer success proves the affected batch did not stop unrelated work.
+
+version: 1
+
+detector:
+  name: northwind-pay-dark-factory-source-control-detector
+  version: "1.0.0"
+  method: declared-versus-independently-computed-controls
+
+finding:
+  schema_version: "1.0.0"
+  finding_version: 1
+  code: DF-SOURCE-CONTROL-MISMATCH
+
+scenarios:
+  - scenario: DF-SOURCE-001
+    type_number: "01"
+    contract_slug: 01-card-settlement
+    contract_code: CRD_SETTLE01
+    batch_id: B202607230000004
+    terminal_code: SOURCE_CONTROL_TOTAL_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/01-card-settlement/main/expected-df-source-001-finding.yaml
+    raw_fixture: contracts/types/01-card-settlement/main/df-source-001.dat
+    raw_encoding: ISO-8859-1
+    staging_relation: staging.card_settlement
+    operational_relation: legacy.card_settlement
+    reporting_relation: reporting.card_settlement_reconciliation
+    control_plane_controls:
+      count: detail_count
+      net_amount: net_amount
+    required_peers:
+      - B202402290000001
+      - B202607230000002
+
+  - scenario: DF-SOURCE-002
+    type_number: "02"
+    contract_slug: 02-instant-payment-events
+    contract_code: PIX_EVENTS01
+    batch_id: B202607230000105
+    terminal_code: SOURCE_CONTROL_NET_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/02-instant-payment-events/main/expected-df-source-002-finding.yaml
+    raw_fixture: contracts/types/02-instant-payment-events/main/df-source-002.txt
+    raw_encoding: UTF-8
+    staging_relation: staging.instant_payment_event
+    operational_relation: legacy.instant_payment_event
+    reporting_relation: reporting.instant_payment_reconciliation
+    control_plane_controls:
+      count: event_count
+      net_amount: net_amount
+    required_peers:
+      - B202402290000102
+      - B202607230000104
+
+  - scenario: DF-SOURCE-003
+    type_number: "03"
+    contract_slug: 03-payment-slip-settlement
+    contract_code: PAYSLIPSET03
+    batch_id: B202607230000205
+    terminal_code: SOURCE_CONTROL_NET_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/03-payment-slip-settlement/main/expected-df-source-003-finding.yaml
+    raw_fixture: contracts/types/03-payment-slip-settlement/main/df-source-003.rem
+    raw_encoding: US-ASCII
+    staging_relation: staging.payment_slip_settlement
+    operational_relation: legacy.payment_slip_settlement
+    reporting_relation: reporting.payment_slip_settlement_reconciliation
+    control_plane_controls:
+      count: logical_count
+      net_amount: net_amount
+    required_peers:
+      - B202402290000202
+      - B202607230000204
+
+  - scenario: DF-SOURCE-004
+    type_number: "04"
+    contract_slug: 04-ted-transfer-settlement
+    contract_code: TED_SETTLE04
+    batch_id: B202607230000305
+    terminal_code: SOURCE_CONTROL_NET_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/04-ted-transfer-settlement/main/expected-df-source-004-finding.yaml
+    raw_fixture: contracts/types/04-ted-transfer-settlement/main/df-source-004.dat
+    raw_encoding: US-ASCII
+    staging_relation: staging.ted_transfer_movement
+    operational_relation: legacy.ted_transfer_movement
+    reporting_relation: reporting.ted_transfer_reconciliation
+    control_plane_controls:
+      count: transfer_count
+      net_amount: net_amount
+    required_peers:
+      - B200002290000302
+      - B202607230000304
+
+  - scenario: DF-SOURCE-005
+    type_number: "05"
+    contract_slug: 05-merchant-fee-assessment
+    contract_code: MER_FEESET05
+    batch_id: B202607230000405
+    terminal_code: SOURCE_CONTROL_ASSESSED_FEE_MISMATCH
+    terminal_stage: java-validation
+    contract_oracle: >-
+      contracts/types/05-merchant-fee-assessment/main/expected-df-source-005-finding.yaml
+    raw_fixture: contracts/types/05-merchant-fee-assessment/main/df-source-005.csv
+    raw_encoding: UTF-8
+    staging_relation: staging.merchant_fee_assessment
+    operational_relation: legacy.merchant_fee_assessment
+    reporting_relation: reporting.merchant_fee_reconciliation
+    control_plane_controls:
+      count: row_count
+      net_amount: assessed_fee
+    required_peers:
+      - B200002290000402
+      - B202607230000404

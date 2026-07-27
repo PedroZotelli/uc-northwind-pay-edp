@@ -1,0 +1,14 @@
+{
+  "batch_id": "B202607230000401",
+  "file_type": "05",
+  "manifest_last": true,
+  "sha256": "457e1737d6540850e9543766c3ffdfd608141d06c9f1cc484d67458753f5df53",
+  "source_controls": {
+    "assessed_fee": "12.36",
+    "calculated_fee": "12.36",
+    "currency": "BRL",
+    "gross_amount": "1001.00",
+    "row_count": 2
+  },
+  "status": "verified_existing"
+}

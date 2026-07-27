@@ -1,0 +1,13 @@
+{
+  "batch_id": "B202607230000001",
+  "checks": {
+    "gold_present": true,
+    "legacy_reconciliation_observed": true,
+    "parquet_published": true
+  },
+  "differences": [],
+  "outcome_class": "accepted",
+  "resolved": true,
+  "type_number": "01",
+  "unexplained_count": 0
+}

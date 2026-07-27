@@ -1,314 +1,375 @@
-# NorthWind Pay EDP — Dark Factory starting brief
+# The Dark Factory — stages, gates, and the doctrine behind them
 
-## Status
+The canonical understanding document. This is what a new engineer reads to
+learn how the factory works and why each rule exists. It is a *teaching*
+document: it explains the reasoning, not only the mechanics.
 
-Implementation pending. This document is the bounded starting brief for the
-next session; it is not evidence that a Dark Factory component exists.
+Companion documents:
 
-The [legacy baseline](legacy.md) is complete and observable. The
-[modern pipeline](modern.md) remains planned and is not a prerequisite for the
-first Dark Factory slice. It is, however, part of the complete Dark Factory
-goal: a factory is only "100% running" when it autonomously builds the modern
-pipeline and closes every golden-match against the legacy oracle.
-
-## Autonomous end-to-end execution mandate — 2026-07-24
-
-This section authorizes a lights-out run. A session explicitly invoked to
-"execute the autonomous mandate" of this plan proceeds end-to-end without
-waiting for human approval, under the rules below. For that run only, this
-section supersedes the "stop for review" checkpoints later in this document
-and the "pending design decisions belong to a future design turn" deferral in
-`plans/modern.md`. Interactive sessions that were not invoked with the
-mandate keep the original stop-for-review behavior.
-
-### Standing authorization
-
-- The executing agent decides every open design question itself: the finding
-  schema, directory ownership, Python packaging, Parquet canonicalization,
-  the dlt role, dbt grains and keys, golden-match keys, the Dagster model,
-  and anything comparable.
-- Every such decision is recorded as a numbered decision record in
-  `docs/decisions/NNN-short-title.md` (context, decision, alternatives
-  considered, consequences) in the same commit that first implements it.
-- Human review happens after the run — from decision records, commits, the
-  run journal, and evidence — not during it.
-
-### Phase 0 — re-prove the committed baseline (mandatory first act)
-
-The 2026-07-24 proof ledger identifies implementation manifest
-`d3e6e95a…` (260 files). The committed tree differs (268 files) because the
-Type `01` parity refactor landed after the authoritative five-type proof;
-only the Type `01` vertical was re-proven live on the final bytes. Therefore,
-before any Dark Factory code:
-
-1. `make init && make deploy && make status`.
-2. `make check`.
-3. `make test` — the full 25-case automatic-worker portfolio — on that fresh
-   runtime.
-4. `make clean CONFIRM=clean-runtime`, redeploy, then `make test-e2e TYPE=all`
-   (the two portfolios reuse canonical batch IDs and must not share one
-   runtime).
-5. Append a dated ledger entry to `plans/legacy.md` with the results and a
-   freshly computed manifest hash of the committed tree.
-
-Nothing in `legacy/`, `contracts/`, `gen/`, `infra/`, or applied migrations
-may change to make Phase 0 pass. A red gate here is a blocker report, not a
-license to fix legacy.
-
-### Phase 1 — Type 01 detector slice
-
-Execute Steps 1–6 of the build sequence below, in order, honoring every gate.
-"Stop for review" becomes a decision record plus self-review; the
-deterministic gates themselves are unchanged and mandatory.
-
-### Phase 2 — detector expansion
-
-`DF-SOURCE-002` through `DF-SOURCE-005`, one completed type at a time. Each
-type passes all six step gates and its acceptance target before the next
-type begins.
-
-### Phase 3 — the modern pipeline, built as the factory's product
-
-Execute `plans/modern.md` milestones M0–M6 under all of that plan's
-boundaries: Type `01` first through the closed golden-match (M0–M3), then
-Dagster and evidence (M4), then Types `02`–`05` one vertical slice at a time
-(M5), then serve and harden (M6). The detector may consume modern
-observations only as an additional read-only channel; it never computes
-modern business results.
-
-### Phase 4 — definition of "Dark Factory 100% running"
-
-The run is complete only when, each on a fresh isolated runtime:
-
-- Phase 0 baseline gates are green on the committed tree;
-- detector findings for all five `DF-SOURCE-*` scenarios are byte-stable,
-  privacy-clean, and acceptance-verified with isolation and peer
-  continuation proven;
-- modern Types `01`–`05` reach Gold with zero unexplained golden-match
-  differences, every difference classified per `plans/modern.md`;
-- complete privacy-safe evidence packets exist for legacy, detector, and
-  modern runs;
-- one documented top-level command per system reproduces each proof.
-
-### Rules of engagement
-
-- Work only in the dedicated worktree and its branch. Commit in small,
-  gate-passing increments. Never push, open PRs, send notifications, or make
-  any external write unless separately instructed.
-- The non-negotiable boundaries below apply to every phase of the run.
-- Never weaken, edit, or "fix" an expected value, contract fixture, or
-  oracle to turn a red gate green. Green must come from the referee.
-- Fresh isolated runtime for every authoritative acceptance; never clean
-  state implicitly.
-- Maintain `plans/df-run-journal.md`: one dated entry per phase and gate
-  with status, evidence paths, decision-record references, and blockers.
-- Hard-stop conditions — halt and report instead of continuing: any
-  restricted value outside the privacy allowlist in a produced artifact; any
-  mutation of frozen legacy inputs; a gate that cannot pass without changing
-  frozen truth; Docker or the local runtime unavailable.
-
-### Prerequisites
-
-Docker with Compose running, GNU Make, Python 3.12+, and free local ports
-for the SFTP/PostgreSQL stack.
-
-## First objective
-
-Build one read-only Type `01` vertical slice that detects and attributes the
-canonical source-system control mismatch from existing immutable observations,
-emits a privacy-safe finding, proves the affected batch remains isolated, and
-proves unrelated batches continue.
-
-```mermaid
-flowchart LR
-    C["Executable contract<br/>source of correctness"]
-    S["Source declaration<br/>system of record"]
-    O["Legacy observations<br/>Java, PostgreSQL, evidence"]
-    D["Dark Factory detector<br/>read-only"]
-    F["Privacy-safe finding<br/>with immutable references"]
-    G["Acceptance gate<br/>isolation + peer continuation"]
-
-    C --> D
-    S --> D
-    O --> D
-    D --> F --> G
-```
-
-## Non-negotiable boundaries
-
-- Do not modify source declarations, raw SFTP bytes, legacy Java results,
-  PostgreSQL observations, canonical fixtures, or expected outcomes.
-- Keep system of record, source of observation, source of correctness, and
-  executable Git contract separate in code and evidence.
-- Treat model output as a proposal, never as correctness evidence.
-- Bind a finding to exact batch, type, raw hash, manifest hash, contract
-  identity, observation references, and detector version.
-- Emit no PAN, CPF, CNPJ, account, name, prohibited description, raw row, or
-  unrestricted exception text.
-- Quarantine remains a legacy runtime action. The first Dark Factory slice
-  observes and verifies that result; it does not move files or repair data.
-- No remediation, contract change, external message, or deployment occurs
-  without a separately designed approval gate.
-- Every authoritative live run uses a fresh isolated runtime.
-
-## First acceptance target
-
-| Field | Expected value |
+| Document | Answers |
 |---|---|
-| Type | `01` |
-| Scenario | `DF-SOURCE-001` |
-| Batch | `B202607230000004` |
-| Source-owned net declaration | `173.44` |
-| Independently computed net | `173.45` |
-| Detail count | Declared `2`, computed `2` |
-| Legacy terminal status | `quarantined` |
-| Legacy terminal code | `SOURCE_CONTROL_TOTAL_MISMATCH` |
-| Attribution | Source system of record |
-| Sanitized CSV | Absent |
-| PostgreSQL business mutation | Zero |
-| Finding scope | Affected batch only |
-| Required peer continuation | `B202402290000001` and `B202607230000002` succeed |
+| [`legacy.md`](legacy.md) | What the frozen oracle is and how it was proven |
+| [`modern.md`](modern.md) | What the independent second implementation must be |
+| [DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md) | The mandate that authorized the run, and the first acceptance target |
+| [run journal](../docs/decisions/run-journal-2026-07-24.md) | What actually ran, dated, per gate |
+| [`../docs/decisions/`](../docs/decisions/) | Why each open question was decided the way it was |
 
-The contract oracle for this target is
-`contracts/types/01-card-settlement/main/expected-df-source-001-finding.yaml`.
-The legacy proof route is `make test-type01`.
+---
 
-## Proposed first implementation surfaces
+## 1. What "Dark Factory" means
 
-Names are provisional until the first task specification is approved:
+The industry term is *lights-out manufacturing*: a plant that runs with the
+lights off because no human is on the floor. Applied here:
 
-```text
-dark-factory/
-├── contracts/
-│   └── finding.schema.json
-├── src/
-│   ├── observations/          read-only legacy evidence adapters
-│   ├── detection/             deterministic control comparison
-│   ├── attribution/           evidence-based source/component ownership
-│   ├── findings/              privacy-safe canonical finding writer
-│   └── cli.py                 one bounded local entrypoint
-└── tests/
-    ├── contract/
-    ├── unit/
-    ├── security/
-    └── end-to-end/
+> **A queue goes in. Validated, evidence-backed software comes out. No human is
+> in the execution path — only at the approval gate.**
+
+Two distinct things share the name in our material, and conflating them
+confuses an audience:
+
+| | The **build factory** | The **detector** |
+|---|---|---|
+| Where | KurvPay chapter 07; this repo's autonomous run | `factory/` in this repo |
+| Job | Manufactures a typed pipeline for a file type | Observes finished runs and attributes defects |
+| Direction | Produces code | Judges output |
+
+This document is about the **build factory**. The detector is one of the
+instruments the factory's proof stage uses.
+
+---
+
+## 2. The given — what arrives with the request
+
+The factory does **not** build the legacy system. Legacy arrives *with* the
+request, already working, and is the **ground truth**. At Kurv this was 32
+T-SQL types that already ran in production; here it is the same shape.
+
+A new-type request carries three things:
+
+1. **The documentation** — layout, field positions, money rules, privacy rules,
+   reconciliation definition, canonical rejection codes.
+2. **The sample file** — real bytes, plus its checksum and source manifest.
+3. **The working legacy path** — SFTP → Java → SFTP → PostgreSQL.
+
+### The legacy path in detail
+
+```
+raw file
+  → SFTP raw/incoming            (manifest written LAST = readiness signal)
+  → worker senses + claims the batch
+  → Java processor               pulls raw bytes, parses, validates declared
+                                 controls against independently computed ones
+  → SFTP csv/outgoing            sanitized CSV written back (no PAN, no CPF)
+  → loader                       pulls CSV, COPY into staging.*
+  → stored procedures            apply to legacy.*, refresh
+                                 reporting.*_reconciliation — one transaction
+  → evidence packet              immutable, privacy-safe, per batch
+  → raw archived or quarantined
 ```
 
-Do not scaffold these directories until their ownership and contracts are
-approved. The first implementation should be deterministic code; an agent may
-coordinate or explain the result later, but it must not replace the detector.
+Two terminal outcomes, both correct:
 
-## Finding contract — first design task
+- **Accepted** → sanitized CSV, staged rows, applied rows, `MATCHED`
+  reconciliation, raw archived.
+- **Quarantined** → *no* CSV, *zero* rows, a stable rejection code, raw moved to
+  quarantine, and **unrelated batches keep running**.
 
-The first turn of implementation should approve a closed finding schema with
-at least:
+The factory never calls this path, never imports from it, and never modifies
+it. It only *observes* it.
 
-- finding and schema version;
-- stable finding code;
-- batch and exact type identity;
-- source-system/component attribution;
-- declared and computed privacy-safe controls;
-- terminal status and quarantine code;
-- mutation and peer-continuation observations;
-- raw, manifest, contract, observation, and detector hashes or references;
-- detector method and confidence semantics;
-- creation time supplied by the runtime, not used in deterministic identity;
-- approval/remediation state explicitly set to `not_requested`.
+---
 
-The schema must reject unknown fields and must have a restricted-value scan.
+## 3. The four truth roles — the doctrine everything rests on
 
-## Build sequence
+Most migration failures come from collapsing these four into one word,
+"source of truth". Keep them apart in code, in evidence, and in conversation:
 
-### Step 1 — freeze the finding contract
+| Role | In this repo | What it answers |
+|---|---|---|
+| **System of record** | `source-manifest.json` — the source's own declaration | "What did the sender claim?" |
+| **Source of observation** | Legacy evidence, PostgreSQL control plane, SFTP zones | "What actually happened?" |
+| **Source of correctness** | `contracts/types/**` — layouts and expected outputs | "What *should* happen?" |
+| **Executable Git contract** | The committed, hash-bound tree | "Which exact version made this claim?" |
 
-- Define the closed JSON schema and one exact Type `01` expected finding.
-- Define canonical JSON and finding identity.
-- Define the privacy allowlist and stable error codes.
+The consequence that matters:
 
-**Gate:** independent contract tests reject drift, extra fields, and restricted
-values.
+> **Legacy is the referee, not the teacher.** The new implementation reads the
+> *contract*, never the Java. Reading the Java would be copying the answer and
+> calling it a proof — and any defect in the old code would be faithfully
+> reproduced and then declared "parity".
 
-### Step 2 — read immutable observations
+---
 
-- Read the source manifest and relevant legacy evidence without mutation.
-- Validate exact batch/type/hash lineage.
-- Refuse missing, cross-batch, ambiguous, or contradictory observation sets.
+## 4. The seven stages
 
-**Gate:** no adapter has a write path to SFTP, PostgreSQL, legacy evidence, or
-contracts.
+Each stage ends in a gate. A failed gate **stalls that type** with the stage and
+reason recorded. It never silently advances with a half-built layer — which is
+what makes an unattended run safe.
 
-### Step 3 — detect the Type 01 control mismatch
+### Stage 0 — Intake
 
-- Compare declared net and detail count with independently computed controls.
-- Produce no finding for matched controls.
-- Produce exactly one stable finding for the one-cent mismatch.
+Read the request: spec document, sample file, legacy kit.
 
-**Gate:** deterministic input produces byte-identical canonical finding data.
+**Gate: does the request ship an oracle?**
+The spec must carry its expected outputs — sanitized rows, reconciliation
+totals, rejection codes. No expected outputs means nothing can adjudicate the
+result, so the factory refuses **before doing any work**.
 
-### Step 4 — attribute with evidence
+> *No eval, no task.*
 
-- Attribute the discrepancy to the source system of record because the raw
-  declaration is wrong while independent observations agree.
-- Keep detection, attribution, and explanation as separate fields.
-- Fail closed when observations do not support one attribution.
+This is the cheapest gate in the system and the one that saves the most: it
+fails in seconds instead of after a build nobody can validate.
 
-**Gate:** removing any required independent observation prevents a conclusive
-attribution.
+### Stage 1 — Ground truth
 
-### Step 5 — prove isolation and continuation
+Deploy a **fresh** runtime, run the legacy path end to end for the new type,
+capture the observations: evidence packets, `reporting.*` rows, control-plane
+state, SFTP zone topology.
 
-- Verify the source-defect batch has no sanitized CSV or business rows.
-- Verify its exact quarantine status and code.
-- Verify the two approved peer batches still succeed and reconcile.
+**Gate: legacy green and its observations captured and hashed.**
 
-**Gate:** the finding is incomplete unless both isolation and continuation are
-observed.
+Freshness is *asserted*, never assumed — the volume is verified empty and
+migrations are seen applying from scratch. A run on a dirty runtime proves
+nothing, and the residue of a previous run looks exactly like success.
 
-### Step 6 — emit the evidence packet
+### Stage 2 — Plan
 
-- Write the canonical finding atomically under a separate Dark Factory
-  evidence root.
-- Include hashes/references, not copied raw values.
-- Add contract, unit, security, and end-to-end tests plus a Make facade.
+Create the worktree and branch. Read the contract and the captured
+observations. Write the plan and the decision records.
 
-**Gate:** a fresh local run recreates the expected finding with no privacy
-leak or legacy mutation.
+**Gate: every handoff has one owner, one input contract, one accepted output.**
 
-## Expansion seeds after Type 01
+Ownership ambiguity is where financial bugs hide. If two components can both
+decide how money is typed, they will eventually disagree.
 
-| Type | Scenario | Batch | Stable legacy code | Deliberate source defect |
-|---|---|---|---|---|
-| `01` | `DF-SOURCE-001` | `B202607230000004` | `SOURCE_CONTROL_TOTAL_MISMATCH` | Net `173.44` vs `173.45` |
-| `02` | `DF-SOURCE-002` | `B202607230000105` | `SOURCE_CONTROL_NET_MISMATCH` | Net `173.44` vs `173.45` |
-| `03` | `DF-SOURCE-003` | `B202607230000205` | `SOURCE_CONTROL_NET_MISMATCH` | Net `198.49` vs `198.50` |
-| `04` | `DF-SOURCE-004` | `B202607230000305` | `SOURCE_CONTROL_NET_MISMATCH` | Net `999.99` vs `1000.00` |
-| `05` | `DF-SOURCE-005` | `B202607230000405` | `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH` | Assessed fee `0.99` vs `1.00` |
+### Stage 3 — Build
 
-Each existing seed expects Java-stage detection, batch quarantine, no
-sanitized output, no PostgreSQL business mutation, and peer continuation.
-Expansion happens one completed type at a time.
+Implement the five-layer package **from the contract only**:
 
-## Explicitly out of scope for the first slice
+```
+model.py    typed records, exact Decimal money
+parser.py   transport, positions, grammar, encoding, dates, signs
+schema.py   validation, privacy transformation, independent controls
+writer.py   deterministic Parquet plus metadata
+handler.py  composes the four for one batch
+```
 
-- Autonomous remediation or source-data correction.
-- Changing legacy or modern business logic.
-- Building the modern pipeline.
-- Multi-agent scheduling, model routing, or self-modifying prompts.
-- Natural-language SQL.
-- Notifications, tickets, pull requests, or external writes.
-- Production deployment.
-- Types `02`–`05` implementation before Type `01` acceptance passes.
+**Gate: reproduces the contract's approved sanitized output byte-for-byte.**
 
-## Next-session starting point
+Not "parses without error". Not "coverage ≥ 80%". *Produces the approved
+bytes.* This is the single highest-value test in the system — it is the only
+check that has caught defects which were well-formed, deterministic, stable,
+and wrong.
 
-A session invoked to execute the autonomous mandate begins with Phase 0 and
-runs end-to-end under the mandate's rules; the out-of-scope list above yields
-to the mandate's phased scope (modern implementation enters in Phase 3, still
-under `plans/modern.md` boundaries; external writes and production deployment
-remain excluded).
+### Stage 4 — Publish
 
-Any other session begins with Step 1 only: inspect the Type `01` source-defect
-oracle and existing evidence shape, propose the closed finding contract and
-directory ownership, and stop for review before implementation. Preserve the
-evidence boundary: legacy is implemented, Dark Factory is pending, and modern
-is planned.
+Write canonical Parquet plus a readiness manifest, atomically, manifest last.
+
+**Gate: re-running produces an identical SHA-256.**
+
+Statistics and dictionary encoding are disabled so the file is a pure function
+of the rows and the schema. The file hash therefore *is* the determinism check
+— no extra machinery needed.
+
+### Stage 5 — Lakehouse
+
+dlt **registers** the landing Parquet (it never parses or reshapes). dbt builds
+Bronze → Silver → Gold at documented grains.
+
+**Gate: `dbt build` green, including privacy assertions and the
+no-unexplained-financial-delta test.**
+
+Gold's grain deliberately equals the legacy reporting grain, so the comparison
+in the next stage is like-for-like rather than an aggregate reshaped to fit.
+
+### Stage 6 — Golden-match
+
+Compare on two axes at two levels:
+
+|  | Against contract truth | Against legacy observation |
+|---|---|---|
+| **Record level** | expected sanitized rows | legacy sanitized CSV |
+| **Aggregate level** | expected reconciliation | `reporting.*_reconciliation` |
+
+Rejected batches are compared on **terminal behavior** — status, stable code,
+zero output, zero mutation, peer continuation — never on rows. Inventing empty
+rows so a rejection can be "compared like a success" hides the very difference
+that matters.
+
+Every difference is classified as exactly one of:
+
+`CONFIRMED_SOURCE_DEFECT` · `CONFIRMED_LEGACY_DEFECT` · `MODERN_DEFECT` ·
+`APPROVED_BEHAVIOR_CHANGE` · `CONTRACT_AMBIGUITY` · `UNRESOLVED`
+
+**Gate: zero unexplained differences.**
+
+There is no tolerance setting anywhere in this stage. A configurable tolerance
+is how an unexplained cent becomes an accepted cent.
+
+### Stage 7 — Ship and learn
+
+Publish the immutable, privacy-safe evidence packet. Open the PR carrying the
+evidence, the journal, and the decision records. Harvest lessons. Promote a
+recurring one to a skill or a guard.
+
+**Gate: a human approves the merge.** The only human touch in the whole line.
+
+A lesson earns promotion when all three hold: it **recurs** across types, it is
+**expensive when wrong**, and it is **mechanizable**. Anything needing
+case-by-case judgment stays a lesson.
+
+---
+
+## 5. The gates — four kinds, one human
+
+| Kind | When | Waivable? |
+|---|---|---|
+| **Stage gates** | Between every stage | No |
+| **Source gate** | Contract, unit, security suites + strict typing | No |
+| **Correctness gates** | Privacy scan, golden-match, determinism, isolation | **Never** |
+| **Approval gate** | The PR merge | Yes — the one human decision |
+
+Waiving the human gate does not weaken the correctness gates. Under unattended
+operation they still fire and still stall the type.
+
+**Never waived, ever:** no-oracle refusal · privacy violation · unexplained
+financial difference · frozen-input mutation.
+
+---
+
+## 6. The loop — how it runs unattended
+
+An agent cannot loop on its own; it only acts when invoked. The loop supplies
+what's missing:
+
+| Part | What it is |
+|---|---|
+| **Goal state** | A queue — one row per item with a status |
+| **Per-tick action** | What to do for exactly one item, idempotent |
+| **Pre-flight gate** | Must pass before tick 1 — credentials, inputs, runtime |
+| **Stall policy** | One item's failure stalls **that item**, never the batch |
+| **Clock** | Re-fires the next tick; terminates when the queue drains |
+
+Five invariants:
+
+1. **Idempotent ticks** — a half-done item is `in-progress`; the next tick
+   continues it, never double-processes.
+2. **Stall, never halt** — the batch is as fragile as its pre-flight gate, not
+   as its worst item.
+3. **Verify before irreversible** — trust-but-verify each item before any
+   deploy or merge.
+4. **Pre-flight gates loud** — fail before tick 1 rather than waste a batch
+   that cannot finish.
+5. **The durable record is the goal-state file**, not the chat.
+
+Operator cadence is the **morning review**: the loop runs overnight, stalling
+anything it cannot finish; the human reviews and clears the approval gate in
+the morning. A stall is not urgent until then.
+
+---
+
+## 7. The injected defect — why the whole thing exists
+
+Every type carries a canonical `DF-SOURCE-*` batch in which the **source
+declares a total its own detail rows contradict** — one cent.
+
+What must happen, and what the demo shows:
+
+1. Java independently computes the true total and **refuses** the batch.
+2. **Zero** rows reach staging or the business tables. Not rolled back — never
+   written.
+3. No sanitized CSV is produced.
+4. The modern implementation, independently, computes the same true total and
+   refuses the same way.
+5. Neither system **corrects** the source's number. Both preserve the wrong
+   declaration exactly as published.
+6. Golden-match classifies it `CONFIRMED_SOURCE_DEFECT` — explained, not
+   unexplained.
+7. Peer batches processed after it succeed and reconcile.
+
+> **A wrong money number passes unnoticed. That is exactly why the golden-match
+> exists. Eval engineering is not optional in a financial system.**
+
+---
+
+## 8. Mapping to the KurvPay `/tsys:onboard` line
+
+For audiences who see both, the correspondence is close:
+
+| `/tsys:onboard` | Here |
+|---|---|
+| 1 `scaffold` | Stage 2–3 — worktree + five-layer package |
+| 2 `kb-agent` | Stage 0 — the contract, pre-frozen rather than generated |
+| 3 `models` | Stage 3 — with a stricter gate (byte-for-byte, not "parses") |
+| 4 `tests` | Stage 3 source gate — value agreement rather than a coverage % |
+| 5 `preflight` | Stage 3 source gate |
+| 6 `lambda` | *No equivalent* — local only, deployment out of scope |
+| 7 `lakeflow` | Stage 5 — and we carry Silver/Gold, not Bronze-only |
+| 8 `e2e` | Stage 6 — two references instead of one |
+| 09 deploy | Stage 7 — the one human gate |
+
+Shared doctrine, arrived at independently:
+
+- *"the golden is evidence, not truth — the raw bytes plus the proc are truth"*
+  ↔ the four truth roles
+- *"editing the parser until the diff vanishes is the most dangerous move in the
+  program"* ↔ **never edit an expected value, fixture, or oracle to turn a gate
+  green**
+
+---
+
+## 9. What the factory must never do
+
+These are standing boundaries. They bind every phase, every type, and every
+future slice — not just the first one. (Consolidated here from the retired
+starting brief; see
+[DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md).)
+
+**Never touch frozen truth**
+- Modify a frozen input — `legacy/`, `contracts/`, `gen/`, `infra/`, applied
+  migrations — to make a gate pass.
+- Modify source declarations, raw SFTP bytes, legacy Java results, PostgreSQL
+  observations, canonical fixtures, or expected outcomes.
+- Edit an expected value, fixture, or oracle to turn red into green.
+
+**Never blur the truth roles**
+- Keep system of record, source of observation, source of correctness, and
+  executable Git contract separate in code *and* in evidence.
+- Treat a model's judgment as a proposal, never as correctness evidence.
+
+**Never emit what privacy forbids**
+- Emit a restricted value: PAN, CPF, CNPJ, account number, holder name,
+  prohibited description, raw row, or unrestricted exception text.
+
+**Never act where it may only observe**
+- Quarantine is a legacy runtime action. The detector observes and verifies
+  that result; it does not move files or repair data.
+- Take no remediation, contract change, external message, or deployment
+  without a separately designed approval gate.
+
+**Never weaken the proof**
+- Bind every finding to exact batch, type, raw hash, manifest hash, contract
+  identity, observation references, and detector version.
+- Use a fresh isolated runtime for every authoritative live run; never clean
+  state implicitly.
+- Claim production or CI readiness from local proof.
+
+---
+
+## 10. The teaching sequence
+
+The order that makes the machine legible to a room:
+
+1. **The legacy works** — and it is the referee, not the teacher.
+2. **The problem** — translation can be structurally correct and financially
+   wrong. Plausible-but-wrong money is the whole risk.
+3. **Types 01–05 end to end** — the machine running, gates visible.
+4. **A new request arrives** — spec, sample file, working legacy kit.
+5. **Invoke the factory** — one command; hands off the keyboard.
+6. **Watch the stages and gates pass** — narrate altitude, not code.
+7. **Golden-match against ground truth** — 100%, then the injected cent.
+8. **Ship and learn** — PR, evidence, lesson, promoted skill.
+
+The line that carries the whole talk:
+
+> *"Green is not the goal. **Green for the right reason** is."*

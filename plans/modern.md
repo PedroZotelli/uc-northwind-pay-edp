@@ -1,23 +1,31 @@
-# NorthWind Pay EDP — modern target plan
+# NorthWind Pay EDP — modern pipeline specification
 
 ## Status and evidence boundary
 
-The modern pipeline is a target architecture, not a current implementation.
-The completed [legacy baseline](legacy.md) is the observable reference for the
-next phases.
+**Built, as of 2026-07-25.** The modern pipeline was implemented by the
+autonomous run recorded in the
+[run journal](../docs/decisions/run-journal-2026-07-24.md)
+(Phase 3, milestones M0–M6). This document is no longer a forward-looking
+plan: it is the **specification the implementation must keep satisfying** —
+the boundaries, the golden-match rules, the per-type completion checklist,
+and the definition of done. Read it as the contract for changes, not as a
+description of work not yet started.
 
 | Area | Live repository state |
 |---|---|
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
-| Dark Factory | Next implementation phase; starting brief exists, but no runtime or agent loop exists |
-| Modern pipeline | Planned only; no `modern/` source tree, Parquet, lakehouse, dbt, Dagster, API, or MCP implementation exists |
-| Release boundary | The implementation is local working-tree content; no committed-release or clean-checkout CI claim exists |
+| Dark Factory | Implemented under `factory/`; all five `DF-SOURCE-*` scenarios acceptance-verified and byte-stable |
+| Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`04` reach Gold with zero unexplained golden-match differences |
+| Modern Type `05` | **Not built.** Contract, oracle, and a live legacy execution are docked in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md) as an open work order. Do not search git history for a prior implementation — build it from the contract |
+| Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
-The earlier version of this plan described a planning-only repository and ten
-existing legacy types. That is no longer accurate. The proven shared baseline
-is five types. Types `06`–`10` require new contracts and observations before
-they can enter either legacy parity or modern implementation scope.
+The proven shared baseline is five types. Types `06`–`10` require new contracts
+and observations before they can enter either legacy parity or modern scope.
+
+Where this document and the code disagree, the code and `contracts/` win, and
+the document is the bug — with one exception: the boundaries and prohibitions
+below are binding on the code, not descriptive of it.
 
 ## Relationship among legacy, Dark Factory, and modern
 
@@ -26,20 +34,22 @@ These are separate systems with separate evidence:
 ```mermaid
 flowchart LR
     C["Executable contracts<br/>and canonical truth"] --> L["Completed legacy<br/>Types 01-05"]
-    C --> M["Planned modern pipeline<br/>independent implementation"]
+    C --> M["Modern pipeline<br/>independent implementation"]
     L --> LO["Legacy observations<br/>status, controls, recon, evidence"]
     M --> MO["Modern observations<br/>Parquet, Gold, evidence"]
     C --> GM["Golden-match correctness gate"]
     LO --> GM
     MO --> GM
-    LO --> DF["Dark Factory<br/>next phase"]
-    MO -. "optional later observation channel" .-> DF
+    LO --> DF["Dark Factory detector"]
+    MO -. "additional read-only channel" .-> DF
 ```
 
-- Legacy is complete and can be observed now.
-- Dark Factory may begin against the legacy observation surfaces without
-  waiting for modern.
-- Modern is a future independent implementation, not part of Dark Factory.
+- Legacy is the frozen oracle and can be observed at any time.
+- Modern is an **independent second implementation**, not part of the Dark
+  Factory, and it does not replace legacy. Its whole purpose is to disagree
+  detectably.
+- The detector consumes modern observations only as an additional read-only
+  channel; it never computes modern business results.
 - Golden-match compares observations; it is not the Dark Factory.
 - Neither modern nor Dark Factory may rewrite legacy observations or contract
   expectations to manufacture agreement.
@@ -173,9 +183,9 @@ uc-northwind-pay-edp/
 │   └── types/                         approved Types 01-05
 ├── plans/
 │   ├── legacy.md                      completed oracle baseline
-│   ├── modern.md                      this target plan
-│   └── dark-factory.md                next-phase starting brief
-├── modern/                            not implemented
+│   ├── modern.md                      this specification
+│   └── dark-factory.md                factory doctrine, stages, gates
+├── modern/                            implemented
 │   ├── ingestion/
 │   │   └── src/northwind_pay/
 │   │       ├── common/
@@ -198,15 +208,14 @@ uc-northwind-pay-edp/
 │   │   ├── models/gold/
 │   │   └── tests/
 │   ├── dagster/
-│   ├── serving/
-│   │   ├── api/
-│   │   └── mcp/
-│   └── observability/
+│   └── serving/
+│       ├── api/
+│       └── mcp/
 ├── validation/
 │   ├── oracle/                        completed legacy oracle
-│   └── golden-match/                  planned comparison boundary
+│   └── golden-match/                  comparison boundary
 ├── tests/
-│   └── modern/                        planned layered modern tests
+│   └── modern/                        layered modern tests
 └── evidence/
     └── modern/                         generated and normally ignored
 ```
@@ -321,10 +330,19 @@ Dark Factory must not:
 - treat a model judgment as correctness evidence;
 - make an external change without its own contract and approval gate.
 
-The next session should begin from
-[`plans/dark-factory.md`](dark-factory.md), not by creating `modern/`.
+The doctrine these boundaries serve is stated in
+[`plans/dark-factory.md`](dark-factory.md); the run that built this pipeline
+is recorded in the
+[run journal](../docs/decisions/run-journal-2026-07-24.md).
 
 ## Build order
+
+**M0–M6 were executed for Types `01`–`05` during the 2026-07-24 run.** Type `05`'s
+modern vertical has since been withdrawn and reissued as an open work order, so
+the route below is live for it again. They are
+kept here as the standing route for any *new* type: a sixth type repeats this
+order rather than inventing one. Read the imperative mood as "what a type must
+go through," not as outstanding work.
 
 ### Milestone 0 — approve the modern task specification
 
@@ -444,7 +462,12 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
   independent Java, PostgreSQL, and oracle observations.
 - Modern must be independent from Java and PL/pgSQL calculations.
 
-### Pending before modern coding
+### Settled by DR-008
+
+The ten questions this plan once deferred were all decided during the
+autonomous run and are recorded in
+[DR-008 — Modern pipeline design: the ten decisions M0 defers](../docs/decisions/008-modern-pipeline-design.md).
+That record, not this list, is the authority on each:
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.
@@ -455,10 +478,12 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 7. Record and aggregate keys for golden-match.
 8. Dagster asset, partition, retry, and backfill model.
 9. First read-only FastAPI endpoint and MCP tools.
-10. CI and deployment boundary.
+10. CI and deployment boundary — decided as **out of scope**: no CI exists, no
+    deployment target is selected, and no Terraform is written. Claiming CI
+    readiness from local proof remains forbidden.
 
-These decisions belong to a future modern design turn. They are not blockers
-for beginning the read-only Dark Factory slice.
+Reopening any of these means a new numbered decision record superseding the
+relevant part of DR-008, not an edit to this list.
 
 ## Modern definition of done
 

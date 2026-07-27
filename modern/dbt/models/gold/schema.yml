@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: gold_card_settlement_reconciliation
+    description: >-
+      Grain: one row per batch and currency, matching the legacy reporting
+      grain so golden-match compares like with like.
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BRL"]
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["MATCHED", "MISMATCHED"]
+
+  - name: gold_instant_payment_reconciliation
+    description: >-
+      Grain: one row per Type 02 batch and currency, at the legacy reporting
+      grain.
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BRL"]
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["MATCHED", "MISMATCHED"]
+
+  - name: gold_payment_slip_reconciliation
+    description: "Grain: one row per Type 03 batch and currency."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BRL"]
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["MATCHED", "MISMATCHED"]
+
+  - name: gold_ted_transfer_reconciliation
+    description: "Grain: one row per Type 04 batch and currency."
+    columns:
+      - name: batch_id
+        tests: [not_null, unique]
+      - name: currency
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["BRL"]
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["MATCHED", "MISMATCHED"]
