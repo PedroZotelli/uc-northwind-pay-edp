@@ -164,10 +164,15 @@ meeting used the wrong noun.
 | Piece | Status |
 |---|---|
 | This page | The drop contract. Week = Types `01`–`05`. Day five = Type `06`. |
-| `estate/` | **Not compiled yet.** Next write. |
-| Types `01`–`04` packs | **Not compiled yet.** Truth is in `contracts/types/`. |
-| [`type-05-…`](type-05-merchant-fee-assessment/INVENTORY.md) | Thin example. Rewrite into the same inbound shape. |
+| [`estate/`](estate/README.md) | Compiled. Cover, five meetings, two mails, two policies. |
+| [`type-01-…`](type-01-card-settlement/README.md) | Compiled. inbound / samples / expected |
+| [`type-02-…`](type-02-instant-payment-events/README.md) | Compiled |
+| [`type-03-…`](type-03-payment-slip-settlement/README.md) | Compiled |
+| [`type-04-…`](type-04-ted-transfer-settlement/README.md) | Compiled |
+| [`type-05-…`](type-05-merchant-fee-assessment/README.md) | Compiled. Same shape as the others. |
 | Type `06` | **Not here.** Sealed until day five. No empty folder. |
+
+Instructor key (not for the room): [`../plans/spec-instructor-key.md`](../plans/spec-instructor-key.md).
 
 ## Gate before a pack is written
 
@@ -183,15 +188,12 @@ A type pack is ready only when:
 
 Fail any one and we do not write that type.
 
-## What gets written in advance
+## What is written in advance
 
-1. `estate/` — cover, 4–6 notes, one policy, one thread.
-2. Types `01`–`05` — inbound shape from the signed contracts plus the
-   planted issues above. Five equal drops.
-3. Instructor key, if any, under `plans/` — never inside `spec/`.
-4. Type `06` — **not written now.** The factory's first unseen kit
-   is authored as a sealed drop for day five, after the week has
-   learned the line on `01`–`05`.
+1. `estate/` — cover, five notes, two mails, two policies.
+2. Types `01`–`05` — inbound / samples / expected. Five equal drops.
+3. Instructor key under [`plans/spec-instructor-key.md`](../plans/spec-instructor-key.md).
+4. Type `06` — **not written.** Sealed until day five.
 
 The room starts on a drop, not on a pointer. The factory learns on a
 type it has not already unpacked.

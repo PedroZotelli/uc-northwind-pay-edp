@@ -13,7 +13,7 @@ that is already here.
 | Before writing a parser | Independence rules, the type map, and the five-file package |
 | Closing a type | The [completion checklist](#completion-checklist-for-each-type) and golden-match classifications |
 | A source-defect batch | The two questions stay separate. Classification is `CONFIRMED_SOURCE_DEFECT` |
-| Type `05` | The docked kit in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md). Do not search git history |
+| Type `05` | The inbound pack in [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/README.md). Do not search git history |
 | Serving a result | Only an approved Gold snapshot. Unresolved golden-match is not servable |
 
 Days 1–4 construct this fabric against Types `01`–`05`. Day 5 is the
@@ -33,7 +33,7 @@ code exists.
 | Type `01` parity | Explicitly standardized and independently reverified |
 | Dark Factory | Not on this tree. Built later as a read-only witness |
 | Modern pipeline | **Not on this tree.** Built during the week against this spec |
-| Modern Type `05` | **Not built.** Contract, oracle, and a live legacy execution are docked in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md) as an open work order. Do not search git history for a prior implementation — build it from the contract |
+| Modern Type `05` | **Not built.** Inbound pack is in [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/README.md). Do not search git history for a prior implementation — build it from the drop and the contract |
 | Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
 The proven shared baseline is five types. Types `06`–`10` require new contracts
@@ -162,7 +162,7 @@ or refuse the **same** batch IDs.
   - Type `05`: quote-aware semicolon CSV, NFC, decimal comma, and `HALF_UP`.
   Modern Type `05` is **not built**. The contract, oracle, and a live
   legacy execution are docked in
-  [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md).
+  [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/README.md).
   Build it from that kit, not from git history.
 - Exact `Decimal` financial arithmetic. Python's default rounding is
   `ROUND_HALF_EVEN`. Type `05` forbids it.
