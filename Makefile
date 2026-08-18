@@ -12,18 +12,10 @@ MAX_BATCHES ?= 100
 SUPPORTED_TYPES := 01 02 03 04 05
 WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 
-# Modern: an independent second implementation with its own environment.
-MODERN_VENV := modern/.venv
-MODERN_PYTHON := $(MODERN_VENV)/bin/python
-MODERN_SRC := modern/ingestion/src
-MODERN_DUCKDB := modern/lakehouse/ducklake/northwind_modern.duckdb
-
 .DEFAULT_GOAL := help
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
-	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
-	retool \
-	modern-init modern-check modern-run modern-dbt modern-rebuild modern-dagster modern-api
+	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime
 
 help: ## [base] List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
@@ -44,16 +36,6 @@ help: ## [base] List supported targets, compatibility aliases, and input variabl
 	} \
 	/^[a-zA-Z0-9_-]+:.*## \[verify\] / { \
 		sub(/^\[verify\] /, "", $$2); \
-		printf "  %-18s %s\n", $$1, $$2; \
-	} \
-	END { }' $(MAKEFILE_LIST)
-	@awk 'BEGIN { \
-		FS = ":.*## "; \
-		print ""; \
-		print "Later — not the base (modern fabric):"; \
-	} \
-	/^[a-zA-Z0-9_-]+:.*## \[later\] / { \
-		sub(/^\[later\] /, "", $$2); \
 		printf "  %-18s %s\n", $$1, $$2; \
 	} \
 	END { \
@@ -280,82 +262,6 @@ test-worker-e2e: ## [verify] Run the live automatic-worker acceptance suite on a
 
 test: check test-postgres ## [verify] Run source/build, rollback-only PostgreSQL, and fresh worker acceptance.
 	@$(RUNNER_PYTHON) "$(WORKER_E2E_SUITE)"
-
-retool: ## [later] Retool the line for a docked type: print the work order and the gates.
-	@test -d "spec/type-$(TYPE)-"* 2>/dev/null || { \
-		echo "no docked kit for TYPE=$(TYPE) under spec/" >&2; exit 2; }
-	@echo "=============================================================="
-	@echo " RETOOL  —  type $(TYPE)"
-	@echo "=============================================================="
-	@echo
-	@echo "The line is being retooled for a new part. The kit is docked in"
-	@echo "spec/ and is NOT installed. Nothing downstream of the sanitized"
-	@echo "CSV exists for this type."
-	@echo
-	@ls -1 spec/type-$(TYPE)-*/
-	@echo
-	@echo "  declarative only — no code is delivered"
-	@echo
-	@echo "--- current state -------------------------------------------"
-	@printf "  modern verticals built : "
-	@ls -1 modern/ingestion/src/northwind_pay/types/ 2>/dev/null \
-		| grep -c '^type' || echo 0
-	@printf "  specification         : "
-	@test -d "contracts/types/$(TYPE)-"* 2>/dev/null \
-		&& echo "installed, legacy runs" || echo "MISSING"
-	@printf "  modern vertical        : "
-	@test -d "modern/ingestion/src/northwind_pay/types/type$(TYPE)_"* 2>/dev/null \
-		&& echo "built" || echo "NOT BUILT  <- this is the job"
-	@echo
-	@echo "--- the loop ------------------------------------------------"
-	@echo "  act    : make run / make modern-run / make modern-dbt"
-	@echo "  observe: evidence/modern/<batch>/*.json"
-	@echo "  gate   : golden-match resolved && unexplained_count == 0"
-	@echo "  halt   : privacy leak | frozen write | unpassable gate"
-	@echo
-	@echo "--- work order ----------------------------------------------"
-	@cat spec/type-$(TYPE)-*/WORK-ORDER.md
-
-modern-init: ## [later] Create the modern virtual environment from pinned requirements.
-	@$(PYTHON) -m venv $(MODERN_VENV)
-	@$(MODERN_PYTHON) -m pip install --quiet --upgrade pip
-	@$(MODERN_PYTHON) -m pip install --quiet -r modern/requirements.txt
-	@echo "modern environment initialized"
-
-modern-check: ## [later] Run modern unit, contract, and privacy suites plus strict typing.
-	@PYTHONPATH=$(MODERN_SRC) $(MODERN_PYTHON) -m unittest discover \
-		--start-directory tests/modern \
-		--pattern 'test_*.py' \
-		--verbose
-	@PYTHONPATH=$(MODERN_SRC) $(MODERN_PYTHON) -m mypy \
-		--python-version 3.12 \
-		--strict \
-		--no-incremental \
-		$(MODERN_SRC)/northwind_pay
-
-modern-run: ## [later] Run the modern pipeline for one TYPE, closing golden-match.
-	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
-	esac
-	@$(MODERN_PYTHON) modern/pipeline.py --type "$(TYPE)" $(MODERN_RUN_FLAGS)
-
-modern-dbt: ## [later] Build and test the modern Bronze, Silver, and Gold models.
-	@cd modern/dbt && DBT_PROFILES_DIR=. ../.venv/bin/dbt build --no-use-colors
-
-modern-rebuild: ## [later] Rebuild the lakehouse from the immutable landing Parquet tree.
-	@rm -rf $(MODERN_DUCKDB) .runtime/dlt .runtime/dbt
-	@$(MODERN_PYTHON) modern/pipeline.py --type "$(if $(TYPE),$(TYPE),01)" $(MODERN_RUN_FLAGS)
-
-modern-dagster: ## [later] Materialize the modern assets through Dagster.
-	@mkdir -p .runtime/dagster
-	@DAGSTER_HOME=$(CURDIR)/.runtime/dagster PYTHONPATH=modern/dagster \
-		$(MODERN_VENV)/bin/dagster asset materialize \
-		-m northwind_modern_dagster --select '*' \
-		--partition "$(if $(TYPE),$(TYPE),01)"
-
-modern-api: ## [later] Serve the read-only reconciliation API on 127.0.0.1:8099.
-	@PYTHONPATH=modern/serving/api $(MODERN_VENV)/bin/uvicorn \
-		app:application --host 127.0.0.1 --port 8099
 
 clean: ## [base] Delete disposable runtime state after explicit confirmation.
 	@test "$(CONFIRM)" = "clean-runtime" || { echo "rerun with CONFIRM=clean-runtime" >&2; exit 2; }

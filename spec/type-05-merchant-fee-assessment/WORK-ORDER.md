@@ -119,6 +119,9 @@ Build from the contract. If you look, say that you looked.
 
 ## Done when
 
+The first two commands run on the base. The `modern-*` targets land when
+that implementation is built during the week.
+
 ```bash
 make run TYPE=05 SCENARIO=valid-minimal     # legacy accepts
 make run TYPE=05 SCENARIO=DF-SOURCE-005     # legacy refuses

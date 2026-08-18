@@ -47,7 +47,7 @@ make clean CONFIRM=clean-runtime     # guarantees a fresh runtime (destructive)
 make deploy                          # ~30s   SFTP + PostgreSQL + migrations
 make test-e2e TYPE=all               # ~3 min produces the legacy observations
 # detector is not on this tree — it is built later
-make modern-run TYPE=01              # ~60s   produces the modern evidence
+# modern is not on this tree — it is built during the week
 ```
 
 Then **open a second shell and leave it clean** — you will run the live parts

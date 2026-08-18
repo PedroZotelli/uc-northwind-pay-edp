@@ -1,8 +1,7 @@
 # Verification map
 
-**33,484 lines of test code across 100 files in six locations** — more test code
-than the entire legacy production estate (29,732 lines). This page is the index
-to all of it.
+**The verification map for the base.** More test code than the entire legacy
+production estate. This page is the index to all of it.
 
 > Until the pre-workshop review this file described **Type 01 only**, because
 > Type 01 was the first vertical slice and the page was never updated. Anyone
@@ -11,7 +10,7 @@ to all of it.
 
 ---
 
-## The six locations
+## The five locations
 
 Tests do not all live under `tests/`. They live with the thing they prove.
 
@@ -21,7 +20,9 @@ Tests do not all live under `tests/`. They live with the thing they prove.
 | `legacy/processor/src/test/` | 4,616 | 7 | The Java processor, per type |
 | `gen/tests/` | 3,757 | 26 | DataGen's bytes, per type |
 | `validation/oracle/tests/` | 833 | 6 | The independent correctness oracles |
-| `modern/dbt/tests/` | 79 | 18 | The lakehouse gates, tagged per type |
+
+Lakehouse gates and modern ingestion tests are not on this tree. They
+land when the second implementation is built.
 
 Inside `tests/`:
 
@@ -31,7 +32,6 @@ Inside `tests/`:
 | `contracts/` | 6,204 | 5 | Cross-component contract oracles, one per type |
 | `unit/` | 6,001 | 18 | Loaders, workflows, worker, recovery, facade |
 | `postgres/` | 2,022 | 5 | Real `COPY`, procedures, rollback |
-| `modern/` | 943 | 5 | Modern ingestion and the golden-match referee |
 | `security/` | 778 | 2 | Adversarial worker and transport probes |
 
 `security/test_worker_security.py` is the one to read if you read only one file:
@@ -56,7 +56,6 @@ link without touching its target, and
 | Typed workflow — `tests/unit/test_typeNN_workflow.py` | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Transactional rollback — `tests/postgres/` | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Live acceptance — `tests/end-to-end/run_typeNN_suite.py` | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Lakehouse gates — `modern/dbt/tests/` | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 The matrix is complete. Two Type 02 cells were empty until the pre-workshop
 review — no test anywhere referenced `Type02WorkflowAdapter`, and Type 02 was
@@ -114,7 +113,6 @@ Worth knowing before reading any per-type code, because the pattern repeats:
 |---|---|
 | `legacy/postgres/` | Generic table names, no `type01` migration, procedures split into `002` |
 | `legacy/runner/` | Defines 11 adapter members; 02–05 override four more evidence hooks |
-| `modern/dbt/` | Was the only type with a release gate or conservation test until the review |
 | `tests/end-to-end/` | Bespoke suite; 03–05 use the shared harness |
 | `gen/` | `type_01` module naming vs `type01` in the legacy runtime |
 
@@ -138,8 +136,6 @@ make test-type01            # the full Type 01 proof on a fresh runtime
 make test-e2e TYPE=all      # live acceptance, all five types
 make test-worker-e2e        # the autonomous worker on a clean runtime
 make test                   # check + test-postgres + worker acceptance
-make modern-check           # modern ingestion and golden-match units + mypy
-make modern-dbt             # 20 models and 131 data tests
 ```
 
 Live suites do not erase runtime state, and canonical batch IDs are immutable.
@@ -150,6 +146,4 @@ Live suites do not erase runtime state, and canonical batch IDs are immutable.
 
 - **A gate that cannot fail is worse than no gate.** Six have been found in this
   repository so far. When adding one, prove it red before accepting it green.
-- **`modern/dbt/` type tags.** An untagged test silently never runs in a scoped
-  build.
 - **Fixture names.** They are resolved by path across four languages.

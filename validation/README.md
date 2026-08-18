@@ -1,9 +1,8 @@
 # The referees
 
-**3,432 lines across 13 files.** Neither implementation may mark its own work.
-This folder holds the two components that decide who is right, and it is
-deliberately outside both `legacy/` and `modern/` — a referee that lives in a
-player's folder is not a referee.
+**The two referees.** Neither implementation may mark its own work. This
+folder is deliberately outside both `legacy/` and the later `modern/` —
+a referee that lives in a player's folder is not a referee.
 
 ```text
 validation/
@@ -89,8 +88,8 @@ netted out. Every difference is classified as one of six:
 | `UNRESOLVED` | — |
 
 `Comparison.resolved` requires **no unexplained difference and every check
-true**. `modern/serving/service.py` refuses to serve an unresolved batch, so
-this property is load-bearing at the API boundary, not just in a report.
+true**. When serving is built, it must refuse to serve an unresolved batch.
+The property is load-bearing at the API boundary, not just in a report.
 
 There is no tolerance member anywhere in this module, and adding one would
 defeat its purpose.
@@ -114,8 +113,9 @@ would hide the difference that matters, so it is not done.
 Both referees exist to compare, never to repair. Two defects found in the
 pre-workshop review had drifted from that:
 
-**1. The rejected half never contacted legacy.** `modern/pipeline.py` built the
-"legacy" terminal observation out of the contract's own expectation:
+**1. The rejected half never contacted legacy.** A prior modern pipeline
+built the "legacy" terminal observation out of the contract's own
+expectation:
 
 ```python
 legacy_final = {"status": expectation.get("expected_status"),      # ← the contract
@@ -140,8 +140,8 @@ HALF_UP and `173.45`. Latent, because every live input is already
 `decimal(18, 2)`, but it is precisely the silent tolerance the module's own
 docstring denies having. It now refuses a value that is not already exact.
 
-Both were found by reading, not by a failing gate — which is the point. Both are
-now covered by `tests/modern/test_golden_match.py`.
+Both were found by reading, not by a failing gate — which is the point.
+Regression coverage for them lands with the modern implementation.
 
 ---
 
@@ -149,18 +149,12 @@ now covered by `tests/modern/test_golden_match.py`.
 
 | Referee | Tests |
 |---|---|
-| `oracle/` | `validation/oracle/tests/` — 833 lines, one suite per type, run by `make check` |
-| `golden-match/` | `tests/modern/test_golden_match.py` — run by `make modern-check` |
+| `oracle/` | `validation/oracle/tests/` — one suite per type, run by `make check` |
+| `golden-match/` | Not wired on this tree. Tests land with the modern implementation |
 
-`golden-match` had **no unit tests at all** until the pre-workshop review: 316
-lines with authority over what may be served, exercised only end to end, where a
-check that cannot fail is invisible. Two of its tests are regression guards for
-the defects above.
-
-The tests live in `tests/modern/` rather than beside the source because
-`golden-match` contains a hyphen and therefore cannot be an importable package —
-it is put on `sys.path` by `modern/pipeline.py`. The approved tree in
-[`../plans/modern.md`](../plans/modern.md) places modern's tests there.
+`golden-match` is the later referee. The module stays so the week has a
+comparison contract to attach; the modern pipeline that feeds it is built
+during the week. See [`../plans/modern.md`](../plans/modern.md).
 
 ## What must not change
 

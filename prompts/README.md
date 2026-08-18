@@ -42,17 +42,7 @@ make clean CONFIRM=clean-runtime     # fresh runtime; batch IDs are immutable
 make deploy                          # ~40s
 make test-e2e TYPE=all               # ~3 min — produces the legacy observations
 # detector is not on this tree — it is built later
-make modern-run TYPE=01              # ~60s — produces modern evidence for card 03
-
-# REQUIRED. modern/landing/ survives `make clean`, and the Type 05 Parquet from
-# before the deletion is still there. Leave it and the factory's first publish
-# dies with "a different Parquet publication already exists for this batch".
-# (written this way on purpose: in zsh an unmatched glob aborts the whole
-#  command, so a bare `rm -rf .../.NW_*` would silently remove nothing)
-for b in B202607230000401 B202607230000404 B200002290000402; do
-  rm -rf "modern/landing/$b"
-done
-find modern/landing -maxdepth 1 -name '.NW_MERCHANT_FEES*' -exec rm -rf {} +
+# modern is not on this tree — it is built during the week
 ```
 
 **Rehearsed 2026-07-25.** The factory built the modern Type 05 from this pack in

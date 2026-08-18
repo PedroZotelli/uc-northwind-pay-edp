@@ -2,18 +2,18 @@
 
 ## Status and evidence boundary
 
-**Built, as of 2026-07-25.** This document is the **specification the
-implementation must keep satisfying** — the boundaries, the golden-match
-rules, the per-type completion checklist, and the definition of done. Read
-it as the contract for changes, not as a description of work not yet
-started.
+**Not on this tree.** This document is the **specification the week must
+satisfy when the second implementation is built** — the boundaries, the
+golden-match rules, the per-type completion checklist, and the definition
+of done. Read it as the contract, not as a description of code that is
+already here.
 
 | Area | Live repository state |
 |---|---|
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
 | Dark Factory | Not on this tree. Built later as a read-only witness |
-| Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`04` reach Gold with zero unexplained golden-match differences |
+| Modern pipeline | **Not on this tree.** Built during the week against this spec |
 | Modern Type `05` | **Not built.** Contract, oracle, and a live legacy execution are docked in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md) as an open work order. Do not search git history for a prior implementation — build it from the contract |
 | Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |
 
@@ -182,7 +182,7 @@ uc-northwind-pay-edp/
 │   ├── legacy.md                      completed oracle baseline
 │   ├── modern.md                      this specification
 │   └── dark-factory.md                factory doctrine, stages, gates
-├── modern/                            implemented
+├── modern/                            to be built
 │   ├── ingestion/
 │   │   └── src/northwind_pay/
 │   │       ├── common/

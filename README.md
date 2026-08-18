@@ -47,14 +47,13 @@ New file types for a later unattended run arrive the same way.
 
 ## Not the base
 
-These exist in the tree. They are **not** the starting use case. Leave them
-alone until the day-by-day construction of the modern fabric begins.
+These stay in the tree. They are not the starting use case.
 
 | Folder | What it is |
 |---|---|
-| [`modern/`](modern/README.md) | Independent second implementation (Types `01`–`04` already built) |
-| [`validation/golden-match/`](validation/README.md) | Modern referee |
-| [`presentation/`](presentation/agenda.md) | Workshop deck, demo script, and the seed for the five-day agendas |
+| [`plans/modern.md`](plans/modern.md) | Spec the week must satisfy when the second implementation is built |
+| [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
+| [`presentation/`](presentation/agenda.md) | Workshop deck, demo script, five-day agenda seed |
 | [`prompts/`](prompts/README.md) | Instructor demo cards |
 
 ## Four truth roles
