@@ -1,9 +1,12 @@
 # Type contracts — anatomy, conventions, and how to add one
 
-This folder is the **source of correctness**. Legacy, modern, and the Dark
-Factory detector all read from here; none of them may define correctness
-themselves. When two implementations disagree, this folder decides which one is
-wrong.
+This folder is the **source of correctness** for the base. DataGen, Java,
+PostgreSQL, and the independent oracles all read from here; none of them may
+define correctness themselves. When two implementations disagree, this folder
+decides which one is wrong.
+
+The base is these **five** types. Types `06` and later are not in the
+registry. They arrive later as docked kits, not as empty folders.
 
 The cross-type transport envelopes live one level up in
 [`../common/`](../common/README.md). This document covers the per-type
@@ -100,19 +103,23 @@ wrong declaration exactly as published, and let unrelated batches continue.
 
 ## Who reads what
 
-| Consumer | Reads | Never reads |
-|---|---|---|
-| DataGen (`gen/`) | `layout.yaml`, `main/` inputs | Expected outputs |
-| Legacy Java | `layout.yaml`, `privacy.yaml`, `main/` fixtures | Modern anything |
-| Legacy PostgreSQL | `reconciliation.yaml` | — |
-| Oracles (`validation/oracle/`) | `main/` expected outputs | Implementation code |
-| Modern (`modern/`) | All four YAMLs, `main/` inputs and expected outputs | **Java, legacy CSV, legacy PostgreSQL** |
-| Detector (`dark-factory/`) | `main/expected-df-source-00N-finding.yaml` | Anything it could write to |
+The **base** consumers are the first four rows. Modern and the detector are
+later readers of the same files; they are not required for a batch to be
+correct.
 
-The bold exclusion is the one that matters. Modern reads the *contract*, never
-the Java. Reading the Java would be copying the answer and calling it a proof —
-and any defect in the old implementation would be reproduced faithfully and
-then declared "parity".
+| Consumer | When | Reads | Never reads |
+|---|---|---|---|
+| DataGen (`gen/`) | Base | `layout.yaml`, `main/` inputs | Expected outputs |
+| Legacy Java | Base | `layout.yaml`, `privacy.yaml`, `main/` fixtures | Modern anything |
+| Legacy PostgreSQL | Base | `reconciliation.yaml` | — |
+| Oracles (`validation/oracle/`) | Base | `main/` expected outputs | Implementation code |
+| Modern (`modern/`) | Later | All four YAMLs, `main/` inputs and expected outputs | **Java, legacy CSV, legacy PostgreSQL** |
+| Detector (`factory/`) | Later | `main/expected-df-source-00N-finding.yaml` | Anything it could write to |
+
+The bold exclusion is the one that matters. When the modern fabric is built,
+it reads the *contract*, never the Java. Reading the Java would be copying
+the answer and calling it a proof — and any defect in the old implementation
+would be reproduced faithfully and then declared "parity".
 
 ---
 

@@ -448,6 +448,7 @@ class Type01ContractTest(unittest.TestCase):
                 "overpunch",
                 "records",
                 "cross_record_rules",
+                "canonical_rejection_codes",
             },
         )
         self.assertEqual(
@@ -496,6 +497,16 @@ class Type01ContractTest(unittest.TestCase):
             NEGATIVE_OVERPUNCH,
         )
         self.assertEqual(layout["overpunch"]["decimal_scale"], 2)
+        rejection_codes = layout["canonical_rejection_codes"]
+        self.assertEqual(
+            rejection_codes["invalid_overpunch"],
+            "INVALID_OVERPUNCH",
+        )
+        self.assertEqual(
+            rejection_codes["source_control_total_mismatch"],
+            "SOURCE_CONTROL_TOTAL_MISMATCH",
+        )
+        self.assertEqual(len(rejection_codes), len(set(rejection_codes.values())))
 
         expected_record_lengths = {
             "header": 40,

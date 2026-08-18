@@ -1,11 +1,15 @@
 # Contracts — the source of correctness
 
-**5,748 lines across 96 files, and every one of them outranks the code.**
+**Five approved types, and every file here outranks the code.**
 
-Legacy, modern, the factory, and both referees read from here. **None of them
-may define correctness themselves.** When two implementations disagree, this
+This folder is the source of correctness for the **base**. DataGen, Java,
+PostgreSQL, and the independent oracles read from here. **None of them may
+define correctness themselves.** When two implementations disagree, this
 folder decides which one is wrong — and when an implementation and a contract
 disagree, the implementation is the bug.
+
+Modern and the detector will read the same files later. They do not have to
+exist for a batch to be correct.
 
 ```text
 contracts/
@@ -77,8 +81,22 @@ things — a parser that handles one tells you nothing about the next:
 | `04` | Heterogeneous record widths | One file, several record shapes |
 | `05` | Semicolon CSV, decimal commas | Locale encoding and HALF_UP rounding |
 
-Types `06`–`10` are deferred until their contracts, legacy observations, and
-explicit scope approval exist.
+Types `06` and later are **not on the base**. They are not in
+`registry.yaml`. A new type arrives as a docked kit (specification +
+expected outputs) and is refused until that oracle exists. Empty type
+folders are not allowed.
+
+## Base sign-off
+
+This folder is signed off as the five-type base:
+
+- `common/` envelopes the SFTP handoff (source manifest, sanitized manifest, DataGen receipt, checksum sidecar).
+- `types/registry.yaml` lists exactly five types, all `approved-for-implementation`.
+- Each type has the four YAMLs, a README, and a `main/` oracle (accept, boundary, type-specific edge, malformed refusal, source-defect refusal).
+- Every type’s processing route is the base path: raw SFTP → Java privacy → sanitized SFTP → PostgreSQL procedures → reconciliation.
+- Tolerances are zero. Rejection codes are append-only and declared on each `layout.yaml`.
+
+A sixth type is a later kit, not a change to this sign-off.
 
 ---
 

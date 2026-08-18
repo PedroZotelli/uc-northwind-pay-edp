@@ -28,7 +28,7 @@ Setup and configuration sit at the front. These folders *are* the use case.
 
 | Order | Folder | What it is |
 |---|---|---|
-| 1 | [`contracts/`](contracts/README.md) | Source of correctness. Five file types, layouts, privacy, expected outputs |
+| 1 | [`contracts/`](contracts/README.md) | Source of correctness. **Five** file types, signed off. Types `06+` are later kits, not empty folders |
 | 2 | [`gen/`](gen/README.md) | DataGen — the simulated upstream. Writes raw bytes, checksum, source manifest |
 | 3 | [`infra/`](infra/README.md) | Local SFTP image and the four-role / eight-zone matrix |
 | 4 | [`legacy/publisher/`](legacy/publisher/README.md) | Drops a bundle onto `raw/incoming`, manifest last |
@@ -43,6 +43,7 @@ Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 
 `spec/` holds a docked Type `05` work order (specification + expected
 outputs, no modern code). It is an incoming kit, not a second implementation.
+New file types for a later unattended run arrive the same way.
 
 ## Not the base
 
@@ -54,7 +55,7 @@ alone until the day-by-day construction of the modern fabric begins.
 | [`modern/`](modern/README.md) | Independent second implementation (Types `01`–`04` already built) |
 | [`factory/`](factory/README.md) | Read-only source-defect detector |
 | [`validation/golden-match/`](validation/README.md) | Modern referee |
-| [`presentation/`](presentation/agenda.md) | Workshop deck and demo script |
+| [`presentation/`](presentation/agenda.md) | Workshop deck, demo script, and the seed for the five-day agendas |
 | [`prompts/`](prompts/README.md) | Instructor demo cards |
 
 ## Four truth roles

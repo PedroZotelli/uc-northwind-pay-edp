@@ -41,7 +41,7 @@ The filename date, header date, trailer date, and date portion of the batch ID m
 
 ## Contract files
 
-- `layout.yaml`: fixed-width records and overpunch rules.
+- `layout.yaml`: fixed-width records, overpunch rules, and `canonical_rejection_codes`.
 - `privacy.yaml`: PAN and CPF transformations and prohibited outputs.
 - `csv.yaml`: exact sanitized CSV schema and formatting.
 - `reconciliation.yaml`: database route, controls, and zero-tolerance comparisons.

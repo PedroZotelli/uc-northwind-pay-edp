@@ -42,7 +42,10 @@ Architecture, ownership, and the proof ledger live in the
 | [Modern pipeline spec](../plans/modern.md) | The independent second implementation: boundaries, golden-match rules, per-type checklist |
 | [Dark Factory](../plans/dark-factory.md) | The doctrine: seven stages, four gate kinds, and what the factory must never do |
 
-## Workshop
+## Workshop and Bootcamp agendas
+
+`presentation/` stays on `main`. It is not the base, but it is what we will
+use to write the five-day agendas.
 
 | Document | Use it for |
 |---|---|
