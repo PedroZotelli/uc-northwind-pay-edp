@@ -1,10 +1,35 @@
 # NorthWind Pay EDP — completed legacy baseline
 
+This is one of the two engagement plans. [`README.md`](README.md) is the
+map; [`modern.md`](modern.md) is the contract for the second
+implementation. This file is the **frozen use case**: what already runs,
+what a green result is allowed to mean, and the 2026-07-24 proof that
+the five types close.
+
+Nothing in `legacy/`, `contracts/`, `gen/`, or `infra/` may be edited to
+make a later fabric, detector, or gate pass. When two components
+disagree, the contract decides which one is wrong.
+
+## How the engagement uses this document
+
+| Moment | What you take from here |
+|---|---|
+| Arrival | The flow, the four truth roles, and `make deploy` / `make run` |
+| First live batch | The [25-batch catalog](#canonical-25-batch-catalog) and the [evidence packet](#batch-evidence) |
+| A rejected batch | The [source-defect seeds](#source-defect-seeds) — compute the truth, keep the lie |
+| A later observer | The handoff contract at the end: read-only, batch-scoped, privacy-safe |
+| A dispute with modern | This file plus `contracts/` win. Modern may not rewrite these observations |
+
+The July ledgers stay. They are dated proof, not a license to claim the
+current checkout is still that tree. Re-prove on a fresh runtime before
+quoting a number as current.
+
 ## Purpose and complete boundary
 
-This plan is now the consolidated architecture, operating model, and proof
-ledger for the completed local legacy baseline. It records five representative
-file types through the boundaries a future Dark Factory may observe:
+This plan is the consolidated architecture, operating model, and proof
+ledger for the completed local legacy baseline. It records five
+representative file types through every boundary a later observer — the
+modern fabric or a read-only detector — is allowed to consume:
 
 ```mermaid
 flowchart LR
@@ -27,9 +52,10 @@ does not write PostgreSQL, procedures do not read SFTP, and application code
 does not use a mounted-directory transport shortcut.
 
 This baseline reproduces the legacy process. It does not replace Java or
-PostgreSQL, and it does not implement the Dark Factory. The legacy
-implementation is now an observed reference system; future work should consume
-its contracts and evidence rather than quietly refactor its behavior.
+PostgreSQL, and it does not implement the modern fabric or the detector.
+The legacy implementation is the observed reference system. Later work
+consumes its contracts and evidence; it does not quietly refactor this
+behavior.
 
 ## Current state
 
@@ -48,6 +74,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Live automatic-worker proof | Live verified 2026-07-24 through the full `make test` gate |
 | Type `01` parity proof | Re-standardized and independently live verified 2026-07-24 through `make test-type01` |
 | Legacy stopping boundary | Complete |
+| Modern pipeline | Not on this tree. Specified by [`modern.md`](modern.md) and built during the week |
 | Dark Factory | Not on this tree. The detector is built later |
 
 The authoritative evidence comes from separate clean synchronous and
@@ -89,6 +116,7 @@ calculate the right value and preserve the disagreement as evidence.
 - Parquet, dlt, DuckLake, DuckDB, dbt, Dagster, FastAPI, or MCP.
 - Production connectivity or production fidelity claims.
 - The complete 30-plus file-type estate.
+- The modern fabric (`modern/`) and its Make targets.
 - Dark Factory implementation.
 
 Types `06`–`10`, if later authorized, extend this baseline but are not part of
@@ -165,6 +193,64 @@ Each type owns five canonical outcomes:
 The contract `main/` fixtures are approved truth examples, not generated
 runtime files.
 
+## Canonical 25-batch catalog
+
+Every type has five immutable batch identities. They are reused by the
+synchronous suites and the automatic worker, which is why those two
+portfolios cannot share one runtime.
+
+| Type | Scenario | Batch ID | Expected terminal |
+|---|---|---|---|
+| `01` | `valid-minimal` | `B202607230000001` | succeeded · net `173.45` · 2 rows |
+| `01` | `valid-boundary` | `B202402290000001` | succeeded · net `9999999999.99` |
+| `01` | `negative-overpunch` | `B202607230000002` | succeeded · net `-12.34` |
+| `01` | `malformed` | `B202607230000003` | quarantined · `INVALID_OVERPUNCH` |
+| `01` | `DF-SOURCE-001` | `B202607230000004` | quarantined · `SOURCE_CONTROL_TOTAL_MISMATCH` |
+| `02` | `valid-minimal` | `B202607230000101` | succeeded · net `173.45` · 2 events |
+| `02` | `valid-boundary` | `B202402290000102` | succeeded · net `0.01` |
+| `02` | `escaped-content` | `B202607230000104` | succeeded · net `1.23` |
+| `02` | `malformed` | `B202607230000103` | quarantined |
+| `02` | `DF-SOURCE-002` | `B202607230000105` | quarantined · `SOURCE_CONTROL_NET_MISMATCH` |
+| `03` | `valid-minimal` | `B202607230000201` | succeeded · net `198.50` · 2 logical |
+| `03` | `valid-boundary` | `B202402290000202` | succeeded |
+| `03` | `multi-lot` | `B202607230000204` | succeeded · net `198.50` |
+| `03` | `malformed` | `B202607230000203` | quarantined |
+| `03` | `DF-SOURCE-003` | `B202607230000205` | quarantined · `SOURCE_CONTROL_NET_MISMATCH` |
+| `04` | `valid-minimal` | `B202607230000301` | succeeded · net `1000.00` |
+| `04` | `valid-boundary` | `B200002290000302` | succeeded |
+| `04` | `all-returned-zero-net` | `B202607230000304` | succeeded · net `0.00` |
+| `04` | `malformed` | `B202607230000303` | quarantined |
+| `04` | `DF-SOURCE-004` | `B202607230000305` | quarantined · `SOURCE_CONTROL_NET_MISMATCH` |
+| `05` | `valid-minimal` | `B202607230000401` | succeeded · assessed `12.36` |
+| `05` | `valid-boundary` | `B200002290000402` | succeeded |
+| `05` | `rounding-half-up` | `B202607230000404` | succeeded · assessed `0.04` on `3.50` |
+| `05` | `malformed` | `B202607230000403` | quarantined |
+| `05` | `DF-SOURCE-005` | `B202607230000405` | quarantined · `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH` |
+
+`TYPE=all SCENARIO=valid-minimal` runs only the five `valid-minimal`
+rows. The other twenty are reached by naming the scenario, or by the
+live suites.
+
+### Source-defect seeds
+
+These five are the most important fixtures in the estate. The source
+declares a control its own detail rows contradict. Java independently
+computes the true value, **refuses the batch**, preserves the wrong
+declaration, writes no CSV, mutates no business table, and lets
+unrelated batches continue.
+
+| Seed | Batch | Declared | Computed | Code |
+|---|---|---|---|---|
+| `DF-SOURCE-001` | `B202607230000004` | net `173.44` | `173.45` | `SOURCE_CONTROL_TOTAL_MISMATCH` |
+| `DF-SOURCE-002` | `B202607230000105` | net `173.44` | `173.45` | `SOURCE_CONTROL_NET_MISMATCH` |
+| `DF-SOURCE-003` | `B202607230000205` | net `198.49` | `198.50` | `SOURCE_CONTROL_NET_MISMATCH` |
+| `DF-SOURCE-004` | `B202607230000305` | net `999.99` | `1000.00` | `SOURCE_CONTROL_NET_MISMATCH` |
+| `DF-SOURCE-005` | `B202607230000405` | assessed fee `0.99` | `1.00` | `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH` |
+
+They are confirmed **source-system** defects, not planted legacy bugs
+and not proof that a detector exists. A later modern pipeline that
+"fixes" the declared number has destroyed the evidence.
+
 ## Boundary rules
 
 ### DataGen
@@ -199,6 +285,22 @@ immutable hashes agree. Changed bytes under an existing batch ID are a
 conflict. A batch visible in both incoming and processing is one retryable
 `SFTP_ZONE_AMBIGUITY` outcome, never two competing executions.
 
+Four Unix roles, eight zones, every zone mode `2770`. The loader has
+**no** group on `raw/*`. That is how "the loader cannot see a PAN"
+becomes a kernel fact rather than a comment. Full matrix:
+[`infra/README.md`](../infra/README.md).
+
+| Zone | raw-publisher | processor | loader | operator |
+|---|:-:|:-:|:-:|:-:|
+| `raw/incoming` | ✓ | ✓ | — | ✓ |
+| `raw/processing` | — | ✓ | — | ✓ |
+| `raw/quarantine` | — | ✓ | — | ✓ |
+| `raw/archive` | — | — | — | ✓ |
+| `csv/outgoing` | — | ✓ | ✓ | ✓ |
+| `csv/processing` | — | — | ✓ | ✓ |
+| `csv/quarantine` | — | — | ✓ | ✓ |
+| `csv/archive` | — | — | — | ✓ |
+
 ### Java
 
 - Dispatches by exact manifest number, code, contract, and layout identity.
@@ -210,6 +312,26 @@ conflict. A batch visible in both incoming and processing is one retryable
 - Emits privacy-safe adapter-allowlisted evidence. Type `01` may include its
   approved safe transaction reference and derived controls; prohibited PAN,
   CPF, raw rows, and unapproved fields remain excluded.
+
+Dispatch is by exact manifest number, code, contract version, and layout
+version — never by file extension. `.dat` is Types `01` and `04`; `.csv`
+is Type `05` and every sanitized output.
+
+```text
+legacy/processor/src/main/java/com/northwindpay/legacy/
+├── core/                 ProcessorMain, dispatcher, SFTP, artifacts
+├── type01/Type01Processor.java    ISO-8859-1 fixed width, overpunch
+├── type02/Type02Processor.java    UTF-8 escaped pipes
+├── type03/Type03Processor.java    240-byte CRLF paired segments
+├── type04/Type04Processor.java    mixed widths, inherited returns
+└── type05/Type05Processor.java    semicolon CSV, NFC, HALF_UP
+```
+
+One Java main, one Java test, one Python loader, one oracle, one
+workflow adapter per type. There is no half-implemented type. Type `01`
+tables live in migration `001` under generic names; its procedures are
+version `002`. Types `02`–`05` have numbered migrations. See
+[`legacy/README.md`](../legacy/README.md).
 
 ### PostgreSQL
 
@@ -417,8 +539,9 @@ make clean CONFIRM=clean-runtime
 ### Change control after completion
 
 - Treat `contracts/`, canonical fixtures, observed legacy outputs, and dated
-  proof ledgers as frozen inputs to Dark Factory work.
-- Do not refactor legacy merely to make a new observer easier to build.
+  proof ledgers as frozen inputs to modern work and to any later detector.
+- Do not refactor legacy merely to make a new observer or a second
+  implementation easier to build.
 - Correct a genuine legacy defect only with an explicit contract decision,
   regression proof, and a new evidence boundary.
 - Never edit an applied PostgreSQL migration; add a higher version.
@@ -733,18 +856,18 @@ The two portfolios reuse canonical immutable batch identities, so
 Nothing under `legacy/`, `contracts/`, `gen/`, `infra/`, or the applied
 migrations changed to produce this result. The committed baseline is green.
 
-## Dark Factory handoff contract
+## Handoff contract for later observers
 
-The legacy baseline is an observed system, not implementation material for the
-Dark Factory to rewrite. `DF-SOURCE-001` through `DF-SOURCE-005` are seeded
-source-system-defect fixtures and acceptance labels. They prove that the legacy
-process exposes enough information for an observer to detect, attribute,
-isolate, and record a mismatch.
+The legacy baseline is an observed system, not implementation material
+for the modern fabric or a later detector to rewrite.
+`DF-SOURCE-001` through `DF-SOURCE-005` are seeded source-system-defect
+fixtures. They prove the process exposes enough information for an
+observer to detect, attribute, isolate, and record a mismatch.
 
-The observer is **not on this tree**. It is built later against this
-baseline. What must never exist, by design: a remediation engine that
-silently repairs the source. The detector observes and reports; it never
-repairs.
+No observer is on this tree. The modern pipeline is specified in
+[`modern.md`](modern.md) and built during the week. A read-only detector
+is later still. What must never exist, by design: a remediation engine
+that silently repairs the source. An observer reports; it never repairs.
 
 The contract below is what the detector operates under, and what any future
 observer must also honor:
@@ -775,14 +898,14 @@ Type `01` is the first bounded Dark Factory acceptance target:
 | Isolation | Affected batch only |
 | Peer continuation | Required |
 
-The implementation was verified from local working-tree content rather than a
-committed release. Clean-checkout recreation and CI remain release-hardening
-work, but they do not block a local read-only Dark Factory vertical slice.
-The Dark Factory that consumes this baseline is described in
-[dark-factory.md](dark-factory.md); the
-[modern target plan](modern.md) is the separate independent implementation.
+The implementation was verified from local working-tree content rather
+than a committed release. Clean-checkout recreation and CI remain
+release-hardening work. They do not block local construction of the
+modern fabric against this baseline.
 
-## Legacy stopping boundary before Dark Factory — complete
+The second implementation is specified in [`modern.md`](modern.md).
+
+## Legacy stopping boundary — complete
 
 The clean portfolios proved that each supported type can enter through its
 readiness-manifest boundary and reach reconciled committed PostgreSQL state
@@ -793,7 +916,8 @@ Continuous intake, locking, heartbeat, four exact-batch restart seams,
 retained-cache terminal replay without a second Java invocation, peer
 continuation, ambiguity handling, cache integrity, quarantine uncertainty, and
 graceful shutdown were also verified. That observable legacy baseline
-completes this round. Dark Factory work is next and remains unimplemented.
+completes this round. The modern fabric is next and is specified in
+[`modern.md`](modern.md). A read-only detector remains unimplemented.
 
 ## Completed definition of done
 

@@ -144,7 +144,7 @@ And its corollary, learned the hard way here more than once:
 
 ## Documentation
 
+- [Plans — the engagement map](plans/README.md)
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md) — the contract the later fabric must satisfy, not the implementation
-- [Dark Factory stages, gates, and doctrine](plans/dark-factory.md)
 - [ASD — the Agentic Loop](docs/asd-agentic-loop.html) — runtime anatomy

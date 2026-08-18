@@ -1,12 +1,30 @@
 # NorthWind Pay EDP — modern pipeline specification
 
+This is the other engagement plan. [`README.md`](README.md) is the map;
+[`legacy.md`](legacy.md) is the frozen use case. This file is the
+**contract the week must satisfy** when the second implementation is
+built. Read it as binding specification, not as a description of code
+that is already here.
+
+## How the engagement uses this document
+
+| Moment | What you take from here |
+|---|---|
+| Before writing a parser | Independence rules, the type map, and the five-file package |
+| Closing a type | The [completion checklist](#completion-checklist-for-each-type) and golden-match classifications |
+| A source-defect batch | The two questions stay separate. Classification is `CONFIRMED_SOURCE_DEFECT` |
+| Type `05` | The docked kit in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md). Do not search git history |
+| Serving a result | Only an approved Gold snapshot. Unresolved golden-match is not servable |
+
+Days 1–4 construct this fabric against the five signed types. Day 5 is
+the unattended factory plus one incoming kit. Nothing in this document
+authorizes empty scaffolding on day zero.
+
 ## Status and evidence boundary
 
-**Not on this tree.** This document is the **specification the week must
-satisfy when the second implementation is built** — the boundaries, the
-golden-match rules, the per-type completion checklist, and the definition
-of done. Read it as the contract, not as a description of code that is
-already here.
+**Not on this tree.** The boundaries, golden-match rules, per-type
+checklist, and definition of done below are what "done" means when the
+code exists.
 
 | Area | Live repository state |
 |---|---|
@@ -20,9 +38,23 @@ already here.
 The proven shared baseline is five types. Types `06`–`10` require new contracts
 and observations before they can enter either legacy parity or modern scope.
 
-Where this document and the code disagree, the code and `contracts/` win, and
-the document is the bug — with one exception: the boundaries and prohibitions
-below are binding on the code, not descriptive of it.
+Where this document and later code disagree, the code and `contracts/`
+win, and the document is the bug — with one exception: the boundaries
+and prohibitions below are binding on the code, not descriptive of it.
+
+### Already on the tree vs built during the week
+
+| Already here | Built during the week |
+|---|---|
+| Five signed contracts and `main/` oracles | `modern/ingestion/` — one `model → parser → schema → writer → handler` package per type |
+| Legacy observations you can re-run any time | Deterministic sanitized Parquet and `modern/landing/` |
+| `validation/golden-match/golden_match.py` — the referee module | dlt + DuckLake/DuckDB + dbt Bronze/Silver/Gold |
+| Type `05` kit under `spec/` | Dagster, read-only FastAPI, narrow MCP |
+| This specification | `tests/modern/`, `make modern-*`, `evidence/modern/` |
+
+The referee module is not an implementation. It compares observations
+it is given. Until modern produces Parquet, Gold, and a terminal status,
+there is nothing to attach.
 
 ## Relationship among legacy, Dark Factory, and modern
 
@@ -93,6 +125,28 @@ Type `01` Card Settlement Detail is the approved first shared slice. Its raw
 fixtures, sanitized expectations, reconciliation, source-defect outcome, and
 legacy evidence path are complete and live verified.
 
+## Per-type contract map
+
+Modern reads the four YAMLs and `main/` under `contracts/types/`. It
+never reads Java, legacy CSV, or PostgreSQL to compute a result. Those
+are comparison observations only.
+
+| Type | Transport | Privacy that must not leak | Source-defect code | Declared → computed |
+|---|---|---|---|---|
+| `01` | ISO-8859-1 fixed width, COBOL overpunch, LF | PAN (token + last4), CPF (`*******` + last4) | `SOURCE_CONTROL_TOTAL_MISMATCH` | net `173.44` → `173.45` |
+| `02` | UTF-8 escaped pipes | CPF / CNPJ variants | `SOURCE_CONTROL_NET_MISMATCH` | net `173.44` → `173.45` |
+| `03` | Exact 240-byte CRLF paired segments | document / account identifiers | `SOURCE_CONTROL_NET_MISMATCH` | net `198.49` → `198.50` |
+| `04` | Heterogeneous fixed widths, inherited returns | account tokenization, tax-ID mask | `SOURCE_CONTROL_NET_MISMATCH` | net `999.99` → `1000.00` |
+| `05` | Semicolon CSV, NFC, decimal comma, `HALF_UP` | document / merchant identifiers | `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH` | assessed `0.99` → `1.00` |
+
+`canonical_rejection_codes` in each `layout.yaml` is binding. Inventing
+a parallel vocabulary turns every refusal into a spurious golden-match
+difference. Tolerances are zero everywhere.
+
+Canonical batch identities and the other twenty scenarios live in
+[`legacy.md`](legacy.md#canonical-25-batch-catalog). Modern must accept
+or refuse the **same** batch IDs.
+
 ## First modern tranche
 
 ### Included
@@ -105,7 +159,12 @@ legacy evidence path are complete and live verified.
   - Type `03`: exact 240-byte CRLF remittance records;
   - Type `04`: heterogeneous fixed widths and inherited return context;
   - Type `05`: quote-aware semicolon CSV, NFC, decimal comma, and `HALF_UP`.
-- Exact `Decimal` financial arithmetic.
+  Modern Type `05` is **not built**. The contract, oracle, and a live
+  legacy execution are docked in
+  [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md).
+  Build it from that kit, not from git history.
+- Exact `Decimal` financial arithmetic. Python's default rounding is
+  `ROUND_HALF_EVEN`. Type `05` forbids it.
 - Contract-approved masking, tokenization, and safe passthrough rules.
 - Deterministic sanitized Parquet with immutable provenance.
 - An explicitly approved dlt, DuckLake, and DuckDB handoff.
@@ -179,9 +238,9 @@ uc-northwind-pay-edp/
 ├── contracts/
 │   └── types/                         approved Types 01-05
 ├── plans/
+│   ├── README.md                      engagement map
 │   ├── legacy.md                      completed oracle baseline
-│   ├── modern.md                      this specification
-│   └── dark-factory.md                factory doctrine, stages, gates
+│   └── modern.md                      this specification
 ├── modern/                            to be built
 │   ├── ingestion/
 │   │   └── src/northwind_pay/
@@ -311,7 +370,15 @@ Rejected comparisons cover:
 - unaffected peer continuation.
 
 The five existing `DF-SOURCE-*` fixtures are confirmed source-system seeds,
-not confirmed legacy defects and not proof of a Dark Factory.
+not confirmed legacy defects and not proof of a Dark Factory. The
+declared-versus-computed pairs are in the
+[per-type contract map](#per-type-contract-map).
+
+The comparison code already lives at
+`validation/golden-match/golden_match.py`. It asks the two questions
+above, classifies every difference, and has no tolerance member. The
+week attaches modern observations to it; it does not rewrite the
+module to invent slack.
 
 ## Relationship to Dark Factory
 
@@ -327,17 +394,17 @@ Dark Factory must not:
 - treat a model judgment as correctness evidence;
 - make an external change without its own contract and approval gate.
 
-The doctrine these boundaries serve is stated in
-[`plans/dark-factory.md`](dark-factory.md).
+The doctrine is the list above. There is no separate detector plan on
+this tree; the detector is built later against the same contracts and
+the observations this fabric will emit.
 
 ## Build order
 
-**M0–M6 were executed for Types `01`–`05` during the 2026-07-24 run.** Type `05`'s
-modern vertical has since been withdrawn and reissued as an open work order, so
-the route below is live for it again. They are
-kept here as the standing route for any *new* type: a sixth type repeats this
-order rather than inventing one. Read the imperative mood as "what a type must
-go through," not as outstanding work.
+This is the week's standing route. Last run executed it and then the
+implementation was removed so the room would build it. Read the
+imperative mood as work to do, not as a history of a folder that is
+no longer here. A sixth type, if one arrives, repeats this order
+rather than inventing one. Type `05` is already an open work order.
 
 ### Milestone 0 — approve the modern task specification
 
@@ -445,23 +512,26 @@ evidence/modern/<batch-id>/
 A rejected batch must have a smaller explicit schema and must not invent
 Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 
-## Resolved and pending design decisions
+## Design decisions
 
-### Resolved
+### Already closed by the base (do not reopen)
 
 - First shared slice: Type `01` Card Settlement Detail.
-- Shared truth root: `contracts/types/01-card-settlement/main/`.
+- Shared truth root: `contracts/types/<slug>/main/`.
 - Legacy fixtures, terminal expectations, reconciliation, and live evidence
-  route are approved.
+  route are approved and frozen.
 - Source-defect attribution compares source-owned declarations with
-  independent Java, PostgreSQL, and oracle observations.
+  independent observations. The declaration is never repaired.
 - Modern must be independent from Java and PL/pgSQL calculations.
+- CI and deployment are **out of scope**. No CI exists, no target is
+  selected, no Terraform is written. Claiming CI readiness from local
+  proof remains forbidden.
 
-### Standing modern design
+### Closed during the week (Converge / Seamwise, not in this file)
 
-The ten questions this plan once deferred are settled here. Reopening any
-of them means a new ADR written during the week, not an edit that pretends
-the question was never closed:
+These ten questions have no binding answer on this tree. Last run's
+ADRs were removed so the room would write them. Close each one before
+the code that depends on it exists:
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.
@@ -472,11 +542,10 @@ the question was never closed:
 7. Record and aggregate keys for golden-match.
 8. Dagster asset, partition, retry, and backfill model.
 9. First read-only FastAPI endpoint and MCP tools.
-10. CI and deployment boundary — decided as **out of scope**: no CI exists, no
-    deployment target is selected, and no Terraform is written. Claiming CI
-    readiness from local proof remains forbidden.
+10. Whether any later CI surface is even in scope — default remains no.
 
-Reopening any of these means a new ADR written during the week.
+A decision that is not written is not closed. Do not copy last run's
+choices out of git history and call them the week's.
 
 ## Modern definition of done
 
