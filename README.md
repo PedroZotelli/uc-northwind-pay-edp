@@ -41,9 +41,10 @@ Setup and configuration sit at the front. These folders *are* the use case.
 
 Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 
-`spec/` holds a docked Type `05` work order (specification + expected
-outputs, no modern code). It is an incoming kit, not a second implementation.
-New file types for a later unattended run arrive the same way.
+[`spec/`](spec/README.md) is how a customer pack arrives. Type `05` is
+the compiled example. Types `01`–`04` wait on that page being approved,
+then the same kind of envelope is compiled. It is not a second
+implementation.
 
 ## Not the base
 
