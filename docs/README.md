@@ -5,11 +5,11 @@ expectation. These documents explain how to operate, verify, and evolve that
 implementation **without becoming a second contract**. Where a document and the
 code disagree, the code and `contracts/` win, and the document is the bug.
 
-`docs/` itself holds only three things: **this index**, the **decision
-records**, and **external reference material** (PDFs and one HTML). Every
-narrative document lives with the work it describes — plans in `plans/`,
-workshop material in `presentation/`, and component guides in the component's
-own folder. This page is the map to all of it.
+`docs/` holds this index, the **empty Converge factory** the room will fill,
+and **external reference material** (PDFs and one HTML). Every narrative
+document lives with the work it describes — plans in `plans/`, workshop
+material in `presentation/`, and component guides in the component's own
+folder. This page is the map to all of it.
 
 ## The base — start here
 
@@ -62,35 +62,14 @@ in the tree; they are not what you boot on day zero.
 | [`modern/`](../modern/README.md) | The independent second implementation and its lakehouse gates |
 | [`factory/`](../factory/README.md) | The source-defect detector |
 
-## Decision records
+## Converge — fill this together
 
-Numbered, dated, and append-only. A decision is superseded by a later record,
-never rewritten.
+The document factory starts empty. ADRs, plans, and task notes are written
+here during the week. See [`converge/README.md`](converge/README.md).
 
-| # | Decision |
-|---|---|
-| [001](decisions/001-phase-0-reproof-and-implementation-manifest.md) | Phase 0 re-proof and the implementation manifest |
-| [002](decisions/002-dark-factory-ownership-and-packaging.md) | Detector ownership and packaging *(packaging half superseded by 010)* |
-| [003](decisions/003-finding-contract-canonical-json-and-identity.md) | The finding contract, canonical JSON, and identity |
-| [004](decisions/004-privacy-allowlist-and-restricted-value-scan.md) | The privacy allowlist and restricted-value scan |
-| [005](decisions/005-read-only-observation-adapters.md) | Read-only observation adapters and refusal rules |
-| [006](decisions/006-evidence-based-attribution.md) | Evidence-based attribution and the isolation probe |
-| [007](decisions/007-dark-factory-evidence-packet.md) | The evidence packet |
-| [008](decisions/008-modern-pipeline-design.md) | Modern pipeline design |
-| [009](decisions/009-cross-type-expansion-invariants.md) | Cross-type expansion invariants |
-| [010](decisions/010-factory-rename-and-flat-source-layout.md) | `factory/` rename and the flat source layout |
-| [011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md) | The autonomous execution mandate, and retirement of the starting brief |
-
-Alongside the numbered decisions, one **run record** — not a decision, but the
-evidence the decisions were made under:
-
-| Record | |
-|---|---|
-| [Run journal 2026-07-24](decisions/run-journal-2026-07-24.md) | One dated entry per phase and gate of the autonomous run, with the per-phase attestation that no frozen input was modified |
-
-Records 001–007 keep their original `dark-factory/` path references. They are
-dated records of what was decided at the time, not navigation; 010 carries the
-path mapping.
+Prior-run records (`docs/decisions/001`–`011` and the July journal) were
+removed from this tree so the room cannot copy last time’s answers. They
+remain in git history.
 
 ## Reference material
 
@@ -116,10 +95,10 @@ or a memory points at one of these, this is where it went:
 |---|---|
 | `docs/content.md`, `docs/workshop-run-of-show-v1.md` | [`presentation/agenda.md`](../presentation/agenda.md) — merged into one narrative source |
 | `docs/workshop-dark-factory-demo.md` | [`presentation/demo.md`](../presentation/demo.md) — beside the agenda it serves |
-| `plans/dark-factory.md` (the old starting brief) | Retired. Mandate + first acceptance target → [DR-011](decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md); standing boundaries → [`plans/dark-factory.md`](../plans/dark-factory.md) §9, which is now the doctrine document under that name |
-| `plans/df-run-journal.md` | [`docs/decisions/run-journal-2026-07-24.md`](decisions/run-journal-2026-07-24.md) — filed with the decisions it is evidence for |
+| `plans/dark-factory.md` (the old starting brief) | Retired. Standing boundaries → [`plans/dark-factory.md`](../plans/dark-factory.md) §9 |
+| `plans/df-run-journal.md` and `docs/decisions/001`–`011` | Removed from this tree (clean slate). Recover from git history if needed |
 | Developer, operator, and standalone architecture docs | [`plans/legacy.md`](../plans/legacy.md) |
-| `dark-factory/` paths in records 001–007 | `factory/` — see [DR-010](decisions/010-factory-rename-and-flat-source-layout.md) |
+| New ADRs | [`converge/02-structure/`](converge/02-structure/README.md) — written during the week |
 
 ---
 

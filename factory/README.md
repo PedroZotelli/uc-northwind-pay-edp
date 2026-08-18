@@ -94,8 +94,7 @@ Four mechanisms, in increasing order of strength:
 
 Only the fourth holds for code that has never been executed, and it is the
 actual gate. Note that `operator` is the **widest** SFTP role, not the
-narrowest — see [`../infra/README.md`](../infra/README.md) and
-[DR-005](../docs/decisions/005-read-only-observation-adapters.md).
+narrowest — see [`../infra/README.md`](../infra/README.md).
 
 ---
 
@@ -140,7 +139,7 @@ That is deliberate. The identity appears inside findings that have already been
 emitted and adjudicated; a directory rename must not retroactively change what
 a published finding claims about its own author. Renaming it would also have
 meant editing approved expected artifacts, which is never done here. See
-[DR-010](../docs/decisions/010-factory-rename-and-flat-source-layout.md).
+this README.
 
 ---
 

@@ -100,7 +100,7 @@ role that can observe all eight zones. Its read-only behaviour comes from the
 adapter code — which exposes only `listdir`, `stat`, and read-mode `open` — and
 is proven by the AST security test in
 `dark-factory/tests/security/test_no_write_paths.py`, **not** by the operating
-system. See [DR-005](../docs/decisions/005-read-only-observation-adapters.md).
+system. See this file and the detector's AST security test.
 
 If that guarantee ever needs to be OS-enforced, the change is a fifth role in a
 group with read-only zone membership — not a tightening of `operator`, which
@@ -130,8 +130,8 @@ credential problem and is not.
 `infra/local/` is honest scoping, not an unfinished hierarchy. There is no
 `infra/prod/` and there is not meant to be: deployment target selection is
 explicitly out of scope per
-[DR-008](../docs/decisions/008-modern-pipeline-design.md#10-ci-and-deployment-boundary),
-and no CI or infrastructure-as-code exists. Nothing is missing.
+[`plans/modern.md`](../plans/modern.md) (CI and deployment remain out of
+scope), and no CI or infrastructure-as-code exists. Nothing is missing.
 
 The runtime substrate is, however, **split across three places**, and it is
 worth knowing all three before you go looking:

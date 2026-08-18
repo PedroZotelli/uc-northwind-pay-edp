@@ -254,7 +254,7 @@ live inside a player's folder.
 - **Types `06`–`10`** — deferred until their contracts, legacy observations,
   and explicit scope approval exist.
 - **Deployment targets and IaC** — out of scope per
-  [DR-008](../docs/decisions/008-modern-pipeline-design.md#10-ci-and-deployment-boundary).
+  [`plans/modern.md`](../plans/modern.md).
 
 ## What must not change
 

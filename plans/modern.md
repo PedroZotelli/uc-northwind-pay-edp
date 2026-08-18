@@ -2,14 +2,12 @@
 
 ## Status and evidence boundary
 
-**Built, as of 2026-07-25.** The modern pipeline was implemented by the
-autonomous run recorded in the
-[run journal](../docs/decisions/run-journal-2026-07-24.md)
-(Phase 3, milestones M0–M6). This document is no longer a forward-looking
-plan: it is the **specification the implementation must keep satisfying** —
-the boundaries, the golden-match rules, the per-type completion checklist,
-and the definition of done. Read it as the contract for changes, not as a
-description of work not yet started.
+**Built, as of 2026-07-25.** This document is the **specification the
+implementation must keep satisfying** — the boundaries, the golden-match
+rules, the per-type completion checklist, and the definition of done. Read
+it as the contract for changes, not as a description of work not yet
+started. New ADRs for the week go in
+[`docs/converge/02-structure/`](../docs/converge/02-structure/README.md).
 
 | Area | Live repository state |
 |---|---|
@@ -331,9 +329,7 @@ Dark Factory must not:
 - make an external change without its own contract and approval gate.
 
 The doctrine these boundaries serve is stated in
-[`plans/dark-factory.md`](dark-factory.md); the run that built this pipeline
-is recorded in the
-[run journal](../docs/decisions/run-journal-2026-07-24.md).
+[`plans/dark-factory.md`](dark-factory.md).
 
 ## Build order
 
@@ -462,12 +458,12 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
   independent Java, PostgreSQL, and oracle observations.
 - Modern must be independent from Java and PL/pgSQL calculations.
 
-### Settled by DR-008
+### Standing modern design
 
-The ten questions this plan once deferred were all decided during the
-autonomous run and are recorded in
-[DR-008 — Modern pipeline design: the ten decisions M0 defers](../docs/decisions/008-modern-pipeline-design.md).
-That record, not this list, is the authority on each:
+The ten questions this plan once deferred are settled here. Reopening any
+of them means a new ADR under
+[`docs/converge/02-structure/`](../docs/converge/02-structure/README.md),
+not an edit that pretends the question was never closed:
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.
@@ -482,8 +478,7 @@ That record, not this list, is the authority on each:
     deployment target is selected, and no Terraform is written. Claiming CI
     readiness from local proof remains forbidden.
 
-Reopening any of these means a new numbered decision record superseding the
-relevant part of DR-008, not an edit to this list.
+Reopening any of these means a new ADR in the Converge structure folder.
 
 ## Modern definition of done
 

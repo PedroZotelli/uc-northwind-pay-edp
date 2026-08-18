@@ -10,9 +10,7 @@ Companion documents:
 |---|---|
 | [`legacy.md`](legacy.md) | What the frozen oracle is and how it was proven |
 | [`modern.md`](modern.md) | What the independent second implementation must be |
-| [DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md) | The mandate that authorized the run, and the first acceptance target |
-| [run journal](../docs/decisions/run-journal-2026-07-24.md) | What actually ran, dated, per gate |
-| [`../docs/decisions/`](../docs/decisions/) | Why each open question was decided the way it was |
+| [`../docs/converge/`](../docs/converge/README.md) | Empty document factory — ADRs and plans are written here during the week |
 
 ---
 
@@ -322,8 +320,7 @@ Shared doctrine, arrived at independently:
 
 These are standing boundaries. They bind every phase, every type, and every
 future slice — not just the first one. (Consolidated here from the retired
-starting brief; see
-[DR-011](../docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md).)
+starting brief.)
 
 **Never touch frozen truth**
 - Modify a frozen input — `legacy/`, `contracts/`, `gen/`, `infra/`, applied

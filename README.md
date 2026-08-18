@@ -147,6 +147,7 @@ And its corollary, learned the hard way here more than once:
 ## Documentation
 
 - [Documentation index](docs/README.md) — the map: base first, then everything else
+- [Converge document factory](docs/converge/README.md) — empty spine the room fills
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md) — the contract the later fabric must satisfy, not the implementation
 - [Dark Factory stages, gates, and doctrine](plans/dark-factory.md)

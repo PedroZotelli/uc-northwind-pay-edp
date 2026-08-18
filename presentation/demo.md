@@ -432,11 +432,9 @@ addition, and they are the two that required an oracle.
 
 ### 5.2 · The mandate (2 min)
 
-```bash
-sed -n '1,40p' docs/decisions/011-autonomous-execution-mandate-and-retirement-of-the-starting-brief.md
-```
-
-Read the hard rules out loud — they are short and they are the design:
+Read the hard rules out loud from
+[`plans/dark-factory.md`](../plans/dark-factory.md) §9 — they are short and
+they are the design:
 
 - `legacy/`, `contracts/`, `gen/`, `infra/`, and applied migrations are
   **frozen oracles** — never modified to make a gate pass

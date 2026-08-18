@@ -645,8 +645,8 @@ virtual environments, build/cache/runtime/generated-output directories,
 `*.egg-info`, evidence, `.git`, `.DS_Store`, and compiled Python excluded;
 byte-sorted relative paths; one `{sha256}  {relative_path}\n` record per file
 into a second SHA-256. The committed tree contains **268** files against the
-earlier 260. Exact rules and their rationale:
-[DR-001](../docs/decisions/001-phase-0-reproof-and-implementation-manifest.md).
+earlier 260. Exact rules live with the ledger in this file. Prior-run decision records
+were removed from the tree so the base stays a clean slate.
 
 `make df-manifest REV=e9f3460` reproduces this exact value forever. Bare
 `make df-manifest` measures the current working tree instead, which diverges as

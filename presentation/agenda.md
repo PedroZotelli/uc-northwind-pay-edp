@@ -943,7 +943,7 @@ rest is the trail-walk, the gates, and the AHA breathing room.
 11. **The panel, filled in.** Callback 1 above.
 12. **Auto-allow is a bet on your gates.** The Cline reframe — ticking
     auto-approve does not remove the review, it moves it onto your gates.
-    Then DR-011's rules of engagement, and what they all have in common:
+    Then the standing factory rules of engagement, and what they all have in common:
     they exist to stop the agent **making the red thing green**.
 13. **Six gates that could not fail.** Four found by the run, two found
     afterwards by reading. Land #4 hardest — the same account at two
@@ -1000,7 +1000,7 @@ Then the doctrine callback:
 **Assets/sources.** The live harness + repo;
 [`demo.md`](demo.md) (verified commands and output);
 `.runtime/e2e-evidence/`, `evidence/modern/`, `evidence/factory/`;
-`docs/decisions/011-autonomous-execution-mandate…md` (slide 59's rules);
+`plans/dark-factory.md` §9 (slide 59's rules);
 backup recording.
 
 **Gate.** Witnessed: migrate, validate, attribute — and refuse to
@@ -1451,7 +1451,7 @@ stage.
 | `applications` export (`product = dark-factory-v1`) | The room numbers on Act 0 slides 03–04 (§5). Kept outside the repo — it carries names, e-mails and WhatsApp numbers; only aggregates ever reach a slide |
 | `presentation/demo.md` | Verified commands, real output, the corrected reveal, the six vacuous gates, and the Track A / Track B choice (Acts 3A, 3B) |
 | `docs/cvg-aut-systems-spine-steps-v5.pdf` | The real Converge pass names and their inputs/outputs — Act 3A slide 45's nine sealed boxes |
-| `docs/decisions/011-autonomous-execution-mandate…md` | The dated grant of autonomy and its rules of engagement — Act 3B slide 59 |
+| `plans/dark-factory.md` §9 | Standing factory boundaries — Act 3B slide 59 |
 | `docs/wrksp-secret-dark-factory-v1.pdf` | Funnel, scoring, moat discipline, offer mechanics (Acts 0, 5) |
 | `docs/boot-uc-northwind-pay-edp-oss-v2.pdf` | Case framing, Shapiro ladder, bootcamp arc (Acts 1, 2, 5) |
 | `docs/asd-agentic-loop-v1.0.html` | Five layers, hop map, misconceptions, two seats (Acts 1, 3A) |
