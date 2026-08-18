@@ -53,7 +53,7 @@ These stay in the tree. They are not the starting use case.
 |---|---|
 | [`plans/modern.md`](plans/modern.md) | Spec the week must satisfy when the second implementation is built |
 | [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
-| [`presentation/`](presentation/agenda.md) | Workshop deck, demo script, five-day agenda seed |
+| [`presentation/`](presentation/README.md) | Workshop decks — HTML only |
 | [`prompts/`](prompts/README.md) | Instructor demo cards |
 
 ## Four truth roles
