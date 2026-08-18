@@ -1,121 +1,193 @@
-# Spec — inbound customer packs
+# Spec — inbound customer drop
 
-This folder is how a **customer request arrives**. Until the document
-factory exists, we mimic that drop: a bundle of files, not a repo tour,
-not a copy of `legacy/`.
+This folder is how the **customer arrives**. Until the document factory
+exists, we mimic a real engagement drop: Share Folder, not a repo tour.
 
-The factory's job on a pack is project understanding, then translation,
-then proof. It does not invent the truth. If the pack cannot be
-adjudicated, the factory refuses **before** doing any work.
+The picture is KurvPay EDP, distilled. There a type did not arrive as
+four YAMLs. It arrived as a vendor PDF, a SQL Server table dump, two
+dates of an insert proc, a sample that did not quite match the proc,
+and a meeting note that contradicted all three. The work was
+**unpack, question, decide, then translate**.
 
-> **No oracle, no build.**
+Approve this page. Then we compile the drop. Do not compile from a
+draft.
 
-Approve this page. After that, compile one pack per type the week will
-touch. Do not compile from this README being written — compile from it
-being accepted.
+> **No oracle, no build.** A pack that cannot be adjudicated is refused
+> before any modern code exists.
 
-## What a pack is
+## The experience this drop is for
 
-A pack is everything the customer would hand a partner to modernize one
-file type. Style may vary. Numbered folders like Type `05`'s `01-`…`07-`
-are one compiled example, not the required shape.
+The week is not "open `contracts/` and write a parser." The week is:
 
-Every pack must answer the same questions, whatever the filenames:
+1. Receive a messy customer bundle.
+2. Unpack it with Converge / Seamwise / Task-Spec / Brief-Spec.
+3. Hold the meetings the documents imply.
+4. Find what is true, what is stale, and who lied.
+5. Only then build the modern vertical and prove it.
 
-| The customer must send | Why the factory needs it |
+Data analysts, software engineers, and platform people are in the same
+room. The drop has to give each of them something to do: a layout to
+read, a control to recompute, a contradiction to escalate, a privacy
+rule to enforce.
+
+Daily agenda is still open. This page is the **inbound**, not the
+timetable.
+
+## Two layers, like Kurv
+
+Kurv had `notes/` (the engagement) and `specs/{type}/` (each file).
+We keep that split.
+
+```text
+spec/
+├── README.md                 this contract
+├── estate/                   one drop for the whole customer
+│   ├── cover.md              who they are, what they want, what done means
+│   ├── meetings/             kick-off, tech syncs, async handoffs
+│   ├── mail/                 threads that "just forward the folder"
+│   └── policies/             privacy, rounding, "do not fix the source"
+└── type-NN-<slug>/           one inbound pack per file type
+    ├── inbound/              what they mailed — messy on purpose
+    ├── samples/              raw bytes + checksums
+    └── expected/             the oracle (sanitized, recon, refusals)
+```
+
+`estate/` is shared. A type pack never repeats the kick-off. It may
+contradict it. That contradiction is the work.
+
+Type `05`'s current `01-`…`07-` tree is a **thin compiled example**.
+After approval it is rewritten into the shape above, or left as the
+"already-clean" contrast next to the four messy packs. Decide that
+when we compile, not here.
+
+## What `estate/` contains
+
+Fictional NorthWind Pay / partner voices. Not Kurv names, not TSYS
+layouts, not real PCI.
+
+| Artifact | Job in the room |
 |---|---|
-| **Cover** — who they are, what the file does, what "done" means | Intake. Without a request there is nothing to accept. |
-| **How to read the bytes** — encoding, grammar, money, dates, rejection codes | Parser. The factory must not guess a layout. |
-| **What may leave** — restricted fields and the approved transform | Privacy gate. A leak stalls the type. |
-| **What sanitized output looks like** — columns, types, grain | The interface to reproduce. |
-| **How it must add up** — controls, tolerances (zero), success criteria | Gold and golden-match. |
-| **Raw samples** — at least happy, boundary, malformed, and one source lie | Real bytes. Checksums belong with them. |
-| **Expected sanitized rows** for every accepted sample | The oracle for success. |
-| **Expected refusals** for malformed and the source lie | The oracle for quarantine. Status, stable code, no rows. |
+| Kick-off note | Scope, stack, who owns SFTP, who owns privacy |
+| File-decomposition sync | "Java stays. You rebuild beside it." |
+| Async handoff | "Folder is in the share. Walk through next week." |
+| One angry / tired thread | A control that has been wrong for months |
+| Privacy policy | What must never leave, in customer language |
+| Rounding note | `HALF_UP` stated in one place, implied elsewhere |
 
-Optional, and useful when they already have a working path:
+Every note follows a short template (attendees, decisions, actions,
+open questions, implicit signals). That is how Kurv notes were
+usable a month later.
 
-| They may also send | Why |
+## What each type pack contains
+
+Mirror a Kurv `specs/{type}/` drop. Filenames may look like a customer
+exported them, not like we designed a repo.
+
+| They mail | Looks like | Why it is there |
+|---|---|---|
+| Vendor-ish layout | PDF or long markdown, field positions, "see page 14" | Translation starts here |
+| Table definitions | `.txt` / `.sql` dump | Analysts and warehouse people land here first |
+| Insert / apply proc | One or two dated copies | The legacy "how we post" — not Java, not to be ported |
+| Email / Slack export | "Keith said most columns aren't loaded" | Planted gap between proc and table |
+| Meeting excerpt | Type-specific walk-through | Open questions with owners |
+| Raw samples | Happy, boundary, type edge, malformed, source lie | Real bytes |
+| Expected sanitized + recon | For accepted samples | The oracle |
+| Expected refusals | Malformed + source lie, stable code | The other half of the oracle |
+
+They never mail the modern parser. If they did, the referee would
+score a copy.
+
+The five scenario **roles** stay. Customer names may differ. We map;
+we do not drop a role.
+
+## Good stuff and minor issues
+
+The drop must be mostly right. A pack that is only traps teaches
+cynicism, not engineering.
+
+**Good (the majority):**
+
+- Layout that actually matches the happy-path sample
+- Privacy rule that is load-bearing and consistent
+- Reconciliation that the live legacy run already satisfies
+- A source-lie file whose declared total is wrong by one cent
+
+**Minor issues (planted, findable, not sabotage):**
+
+| Class | Example | What the room should do |
+|---|---|---|
+| Stale revision | Proc dated earlier than the table dump | Ask which one is current |
+| Unused columns | Table has fields the proc never writes | Do not invent Gold from dead columns |
+| Name drift | Meeting says "net fee"; layout says "assessed fee" | One ADR, then one vocabulary |
+| Implied rounding | Email says "normal rounding"; Type `05` needs `HALF_UP` | Prove it on the sample, do not guess |
+| Two truths | Cover letter vs trailer control | Keep the declaration; compute independently |
+| Missing expected | One "nice to have" sample with no oracle | Factory must refuse that sample, not invent it |
+
+Do **not** put an `issues.md` in the student pack. That is an answer
+key. The instructor key, if we need one, lives under `plans/` after
+the drop is compiled.
+
+## How the week uses the methods
+
+The drop is the input to the method stack. It is not a substitute
+for it.
+
+| Method | What it does with the drop |
 |---|---|
-| One observed run from their current system | So the factory can compare without calling their plant |
-| A source manifesto / control totals as they declare them | System of record, even when it is wrong |
+| **Brief-Spec** | Each day has a type: unpack is exploration, a contradiction is review, a parser is implementation |
+| **Converge** | Pass 0–1 compile the messy folder into a BRD / tech-spec. Pass 2 writes ADRs for money, privacy, which doc wins. Pass 4 attacks the planted issues **before** code |
+| **Seamwise** | Seams from the drop: raw → sanitize → stage → apply → report. Ownership must be one per handoff |
+| **Task-Spec** | Only after Consensus. Each leaf has evals against `expected/`. No eval, no task |
+| **Dark Factory seed** | [`plans/dark-factory.md`](../plans/dark-factory.md) — later, the same drop is what the unattended line consumes |
 
-They never send the translation. If they sent a finished parser, the
-referee would be comparing a copy with its original.
-
-## What we produce from a pack
-
-That is the factory, not the customer:
-
-| We hand back | Meaning |
-|---|---|
-| Project understanding | What this type is, what it exercises, what must never happen |
-| The modern vertical | model → parser → schema → writer → handler, then lakehouse |
-| Evidence | golden-match resolved, unexplained count zero, privacy-safe packet |
-| Classification of the source lie | `CONFIRMED_SOURCE_DEFECT` — declaration preserved, batch refused |
-
-Folder `07-deliverable-shape/` in the Type `05` example is **our**
-target shape, not something the customer mailed.
-
-## Five scenarios, always
-
-The base already uses this vocabulary. A compiled pack should too, even
-if the customer used other names — we map, we do not drop a role.
-
-| Role | What it proves |
-|---|---|
-| Happy path | The smallest complete accepted batch |
-| Boundary | Extreme but legal values |
-| Type-specific edge | The reason this layout exists (overpunch, escapes, lots, returns, `HALF_UP`, …) |
-| Malformed | Transport or grammar. Must be refused. |
-| Source lie | Declared control contradicts the rows. Compute the truth, keep the declaration, refuse. |
-
-The source-lie file is the one that matters. Repairing the customer's
-number destroys the evidence that something upstream is broken.
+The room should spend real time in "meetings" that the notes set up:
+walk the unused columns, pick a vocabulary, refuse a sample that has
+no oracle. That is the ultimate experience — not slides about it.
 
 ## This folder vs `contracts/`
 
 | | `spec/` | `contracts/types/` |
 |---|---|---|
-| Role | How the request **arrives** | Source of correctness once **installed** |
-| Audience | Factory intake | DataGen, Java, oracles, later modern |
-| Editable after sign-off | No — a new pack version arrives | No — versioned, never patched to pass a gate |
+| Role | How the request **arrives** (messy) | Source of correctness once **installed** (clean) |
+| Audience | The week, the factory | DataGen, Java, oracles |
+| Planted issues | Yes, in inbound prose and dated dumps | **Never.** Contracts stay executable truth |
 
-A compiled pack may duplicate YAML and fixtures that also live under
-`contracts/`. That is deliberate. The factory reads the pack as if the
-customer sent it. It does not browse `legacy/` for the answer.
+The factory reads the pack as if the customer sent it. After
+understanding, the signed contract in `contracts/` is still what
+Java and the oracles obey. We do not "fix" `contracts/` because a
+meeting used the wrong noun.
 
 ## On this tree today
 
-| Pack | Status |
+| Piece | Status |
 |---|---|
-| [`type-05-merchant-fee-assessment/`](type-05-merchant-fee-assessment/INVENTORY.md) | Compiled example. Five scenarios, expected outs, one legacy execution, deliverable shape. |
-| Types `01`–`04` | **Not compiled.** Truth already lives in `contracts/types/`. Packs wait on approval of this page. |
-| Types `06+` | Not reserved. A later kit arrives the same way: a pack, not an empty folder. |
-
-Type `05` is already on the legacy line (`make run TYPE=05`). The pack
-is the inbound envelope for the **modern** vertical, not a second
-legacy implementation.
+| This page | Draft for approval |
+| `estate/` | **Not compiled** |
+| Types `01`–`04` packs | **Not compiled.** Truth is only in `contracts/types/` |
+| [`type-05-…`](type-05-merchant-fee-assessment/INVENTORY.md) | Thin example. Rewrite or keep as the clean contrast |
+| Types `06+` | Not reserved. A later drop arrives the same way |
 
 ## Gate before compile
 
-A pack is ready to compile only when:
+A type pack is ready only when:
 
-1. Every accepted sample has expected sanitized rows **and** expected
-   reconciliation.
-2. Malformed and the source lie have expected refusals with a stable
-   code.
-3. Privacy transforms are stated, not implied.
-4. Tolerances are zero.
-5. Nothing in the pack requires editing `legacy/`, `gen/`, or
-   `infra/` to become true.
+1. Accepted samples have expected sanitized rows **and** recon.
+2. Malformed and the source lie have expected refusals and a stable code.
+3. Privacy is stated in customer language **and** matches `contracts/`
+   once installed.
+4. Tolerances are zero in the oracle half.
+5. Every planted issue is discoverable from the drop itself.
+6. Nothing requires editing `legacy/`, `gen/`, or `infra/` to become true.
 
-Fail any one of those and the factory must not start.
+Fail any one and we do not compile that type.
 
 ## After you approve this page
 
-Compile one pack per type the week will work, from the signed
-contracts and the live fixtures — same contents as the table above,
-style free. Type `05` stays as the first compiled example. Types
-`01`–`04` get the same kind of envelope so the room receives a
-customer drop, not a pointer into `contracts/`.
+1. Compile `estate/` (cover, 4–6 notes, one policy, one thread).
+2. Compile Types `01`–`04` in this inbound shape from the signed
+   contracts plus the planted issues above.
+3. Decide Type `05`: rewrite into the same shape, or leave as the
+   already-tidied pack.
+4. Keep the instructor key out of `spec/`.
+
+Then the week can start on a drop, not on a pointer.
