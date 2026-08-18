@@ -37,11 +37,12 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 
 | Frozen on this tree | Built during the week |
 |---|---|
-| Five signed type contracts | `modern/` ingestion, lakehouse, dbt, Dagster, serving |
+| Five signed type contracts (`01`–`05`) | `modern/` for those same five types |
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
-| Independent oracles under `validation/oracle/` | Type `05` modern vertical from the docked kit |
-| `validation/golden-match/golden_match.py` (the referee module) | Tests, Make targets, and evidence under `evidence/modern/` |
-| This folder | The factory and the detector — grow [`dark-factory.md`](dark-factory.md) as they are built |
+| Independent oracles under `validation/oracle/` | One vertical at a time, `01` first |
+| Inbound packs for `01`–`05` (once compiled under [`spec/`](../spec/README.md)) | Understanding, ADRs, then translation |
+| `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |
+| This folder | Factory + detector later. Day five runs the factory on **Type `06`**, not on a type the room already unpacked. |
 
 ## How to use them in the room
 
@@ -51,9 +52,9 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
    [25-batch catalog](legacy.md#canonical-25-batch-catalog).
 2. **Design.** Open [`modern.md`](modern.md). Close the standing design
    questions for the current type before writing a parser.
-3. **Build one vertical.** Type `01` first. Then `02`–`04`. Type `05`
-   is already docked as a kit in
-   [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md).
+3. **Build the week's types.** `01`–`05` only. Type `01` first. The
+   inbound drop is [`spec/`](../spec/README.md). Type `06` stays sealed
+   until day five.
 4. **Adjudicate.** Golden-match asks two questions and never nets them:
    did modern match legacy, and did modern match the contract?
 5. **Do not repair a source lie.** Every `DF-SOURCE-*` batch is a

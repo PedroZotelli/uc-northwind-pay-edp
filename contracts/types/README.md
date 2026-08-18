@@ -5,8 +5,9 @@ PostgreSQL, and the independent oracles all read from here; none of them may
 define correctness themselves. When two implementations disagree, this folder
 decides which one is wrong.
 
-The base is these **five** types. Types `06` and later are not in the
-registry. They arrive later as docked kits, not as empty folders.
+The base is these **five** types. The week works `01`–`05`. Type `06`
+is not in the registry. It arrives on day five as the factory's
+unseen kit, not as an empty folder.
 
 The cross-type transport envelopes live one level up in
 [`../common/`](../common/README.md). This document covers the per-type

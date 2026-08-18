@@ -9,8 +9,10 @@ dates of an insert proc, a sample that did not quite match the proc,
 and a meeting note that contradicted all three. The work was
 **unpack, question, decide, then translate**.
 
-Approve this page. Then we compile the drop. Do not compile from a
-draft.
+The week works Types `01`–`05`. Those packs are written **in advance**
+so day one is a customer drop, not a hunt through `contracts/`. Type
+`06` is not in this folder. It arrives on day five as the factory's
+unseen kit — the flywheel.
 
 > **No oracle, no build.** A pack that cannot be adjudicated is refused
 > before any modern code exists.
@@ -31,7 +33,8 @@ read, a control to recompute, a contradiction to escalate, a privacy
 rule to enforce.
 
 Daily agenda is still open. This page is the **inbound**, not the
-timetable.
+timetable. The type split is closed: `01`–`05` all week, `06` only
+when the factory runs.
 
 ## Two layers, like Kurv
 
@@ -56,9 +59,8 @@ spec/
 contradict it. That contradiction is the work.
 
 Type `05`'s current `01-`…`07-` tree is a **thin compiled example**.
-After approval it is rewritten into the shape above, or left as the
-"already-clean" contrast next to the four messy packs. Decide that
-when we compile, not here.
+It gets the same inbound shape as `01`–`04` so the week has five
+equal drops. Do not leave it as the tidy exception.
 
 ## What `estate/` contains
 
@@ -161,13 +163,13 @@ meeting used the wrong noun.
 
 | Piece | Status |
 |---|---|
-| This page | Draft for approval |
-| `estate/` | **Not compiled** |
-| Types `01`–`04` packs | **Not compiled.** Truth is only in `contracts/types/` |
-| [`type-05-…`](type-05-merchant-fee-assessment/INVENTORY.md) | Thin example. Rewrite or keep as the clean contrast |
-| Types `06+` | Not reserved. A later drop arrives the same way |
+| This page | The drop contract. Week = Types `01`–`05`. Day five = Type `06`. |
+| `estate/` | **Not compiled yet.** Next write. |
+| Types `01`–`04` packs | **Not compiled yet.** Truth is in `contracts/types/`. |
+| [`type-05-…`](type-05-merchant-fee-assessment/INVENTORY.md) | Thin example. Rewrite into the same inbound shape. |
+| Type `06` | **Not here.** Sealed until day five. No empty folder. |
 
-## Gate before compile
+## Gate before a pack is written
 
 A type pack is ready only when:
 
@@ -179,15 +181,17 @@ A type pack is ready only when:
 5. Every planted issue is discoverable from the drop itself.
 6. Nothing requires editing `legacy/`, `gen/`, or `infra/` to become true.
 
-Fail any one and we do not compile that type.
+Fail any one and we do not write that type.
 
-## After you approve this page
+## What gets written in advance
 
-1. Compile `estate/` (cover, 4–6 notes, one policy, one thread).
-2. Compile Types `01`–`04` in this inbound shape from the signed
-   contracts plus the planted issues above.
-3. Decide Type `05`: rewrite into the same shape, or leave as the
-   already-tidied pack.
-4. Keep the instructor key out of `spec/`.
+1. `estate/` — cover, 4–6 notes, one policy, one thread.
+2. Types `01`–`05` — inbound shape from the signed contracts plus the
+   planted issues above. Five equal drops.
+3. Instructor key, if any, under `plans/` — never inside `spec/`.
+4. Type `06` — **not written now.** The factory's first unseen kit
+   is authored as a sealed drop for day five, after the week has
+   learned the line on `01`–`05`.
 
-Then the week can start on a drop, not on a pointer.
+The room starts on a drop, not on a pointer. The factory learns on a
+type it has not already unpacked.

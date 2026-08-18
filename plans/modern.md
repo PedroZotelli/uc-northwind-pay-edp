@@ -16,9 +16,10 @@ that is already here.
 | Type `05` | The docked kit in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md). Do not search git history |
 | Serving a result | Only an approved Gold snapshot. Unresolved golden-match is not servable |
 
-Days 1–4 construct this fabric against the five signed types. Day 5 is
-the unattended factory plus one incoming kit. Nothing in this document
-authorizes empty scaffolding on day zero.
+Days 1–4 construct this fabric against Types `01`–`05`. Day 5 is the
+unattended factory on **Type `06`** — a kit the room has not unpacked.
+Nothing in this document authorizes empty scaffolding on day zero, and
+nothing puts Type `06` in `spec/` before that day.
 
 ## Status and evidence boundary
 

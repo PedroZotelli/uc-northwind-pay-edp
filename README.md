@@ -41,10 +41,9 @@ Setup and configuration sit at the front. These folders *are* the use case.
 
 Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 
-[`spec/`](spec/README.md) is how a customer pack arrives. Type `05` is
-the compiled example. Types `01`–`04` wait on that page being approved,
-then the same kind of envelope is compiled. It is not a second
-implementation.
+[`spec/`](spec/README.md) is how the customer drop arrives. The week
+works Types `01`–`05` from packs written in advance. Type `06` is not
+in the folder — it is the day-five factory kit, unseen until then.
 
 ## Not the base
 
