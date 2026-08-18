@@ -11,6 +11,29 @@ narrative document lives with the work it describes — plans in `plans/`,
 workshop material in `presentation/`, and component guides in the component's
 own folder. This page is the map to all of it.
 
+## The base — start here
+
+The root [README](../README.md) is the operator document for the **working
+legacy use case**. That use case is the base. Read it, boot it, prove it,
+before anything else.
+
+| Order | Folder | Covers |
+|---|---|---|
+| 1 | [`contracts/`](../contracts/README.md) | The source of correctness: transport envelopes, the five types, and the no-oracle-no-build rule |
+| 2 | [`gen/`](../gen/README.md) | DataGen's module map and the never-overwrite output rule |
+| 3 | [`infra/`](../infra/README.md) | The SFTP image, the six sshd locks, and the role/zone matrix |
+| 4 | [`legacy/`](../legacy/README.md) | The frozen oracle: five components, one batch end to end |
+| 5 | [`legacy/publisher/`](../legacy/publisher/README.md) | Manifest-last publication onto raw SFTP |
+| 6 | [`legacy/intake/`](../legacy/intake/README.md) | The raw zone authority and claim-by-rename |
+| 7 | [`legacy/processor/`](../legacy/processor/README.md) | Raw-to-sanitized conversion and the privacy boundary |
+| 8 | [`legacy/postgres/`](../legacy/postgres/README.md) | Typed loading, procedures, reconciliation, and the migration sequence |
+| 9 | [`legacy/runner/`](../legacy/runner/README.md) | Orchestration, the adapter registry, and crash safety |
+| 10 | [`validation/`](../validation/README.md) | Both referees and the rule that they never repair |
+| 11 | [`tests/`](../tests/README.md) | The five-type verification map across all six test locations |
+
+Architecture, ownership, and the proof ledger live in the
+[completed legacy baseline](../plans/legacy.md).
+
 ## Plans — what is being built and why
 
 | Document | Use it for |
@@ -26,23 +49,15 @@ own folder. This page is the map to all of it.
 | [Master content & run of show](../presentation/agenda.md) | The single narrative source: act order, timings, beats, key lines, numbers, quotes, and the rehearsal checklist |
 | [Live demo script](../presentation/demo.md) | Operator cheat-sheet for Acts 3A/3B — verified commands, the corrected reveal, and the failure protocol |
 
-## Component guides — each folder documents itself
+## Not the base
+
+These guides describe work that is **not** the starting use case. They stay
+in the tree; they are not what you boot on day zero.
 
 | Folder | Covers |
 |---|---|
-| [`contracts/`](../contracts/README.md) | The source of correctness: transport envelopes, the five types, and the no-oracle-no-build rule |
-| [`gen/`](../gen/README.md) | DataGen's module map and the never-overwrite output rule |
-| [`infra/`](../infra/README.md) | The SFTP image, the six sshd locks, and the role/zone matrix |
-| [`legacy/`](../legacy/README.md) | The frozen oracle: five components, one batch end to end |
-| [`legacy/runner/`](../legacy/runner/README.md) | Orchestration, the adapter registry, and crash safety |
-| [`legacy/processor/`](../legacy/processor/README.md) | Raw-to-sanitized conversion and the privacy boundary |
-| [`legacy/postgres/`](../legacy/postgres/README.md) | Typed loading, procedures, reconciliation, and the migration sequence |
-| [`legacy/intake/`](../legacy/intake/README.md) | The raw zone authority and claim-by-rename |
-| [`legacy/publisher/`](../legacy/publisher/README.md) | Manifest-last publication |
 | [`modern/`](../modern/README.md) | The independent second implementation and its lakehouse gates |
 | [`factory/`](../factory/README.md) | The source-defect detector |
-| [`validation/`](../validation/README.md) | Both referees and the rule that they never repair |
-| [`tests/`](../tests/README.md) | The five-type verification map across all six test locations |
 
 ## Decision records
 

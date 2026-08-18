@@ -32,14 +32,37 @@ DF_DEFAULT_ROOTS := .runtime/e2e-evidence,.runtime/e2e-type02-evidence,.runtime/
 	df-manifest df-check df-detect df-accept retool \
 	modern-init modern-check modern-run modern-dbt modern-rebuild modern-dagster modern-api
 
-help: ## List supported targets, compatibility aliases, and input variables.
+help: ## [base] List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
 		FS = ":.*## "; \
 		print "Usage: make <target> [VARIABLE=value]"; \
 		print ""; \
-		print "Targets:"; \
+		print "Base — boot and run the legacy use case:"; \
 	} \
-	/^[a-zA-Z0-9_-]+:.*## / {printf "  %-18s %s\n", $$1, $$2} \
+	/^[a-zA-Z0-9_-]+:.*## \[base\] / { \
+		sub(/^\[base\] /, "", $$2); \
+		printf "  %-18s %s\n", $$1, $$2; \
+	} \
+	END { }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { \
+		FS = ":.*## "; \
+		print ""; \
+		print "Verify — prove the base:"; \
+	} \
+	/^[a-zA-Z0-9_-]+:.*## \[verify\] / { \
+		sub(/^\[verify\] /, "", $$2); \
+		printf "  %-18s %s\n", $$1, $$2; \
+	} \
+	END { }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { \
+		FS = ":.*## "; \
+		print ""; \
+		print "Later — not the base (modern fabric and detector):"; \
+	} \
+	/^[a-zA-Z0-9_-]+:.*## \[later\] / { \
+		sub(/^\[later\] /, "", $$2); \
+		printf "  %-18s %s\n", $$1, $$2; \
+	} \
 	END { \
 		print ""; \
 		print "Inputs:"; \
@@ -57,7 +80,7 @@ help: ## List supported targets, compatibility aliases, and input variables.
 		print "BATCH and BUNDLE are mutually exclusive."; \
 	}' $(MAKEFILE_LIST)
 
-init: ## Create local Python environments, .env, and container builds.
+init: ## [base] Create local Python environments, .env, and container builds.
 	@test -f .env || cp .env.example .env
 	@chmod 0600 .env
 	@$(PYTHON) -m venv $(RUNNER_VENV)
@@ -66,23 +89,23 @@ init: ## Create local Python environments, .env, and container builds.
 	@docker compose build sftp processor
 	@echo "local development environment initialized"
 
-deploy: ## Start services, migrate PostgreSQL, and verify runtime health.
+deploy: ## [base] Start services, migrate PostgreSQL, and verify runtime health.
 	@docker compose up -d --build --wait sftp postgres
 	@$(RUNNER_PYTHON) legacy/runner/bootstrap_runtime.py
 	@$(MAKE) --no-print-directory migrate
 	@$(RUNNER_PYTHON) legacy/runner/runtime_status.py
 
-migrate: ## Apply immutable PostgreSQL migrations or verify checksums.
+migrate: ## [base] Apply immutable PostgreSQL migrations or verify checksums.
 	@PYTHONPATH=legacy/runner $(RUNNER_PYTHON) legacy/postgres/migrate.py
 
-status: ## Show Compose state and verify every local connection.
+status: ## [base] Show Compose state and verify every local connection.
 	@docker compose ps
 	@$(RUNNER_PYTHON) legacy/runner/runtime_status.py
 
-down: ## Stop services without deleting volumes or evidence.
+down: ## [base] Stop services without deleting volumes or evidence.
 	@docker compose down
 
-gen: ## Generate one type, or the same scenario for all five types.
+gen: ## [base] Generate one type, or the same scenario for all five types.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
@@ -102,7 +125,7 @@ gen: ## Generate one type, or the same scenario for all five types.
 			--contracts-root contracts/types; \
 	fi
 
-test-gen: ## Run all Python DataGen unit, contract, integration, and security tests.
+test-gen: ## [verify] Run all Python DataGen unit, contract, integration, and security tests.
 	@PYTHONPATH=gen/src $(RUNNER_PYTHON) -m unittest discover \
 		--start-directory gen/tests \
 		--pattern 'test_*.py' \
@@ -112,13 +135,13 @@ test-gen: ## Run all Python DataGen unit, contract, integration, and security te
 		--strict \
 		gen/src
 
-test-contracts: ## Validate executable cross-type schemas and canonical contract oracles.
+test-contracts: ## [verify] Validate executable cross-type schemas and canonical contract oracles.
 	@PYTHONPATH=gen/src $(RUNNER_PYTHON) -m unittest discover \
 		--start-directory tests/contracts \
 		--pattern 'test_*.py' \
 		--verbose
 
-test-python: ## Run Python unit/security/oracle tests and strict worker-boundary typing.
+test-python: ## [verify] Run Python unit/security/oracle tests and strict worker-boundary typing.
 	@PYTHONPATH=legacy/runner:legacy/publisher:legacy/intake:legacy/postgres:validation/oracle \
 		$(RUNNER_PYTHON) -m unittest discover \
 		--start-directory tests/unit \
@@ -146,24 +169,24 @@ test-python: ## Run Python unit/security/oracle tests and strict worker-boundary
 		legacy/intake/raw_intake.py \
 		legacy/publisher/raw_publisher.py
 
-test-postgres: ## Run rollback-only COPY, procedure, and permission tests.
+test-postgres: ## [verify] Run rollback-only COPY, procedure, and permission tests.
 	@PYTHONPATH=legacy/runner:legacy/publisher:legacy/postgres \
 		$(RUNNER_PYTHON) -m unittest discover \
 		--start-directory tests/postgres \
 		--pattern 'test_*.py' \
 		--verbose
 
-test-java: ## Build Java 21 and run its parser/privacy regression suite.
+test-java: ## [verify] Build Java 21 and run its parser/privacy regression suite.
 	@docker compose build processor
 
-check: test-contracts test-gen test-python test-java ## Run pure source/schema suites and build the Java image.
+check: test-contracts test-gen test-python test-java ## [verify] Run pure source/schema suites and build the Java image.
 	@docker compose config --quiet
 	@$(RUNNER_PYTHON) -m compileall -q gen/src legacy validation tests
 	@$(RUNNER_PYTHON) -m json.tool contracts/common/source-manifest.schema.json >/dev/null
 	@$(RUNNER_PYTHON) -m json.tool contracts/common/generation-receipt.schema.json >/dev/null
 	@$(RUNNER_PYTHON) -m json.tool contracts/common/sanitized-manifest.schema.json >/dev/null
 
-test-type01: ## Run the complete Type 01 proof on a fresh deployed runtime.
+test-type01: ## [verify] Run the complete Type 01 proof on a fresh deployed runtime.
 	@PYTHONPATH=gen/src $(RUNNER_PYTHON) -m unittest discover \
 		--start-directory gen/tests \
 		--pattern 'test_type_01_*.py' \
@@ -196,15 +219,15 @@ test-type01: ## Run the complete Type 01 proof on a fresh deployed runtime.
 		--verbose
 	@$(RUNNER_PYTHON) tests/end-to-end/run_type01_suite.py
 
-publish: ## Publish exactly one BATCH or BUNDLE through real SFTP.
+publish: ## [base] Publish exactly one BATCH or BUNDLE through real SFTP.
 	@test -n "$(BATCH)$(BUNDLE)" || { echo "set exactly one of BATCH=<batch-id> or BUNDLE=<directory>" >&2; exit 2; }
 	@test -z "$(BATCH)" || test -z "$(BUNDLE)" || { echo "BATCH and BUNDLE are mutually exclusive" >&2; exit 2; }
 	@$(RUNNER_PYTHON) legacy/runner/publish_raw_cli.py \
 		"$(if $(BUNDLE),$(BUNDLE),$(OUTPUT)/$(BATCH))"
 
-publish-raw: publish ## Compatibility alias for publish.
+publish-raw: publish ## [base] Compatibility alias for publish.
 
-run: ## Run one typed scenario, or the same scenario for all five types.
+run: ## [base] Run one typed scenario, or the same scenario for all five types.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
@@ -220,9 +243,9 @@ run: ## Run one typed scenario, or the same scenario for all five types.
 			--scenario "$(SCENARIO)"; \
 	fi
 
-run-type: run ## Compatibility alias for run.
+run-type: run ## [base] Compatibility alias for run.
 
-run-file: ## Run one explicit typed FILE with sibling checksum and manifest.
+run-file: ## [base] Run one explicit typed FILE with sibling checksum and manifest.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
 		*) echo "TYPE for run-file must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
 	esac
@@ -231,20 +254,20 @@ run-file: ## Run one explicit typed FILE with sibling checksum and manifest.
 		--type "$(TYPE)" \
 		--file "$(FILE)"
 
-worker: ## Run the automatic manifest-ready worker in the foreground.
+worker: ## [base] Run the automatic manifest-ready worker in the foreground.
 	@$(RUNNER_PYTHON) legacy/runner/worker.py \
 		--poll-interval "$(POLL_INTERVAL)" \
 		--max-batches "$(MAX_BATCHES)" \
 		--evidence-root "$(EVIDENCE)"
 
-worker-once: ## Run exactly one bounded worker polling iteration.
+worker-once: ## [base] Run exactly one bounded worker polling iteration.
 	@$(RUNNER_PYTHON) legacy/runner/worker.py \
 		--once \
 		--poll-interval "$(POLL_INTERVAL)" \
 		--max-batches "$(MAX_BATCHES)" \
 		--evidence-root "$(EVIDENCE)"
 
-test-e2e: ## Run the selected live acceptance suite; TYPE=all runs 01 through 05.
+test-e2e: ## [verify] Run the selected live acceptance suite; TYPE=all runs 01 through 05.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
@@ -259,17 +282,17 @@ test-e2e: ## Run the selected live acceptance suite; TYPE=all runs 01 through 05
 			"tests/end-to-end/run_type$(TYPE)_suite.py"; \
 	fi
 
-test-worker-e2e: ## Run the live automatic-worker acceptance suite on a clean runtime.
+test-worker-e2e: ## [verify] Run the live automatic-worker acceptance suite on a clean runtime.
 	@$(RUNNER_PYTHON) "$(WORKER_E2E_SUITE)"
 
-test: check test-postgres ## Run source/build, rollback-only PostgreSQL, and fresh worker acceptance.
+test: check test-postgres ## [verify] Run source/build, rollback-only PostgreSQL, and fresh worker acceptance.
 	@$(RUNNER_PYTHON) "$(WORKER_E2E_SUITE)"
 
-df-manifest: ## Recompute the legacy implementation manifest; REV=<rev> for a ledger entry.
+df-manifest: ## [later] Recompute the legacy implementation manifest; REV=<rev> for a ledger entry.
 	@$(RUNNER_PYTHON) factory/tools/tree_manifest.py \
 		$(if $(REV),--rev "$(REV)",)
 
-df-check: ## Run Dark Factory contract, unit, and security suites plus strict typing.
+df-check: ## [later] Run Dark Factory contract, unit, and security suites plus strict typing.
 	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m unittest discover \
 		--start-directory factory/tests/contract \
 		--pattern 'test_*.py' \
@@ -293,7 +316,7 @@ df-check: ## Run Dark Factory contract, unit, and security suites plus strict ty
 # survive every other gate. Executing --help resolves every module it needs.
 	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) $(DF_SUITE) --help >/dev/null
 
-df-detect: ## Run the detector for one TYPE against a deployed legacy runtime.
+df-detect: ## [later] Run the detector for one TYPE against a deployed legacy runtime.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
 		*) echo "TYPE for df-detect must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
 	esac
@@ -303,7 +326,7 @@ df-detect: ## Run the detector for one TYPE against a deployed legacy runtime.
 		--legacy-evidence-root "$(LEGACY_EVIDENCE)" \
 		--evidence-root "$(DF_EVIDENCE)"
 
-df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all four.
+df-accept: ## [later] Run the live Dark Factory acceptance gate for one TYPE or all four.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
@@ -312,7 +335,7 @@ df-accept: ## Run the live Dark Factory acceptance gate for one TYPE or all four
 		--legacy-evidence-root "$(if $(LEGACY_EVIDENCE),$(LEGACY_EVIDENCE),$(DF_DEFAULT_ROOTS))" \
 		--evidence-root "$(DF_EVIDENCE)"
 
-retool: ## Retool the line for a docked type: print the work order and the gates.
+retool: ## [later] Retool the line for a docked type: print the work order and the gates.
 	@test -d "spec/type-$(TYPE)-"* 2>/dev/null || { \
 		echo "no docked kit for TYPE=$(TYPE) under spec/" >&2; exit 2; }
 	@echo "=============================================================="
@@ -347,13 +370,13 @@ retool: ## Retool the line for a docked type: print the work order and the gates
 	@echo "--- work order ----------------------------------------------"
 	@cat spec/type-$(TYPE)-*/WORK-ORDER.md
 
-modern-init: ## Create the modern virtual environment from pinned requirements.
+modern-init: ## [later] Create the modern virtual environment from pinned requirements.
 	@$(PYTHON) -m venv $(MODERN_VENV)
 	@$(MODERN_PYTHON) -m pip install --quiet --upgrade pip
 	@$(MODERN_PYTHON) -m pip install --quiet -r modern/requirements.txt
 	@echo "modern environment initialized"
 
-modern-check: ## Run modern unit, contract, and privacy suites plus strict typing.
+modern-check: ## [later] Run modern unit, contract, and privacy suites plus strict typing.
 	@PYTHONPATH=$(MODERN_SRC) $(MODERN_PYTHON) -m unittest discover \
 		--start-directory tests/modern \
 		--pattern 'test_*.py' \
@@ -364,33 +387,33 @@ modern-check: ## Run modern unit, contract, and privacy suites plus strict typin
 		--no-incremental \
 		$(MODERN_SRC)/northwind_pay
 
-modern-run: ## Run the modern pipeline for one TYPE, closing golden-match.
+modern-run: ## [later] Run the modern pipeline for one TYPE, closing golden-match.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
 	esac
 	@$(MODERN_PYTHON) modern/pipeline.py --type "$(TYPE)" $(MODERN_RUN_FLAGS)
 
-modern-dbt: ## Build and test the modern Bronze, Silver, and Gold models.
+modern-dbt: ## [later] Build and test the modern Bronze, Silver, and Gold models.
 	@cd modern/dbt && DBT_PROFILES_DIR=. ../.venv/bin/dbt build --no-use-colors
 
-modern-rebuild: ## Rebuild the lakehouse from the immutable landing Parquet tree.
+modern-rebuild: ## [later] Rebuild the lakehouse from the immutable landing Parquet tree.
 	@rm -rf $(MODERN_DUCKDB) .runtime/dlt .runtime/dbt
 	@$(MODERN_PYTHON) modern/pipeline.py --type "$(if $(TYPE),$(TYPE),01)" $(MODERN_RUN_FLAGS)
 
-modern-dagster: ## Materialize the modern assets through Dagster.
+modern-dagster: ## [later] Materialize the modern assets through Dagster.
 	@mkdir -p .runtime/dagster
 	@DAGSTER_HOME=$(CURDIR)/.runtime/dagster PYTHONPATH=modern/dagster \
 		$(MODERN_VENV)/bin/dagster asset materialize \
 		-m northwind_modern_dagster --select '*' \
 		--partition "$(if $(TYPE),$(TYPE),01)"
 
-modern-api: ## Serve the read-only reconciliation API on 127.0.0.1:8099.
+modern-api: ## [later] Serve the read-only reconciliation API on 127.0.0.1:8099.
 	@PYTHONPATH=modern/serving/api $(MODERN_VENV)/bin/uvicorn \
 		app:application --host 127.0.0.1 --port 8099
 
-clean: ## Delete disposable runtime state after explicit confirmation.
+clean: ## [base] Delete disposable runtime state after explicit confirmation.
 	@test "$(CONFIRM)" = "clean-runtime" || { echo "rerun with CONFIRM=clean-runtime" >&2; exit 2; }
 	@docker compose down --volumes --remove-orphans
 	@$(RUNNER_PYTHON) legacy/runner/clean_runtime.py
 
-clean-runtime: clean ## Compatibility alias for clean.
+clean-runtime: clean ## [base] Compatibility alias for clean.
