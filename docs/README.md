@@ -5,11 +5,10 @@ expectation. These documents explain how to operate, verify, and evolve that
 implementation **without becoming a second contract**. Where a document and the
 code disagree, the code and `contracts/` win, and the document is the bug.
 
-`docs/` holds this index, the **empty Converge factory** the room will fill,
-and **external reference material** (PDFs and one HTML). Every narrative
-document lives with the work it describes — plans in `plans/`, workshop
-material in `presentation/`, and component guides in the component's own
-folder. This page is the map to all of it.
+`docs/` holds this index and **external reference material** (PDFs and one
+HTML). Every narrative document lives with the work it describes — plans in
+`plans/`, workshop material in `presentation/`, and component guides in the
+component's own folder. This page is the map to all of it.
 
 ## The base — start here
 
@@ -62,14 +61,9 @@ in the tree; they are not what you boot on day zero.
 | [`modern/`](../modern/README.md) | The independent second implementation and its lakehouse gates |
 | [`factory/`](../factory/README.md) | The source-defect detector |
 
-## Converge — fill this together
-
-The document factory starts empty. ADRs, plans, and task notes are written
-here during the week. See [`converge/README.md`](converge/README.md).
-
-Prior-run records (`docs/decisions/001`–`011` and the July journal) were
-removed from this tree so the room cannot copy last time’s answers. They
-remain in git history.
+Prior-run decision records (`docs/decisions/001`–`011` and the July journal)
+were removed from this tree so the room cannot copy last time’s answers.
+They remain in git history. Converge artifacts are not stored here yet.
 
 ## Reference material
 
@@ -98,7 +92,7 @@ or a memory points at one of these, this is where it went:
 | `plans/dark-factory.md` (the old starting brief) | Retired. Standing boundaries → [`plans/dark-factory.md`](../plans/dark-factory.md) §9 |
 | `plans/df-run-journal.md` and `docs/decisions/001`–`011` | Removed from this tree (clean slate). Recover from git history if needed |
 | Developer, operator, and standalone architecture docs | [`plans/legacy.md`](../plans/legacy.md) |
-| New ADRs | [`converge/02-structure/`](converge/02-structure/README.md) — written during the week |
+| New ADRs | Written during the week when Converge runs — not pre-seeded in this tree |
 
 ---
 

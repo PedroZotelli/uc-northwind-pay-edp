@@ -6,8 +6,7 @@
 implementation must keep satisfying** — the boundaries, the golden-match
 rules, the per-type completion checklist, and the definition of done. Read
 it as the contract for changes, not as a description of work not yet
-started. New ADRs for the week go in
-[`docs/converge/02-structure/`](../docs/converge/02-structure/README.md).
+started.
 
 | Area | Live repository state |
 |---|---|
@@ -461,9 +460,8 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 ### Standing modern design
 
 The ten questions this plan once deferred are settled here. Reopening any
-of them means a new ADR under
-[`docs/converge/02-structure/`](../docs/converge/02-structure/README.md),
-not an edit that pretends the question was never closed:
+of them means a new ADR written during the week, not an edit that pretends
+the question was never closed:
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.

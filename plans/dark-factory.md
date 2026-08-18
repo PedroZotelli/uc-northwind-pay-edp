@@ -10,7 +10,6 @@ Companion documents:
 |---|---|
 | [`legacy.md`](legacy.md) | What the frozen oracle is and how it was proven |
 | [`modern.md`](modern.md) | What the independent second implementation must be |
-| [`../docs/converge/`](../docs/converge/README.md) | Empty document factory — ADRs and plans are written here during the week |
 
 ---
 
