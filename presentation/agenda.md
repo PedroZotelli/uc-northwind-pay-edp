@@ -1242,7 +1242,7 @@ its name.
       the five-type close.
 - [ ] **Pre-flight run** on the show machine:
       `make clean CONFIRM=clean-runtime` → `make deploy` (~30s) →
-      `make test-e2e TYPE=all` (~3 min) → `make df-accept TYPE=all`
+      `make test-e2e TYPE=all` (~3 min)
       (~30s). Fixture keys exported in the demo shell (see the demo
       script's `export` block; they live in `.env`).
 - [ ] **Full dress rehearsal of Acts 3A+3B** with the real harness

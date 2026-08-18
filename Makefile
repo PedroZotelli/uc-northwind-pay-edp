@@ -18,18 +18,11 @@ MODERN_PYTHON := $(MODERN_VENV)/bin/python
 MODERN_SRC := modern/ingestion/src
 MODERN_DUCKDB := modern/lakehouse/ducklake/northwind_modern.duckdb
 
-# Dark Factory: additive, read-only, and never part of a legacy gate.
-DF_SRC := factory/src
-DF_SUITE := factory/tests/end-to-end/run_detector_suite.py
-DF_EVIDENCE ?= evidence/factory
-# The synchronous typed suites keep isolated evidence roots, one per type.
-DF_DEFAULT_ROOTS := .runtime/e2e-evidence,.runtime/e2e-type02-evidence,.runtime/e2e-type03-evidence,.runtime/e2e-type04-evidence,.runtime/e2e-type05-evidence
-
 .DEFAULT_GOAL := help
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
 	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
-	df-manifest df-check df-detect df-accept retool \
+	retool \
 	modern-init modern-check modern-run modern-dbt modern-rebuild modern-dagster modern-api
 
 help: ## [base] List supported targets, compatibility aliases, and input variables.
@@ -57,7 +50,7 @@ help: ## [base] List supported targets, compatibility aliases, and input variabl
 	@awk 'BEGIN { \
 		FS = ":.*## "; \
 		print ""; \
-		print "Later — not the base (modern fabric and detector):"; \
+		print "Later — not the base (modern fabric):"; \
 	} \
 	/^[a-zA-Z0-9_-]+:.*## \[later\] / { \
 		sub(/^\[later\] /, "", $$2); \
@@ -287,53 +280,6 @@ test-worker-e2e: ## [verify] Run the live automatic-worker acceptance suite on a
 
 test: check test-postgres ## [verify] Run source/build, rollback-only PostgreSQL, and fresh worker acceptance.
 	@$(RUNNER_PYTHON) "$(WORKER_E2E_SUITE)"
-
-df-manifest: ## [later] Recompute the legacy implementation manifest; REV=<rev> for a ledger entry.
-	@$(RUNNER_PYTHON) factory/tools/tree_manifest.py \
-		$(if $(REV),--rev "$(REV)",)
-
-df-check: ## [later] Run Dark Factory contract, unit, and security suites plus strict typing.
-	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m unittest discover \
-		--start-directory factory/tests/contract \
-		--pattern 'test_*.py' \
-		--verbose
-	@PYTHONPATH=$(DF_SRC):factory/tests/unit $(RUNNER_PYTHON) -m unittest discover \
-		--start-directory factory/tests/unit \
-		--pattern 'test_*.py' \
-		--verbose
-	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m unittest discover \
-		--start-directory factory/tests/security \
-		--pattern 'test_*.py' \
-		--verbose
-	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m mypy \
-		--python-version 3.12 \
-		--strict \
-		--no-incremental \
-		factory/src \
-		factory/tools/tree_manifest.py
-	@$(RUNNER_PYTHON) -m json.tool factory/contracts/finding.schema.json >/dev/null
-# The acceptance suite is not in the mypy scope, so a stale import in it can
-# survive every other gate. Executing --help resolves every module it needs.
-	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) $(DF_SUITE) --help >/dev/null
-
-df-detect: ## [later] Run the detector for one TYPE against a deployed legacy runtime.
-	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE for df-detect must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
-	esac
-	@test -n "$(LEGACY_EVIDENCE)" || { echo "set LEGACY_EVIDENCE=<path>" >&2; exit 2; }
-	@PYTHONPATH=$(DF_SRC) $(RUNNER_PYTHON) -m cli \
-		--type "$(TYPE)" \
-		--legacy-evidence-root "$(LEGACY_EVIDENCE)" \
-		--evidence-root "$(DF_EVIDENCE)"
-
-df-accept: ## [later] Run the live Dark Factory acceptance gate for one TYPE or all four.
-	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
-		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
-	esac
-	@$(RUNNER_PYTHON) $(DF_SUITE) \
-		--type "$(TYPE)" \
-		--legacy-evidence-root "$(if $(LEGACY_EVIDENCE),$(LEGACY_EVIDENCE),$(DF_DEFAULT_ROOTS))" \
-		--evidence-root "$(DF_EVIDENCE)"
 
 retool: ## [later] Retool the line for a docked type: print the work order and the gates.
 	@test -d "spec/type-$(TYPE)-"* 2>/dev/null || { \

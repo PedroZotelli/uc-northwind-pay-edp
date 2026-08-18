@@ -12,7 +12,7 @@ started.
 |---|---|
 | Legacy Types `01`–`05` | Implemented and live verified through contracts, DataGen, SFTP, Java, PostgreSQL, reconciliation, oracle, and evidence |
 | Type `01` parity | Explicitly standardized and independently reverified |
-| Dark Factory | Implemented under `factory/`; all five `DF-SOURCE-*` scenarios acceptance-verified and byte-stable |
+| Dark Factory | Not on this tree. Built later as a read-only witness |
 | Modern pipeline | Implemented under `modern/` (ingestion, lakehouse, dbt, Dagster, serving); Types `01`–`04` reach Gold with zero unexplained golden-match differences |
 | Modern Type `05` | **Not built.** Contract, oracle, and a live legacy execution are docked in [`spec/`](../spec/type-05-merchant-fee-assessment/WORK-ORDER.md) as an open work order. Do not search git history for a prior implementation — build it from the contract |
 | Release boundary | Local working-tree and committed-branch content only. **No CI exists**; no clean-checkout or production-readiness claim may be made from this proof |

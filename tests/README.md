@@ -20,7 +20,6 @@ Tests do not all live under `tests/`. They live with the thing they prove.
 | `tests/` | 22,438 | 43 | The legacy estate, live and end to end |
 | `legacy/processor/src/test/` | 4,616 | 7 | The Java processor, per type |
 | `gen/tests/` | 3,757 | 26 | DataGen's bytes, per type |
-| `factory/tests/` | 1,761 | 10 | The detector: contract, unit, security, live |
 | `validation/oracle/tests/` | 833 | 6 | The independent correctness oracles |
 | `modern/dbt/tests/` | 79 | 18 | The lakehouse gates, tagged per type |
 
@@ -141,7 +140,6 @@ make test-worker-e2e        # the autonomous worker on a clean runtime
 make test                   # check + test-postgres + worker acceptance
 make modern-check           # modern ingestion and golden-match units + mypy
 make modern-dbt             # 20 models and 131 data tests
-make df-check               # detector contract, unit, and security + mypy
 ```
 
 Live suites do not erase runtime state, and canonical batch IDs are immutable.

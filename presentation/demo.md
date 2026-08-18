@@ -46,7 +46,7 @@ cd <worktree>
 make clean CONFIRM=clean-runtime     # guarantees a fresh runtime (destructive)
 make deploy                          # ~30s   SFTP + PostgreSQL + migrations
 make test-e2e TYPE=all               # ~3 min produces the legacy observations
-make df-accept TYPE=all              # ~30s   produces the findings
+# detector is not on this tree — it is built later
 make modern-run TYPE=01              # ~60s   produces the modern evidence
 ```
 

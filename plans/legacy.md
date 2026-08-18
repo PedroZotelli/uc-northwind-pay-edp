@@ -48,7 +48,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Live automatic-worker proof | Live verified 2026-07-24 through the full `make test` gate |
 | Type `01` parity proof | Re-standardized and independently live verified 2026-07-24 through `make test-type01` |
 | Legacy stopping boundary | Complete |
-| Dark Factory | Implemented under `factory/` as a read-only detector; all five `DF-SOURCE-*` scenarios acceptance-verified 2026-07-24 |
+| Dark Factory | Not on this tree. The detector is built later |
 
 The authoritative evidence comes from separate clean synchronous and
 automatic-worker runtimes. It records the current checkout's integrated
@@ -648,10 +648,8 @@ into a second SHA-256. The committed tree contains **268** files against the
 earlier 260. Exact rules live with the ledger in this file. Prior-run decision records
 were removed from the tree so the base stays a clean slate.
 
-`make df-manifest REV=e9f3460` reproduces this exact value forever. Bare
-`make df-manifest` measures the current working tree instead, which diverges as
-soon as Dark Factory work lands, because the root `Makefile` is inside the
-published boundary. The ledger is bound to the revision, not to the checkout.
+The implementation-manifest tool lived with the detector and is not on
+this tree. The hashes below remain the recorded ledger from 2026-07-24.
 
 | Identity | SHA-256 |
 |---|---|
@@ -743,11 +741,10 @@ source-system-defect fixtures and acceptance labels. They prove that the legacy
 process exposes enough information for an observer to detect, attribute,
 isolate, and record a mismatch.
 
-**That observer now exists.** The read-only detector under `factory/` consumes
-this baseline and was acceptance-verified against all five scenarios on
-2026-07-24. What still does not exist, by design: a remediation engine, an
-approval gate, or any surface that writes back. The detector observes and
-reports; it never repairs.
+The observer is **not on this tree**. It is built later against this
+baseline. What must never exist, by design: a remediation engine that
+silently repairs the source. The detector observes and reports; it never
+repairs.
 
 The contract below is what the detector operates under, and what any future
 observer must also honor:

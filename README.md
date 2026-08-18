@@ -53,7 +53,6 @@ alone until the day-by-day construction of the modern fabric begins.
 | Folder | What it is |
 |---|---|
 | [`modern/`](modern/README.md) | Independent second implementation (Types `01`–`04` already built) |
-| [`factory/`](factory/README.md) | Read-only source-defect detector |
 | [`validation/golden-match/`](validation/README.md) | Modern referee |
 | [`presentation/`](presentation/agenda.md) | Workshop deck, demo script, and the seed for the five-day agendas |
 | [`prompts/`](prompts/README.md) | Instructor demo cards |
@@ -146,7 +145,7 @@ And its corollary, learned the hard way here more than once:
 
 ## Documentation
 
-- [Documentation index](docs/README.md) — the map: base first, then everything else
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md) — the contract the later fabric must satisfy, not the implementation
 - [Dark Factory stages, gates, and doctrine](plans/dark-factory.md)
+- [ASD — the Agentic Loop](docs/asd-agentic-loop.html) — runtime anatomy

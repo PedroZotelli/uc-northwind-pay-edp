@@ -26,7 +26,7 @@ confuses an audience:
 
 | | The **build factory** | The **detector** |
 |---|---|---|
-| Where | KurvPay chapter 07; this repo's autonomous run | `factory/` in this repo |
+| Where | KurvPay chapter 07; this week, later | Built later — not on the base |
 | Job | Manufactures a typed pipeline for a file type | Observes finished runs and attributes defects |
 | Direction | Produces code | Judges output |
 

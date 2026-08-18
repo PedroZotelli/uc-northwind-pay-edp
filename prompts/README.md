@@ -41,7 +41,7 @@ cd <worktree>
 make clean CONFIRM=clean-runtime     # fresh runtime; batch IDs are immutable
 make deploy                          # ~40s
 make test-e2e TYPE=all               # ~3 min — produces the legacy observations
-make df-accept TYPE=all              # ~30s — produces the findings
+# detector is not on this tree — it is built later
 make modern-run TYPE=01              # ~60s — produces modern evidence for card 03
 
 # REQUIRED. modern/landing/ survives `make clean`, and the Type 05 Parquet from

@@ -114,7 +114,6 @@ correct.
 | Legacy PostgreSQL | Base | `reconciliation.yaml` | — |
 | Oracles (`validation/oracle/`) | Base | `main/` expected outputs | Implementation code |
 | Modern (`modern/`) | Later | All four YAMLs, `main/` inputs and expected outputs | **Java, legacy CSV, legacy PostgreSQL** |
-| Detector (`factory/`) | Later | `main/expected-df-source-00N-finding.yaml` | Anything it could write to |
 
 The bold exclusion is the one that matters. When the modern fabric is built,
 it reads the *contract*, never the Java. Reading the Java would be copying
