@@ -1,8 +1,9 @@
 # The Dark Factory — stages, gates, and the doctrine behind them
 
-The canonical understanding document. This is what a new engineer reads to
-learn how the factory works and why each rule exists. It is a *teaching*
-document: it explains the reasoning, not only the mechanics.
+**Not on this tree.** This is the seed of the later idea — lights-out
+build, stages, gates, the unattended loop. There is no `factory/`
+folder and no detector. Read it as the broader picture the week grows
+into, not as a description of a plant that already runs.
 
 Companion documents:
 

@@ -1,31 +1,32 @@
 # Plans — the engagement map
 
-These two documents are the guiding process for the whole week. They are
-not optional reading and they are not last-run souvenirs. One describes
-the use case that already runs. The other is the contract the room must
-satisfy when the second implementation is built.
+These three documents are the guiding process for the whole week. They
+are not optional reading and they are not last-run souvenirs. One
+describes the use case that already runs. One is the contract for the
+second implementation. One is the later factory idea — a seed, not a
+plant that already runs.
 
 | Plan | What it is | When you open it |
 |---|---|---|
 | [`legacy.md`](legacy.md) | The completed local baseline: architecture, operating model, 25-batch catalog, and the 2026-07-24 proof ledger | Before anyone touches a later fabric. This is what must stay true. |
 | [`modern.md`](modern.md) | The specification the second implementation must satisfy: independence rules, type map, golden-match, milestones, definition of done | Every time a modern package, model, or gate is designed or accepted |
+| [`dark-factory.md`](dark-factory.md) | The later idea: lights-out build, stages, gates, unattended loop | When the room needs the broader picture. Enhance it as the week writes the factory. |
 
-There is no third plan on this tree. The detector is built later against
-the same contracts and observations. Its doctrine lives as a section in
-[`modern.md`](modern.md#relationship-to-dark-factory), not as a finished
-`factory/` folder.
+The detector is still later. It is not a finished `factory/` folder.
 
 ## How the two plans work together
 
 ```text
 contracts/  ── source of correctness for both sides
     │
-    ├── legacy.md   describes the frozen path that already runs
-    │                 DataGen → SFTP → Java 21 → PostgreSQL → oracle
+    ├── legacy.md         frozen path that already runs
+    │                       DataGen → SFTP → Java 21 → PostgreSQL → oracle
     │
-    └── modern.md   specifies the path the week constructs
-                      same raw bytes → Python → Parquet → lakehouse
-                      → golden-match against contract + legacy
+    ├── modern.md         path the week constructs
+    │                       same raw bytes → Python → Parquet → lakehouse
+    │                       → golden-match against contract + legacy
+    │
+    └── dark-factory.md   later idea — enhance as the factory is built
 ```
 
 Legacy is the **observed reference system**. Modern is an **independent
@@ -40,7 +41,7 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
 | Independent oracles under `validation/oracle/` | Type `05` modern vertical from the docked kit |
 | `validation/golden-match/golden_match.py` (the referee module) | Tests, Make targets, and evidence under `evidence/modern/` |
-| This folder | A later read-only detector |
+| This folder | The factory and the detector — grow [`dark-factory.md`](dark-factory.md) as they are built |
 
 ## How to use them in the room
 
