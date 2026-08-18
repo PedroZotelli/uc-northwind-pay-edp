@@ -24,13 +24,13 @@ have turned it back off.
 | **03** | 24–34 | [`03-who-lied.md`](03-who-lied.md) | One cent. Three implementations. **Refusal when evidence is withheld** |
 | **04** | 34–40 | [`04-modern-today.md`](04-modern-today.md) | Four verticals. **The room spots the gap before you say it** |
 | **05** | 40–44 | [`05-new-arrival.md`](05-new-arrival.md) | The spec arrives. *Is it adjudicatable?* — no oracle, no build |
-| **06** | 44–46 | [`06-fab-translate.md`](06-fab-translate.md) | ★ **THE INVOCATION.** One line. Then you step back |
+| **06** | — | *(withheld)* | Factory invocation is not in the tree at this stage |
 | — | 46–58 | *(you talk)* | The ladder, the loop, the six empty gates |
 | **07** | *as needed* | [`07-nudge.md`](07-nudge.md) | Only if it drifts |
 | **08** | 58–62 | [`08-verdict.md`](08-verdict.md) | The referee speaks, not the agent. The pull request |
 | **09** | 62–65 | [`09-the-cents.md`](09-the-cents.md) | ★ **The close.** The machine found the cent and refused to fix it |
 
-Cards 01–05 are conversation. Card 06 is the moment. Cards 08–09 are the payoff.
+Cards 01–05 are conversation. The factory invocation is withheld at this stage. Cards 08–09 are the payoff.
 
 ---
 
@@ -68,7 +68,7 @@ Check these two things or the ending changes:
 
 | Check | If it fails |
 |---|---|
-| `/fab` appears in a fresh Claude Code session | Card 06 has a plain-text fallback that works without the skill |
+| Factory invocation | Withheld until the factory day. Do not look for a `/fab` skill |
 | `git push --dry-run origin HEAD` reports `[new branch]` | See below |
 
 **The push path was broken and is now fixed.** The remote was `git@github.com:…`

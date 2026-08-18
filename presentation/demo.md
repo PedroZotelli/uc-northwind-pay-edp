@@ -575,14 +575,11 @@ type04_ted_transfer_settlement  type05_merchant_fee_assessment
 > invocation; the rest walk the whole hour. Keep `prompts/README.md` on the second
 > screen.
 
-The invocation is one line, because the policy lives in the repository:
+The factory invocation is **not in this tree yet**. Do not look for a
+`/fab` skill or a `.claude/` harness. On the factory day the work order
+is a docked kit under `spec/`; the verb that consumes it comes back then.
 
-```
-/fab translate spec/type-05-merchant-fee-assessment
-```
-
-
-State the goal out loud, then paste it:
+State the goal out loud:
 
 > "Push Type 06 to the modern platform end to end. The contract is the
 > specification. `legacy/`, `contracts/`, and `gen/` are frozen — you may read
