@@ -54,7 +54,7 @@ These stay in the tree. They are not the starting use case.
 | [`plans/modern.md`](plans/modern.md) | Spec the week must satisfy when the second implementation is built |
 | [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
 | [`presentation/`](presentation/README.md) | Workshop decks — HTML only |
-| [`prompts/`](prompts/README.md) | Instructor demo cards |
+| [`docs/`](docs/README.md) | Signed reference manuals — ASD loop, boot, Converge spine |
 
 ## Four truth roles
 
@@ -147,4 +147,4 @@ And its corollary, learned the hard way here more than once:
 - [Plans — the engagement map](plans/README.md)
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md) — the contract the later fabric must satisfy, not the implementation
-- [ASD — the Agentic Loop](docs/asd-agentic-loop.html) — runtime anatomy
+- [Docs — signed reference manuals](docs/README.md)
