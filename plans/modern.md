@@ -476,7 +476,7 @@ the question was never closed:
     deployment target is selected, and no Terraform is written. Claiming CI
     readiness from local proof remains forbidden.
 
-Reopening any of these means a new ADR in the Converge structure folder.
+Reopening any of these means a new ADR written during the week.
 
 ## Modern definition of done
 
