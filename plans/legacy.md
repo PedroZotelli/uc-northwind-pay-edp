@@ -95,7 +95,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Legacy stopping boundary | Complete |
 | Modern pipeline | Not on this tree. Specified by [`modern.md`](modern.md) and built during the week |
 | Inbound customer drop | Compiled under [`spec/`](../spec/README.md) for Types `01`–`05`. Type `06` sealed |
-| Dark Factory | Not on this tree. The detector is built later |
+| Dark Factory | Not on this tree. Built later. Day five red pill: Type `06` may expose a `CONFIRMED_LEGACY_DEFECT` — classify, do not edit this plant to hide it |
 
 The authoritative evidence comes from separate clean synchronous and
 automatic-worker runtimes. It records the current checkout's integrated

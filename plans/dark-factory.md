@@ -288,6 +288,34 @@ What must happen, and what the demo shows:
 > **A wrong money number passes unnoticed. That is exactly why the golden-match
 > exists. Eval engineering is not optional in a financial system.**
 
+### The red pill — Day 5, Type `06`
+
+Days 1–4 prove the **source** can lie. Java already refuses those five
+`DF-SOURCE-*` batches. The room has seen that movie.
+
+Day 5 is a different pill. A **new type** arrives — sealed, not in
+`spec/` until that morning. The factory builds it. Golden-match finds
+a one-cent (or one-cent-equivalent) miss where the **legacy plant** —
+Java, procedures, or the report — disagrees with the contract and
+with an independent computation.
+
+| | Week (`01`–`05` source lie) | Day 5 red pill (Type `06`) |
+|---|---|---|
+| Who is wrong | The source declaration | The **main system** (legacy) |
+| Classification | `CONFIRMED_SOURCE_DEFECT` | `CONFIRMED_LEGACY_DEFECT` |
+| What Java does | Already refuses | May accept or report MATCHED |
+| What the factory does | Same refusal, same code | Builds, compares, **names the plant** |
+| Repair | Never. Keep the declaration | Never. Do not edit frozen `legacy/` to make green |
+
+The flywheel's job is to **find and classify** that numeric difference,
+write the evidence, and stall the type. It does not patch Java, rewrite
+a procedure, or "fix" the cent in place. The highlight for the room:
+an agent can catch the system you already trusted, not only a dirty
+file from upstream.
+
+Type `06` stays sealed until that day. Authoring the miss is later
+work. The classification above is the contract for that kit.
+
 ---
 
 ## 8. Mapping to the KurvPay `/tsys:onboard` line

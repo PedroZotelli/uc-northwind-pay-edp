@@ -13,11 +13,16 @@ that is already here.
 | Before writing a parser | Independence rules, the type map, and the five-file package |
 | Closing a type | The [completion checklist](#completion-checklist-for-each-type) and golden-match classifications |
 | A source-defect batch | The two questions stay separate. Classification is `CONFIRMED_SOURCE_DEFECT` |
+| Day 5 red pill | Type `06` unseen. A numeric miss may be `CONFIRMED_LEGACY_DEFECT` — the main system, not the file |
 | Type `05` | The inbound pack in [`spec/type-05-merchant-fee-assessment/`](../spec/type-05-merchant-fee-assessment/README.md). Do not search git history |
 | Serving a result | Only an approved Gold snapshot. Unresolved golden-match is not servable |
 
 Days 1–4 construct this fabric against Types `01`–`05`. Day 5 is the
-unattended factory on **Type `06`** — a kit the room has not unpacked.
+unattended factory on **Type `06`** — a kit the room has not unpacked —
+and the **red pill**: golden-match may classify a numeric miss as
+`CONFIRMED_LEGACY_DEFECT`. The main plant can be wrong. The factory
+finds it; it does not edit `legacy/` to hide it.
+
 Nothing in this document authorizes empty scaffolding on day zero, and
 nothing puts Type `06` in `spec/` before that day.
 

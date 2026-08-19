@@ -42,7 +42,7 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 | Independent oracles under `validation/oracle/` | One vertical at a time, `01` first |
 | Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Understanding, ADRs, then translation |
 | `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |
-| This folder | Factory + detector later. Day five runs the factory on **Type `06`**, not on a type the room already unpacked. |
+| This folder | Factory later. Day five: Type `06` unseen + **red pill** — a numeric miss attributed to the legacy plant (`CONFIRMED_LEGACY_DEFECT`), found not repaired |
 
 ## How to use them in the room
 
