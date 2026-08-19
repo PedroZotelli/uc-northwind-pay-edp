@@ -50,7 +50,7 @@ and prohibitions below are binding on the code, not descriptive of it.
 | Five signed contracts and `main/` oracles | `modern/ingestion/` — one `model → parser → schema → writer → handler` package per type |
 | Legacy observations you can re-run any time | Deterministic sanitized Parquet and `modern/landing/` |
 | `validation/golden-match/golden_match.py` — the referee module | dlt + DuckLake/DuckDB + dbt Bronze/Silver/Gold |
-| Type `05` kit under `spec/` | Dagster, read-only FastAPI, narrow MCP |
+| Inbound packs `01`–`05` under [`spec/`](../spec/README.md) | Dagster, read-only FastAPI, narrow MCP |
 | This specification | `tests/modern/`, `make modern-*`, `evidence/modern/` |
 
 The referee module is not an implementation. It compares observations
@@ -84,28 +84,61 @@ flowchart LR
 - Neither modern nor Dark Factory may rewrite legacy observations or contract
   expectations to manufacture agreement.
 
+The two plants share raw intake and then split:
+
+```mermaid
+flowchart TB
+    RAW["SFTP raw/incoming<br/>same bytes · same manifest"]
+
+    subgraph L["Legacy — this tree"]
+        J["Java 21"]
+        CSV["SFTP csv/outgoing"]
+        PG["COPY + procedures + reporting"]
+        J --> CSV --> PG
+    end
+
+    subgraph M2["Modern — built during the week"]
+        PY["Python five-file package"]
+        LAND["modern/landing/ Parquet"]
+        DLT["dlt registers"]
+        DK["DuckLake / DuckDB"]
+        DBT["dbt Bronze → Silver → Gold"]
+        GM2["golden-match"]
+        PY --> LAND --> DLT --> DK --> DBT --> GM2
+    end
+
+    RAW --> J
+    RAW --> PY
+    PG -.->|"observation only"| GM2
+```
+
 ## Goal
 
 Build an independent modern replacement for the same five approved raw file
 types and produce deterministic, privacy-safe analytical results locally:
 
 ```text
-same approved raw bytes and source manifest
-  → event-driven Python ingestion
-  → deterministic sanitized Parquet
-  → approved dlt loading or registration role
+same SFTP raw/incoming  (file + checksum + manifest last)
+  → event-driven Python  (model → parser → schema → writer → handler)
+  → modern/landing/      deterministic sanitized Parquet + readiness manifest
+  → dlt                  registers landing; does not re-parse
   → DuckLake and DuckDB
-  → dbt Bronze, Silver, and Gold
-  → golden-match and terminal-outcome parity
-  → Dagster lineage and evidence
-  → read-only FastAPI and narrow MCP tools
+  → dbt Bronze → Silver → Gold
+  → golden-match         vs contract AND vs legacy observation
+  → Dagster              lineage, retries, evidence — not the parser
+  → read-only FastAPI    approved Gold only
 ```
+
+**The first modern write is `modern/landing/`, not SFTP.** Java writes
+CSV to `csv/outgoing`. Python writes Parquet to landing. dlt does not
+own money, privacy, or grammar. Nothing repairs a source declaration.
 
 The modern system must not call the legacy Java processor, import its parsing
 logic, or reuse legacy stored procedures to calculate a result. Legacy CSV,
 PostgreSQL state, and evidence are comparison observations only. The executable
 contracts and independently approved truth sets remain the source of
-correctness.
+correctness. Inbound prose under [`spec/`](../spec/README.md) is how the
+customer arrived; it does not outrank `contracts/`.
 
 ## Shared boundaries with legacy
 
@@ -190,7 +223,7 @@ or refuse the **same** batch IDs.
 
 ```mermaid
 flowchart TD
-    A["1. Receive approved raw bytes<br/>and source manifest"]
+    A["1. Receive the same SFTP raw/incoming<br/>bundle: file, checksum, manifest last"]
     B["2. Validate identity, checksum,<br/>size, readiness, and replay"]
     C{"Source admissible?"}
     Q1["Quarantine affected batch<br/>with privacy-safe reason"]
@@ -199,7 +232,7 @@ flowchart TD
     F["5. Validate privacy and<br/>independent batch controls"]
     G{"Typed result valid?"}
     Q2["Quarantine without partial<br/>Parquet or business mutation"]
-    H["6. Publish deterministic Parquet<br/>and manifest atomically"]
+    H["6. Publish Parquet to modern/landing/<br/>atomically — not back to SFTP"]
     I["7. Validate Parquet contract,<br/>lineage, and privacy"]
     J{"Publication valid?"}
     Q3["Block publication and retain<br/>safe diagnostic evidence"]
@@ -301,8 +334,8 @@ package.
 
 | Zone | Meaning |
 |---|---|
-| Restricted raw | Original file and manifest; ingestion-only access |
-| Landing | Immutable sanitized Parquet plus lineage metadata |
+| Restricted raw | SFTP `raw/incoming` — original file and manifest; ingestion-only |
+| Landing | `modern/landing/` — immutable sanitized Parquet plus lineage. **Not SFTP.** |
 | Bronze | Typed, source-aligned records with minimal reinterpretation |
 | Silver | Conformed entities, signs, dates, and business grain |
 | Gold | Governed reports, controls, and reconciliations |

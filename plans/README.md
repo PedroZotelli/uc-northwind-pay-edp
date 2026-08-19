@@ -23,8 +23,8 @@ contracts/  ── source of correctness for both sides
     │                       DataGen → SFTP → Java 21 → PostgreSQL → oracle
     │
     ├── modern.md         path the week constructs
-    │                       same raw bytes → Python → Parquet → lakehouse
-    │                       → golden-match against contract + legacy
+    │                       same raw SFTP → Python → modern/landing/
+    │                       → dlt → DuckLake/DuckDB → dbt → golden-match
     │
     └── dark-factory.md   later idea — enhance as the factory is built
 ```

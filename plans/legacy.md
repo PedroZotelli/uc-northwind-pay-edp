@@ -51,6 +51,25 @@ Every arrow crosses an explicit interface. DataGen does not call Java, Java
 does not write PostgreSQL, procedures do not read SFTP, and application code
 does not use a mounted-directory transport shortcut.
 
+That is the **base plant**:
+
+```text
+SFTP raw/incoming
+  → Java 21  (parse, validate, sanitize)
+  → SFTP csv/outgoing
+  → COPY staging.*
+  → stored procedures  (legacy.* then reporting.*)
+  → independent oracle
+  → archive or quarantine
+```
+
+The first sanitized write is **CSV on SFTP**. Postgres is the warehouse.
+Modern does not reuse this first write. Its first write is Parquet in
+`modern/landing/` — see [`modern.md`](modern.md).
+
+[`spec/`](../spec/README.md) is not this plant. It is the inbound
+customer drop the week unpacks before building beside Java.
+
 This baseline reproduces the legacy process. It does not replace Java or
 PostgreSQL, and it does not implement the modern fabric or the detector.
 The legacy implementation is the observed reference system. Later work
@@ -75,6 +94,7 @@ the generic synchronous runner, and the automatic manifest-ready worker.
 | Type `01` parity proof | Re-standardized and independently live verified 2026-07-24 through `make test-type01` |
 | Legacy stopping boundary | Complete |
 | Modern pipeline | Not on this tree. Specified by [`modern.md`](modern.md) and built during the week |
+| Inbound customer drop | Compiled under [`spec/`](../spec/README.md) for Types `01`–`05`. Type `06` sealed |
 | Dark Factory | Not on this tree. The detector is built later |
 
 The authoritative evidence comes from separate clean synchronous and
