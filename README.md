@@ -41,17 +41,14 @@ Setup and configuration sit at the front. These folders *are* the use case.
 
 Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 
-[`spec/`](spec/README.md) is how the customer drop arrives. The week
-works Types `01`–`05` from packs written in advance. Type `06` is not
-in the folder — it is the day-five factory kit, unseen until then.
-
 ## Not the base
 
 These stay in the tree. They are not the starting use case.
 
 | Folder | What it is |
 |---|---|
-| [`plans/modern.md`](plans/modern.md) | Spec the week must satisfy when the second implementation is built |
+| [`spec/`](spec/README.md) | Customer drop for Types `01`–`05`. Type `06` is not here |
+| [`plans/`](plans/README.md) | Engagement map — legacy, modern, factory seed |
 | [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
 | [`presentation/`](presentation/README.md) | Workshop decks — HTML only |
 | [`docs/`](docs/README.md) | Signed reference manuals — ASD loop, boot, Converge spine |

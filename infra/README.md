@@ -95,16 +95,15 @@ Worth stating plainly, because it is easy to assume otherwise: `operator` has
 group **write** on every zone (`2770`). It is the *widest* role, not the
 narrowest.
 
-The Dark Factory detector authenticates as `operator` because it is the only
-role that can observe all eight zones. Its read-only behaviour comes from the
-adapter code — which exposes only `listdir`, `stat`, and read-mode `open` — and
-is proven by the AST security test in
-`dark-factory/tests/security/test_no_write_paths.py`, **not** by the operating
-system. See this file and the detector's AST security test.
+A later read-only observer (the detector) will authenticate as
+`operator` because it is the only role that can see all eight zones.
+Read-only behaviour is then a property of that observer's adapter —
+`listdir`, `stat`, and read-mode `open` — **not** of the operating
+system. `operator` itself has write on every zone because archive
+needs it.
 
-If that guarantee ever needs to be OS-enforced, the change is a fifth role in a
-group with read-only zone membership — not a tightening of `operator`, which
-the archive step genuinely needs.
+If that guarantee ever needs to be OS-enforced, the change is a fifth
+role with read-only group membership — not a tightening of `operator`.
 
 ---
 

@@ -11,7 +11,6 @@ plant that already runs.
 | [`legacy.md`](legacy.md) | The completed local baseline: architecture, operating model, 25-batch catalog, and the 2026-07-24 proof ledger | Before anyone touches a later fabric. This is what must stay true. |
 | [`modern.md`](modern.md) | The specification the second implementation must satisfy: independence rules, type map, golden-match, milestones, definition of done | Every time a modern package, model, or gate is designed or accepted |
 | [`dark-factory.md`](dark-factory.md) | The later idea: lights-out build, stages, gates, unattended loop | When the room needs the broader picture. Enhance it as the week writes the factory. |
-| [`spec-instructor-key.md`](spec-instructor-key.md) | Planted inbound issues | Instructor only. Not in `spec/`. |
 
 The detector is still later. It is not a finished `factory/` folder.
 
@@ -41,7 +40,7 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 | Five signed type contracts (`01`–`05`) | `modern/` for those same five types |
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
 | Independent oracles under `validation/oracle/` | One vertical at a time, `01` first |
-| Inbound packs for `01`–`05` (once compiled under [`spec/`](../spec/README.md)) | Understanding, ADRs, then translation |
+| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Understanding, ADRs, then translation |
 | `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |
 | This folder | Factory + detector later. Day five runs the factory on **Type `06`**, not on a type the room already unpacked. |
 

@@ -55,12 +55,7 @@ spec/
     └── expected/             the oracle (sanitized, recon, refusals)
 ```
 
-`estate/` is shared. A type pack never repeats the kick-off. It may
-contradict it. That contradiction is the work.
-
-Type `05`'s current `01-`…`07-` tree is a **thin compiled example**.
-It gets the same inbound shape as `01`–`04` so the week has five
-equal drops. Do not leave it as the tidy exception.
+`estate/` is shared. A type pack never repeats the kick-off.
 
 ## What `estate/` contains
 
@@ -90,7 +85,7 @@ exported them, not like we designed a repo.
 | Vendor-ish layout | PDF or long markdown, field positions, "see page 14" | Translation starts here |
 | Table definitions | `.txt` / `.sql` dump | Analysts and warehouse people land here first |
 | Insert / apply proc | One or two dated copies | The legacy "how we post" — not Java, not to be ported |
-| Email / Slack export | "Keith said most columns aren't loaded" | Planted gap between proc and table |
+| Email / Slack export | A walk-through, an argument about a noun | The week has something to unpack |
 | Meeting excerpt | Type-specific walk-through | Open questions with owners |
 | Raw samples | Happy, boundary, type edge, malformed, source lie | Real bytes |
 | Expected sanitized + recon | For accepted samples | The oracle |
@@ -102,33 +97,6 @@ score a copy.
 The five scenario **roles** stay. Customer names may differ. We map;
 we do not drop a role.
 
-## Good stuff and minor issues
-
-The drop must be mostly right. A pack that is only traps teaches
-cynicism, not engineering.
-
-**Good (the majority):**
-
-- Layout that actually matches the happy-path sample
-- Privacy rule that is load-bearing and consistent
-- Reconciliation that the live legacy run already satisfies
-- A source-lie file whose declared total is wrong by one cent
-
-**Minor issues (planted, findable, not sabotage):**
-
-| Class | Example | What the room should do |
-|---|---|---|
-| Stale revision | Proc dated earlier than the table dump | Ask which one is current |
-| Unused columns | Table has fields the proc never writes | Do not invent Gold from dead columns |
-| Name drift | Meeting says "net fee"; layout says "assessed fee" | One ADR, then one vocabulary |
-| Implied rounding | Email says "normal rounding"; Type `05` needs `HALF_UP` | Prove it on the sample, do not guess |
-| Two truths | Cover letter vs trailer control | Keep the declaration; compute independently |
-| Missing expected | One "nice to have" sample with no oracle | Factory must refuse that sample, not invent it |
-
-Do **not** put an `issues.md` in the student pack. That is an answer
-key. The instructor key, if we need one, lives under `plans/` after
-the drop is compiled.
-
 ## How the week uses the methods
 
 The drop is the input to the method stack. It is not a substitute
@@ -137,7 +105,7 @@ for it.
 | Method | What it does with the drop |
 |---|---|
 | **Brief-Spec** | Each day has a type: unpack is exploration, a contradiction is review, a parser is implementation |
-| **Converge** | Pass 0–1 compile the messy folder into a BRD / tech-spec. Pass 2 writes ADRs for money, privacy, which doc wins. Pass 4 attacks the planted issues **before** code |
+| **Converge** | Pass 0–1 compile the folder into a BRD / tech-spec. Pass 2 writes ADRs for money, privacy, which doc wins. Pass 4 attacks contradictions **before** code |
 | **Seamwise** | Seams from the drop: raw → sanitize → stage → apply → report. Ownership must be one per handoff |
 | **Task-Spec** | Only after Consensus. Each leaf has evals against `expected/`. No eval, no task |
 | **Dark Factory seed** | [`plans/dark-factory.md`](../plans/dark-factory.md) — later, the same drop is what the unattended line consumes |
@@ -152,7 +120,7 @@ no oracle. That is the ultimate experience — not slides about it.
 |---|---|---|
 | Role | How the request **arrives** (messy) | Source of correctness once **installed** (clean) |
 | Audience | The week, the factory | DataGen, Java, oracles |
-| Planted issues | Yes, in inbound prose and dated dumps | **Never.** Contracts stay executable truth |
+| Contradictions | Allowed in inbound prose | **Never.** Contracts stay executable truth |
 
 The factory reads the pack as if the customer sent it. After
 understanding, the signed contract in `contracts/` is still what
@@ -172,8 +140,6 @@ meeting used the wrong noun.
 | [`type-05-…`](type-05-merchant-fee-assessment/README.md) | Compiled. Same shape as the others. |
 | Type `06` | **Not here.** Sealed until day five. No empty folder. |
 
-Instructor key (not for the room): [`../plans/spec-instructor-key.md`](../plans/spec-instructor-key.md).
-
 ## Gate before a pack is written
 
 A type pack is ready only when:
@@ -183,8 +149,7 @@ A type pack is ready only when:
 3. Privacy is stated in customer language **and** matches `contracts/`
    once installed.
 4. Tolerances are zero in the oracle half.
-5. Every planted issue is discoverable from the drop itself.
-6. Nothing requires editing `legacy/`, `gen/`, or `infra/` to become true.
+5. Nothing requires editing `legacy/`, `gen/`, or `infra/` to become true.
 
 Fail any one and we do not write that type.
 
@@ -192,8 +157,7 @@ Fail any one and we do not write that type.
 
 1. `estate/` — cover, five notes, two mails, two policies.
 2. Types `01`–`05` — inbound / samples / expected. Five equal drops.
-3. Instructor key under [`plans/spec-instructor-key.md`](../plans/spec-instructor-key.md).
-4. Type `06` — **not written.** Sealed until day five.
+3. Type `06` — **not written.** Sealed until day five.
 
 The room starts on a drop, not on a pointer. The factory learns on a
 type it has not already unpacked.

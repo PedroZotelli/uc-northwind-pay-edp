@@ -6,21 +6,9 @@ a referee that lives in a player's folder is not a referee.
 
 ```text
 validation/
-├── oracle/                    3,116   the legacy referee
-│   ├── canonical.py              40   strict scalar normalization, shared
-│   ├── type01_oracle.py         545
-│   ├── type02_oracle.py         499
-│   ├── type03_oracle.py         524
-│   ├── type04_oracle.py         488
-│   ├── type05_oracle.py         487
-│   └── tests/                   833   one suite per type
-│
-└── golden-match/                316   the modern referee
-    └── golden_match.py
+├── oracle/           the legacy referee — one module per type + tests
+└── golden-match/     the modern referee — attached when that plant exists
 ```
-
-The size difference is not an accident, and neither is the fact that it used to
-be larger. See "Two referees, one philosophy" below.
 
 ---
 
@@ -108,40 +96,12 @@ would hide the difference that matters, so it is not done.
 
 ---
 
-## Two referees, one philosophy — and where it had drifted
+## Two referees, one philosophy
 
-Both referees exist to compare, never to repair. Two defects found in the
-pre-workshop review had drifted from that:
-
-**1. The rejected half never contacted legacy.** A prior modern pipeline
-built the "legacy" terminal observation out of the contract's own
-expectation:
-
-```python
-legacy_final = {"status": expectation.get("expected_status"),      # ← the contract
-                "code":   expectation.get("expected_code")}
-```
-
-So `legacy_matches_contract_status` and `legacy_matches_contract_code` compared
-the contract with itself — **two checks that could not fail** — while the
-emitted `Difference` recorded `reference_name="legacy-observation"` for a
-legacy observation that was never read.
-
-Fixed: `_legacy_terminal_status()` reads the real `control.batches` row
-read-only; `compare_rejection` now takes `Mapping | None` and, when legacy is
-deliberately skipped, records `legacy_terminal_comparison_skipped_by_request`
-instead of asserting something trivially true. A missing legacy row is a hard
-failure, not a silent pass.
-
-**2. The money renderer rounded.** `_money` was
-`f"{Decimal(str(value)):.2f}"`, which pads and rounds — and rounds
-ROUND_HALF_EVEN, so `173.445` became `173.44` where the contract mandates
-HALF_UP and `173.45`. Latent, because every live input is already
-`decimal(18, 2)`, but it is precisely the silent tolerance the module's own
-docstring denies having. It now refuses a value that is not already exact.
-
-Both were found by reading, not by a failing gate — which is the point.
-Regression coverage for them lands with the modern implementation.
+Both referees compare. Neither repairs. A rejected batch is compared on
+terminal status and code, never on invented empty rows. Money is an
+exact scale-two lexeme or it is refused — no padding, no
+`ROUND_HALF_EVEN` renderer.
 
 ---
 
