@@ -13,7 +13,10 @@ gone; this is the customer drop.
 | `malformed` | Grammar | `INVALID_CSV_QUOTING` |
 | `df-source-005` | Source lie | `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH` · declared `0.99` · computed `1.00` |
 
-Python default rounding is `HALF_EVEN`. This type is **`HALF_UP`**.
-Ops mail that says “normal rounding” is not the schedule.
+**Small red pill.** Python default is `HALF_EVEN`. Ops mail says
+“normal rounding.” This type is **`HALF_UP`**. `rounding-half-up`
+(`0.04` on `3.50`) is the proof. Trust the schedule and `expected/`,
+not the language default. That is a preview of Day 5: something you
+already trusted can be wrong.
 
 Estate: [`../estate/`](../estate/README.md).

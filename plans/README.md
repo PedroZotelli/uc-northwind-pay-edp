@@ -60,6 +60,8 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 5. **Do not repair a source lie.** Every `DF-SOURCE-*` batch is a
    one-cent (or one-cent-equivalent) declaration the source got wrong.
    Compute the truth, keep the declaration, refuse the batch.
+6. **Type `05` small red pill.** `HALF_UP` vs "normal" / `HALF_EVEN`.
+   Day 5 is the large pill: Type `06` may indict the legacy plant.
 
 ## Operator entry
 

@@ -288,6 +288,23 @@ What must happen, and what the demo shows:
 > **A wrong money number passes unnoticed. That is exactly why the golden-match
 > exists. Eval engineering is not optional in a financial system.**
 
+### Small red pill — Type `05`, this week
+
+Type `05` already carries a **small** pill. It is not a planted Java
+bug and not a second source lie. It is `rounding-half-up`: assessed
+`0.04` on `3.50` under **`HALF_UP`**.
+
+Python's default is `HALF_EVEN`. Ops language says "normal rounding."
+An agent or a human that trusts either of those will get a different
+cent and still look structurally green. Golden-match against
+`expected/` is what names it: `MODERN_DEFECT` if the new plant
+rounded the wrong way.
+
+That is the preview. Something you already trusted — the language, the
+email, "how we always round" — can be wrong. The contract is right.
+Java on this type is specified `HALF_UP`; we do **not** break the
+frozen plant to stage this lesson.
+
 ### The red pill — Day 5, Type `06`
 
 Days 1–4 prove the **source** can lie. Java already refuses those five
@@ -299,13 +316,12 @@ a one-cent (or one-cent-equivalent) miss where the **legacy plant** —
 Java, procedures, or the report — disagrees with the contract and
 with an independent computation.
 
-| | Week (`01`–`05` source lie) | Day 5 red pill (Type `06`) |
-|---|---|---|
-| Who is wrong | The source declaration | The **main system** (legacy) |
-| Classification | `CONFIRMED_SOURCE_DEFECT` | `CONFIRMED_LEGACY_DEFECT` |
-| What Java does | Already refuses | May accept or report MATCHED |
-| What the factory does | Same refusal, same code | Builds, compares, **names the plant** |
-| Repair | Never. Keep the declaration | Never. Do not edit frozen `legacy/` to make green |
+| | Source lie (`01`–`05`) | Type `05` small pill | Day 5 (Type `06`) |
+|---|---|---|---|
+| Who is wrong | The source declaration | The trusted default (`HALF_EVEN` / "normal") | The **legacy plant** |
+| Classification | `CONFIRMED_SOURCE_DEFECT` | `MODERN_DEFECT` if the new plant copies the default | `CONFIRMED_LEGACY_DEFECT` |
+| What Java does | Already refuses | Specified `HALF_UP` — do not break it | May accept or report MATCHED |
+| Repair | Never | Never. Do not change `expected/` | Never. Do not edit frozen `legacy/` |
 
 The flywheel's job is to **find and classify** that numeric difference,
 write the evidence, and stall the type. It does not patch Java, rewrite
