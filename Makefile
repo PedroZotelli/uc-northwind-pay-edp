@@ -161,7 +161,7 @@ check: test-contracts test-gen test-python test-java ## [verify] Run pure source
 	@$(RUNNER_PYTHON) -m json.tool contracts/common/generation-receipt.schema.json >/dev/null
 	@$(RUNNER_PYTHON) -m json.tool contracts/common/sanitized-manifest.schema.json >/dev/null
 
-test-type01: ## [verify] Run the complete Type 01 proof on a fresh deployed runtime.
+test-type01: ## [verify] Run the complete Type 01 proof on a deployed runtime. Does not clean.
 	@PYTHONPATH=gen/src $(RUNNER_PYTHON) -m unittest discover \
 		--start-directory gen/tests \
 		--pattern 'test_type_01_*.py' \
@@ -222,7 +222,7 @@ run-type: run ## [base] Compatibility alias for run.
 
 run-file: ## [base] Run one explicit typed FILE with sibling checksum and manifest.
 	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE for run-file must be one of 01, 02, 03, 04" >&2; exit 2 ;; \
+		*) echo "TYPE for run-file must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
 	esac
 	@test -n "$(FILE)" || { echo "set FILE=<raw-file-path>" >&2; exit 2; }
 	@$(RUNNER_PYTHON) legacy/runner/run_type.py \
