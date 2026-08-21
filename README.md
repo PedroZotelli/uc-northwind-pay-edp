@@ -48,10 +48,13 @@ These stay in the tree. They are not the starting use case.
 | Folder | What it is |
 |---|---|
 | [`spec/`](spec/README.md) | Customer drop for Types `01`–`05`. Type `06` is not here |
+| [`agenda/`](agenda/README.md) | Five-day scope briefs. Day 1 folds Onboard and Archaeologist into one day |
 | [`plans/`](plans/README.md) | Engagement map — legacy, modern, factory seed |
 | [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
-| [`presentation/`](presentation/README.md) | Workshop decks — HTML only |
+| [`presentation/`](presentation/README.md) | Workshop decks — self-contained HTML. Day 1 is built; Days 2–5 are not |
 | [`docs/`](docs/README.md) | Signed reference manuals — ASD loop, boot, Converge spine |
+| [`assets/`](assets/) | Images and logos the decks reference |
+| `evidence/` | Per-run output. Disposable — `make clean` removes it |
 
 ## Four truth roles
 
@@ -145,3 +148,5 @@ And its corollary, learned the hard way here more than once:
 - [Completed legacy baseline and proof ledger](plans/legacy.md)
 - [Modern target plan](plans/modern.md) — the contract the later fabric must satisfy, not the implementation
 - [Docs — signed reference manuals](docs/README.md)
+- [Agenda — the five-day week](agenda/README.md), starting with [Day 1](agenda/d1.md)
+- [Decks](presentation/README.md) — open the HTML, press `F11`

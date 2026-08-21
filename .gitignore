@@ -15,3 +15,8 @@ modern/.venv/
 modern/landing/
 modern/lakehouse/ducklake/
 modern/dbt/.user.yml
+
+# agent tooling (local, not repo content)
+.agents/
+.claude/
+skills-lock.json

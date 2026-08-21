@@ -35,9 +35,9 @@ room. The drop has to give each of them something to do: a layout to
 read, a control to recompute, a contradiction to escalate, a privacy
 rule to enforce.
 
-Daily agenda is still open. This page is the **inbound**, not the
-timetable. The type split is closed: `01`–`05` all week, `06` only
-when the factory runs.
+Daily briefs live in [`agenda/`](../agenda/README.md). This page is
+the **inbound**, not the timetable. The type split is closed: `01`–`05`
+all week, `06` only when the factory runs.
 
 ## Two layers, like Kurv
 
