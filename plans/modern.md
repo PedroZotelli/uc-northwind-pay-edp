@@ -10,18 +10,23 @@ that is already here.
 
 | Moment | What you take from here |
 |---|---|
-| Before writing a parser | Independence rules, the type map, and the five-file package |
+| Day 1 | **Do not write a parser.** Capture + Intent only. Brain + graph exist; ADRs wait. |
+| Day 2, before writing a parser | Independence rules, the type map, the five-file package. Close the ten questions as ADRs. Consensus first. |
 | Closing a type | The [completion checklist](#completion-checklist-for-each-type) and golden-match classifications |
 | A source-defect batch | The two questions stay separate. Classification is `CONFIRMED_SOURCE_DEFECT` |
 | Day 5 red pill | Type `06` unseen. A numeric miss may be `CONFIRMED_LEGACY_DEFECT` — the main system, not the file |
-| Type `05` | Inbound pack plus the **small red pill**: `rounding-half-up` is `HALF_UP`. Default/`normal` rounding is the trap |
+| Type `05` | Inbound pack (already in the Day 1 Second Brain, pack 07) plus the **small red pill**: `rounding-half-up` is `HALF_UP`. Default/`normal` rounding is the trap |
 | Serving a result | Only an approved Gold snapshot. Unresolved golden-match is not servable |
 
-Days 1–4 construct this fabric against Types `01`–`05`. Day 5 is the
-unattended factory on **Type `06`** — a kit the room has not unpacked —
-and the **red pill**: golden-match may classify a numeric miss as
+**Day 1 does not construct this fabric.** It understands the legacy
+(MATCHED plant, Second Brain, OntoLayer, Capture → Intent). **Days 2–4**
+construct `modern/` against Types `01`–`05`. Day 5 is the unattended
+factory on **Type `06`** — a kit the room has not unpacked — and the
+**red pill**: golden-match may classify a numeric miss as
 `CONFIRMED_LEGACY_DEFECT`. The main plant can be wrong. The factory
 finds it; it does not edit `legacy/` to hide it.
+
+Week clock: [`agenda/`](../agenda/README.md). Day 1 staff: [`run/d1/`](../run/d1/README.md).
 
 Nothing in this document authorizes empty scaffolding on day zero, and
 nothing puts Type `06` in `spec/` before that day.
@@ -52,10 +57,11 @@ and prohibitions below are binding on the code, not descriptive of it.
 
 | Already here | Built during the week |
 |---|---|
-| Five signed contracts and `main/` oracles | `modern/ingestion/` — one `model → parser → schema → writer → handler` package per type |
+| Five signed contracts and `main/` oracles | `modern/ingestion/` — one `model → parser → schema → writer → handler` package per type (**Day 2+**, after Consensus) |
 | Legacy observations you can re-run any time | Deterministic sanitized Parquet and `modern/landing/` |
 | `validation/golden-match/golden_match.py` — the referee module | dlt + DuckLake/DuckDB + dbt Bronze/Silver/Gold |
 | Inbound packs `01`–`05` under [`spec/`](../spec/README.md) | Dagster, read-only FastAPI, narrow MCP |
+| Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md)) + OntoLayer | Queried as evidence for ADRs. They do not replace a signed ADR |
 | This specification | `tests/modern/`, `make modern-*`, `evidence/modern/` |
 
 The referee module is not an implementation. It compares observations
@@ -445,6 +451,16 @@ imperative mood as work to do, not as a history of a folder that is
 no longer here. A sixth type, if one arrives, repeats this order
 rather than inventing one. Type `05` is already an open work order.
 
+Map to the nights (see [`agenda/`](../agenda/README.md)):
+
+| Night | What this file is for |
+|---|---|
+| 1 | Not this fabric. Brain + graph + Capture → Intent. Stop. |
+| 2 | Milestone 0 as ADRs, Consensus, then Milestone 1 (Type `01` landing) |
+| 3 | Milestones 2–3 (dlt → Gold, golden-match attach) |
+| 4 | Dagster + Type `05` unattended. Small `HALF_UP` pill |
+| 5 | Repeat the order on sealed Type `06`. Classify, do not patch |
+
 ### Milestone 0 — approve the modern task specification
 
 - Use Type `01` as the first slice.
@@ -569,8 +585,10 @@ Parquet, lakehouse, dbt, or Gold artifacts that were never created.
 ### Closed during the week (Converge / Seamwise, not in this file)
 
 These ten questions have no binding answer on this tree. Last run's
-ADRs were removed so the room would write them. Close each one before
-the code that depends on it exists:
+ADRs were removed so the room would write them. **Close them on Day 2
+as Pass 2 Structure** — facts from the Second Brain and OntoLayer, never
+how to build — **before** the code that depends on them exists. They are
+not Day 1 work.
 
 1. Python version, packaging tool, and validation libraries.
 2. Canonical Parquet schema, compression, ordering, partitioning, and metadata.

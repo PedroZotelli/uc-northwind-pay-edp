@@ -11,6 +11,7 @@ Companion documents:
 |---|---|
 | [`legacy.md`](legacy.md) | What the frozen oracle is and how it was proven |
 | [`modern.md`](modern.md) | What the independent second implementation must be |
+| [`agenda/d5.md`](../agenda/d5.md) | Night-five scope. Type `06` is not in the Day 1 Second Brain zip |
 
 ---
 
@@ -307,8 +308,11 @@ frozen plant to stage this lesson.
 
 ### The red pill — Day 5, Type `06`
 
-Days 1–4 prove the **source** can lie. Java already refuses those five
-`DF-SOURCE-*` batches. The room has seen that movie.
+Days 1–4 prove the **source** can lie (Day 1 sees Type `01` 173.44 vs
+173.45; Day 4 is the Type `05` `HALF_UP` pill). Java already refuses
+those five `DF-SOURCE-*` batches. The room has seen that movie. The
+week notebook ([`brain/notebooklm/`](../brain/notebooklm/README.md))
+covers types `01`–`05` only — Type `06` is a new drop this morning.
 
 Day 5 is a different pill. A **new type** arrives — sealed, not in
 `spec/` until that morning. The factory builds it. Golden-match finds

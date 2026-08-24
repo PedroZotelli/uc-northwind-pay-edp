@@ -14,8 +14,9 @@ disagree, the contract decides which one is wrong.
 
 | Moment | What you take from here |
 |---|---|
-| Arrival | The flow, the four truth roles, and `make deploy` / `make run` |
-| First live batch | The [25-batch catalog](#canonical-25-batch-catalog) and the [evidence packet](#batch-evidence) |
+| Arrival (Day 1) | The flow, the four truth roles, and `make deploy` / `make run` until Type `01` **MATCHED**, net `173.45` |
+| First live batch | The [25-batch catalog](#canonical-25-batch-catalog) and the [evidence packet](#batch-evidence). `evidence/` is gitignored — open it in the terminal |
+| The inbound drop | [`spec/`](../spec/README.md) is mail, not this plant. Feed it to the Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md)); do not treat `cover.md` as `contracts/` |
 | A rejected batch | The [source-defect seeds](#source-defect-seeds) — compute the truth, keep the lie |
 | A later observer | The handoff contract at the end: read-only, batch-scoped, privacy-safe |
 | A dispute with modern | This file plus `contracts/` win. Modern may not rewrite these observations |
@@ -68,7 +69,9 @@ Modern does not reuse this first write. Its first write is Parquet in
 `modern/landing/` — see [`modern.md`](modern.md).
 
 [`spec/`](../spec/README.md) is not this plant. It is the inbound
-customer drop the week unpacks before building beside Java.
+customer drop the week unpacks before building beside Java. Day 1 feeds
+it to the Second Brain and OntoLayer and stops at Intent. The first
+modern write is Day 2, after Consensus — see [`modern.md`](modern.md).
 
 This baseline reproduces the legacy process. It does not replace Java or
 PostgreSQL, and it does not implement the modern fabric or the detector.

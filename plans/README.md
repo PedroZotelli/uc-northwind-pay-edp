@@ -6,11 +6,15 @@ describes the use case that already runs. One is the contract for the
 second implementation. One is the later factory idea — a seed, not a
 plant that already runs.
 
+They are **not** the night's clock. Scope is [`agenda/`](../agenda/README.md).
+Staff execute is [`run/`](../run/README.md). Day 1 deck:
+[`presentation/d1-archaeologist.html`](../presentation/d1-archaeologist.html).
+
 | Plan | What it is | When you open it |
 |---|---|---|
-| [`legacy.md`](legacy.md) | The completed local baseline: architecture, operating model, 25-batch catalog, and the 2026-07-24 proof ledger | Before anyone touches a later fabric. This is what must stay true. |
-| [`modern.md`](modern.md) | The specification the second implementation must satisfy: independence rules, type map, golden-match, milestones, definition of done | Every time a modern package, model, or gate is designed or accepted |
-| [`dark-factory.md`](dark-factory.md) | The later idea: lights-out build, stages, gates, unattended loop | When the room needs the broader picture. Enhance it as the week writes the factory. |
+| [`legacy.md`](legacy.md) | The completed local baseline: architecture, operating model, 25-batch catalog, and the 2026-07-24 proof ledger | Before anyone touches a later fabric. This is what must stay true. Day 1 boots it until Type `01` **MATCHED**. |
+| [`modern.md`](modern.md) | The specification the second implementation must satisfy: independence rules, type map, golden-match, milestones, definition of done | Day 2 after Consensus, and every time a modern package, model, or gate is designed or accepted. **Not** a license to write `modern/` on Day 1. |
+| [`dark-factory.md`](dark-factory.md) | The later idea: lights-out build, stages, gates, unattended loop | When the room needs the broader picture. Enhance it as the week writes the factory. Day 5 runs it on sealed Type `06`. |
 
 The detector is still later. It is not a finished `factory/` folder.
 
@@ -37,34 +41,47 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 
 | Frozen on this tree | Built during the week |
 |---|---|
-| Five signed type contracts (`01`–`05`) | `modern/` for those same five types |
+| Five signed type contracts (`01`–`05`) | `modern/` for those same five types — **from Day 2**, after Consensus |
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
 | Independent oracles under `validation/oracle/` | One vertical at a time, `01` first |
-| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Understanding, ADRs, then translation |
+| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Day 1: Second Brain + OntoLayer + Capture → Intent. Day 2: ADRs, then translation |
+| Human Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md), nine packs) | Queried Days 2–4. Type `06` is a new source on Friday, not in the zip |
+| OntoLayer over live Postgres | Without (`make ontology-ask-sql`) then with (`make ontology-ask` / MCP) |
 | `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |
 | This folder | Factory later. Day five: Type `06` unseen + **red pill** — a numeric miss attributed to the legacy plant (`CONFIRMED_LEGACY_DEFECT`), found not repaired |
 
 ## How to use them in the room
 
-1. **Arrive.** Boot the use case with `make deploy` and one
+Clock: [`agenda/`](../agenda/README.md). Day 1 staff: [`run/d1/`](../run/d1/README.md).
+
+1. **Arrive (Day 1).** Boot the use case with `make deploy` and one
    `make run TYPE=01 SCENARIO=valid-minimal`. Confirm the packet in
    [`legacy.md`](legacy.md#batch-evidence) and the Type `01` row in the
-   [25-batch catalog](legacy.md#canonical-25-batch-catalog).
-2. **Design.** Open [`modern.md`](modern.md). Close the standing design
-   questions for the current type before writing a parser.
-3. **Build the week's types.** `01`–`05` only. Type `01` first. The
-   inbound drop is [`spec/`](../spec/README.md). Type `06` stays sealed
-   until day five.
-4. **Adjudicate.** Golden-match asks two questions and never nets them:
+   [25-batch catalog](legacy.md#canonical-25-batch-catalog). Net `173.45`,
+   **MATCHED**. `evidence/` is gitignored — open it in the terminal.
+2. **Understand (Day 1).** Feed [`spec/`](../spec/README.md) to the
+   Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md) —
+   nine packs, types `01`–`05`). Ask OntoLayer without, then with. Run
+   Converge **0 Capture** and **1 Intent**. **No product code. No ADRs.
+   No `modern/`.**
+3. **Design, then write (Day 2).** Open [`modern.md`](modern.md). Close
+   the standing design questions as ADRs from the brain + the graph.
+   Consensus is the barrier. **Then** Type `01` landing Parquet. The ten
+   questions in `modern.md` are not closed on Day 1.
+4. **Build the week's types (Days 2–4).** `01`–`05` only. Type `01`
+   first. Type `06` stays sealed until day five.
+5. **Adjudicate.** Golden-match asks two questions and never nets them:
    did modern match legacy, and did modern match the contract?
-5. **Do not repair a source lie.** Every `DF-SOURCE-*` batch is a
+6. **Do not repair a source lie.** Every `DF-SOURCE-*` batch is a
    one-cent (or one-cent-equivalent) declaration the source got wrong.
    Compute the truth, keep the declaration, refuse the batch.
-6. **Type `05` small red pill.** `HALF_UP` vs "normal" / `HALF_EVEN`.
-   Day 5 is the large pill: Type `06` may indict the legacy plant.
+7. **Type `05` small red pill (Day 4).** `HALF_UP` vs "normal" /
+   `HALF_EVEN`. Day 5 is the large pill: Type `06` may indict the
+   legacy plant.
 
 ## Operator entry
 
 The day-to-day commands live in the root [`README.md`](../README.md).
 The plans do not replace that page. They explain *why* those commands
-exist and what a green result is allowed to mean.
+exist and what a green result is allowed to mean. They do not replace
+[`agenda/`](../agenda/README.md) on *when* a night closes.

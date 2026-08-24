@@ -15,7 +15,8 @@ WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 .DEFAULT_GOAL := help
 
 .PHONY: help init deploy migrate status down gen test-contracts test-gen test-python test-postgres test-java check \
-	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime
+	publish publish-raw run run-type run-file worker worker-once test-type01 test-e2e test-worker-e2e test clean clean-runtime \
+	ontology ontology-clean ontology-ask ontology-ask-sql ontology-mcp test-ontology
 
 help: ## [base] List supported targets, compatibility aliases, and input variables.
 	@awk 'BEGIN { \
@@ -26,6 +27,16 @@ help: ## [base] List supported targets, compatibility aliases, and input variabl
 	} \
 	/^[a-zA-Z0-9_-]+:.*## \[base\] / { \
 		sub(/^\[base\] /, "", $$2); \
+		printf "  %-18s %s\n", $$1, $$2; \
+	} \
+	END { }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { \
+		FS = ":.*## "; \
+		print ""; \
+		print "Graph — catalog over live Postgres (not the use case):"; \
+	} \
+	/^[a-zA-Z0-9_-]+:.*## \[graph\] / { \
+		sub(/^\[graph\] /, "", $$2); \
 		printf "  %-18s %s\n", $$1, $$2; \
 	} \
 	END { }' $(MAKEFILE_LIST)
@@ -51,8 +62,10 @@ help: ## [base] List supported targets, compatibility aliases, and input variabl
 		print "  BUNDLE=path         Explicit bundle directory for publish."; \
 		print "  FILE=path           Raw file with sibling checksum and manifest; TYPE cannot be all."; \
 		print "  CONFIRM=clean-runtime  Required destructive-clean confirmation."; \
+		print "  Q=text             Optional question for ontology-ask / ontology-ask-sql."; \
 		print ""; \
 		print "BATCH and BUNDLE are mutually exclusive."; \
+		print "Day 1 graph contrast: ontology-ask-sql (without), then ontology-ask (with)."; \
 	}' $(MAKEFILE_LIST)
 
 init: ## [base] Create local Python environments, .env, and container builds.
@@ -60,7 +73,7 @@ init: ## [base] Create local Python environments, .env, and container builds.
 	@chmod 0600 .env
 	@$(PYTHON) -m venv $(RUNNER_VENV)
 	@$(RUNNER_PYTHON) -m pip install --quiet --upgrade pip
-	@$(RUNNER_PYTHON) -m pip install --quiet -e 'gen[dev]' -r legacy/runner/requirements.txt
+	@$(RUNNER_PYTHON) -m pip install --quiet -e 'gen[dev]' -e ontology -r legacy/runner/requirements.txt
 	@docker compose build sftp processor
 	@echo "local development environment initialized"
 
@@ -241,6 +254,31 @@ worker-once: ## [base] Run exactly one bounded worker polling iteration.
 		--poll-interval "$(POLL_INTERVAL)" \
 		--max-batches "$(MAX_BATCHES)" \
 		--evidence-root "$(EVIDENCE)"
+
+ontology: ## [graph] Crawl live Postgres into ontology/output (graph, not the use case).
+	@$(RUNNER_PYTHON) -m pip install --quiet -e ontology
+	@PYTHONPATH=ontology/src $(RUNNER_PYTHON) ontology/scripts/crawl.py
+
+ontology-clean: ## [graph] Delete ontology/output crawl artifacts.
+	@rm -rf ontology/output
+
+ontology-ask: ## [graph] Ask the catalog graph (Q=... defaults to the Day 1 paid question).
+	@test -f ontology/output/graph.json || $(MAKE) --no-print-directory ontology
+	@PYTHONPATH=ontology/src $(RUNNER_PYTHON) ontology/scripts/ask.py $(if $(Q),"$(Q)",)
+
+ontology-ask-sql: ## [graph] Same paid question against legacy/postgres SQL only (no graph).
+	@PYTHONPATH=ontology/src $(RUNNER_PYTHON) ontology/scripts/ask_sql_only.py $(if $(Q),"$(Q)",)
+
+ontology-mcp: ## [graph] Stdio MCP server over ontology/output/graph.json (read-only).
+	@test -f ontology/output/graph.json || $(MAKE) --no-print-directory ontology
+	@PYTHONPATH=ontology/src $(RUNNER_PYTHON) ontology/scripts/mcp_server.py
+
+test-ontology: ## [verify] Ontology unit mapping plus live crawl smoke (skips if Postgres is down).
+	@$(RUNNER_PYTHON) -m pip install --quiet -e ontology
+	@PYTHONPATH=ontology/src $(RUNNER_PYTHON) -m unittest discover \
+		--start-directory ontology/tests \
+		--pattern 'test_*.py' \
+		--verbose
 
 test-e2e: ## [verify] Run the selected live acceptance suite; TYPE=all runs 01 through 05.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
