@@ -37,7 +37,7 @@ mkdir -p docs/adrs
 cvg structure --draft --json
 ```
 
-If `cvg` wrote under `cvg/docs/`, move the ADRs and `CONTEXT.md` into `docs/`.
+If `cvg` wrote under `cvg/docs/`, move the ADRs and `CONTEXT.md` into `docs/`. If `cvg` errors (engine mismatch), the agent still writes those files — do not debug the CLI.
 
 ## Proof
 

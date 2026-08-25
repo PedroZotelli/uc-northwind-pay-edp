@@ -30,7 +30,7 @@ mkdir -p docs/tasks
 cvg tasking --draft --json
 ```
 
-If `cvg` wrote under `cvg/docs/`, move the leaf into `docs/tasks/`.
+If `cvg` wrote under `cvg/docs/`, move the leaf into `docs/tasks/`. If `cvg` errors, the agent still writes the leaf — do not debug the CLI.
 
 ## Proof
 

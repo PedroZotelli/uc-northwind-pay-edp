@@ -17,7 +17,7 @@ If they will not sign, **skip 11**. Design is done when the owner signs. Do not 
 cvg consensus --sign --json
 ```
 
-If `cvg` is missing, a dated signature in `docs/consensus.md` still counts. If `cvg` wrote elsewhere, copy it here.
+If `cvg` is missing **or errors**, a dated signature in `docs/consensus.md` still counts. If `cvg` wrote elsewhere, copy it here. Do not debug the CLI.
 
 ## Proof
 

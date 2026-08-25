@@ -1,7 +1,7 @@
 # Day 2 — follow-along
 
 Staff execute folder. Scope: [`agenda/d2.md`](../../agenda/d2.md).  
-Deck: [`presentation/d2-translator-java2py.html`](../../presentation/d2-translator-java2py.html) — **live, all six acts.** Identify slides by **`data-act-name`**, not a HUD integer (Stage/Craft extras shift the counter). The old `d2-translator.html` HUD is gone from the tree. Do not drive a Night from git history.
+Deck: [`presentation/d2-translator.html`](../../presentation/d2-translator.html) — **live, all six acts.** Identify slides by **`data-act-name`**, not a HUD integer (Stage/Craft extras shift the counter).
 
 **Same mold as [`../d1/`](../d1/README.md).** Show the board, send the room into the numbered beats, **look up** at the proof. Do not flip a slide per prompt. Do not skip a Show.
 
