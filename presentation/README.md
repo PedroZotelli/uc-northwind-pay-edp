@@ -22,16 +22,16 @@ not authorize. Type `06` is not in `spec/` until Friday.
 ## What’s in this folder
 
 | File | Kind | What it is | When you open it |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | [`d1-archaeologist.html`](d1-archaeologist.html) | Night 1 deck | Onboard + Archaeologist. **44 slides**, six blocks, HUD `01`–`44`. Pass **0–1** only. **Live.** | Night 1. Staff: [`run/d1/`](../run/d1/README.md) |
-| [`d2-translator-java2py.html`](d2-translator-java2py.html) | Night 2 deck | Translator · java2py. **34 slides**, six blocks, five Hands-On boards (slices a–e). Identify by `data-act-name`. Scope: [`agenda/d2.md`](../agenda/d2.md). Staff: [`run/d2/`](../run/d2/README.md) | Night 2. **Live.** |
+| [`d2-translator.html`](d2-translator-java2py.html) | Night 2 deck | Translator · java2py. **34 slides**, six blocks, five Hands-On boards (slices a–e). Identify by `data-act-name`. Scope: [`agenda/d2.md`](../agenda/d2.md). Staff: [`run/d2/`](../run/d2/README.md) | Night 2. **Live.** |
 | [`seamwise.html`](seamwise.html) | Method kit | Seamwise internals. Night 2 **Leave · Seamwise** parks here, then returns to Execute 07–10 | Pass 3 kit. Not the Night clock |
 | Days 3–5 | — | Constructor / Orchestrator / Dark Factory nights. **Not in this folder.** | Build from [`agenda/d3.md`](../agenda/d3.md)–[`d5.md`](../agenda/d5.md). Staff still stubs: [`run/d3.md`](../run/d3.md) … |
 | [`cvg-aut-systems-spine-steps.html`](cvg-aut-systems-spine-steps.html) | Method manual | Converge spine — nine passes, two phases, one human barrier. **36 slides**, print-page layout. v7 · Converge 0.2.0 | When the room needs the kit, not the Night. Week papers: [`docs/`](../docs/README.md) |
 | [`asd-agentic-loop.html`](asd-agentic-loop.html) | Method manual | ASD — the Agentic Loop. Scroll document, **12 sections** (not a HUD deck): five layers, hop map, where Converge sits | Doctrine. Print/PDF from the page |
 | [`boot-uc-northwind-pay-edp-oss.html`](boot-uc-northwind-pay-edp-oss.html) | Method manual | Bootcamp reference — case framing, Shapiro ladder, the week arc. **19 slides**, print-page layout | Framing before or beside Night 1. Not the follow-along |
 | [`wrkp-dark-factory.html`](wrkp-dark-factory.html) | Workshop | Dark Factory Operation. **83 slides**. Broader workshop, not Night 5’s sealed Type `06` run | Context / seed. Night 5 clock is still [`agenda/d5.md`](../agenda/d5.md) |
-| [`yt-agentic-engineering.html`](yt-agentic-engineering.html) | Talk | *Engenharia Agêntica* (pt-BR). **44 slides**. Public talk, not a bootcamp night | Outreach. Do not drive a Night from it |
+| [`yt-agentic-engineering.html`](yt-agentic-engineering.html) | Talk | _Engenharia Agêntica_ (pt-BR). **44 slides**. Public talk, not a bootcamp night | Outreach. Do not drive a Night from it |
 
 **Live this week:** Night 1 HTML (44) and Night 2 HTML (34). **Not built:**
 Days 3–5 HTML.
@@ -81,7 +81,7 @@ Staff clock: [`run/d1/README.md`](../run/d1/README.md) — slices A–F, then 17
 
 ## Night 2 · java2py
 
-[`d2-translator-java2py.html`](d2-translator-java2py.html) — **34 slides,
+[`d2-translator.html`](d2-translator-java2py.html) — **34 slides,
 six blocks**. Identify by `data-act-name` (Stage/Craft extras shift HUD integers).
 
 | Block | Mode |
