@@ -12,8 +12,12 @@ It is not the student brief. It is not the deck.
 | [`presentation/`](../presentation/README.md) | What the room sees. |
 | **This folder** | What the three of you execute, in order. |
 
-One folder per night. One file per beat, numbered, so you can
-execute in lockstep with the deck.
+One folder per night. One file per beat, numbered. **One Night** — no
+morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
+
+Night 1 HTML is live — lockstep with [`d1-archaeologist.html`](../presentation/d1-archaeologist.html).
+Night 2 HTML exists but is **not** signed off — lockstep with [`d2/`](d2/README.md),
+not the HUD. Days 3–5 are stubs until those decks exist.
 
 ```text
 run/
@@ -27,7 +31,14 @@ run/
     13         Slice E · OntoLayer
     14–16      Slice F · Converge Capture → Intent · no Pass 2
     17         Close · Research, then walk
-  d2.md        stub — Translator (deck file exists, not signed off)
+  d2/          live — six boards, 16 beats. Drive this folder.
+    README.md  six-board clock
+    01–03      Board 1 · Recap (MATCHED, review Capture + Intent)
+    04–06      Board 2 · Picture + grasp
+    07         Board 3 · Bind the Agent Harness
+    08–11      Board 4 · Kits + barrier (sign)
+    12–15      Board 5 · Landing (SWE proof)
+    16         Board 6 · Research
   d3.md        stub — Constructor
   d4.md        stub — Orchestrator
   d5.md        stub — Dark Factory

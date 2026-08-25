@@ -123,7 +123,7 @@ for it.
 | **Brief-Spec** | Each day has a type: unpack is exploration, a contradiction is review, a parser is implementation |
 | **Converge** | **Day 1:** Pass 0–1 compile the folder into a BRD / tech-spec. **Day 2:** Pass 2 writes ADRs; Pass 4 attacks contradictions **before** code |
 | **Seamwise** | Attaches at Pass 3 (Day 2). Seams from the drop: raw → sanitize → stage → apply → report. One owner per handoff |
-| **Task-Spec** | Only after Consensus (Day 2 afternoon). Each leaf has evals against `expected/`. No eval, no task |
+| **Task-Spec** | Only after Consensus (Day 2, Pass 5). Each leaf has evals against `expected/`. No eval, no task |
 | **Dark Factory seed** | [`plans/dark-factory.md`](../plans/dark-factory.md) — later, Type `06` is a new drop, not this folder |
 
 The room should spend real time in "meetings" that the notes set up:
