@@ -1,13 +1,11 @@
-# 09 · Pass 2 — Structure (ADRs)
+# 08 · Pass 2 — Structure
 
-- Slide: Board 4 · Barrier — Pass 2 ADRs into `docs/adrs/`
-- Slice: **F · Barrier**
+- Slide: Dig · Hands-On C (HUD 21)
+- Slice: **D · 2–4**
 - Who: instructor drafts the first ADR in public, then every seat
-- Next: [`10-decompose.md`](10-decompose.md)
+- Next: [`09-decompose.md`](09-decompose.md)
 
-What is true, never how. Facts from the Second Brain, OntoLayer, and the Day 1 tech-spec. The graph is evidence. It is not the ADR.
-
-Close the ten questions in `plans/modern.md` or **park** each with an owner. A question without a sentence is not closed.
+What is true, never how. Close or **park** the ten questions in `plans/modern.md`. Tonight must close landing facts.
 
 ## Prompt (verbatim)
 
@@ -19,10 +17,6 @@ You may query the Second Brain and OntoLayer for facts.
 Write ADRs under docs/adrs/ as NNNN-short-name.md.
 Write domain terms to docs/CONTEXT.md.
 This repo’s Converge home is docs/, not cvg/docs/.
-Draft ADRs that answer, as facts + constraints, not build steps:
-
-Example shape: “dlt registers landing; it does not re-parse.”
-(That ADR is for Day 3 — write tonight’s landing facts, not the lakehouse.)
 
 Tonight’s landing ADRs must cover:
 - First write is modern/landing/ Parquet, not SFTP
@@ -36,8 +30,6 @@ Do not write modern/ code.
 Do not import Java.
 ```
 
-Then gate if `cvg` sits:
-
 ```bash
 mkdir -p docs/adrs
 cvg structure --draft --json
@@ -47,7 +39,7 @@ If `cvg` wrote under `cvg/docs/`, move the ADRs and `CONTEXT.md` into `docs/`.
 
 ## Proof
 
-Files exist under [`docs/adrs/`](../../docs/README.md) and `docs/CONTEXT.md`. The room can restate them with the files closed. No “how we implement the parser” in an ADR.
+Files exist under `docs/adrs/` and `docs/CONTEXT.md`. The room can restate them with the files closed. No “how we implement the parser” in an ADR.
 
 ## If fail
 

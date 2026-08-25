@@ -16,8 +16,7 @@ One folder per night. One file per beat, numbered. **One Night** — no
 morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
 
 Night 1 HTML is live — lockstep with [`d1-archaeologist.html`](../presentation/d1-archaeologist.html).
-Night 2 HTML exists but is **not** signed off — lockstep with [`d2/`](d2/README.md),
-not the HUD. Days 3–5 are stubs until those decks exist.
+Night 2 — lockstep with [`d2/`](d2/README.md) and [`d2-translator-java2py.html`](../presentation/d2-translator-java2py.html) (Opening live; HUD 02–29 append). Old `d2-translator.html` is archive. Days 3–5 are stubs until those decks exist.
 
 ```text
 run/
@@ -31,14 +30,14 @@ run/
     13         Slice E · OntoLayer
     14–16      Slice F · Converge Capture → Intent · no Pass 2
     17         Close · Research, then walk
-  d2/          live — six boards, 16 beats. Drive this folder.
-    README.md  six-board clock
-    01–03      Board 1 · Recap (MATCHED, review Capture + Intent)
-    04–06      Board 2 · Picture + grasp
-    07         Board 3 · Bind the Agent Harness
-    08–11      Board 4 · Kits + barrier (sign)
-    12–15      Board 5 · Landing (SWE proof)
-    16         Board 6 · Research
+  d2/          live — 12 beats, same mold as d1 (prompts + proofs)
+    README.md  slices A–E + Close
+    01–02      A · Recap (status, papers)
+    03–04      B · Harness (prompt, fail closed)
+    05–06      C · Query (brain, graph)
+    07–10      D · Pass 2–4 (kits, ADRs, seams, sign)
+    11         E · Task-Spec
+    12         Close · Research
   d3.md        stub — Constructor
   d4.md        stub — Orchestrator
   d5.md        stub — Dark Factory

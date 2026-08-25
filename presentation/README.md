@@ -24,7 +24,8 @@ not authorize. Type `06` is not in `spec/` until Friday.
 | File | Kind | What it is | When you open it |
 |---|---|---|---|
 | [`d1-archaeologist.html`](d1-archaeologist.html) | Night 1 deck | Onboard + Archaeologist. **44 slides**, six blocks, HUD `01`–`44`. Pass **0–1** only. **Live.** | Night 1. Staff: [`run/d1/`](../run/d1/README.md) |
-| [`d2-translator.html`](d2-translator.html) | Night 2 deck | Translator · the first write. **32 slides**. File exists; **not** signed off as follow-along (still an older morning/afternoon HUD). | Drive Night 2 from [`run/d2/`](../run/d2/README.md) until this HUD is rebuilt |
+| [`d2-translator-java2py.html`](d2-translator-java2py.html) | Night 2 deck | Translator · java2py. **Opening only (HUD 01).** Built move-by-move from [`agenda/d2.md`](../agenda/d2.md). Prompt: [`prompts/d2-m1-opening.md`](prompts/d2-m1-opening.md) | Opening pass live. Stage not appended yet |
+| [`d2-translator.html`](d2-translator.html) | Night 2 (old) | Discarded 32-slide HUD. Do not drive the Night from it | archive |
 | Days 3–5 | — | Constructor / Orchestrator / Dark Factory nights. **Not in this folder.** | Build from [`agenda/d3.md`](../agenda/d3.md)–[`d5.md`](../agenda/d5.md). Staff still stubs: [`run/d3.md`](../run/d3.md) … |
 | [`cvg-aut-systems-spine-steps.html`](cvg-aut-systems-spine-steps.html) | Method manual | Converge spine — nine passes, two phases, one human barrier. **36 slides**, print-page layout. v7 · Converge 0.2.0 | When the room needs the kit, not the Night. Week papers: [`docs/`](../docs/README.md) |
 | [`asd-agentic-loop.html`](asd-agentic-loop.html) | Method manual | ASD — the Agentic Loop. Scroll document, **12 sections** (not a HUD deck): five layers, hop map, where Converge sits | Doctrine. Print/PDF from the page |
@@ -77,14 +78,11 @@ Close is not a seventh Hands-On: Research (42) → Next (43) → silent Tomorrow
 
 Staff clock: [`run/d1/README.md`](../run/d1/README.md) — slices A–F, then 17.
 
-## Night 2 · do not drive the HTML yet
+## Night 2 · java2py
 
-[`d2-translator.html`](d2-translator.html) is a 32-slide draft. It still
-maps an older 10-beat, morning/afternoon floor. The live clock is
-**six Hands-On boards** in [`run/d2/`](../run/d2/README.md) (16 beats:
-recap 0–1 → picture → Bind → sign → landing → Research). Rebuild this
-HUD from [`agenda/d2.md`](../agenda/d2.md) + that run folder before you
-put it on the projector.
+Live clock: [`run/d2/`](../run/d2/README.md) — 12 beats, Day 1 mold
+(prompts they type). Deck: [`d2-translator-java2py.html`](d2-translator-java2py.html).
+Scope: [`agenda/d2.md`](../agenda/d2.md). Old `d2-translator.html` is archive.
 
 ## Method manuals vs week papers
 

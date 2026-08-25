@@ -56,7 +56,7 @@ translated.
 | Day | Deck |
 |---|---|
 | 1 | [`presentation/d1-archaeologist.html`](../presentation/d1-archaeologist.html) — live. 44 slides. Staff: [`run/d1/`](../run/d1/README.md) — 17 beats, six slices A–F + Close 17 |
-| 2 | [`presentation/d2-translator.html`](../presentation/d2-translator.html) — file exists; **not** signed off as follow-along yet. Staff: [`run/d2/`](../run/d2/README.md) — 16 beats, six Hands-On boards. Drive from `run/d2/` until the HUD is rebuilt |
+| 2 | [`presentation/d2-translator-java2py.html`](../presentation/d2-translator-java2py.html) — Opening + Stage live. Staff: [`run/d2/`](../run/d2/README.md) — 12 beats, Day 1 mold |
 | 3–5 | not built yet. Build from this folder. Staff still stubs: [`run/d3.md`](../run/d3.md), [`run/d4.md`](../run/d4.md), [`run/d5.md`](../run/d5.md) |
 
 ## What is frozen vs what the week writes

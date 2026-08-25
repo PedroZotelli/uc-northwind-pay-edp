@@ -1,11 +1,11 @@
-# 06 · Specs + OntoLayer — what we build
+# 06 · Specs + OntoLayer
 
-- Slide: Board 2 · Grasp — specs + graph (HUD not signed)
-- Slice: **C · Grasp**
-- Who: every seat, through **their** agent + MCP / `make ontology-ask`
-- Next: [`07-bind-harness.md`](07-bind-harness.md)
+- Slide: Floor · Show · OntoLayer + specs, then Hands-On B (HUD 17–18)
+- Slice: **C · Query**
+- Who: every seat, through **their** agent + MCP
+- Next: [`07-prompt-kits.md`](07-prompt-kits.md)
 
-The brain taught concepts. The **specs** say what we will build. The **graph** says where paid lives. Mail is not the judge.
+Show first. Same question without, then with. Mail is not the judge.
 
 ## Prompt 1 — specs (verbatim)
 
@@ -16,7 +16,7 @@ Do not change any file.
 Do not create modern/.
 
 Answer:
-1. What will we build tonight (five-file package, first write)?
+1. What will we build (five-file package, first write)?
 2. What must we not do (Java import, CSV-as-input, SFTP as modern destination, dlt, Type 06)?
 3. Which document wins if inbound prose disagrees with contracts/?
 ```
@@ -34,6 +34,7 @@ Do not change any file.
 Staff, if MCP is down:
 
 ```bash
+make ontology-ask-sql
 make ontology-ask
 ```
 

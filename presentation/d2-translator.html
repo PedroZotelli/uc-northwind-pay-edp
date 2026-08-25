@@ -2478,6 +2478,19 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
 .src { font-family: var(--font-mono); font-size: clamp(8px,.72vw,9.5px); line-height: 1.45; letter-spacing: .35px; color: var(--text-mute); border-top: 1px solid var(--rule); padding-top: clamp(7px,1.1vh,11px); margin-top: clamp(10px,1.6vh,16px); }
 @keyframes ring-spin { to { transform: rotate(360deg); } }
 
+
+/* S14c-e — SeamWise trio */
+.d2-sw-defs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(12px,1.4vw,22px); margin-top: clamp(12px,1.8vh,20px); }
+@media (max-width: 1080px) { .d2-sw-defs { grid-template-columns: 1fr; } }
+.d2-sw-def { border-top: 1px solid var(--rule); padding-top: clamp(9px,1.4vh,14px); }
+.d2-sw-def-k { font-family: var(--font-mono); font-size: clamp(9px,.82vw,11px); font-weight: 700; letter-spacing: 2.4px; color: var(--dc,var(--cyan)); }
+.d2-sw-def-t { font-family: var(--font-display); font-size: clamp(16px,1.5vw,21px); color: var(--text); margin-top: 5px; }
+.d2-sw-def-b { font-family: var(--font-editorial); font-size: clamp(11.5px,1.02vw,14px); line-height: 1.42; color: var(--text-dim); margin-top: 5px; }
+.d2-sw-def-b b { color: var(--text); font-weight: 600; }
+.d2-sw-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(12px,1.8vh,18px); }
+.d2-sw-chip { display: inline-block; font-family: var(--font-mono); font-size: clamp(8.5px,.78vw,10.5px); letter-spacing: .4px; color: var(--silver-bright); background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 5px 11px; }
+.d2-sw-chip b { color: var(--accent); font-weight: 700; }
+
 /* ═══ DAY-2 DEBRIEF ═══ */
 .tom-step { font-family: var(--font-mono); font-size: clamp(10px,0.95vw,12.5px); font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px; }
 .tom-step.hot { color: #000; background: var(--cyan); border-color: transparent; box-shadow: 0 0 26px -8px rgba(34,211,238,0.65); }
@@ -3742,6 +3755,291 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
     </div>
   </section>
 
+  <!-- S14c · SEAMWISE — seam-first planning, the flow -->
+  <section class="slide" data-act="CRAFT" data-act-name="SeamWise" data-accent="accent"
+           style="padding-top:clamp(20px,3vh,40px);padding-bottom:clamp(20px,3vh,40px);">
+    <div class="aurora aurora--accent" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1780px;margin:0 auto;">
+
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(20px,3vw,48px);">
+        <div>
+          <span class="tag" style="--tag-c:var(--accent);">The kit · seam-first planning</span>
+          <h2 class="h2" style="margin-top:clamp(10px,1.8vh,20px);">
+            SeamWise slices the work<br><span style="color:var(--accent);">along the system's real seams.</span>
+          </h2>
+          <p class="lede" style="max-width:74ch;margin-top:clamp(10px,1.7vh,18px);">
+            An architecture-aware decomposition compiler. One approved initiative in — and out comes
+            not a list of tasks but the system's own joints made explicit: <b>seams, swimlanes,
+            capability legs</b>, the ordering between them, reviewed by a human and compiled into a
+            plan other engines can contract on.
+          </p>
+        </div>
+        <div style="flex-shrink:0;display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid rgba(74,158,255,0.35);border-radius:14px;background:linear-gradient(160deg,rgba(74,158,255,0.10),var(--surface) 78%);box-shadow:0 18px 40px -28px rgba(0,0,0,0.8);">
+          <img src="../assets/seamwise-icon.svg" alt="SeamWise" style="width:46px;height:46px;">
+          <div>
+            <div style="font-family:var(--font-display);font-size:22px;line-height:1;color:var(--text);">SeamWise</div>
+            <div style="font-family:var(--font-mono);font-size:9.5px;color:var(--text-mute);margin-top:6px;">seam-first planning · MIT</div>
+            <a href="https://github.com/luanmorenommaciel/seamwise" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:9.5px;color:var(--accent);text-decoration:none;">github.com/luanmorenommaciel/seamwise ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:clamp(10px,1.8vh,20px);">
+        <svg class="arch" viewBox="0 0 1780 490" role="img"
+             aria-label="The SeamWise flow as four glowing cards joined by gradient arrows: an approved initiative becomes a seam map of seams, swimlanes, legs and topology; the plan stops at an explicit human review gate; compile emits a deterministic TaskPlan with digest-bound lineage. A fifth dashed card marks the boundary: SeamWise never builds and never dispatches.">
+          <defs>
+            <linearGradient id="swA" gradientUnits="userSpaceOnUse" x1="420" y1="0" x2="500" y2="0">
+              <stop offset="0%" stop-color="#4a9eff" stop-opacity=".6"/><stop offset="100%" stop-color="#4a9eff" stop-opacity=".35"/>
+            </linearGradient>
+            <linearGradient id="swB" gradientUnits="userSpaceOnUse" x1="860" y1="0" x2="940" y2="0">
+              <stop offset="0%" stop-color="#4a9eff" stop-opacity=".6"/><stop offset="100%" stop-color="#d4af37" stop-opacity=".45"/>
+            </linearGradient>
+            <linearGradient id="swC" gradientUnits="userSpaceOnUse" x1="1300" y1="0" x2="1380" y2="0">
+              <stop offset="0%" stop-color="#d4af37" stop-opacity=".6"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".45"/>
+            </linearGradient>
+            <filter id="swGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+
+          <path d="M 420 145 L 492 145" fill="none" stroke="url(#swA)" stroke-width="2.4"/>
+          <polygon points="500,145 488,139 488,151" fill="#4a9eff" opacity=".8"/>
+          <path d="M 860 145 L 932 145" fill="none" stroke="url(#swB)" stroke-width="2.4"/>
+          <polygon points="940,145 928,139 928,151" fill="#d4af37" opacity=".85"/>
+          <path d="M 1300 145 L 1372 145" fill="none" stroke="url(#swC)" stroke-width="2.4"/>
+          <polygon points="1380,145 1368,139 1368,151" fill="#22d3ee" opacity=".85"/>
+
+          <rect x="60" y="60" width="360" height="170" rx="16" fill="#111114" stroke="#4a9eff" stroke-opacity=".55" stroke-width="1.5"/>
+          <rect x="60" y="60" width="360" height="170" rx="16" fill="none" stroke="#4a9eff" stroke-opacity=".28" stroke-width="5" filter="url(#swGlow)"/>
+          <text x="96" y="96" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#9ec9ff">ONE IN</text>
+          <text x="96" y="136" font-family="Instrument Serif" font-size="30" fill="#eaedf2">Initiative</text>
+          <text x="96" y="166" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">approved · evidence attached</text>
+          <text x="96" y="188" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">intent — never implementation</text>
+          <text x="240" y="262" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">nothing starts without a signature</text>
+
+          <rect x="500" y="60" width="360" height="170" rx="16" fill="#111114" stroke="#4a9eff" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="500" y="60" width="360" height="170" rx="16" fill="none" stroke="#4a9eff" stroke-opacity=".3" stroke-width="5" filter="url(#swGlow)"/>
+          <text x="536" y="96" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#8ec4ff">THE CUT</text>
+          <text x="536" y="136" font-family="Instrument Serif" font-size="30" fill="#eaedf2">Seam map</text>
+          <text x="536" y="166" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">seams · swimlanes · capability legs</text>
+          <text x="536" y="188" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">dependency + contention topology</text>
+          <text x="680" y="262" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">the system's joints, made explicit</text>
+
+          <rect x="940" y="60" width="360" height="170" rx="16" fill="#191408" stroke="#d4af37" stroke-opacity=".85" stroke-width="2"/>
+          <rect x="940" y="60" width="360" height="170" rx="16" fill="none" stroke="#d4af37" stroke-opacity=".32" stroke-width="5" filter="url(#swGlow)"/>
+          <text x="976" y="96" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#f4dd94">THE GATE</text>
+          <text x="976" y="136" font-family="Instrument Serif" font-size="30" fill="#eaedf2">Human review</text>
+          <text x="976" y="166" font-family="Fira Code" font-size="11.5" fill="#c9b778">the plan stops here — by design</text>
+          <text x="976" y="188" font-family="Fira Code" font-size="11.5" fill="#c9b778">a receipt binds to the plan digest</text>
+          <text x="1120" y="262" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">no current review, no compile</text>
+
+          <rect x="1380" y="60" width="360" height="170" rx="16" fill="#111114" stroke="#22d3ee" stroke-opacity=".6" stroke-width="1.5"/>
+          <rect x="1380" y="60" width="360" height="170" rx="16" fill="none" stroke="#22d3ee" stroke-opacity=".28" stroke-width="5" filter="url(#swGlow)"/>
+          <text x="1416" y="96" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#67e8f9">ONE OUT</text>
+          <text x="1416" y="136" font-family="Instrument Serif" font-size="30" fill="#eaedf2">TaskPlan/v1</text>
+          <text x="1416" y="166" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">+ digest-bound Lineage/v1</text>
+          <text x="1416" y="188" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">deterministic — identical bytes on rerun</text>
+          <text x="1560" y="262" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">a contract other engines build on</text>
+
+          <path d="M 1560 236 L 1560 302" fill="none" stroke="#b0bec5" stroke-opacity=".4" stroke-width="1.6" stroke-dasharray="5 7"/>
+          <rect x="1380" y="310" width="360" height="130" rx="16" fill="#111114" stroke="#b0bec5" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="8 5"/>
+          <text x="1416" y="344" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#e0e6e9">THE BOUNDARY</text>
+          <text x="1416" y="382" font-family="Instrument Serif" font-size="27" fill="#eaedf2">Never builds, never dispatches</text>
+          <text x="1416" y="410" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">materializes_tasks: false · dispatch_authority: false</text>
+          <text x="1560" y="472" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">decomposition is planning, not building</text>
+        </svg>
+      </div>
+
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:clamp(10px,1.15vw,17px);margin-top:clamp(14px,2.4vh,24px);padding-top:clamp(14px,2.2vh,22px);border-top:1px solid var(--rule);">
+        <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">The invariant</span>
+        <span class="tag" style="--tag-c:var(--accent);">seamwise decomposes</span>
+        <span class="tag" style="--tag-c:var(--cyan);">task-spec contracts</span>
+        <span class="tag" style="--tag-c:var(--gold);">converge coordinates</span>
+        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">one spine · three authorities · <b style="color:var(--text);font-style:normal;font-weight:600;">no overlap</b></span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- S14d · SEAM · SWIMLANE · LEG — anatomy of the cut -->
+  <section class="slide" data-act="CRAFT" data-act-name="Seam anatomy" data-accent="cyan"
+           style="padding-top:clamp(20px,3vh,40px);padding-bottom:clamp(20px,3vh,40px);">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1780px;margin:0 auto;">
+
+      <span class="tag" style="--tag-c:var(--cyan);">Decompose · the grammar of the cut</span>
+      <h2 class="h2" style="margin-top:clamp(10px,1.8vh,20px);">
+        A seam is a crossing,<br><span style="color:var(--cyan);">not a work assignment.</span>
+      </h2>
+      <p class="lede" style="max-width:76ch;margin-top:clamp(10px,1.6vh,18px);">
+        A true seam changes behavior <b>without editing everything around it</b>. A false seam cuts
+        meaning — and no tool owns meaning. SeamWise maps the real joints, then gives each one a lane.
+      </p>
+
+      <svg style="width:100%;margin-top:clamp(12px,2vh,22px);" viewBox="0 0 1780 620" role="img" aria-label="Two estates — the legacy estate that is already true and the modern plant that gets built — separated by one glowing gold seam. The same raw bytes cross; a red stratum above marks meaning, which is never cut. Below, one swimlane with a single owner lowers the work into three capability legs: staged, reconciled, served.">
+        <defs>
+          <filter id="swCut" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+
+        <rect x="60" y="36" width="1660" height="44" rx="10" fill="rgba(248,81,73,0.05)" stroke="#f85149" stroke-opacity=".5" stroke-width="1.2" stroke-dasharray="7 8"/>
+        <text x="890" y="64" text-anchor="middle" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2.5" fill="#f88b84">MEANING — THE STRATUM YOU NEVER CUT · OPENED BY FINANCE OR BY NOBODY</text>
+
+        <rect x="60" y="120" width="700" height="330" rx="18" fill="#0d0d11" stroke="rgba(120,160,220,0.14)" stroke-width="1"/>
+        <text x="86" y="154" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2.2" fill="#b0bec5">THE ESTATE — WHAT IS ALREADY TRUE</text>
+        <g stroke="rgba(160,190,230,0.14)" stroke-width="1">
+          <path d="M86 204 H734"/><path d="M86 268 H734"/><path d="M86 332 H734"/><path d="M86 396 H734"/>
+        </g>
+        <g font-family="Fira Code" font-size="10" fill="#4d5666">
+          <text x="86" y="196">store</text><text x="86" y="260">raw.*</text><text x="86" y="324">derived</text><text x="86" y="388">served</text>
+        </g>
+
+        <rect x="1020" y="120" width="700" height="330" rx="18" fill="#0d0d11" stroke="rgba(34,211,238,0.28)" stroke-width="1.2"/>
+        <text x="1046" y="154" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2.2" fill="#67e8f9">THE PLANT — WHAT GETS BUILT</text>
+        <g stroke="rgba(34,211,238,0.10)" stroke-width="1" stroke-dasharray="2 6">
+          <path d="M1046 204 H1694"/><path d="M1046 268 H1694"/><path d="M1046 332 H1694"/><path d="M1046 396 H1694"/>
+        </g>
+
+        <path d="M890 96 L890 466" stroke="#d4af37" stroke-width="3.2" stroke-opacity=".95" filter="url(#swCut)"/>
+        <path d="M902 108 L902 466" stroke="#d4af37" stroke-width="1" stroke-opacity=".3"/>
+        <text x="890" y="86" text-anchor="middle" font-family="Fira Code" font-size="12" font-weight="800" letter-spacing="3.5" fill="#f4dd94" filter="url(#swCut)">THE SEAM</text>
+
+        <path d="M760 285 H1010" stroke="#22d3ee" stroke-width="2.4" stroke-opacity=".9"/>
+        <polygon points="1020,285 1006,279 1006,291" fill="#22d3ee"/>
+        <text x="885" y="270" text-anchor="middle" font-family="Fira Code" font-size="10" fill="#22d3ee">the same raw bytes cross — nothing else moves</text>
+
+        <rect x="1020" y="496" width="700" height="100" rx="14" fill="rgba(34,211,238,0.05)" stroke="#22d3ee" stroke-opacity=".55" stroke-width="1.4"/>
+        <text x="1046" y="534" font-family="Fira Code" font-size="12" font-weight="800" letter-spacing="2.5" fill="#67e8f9">SWIMLANE</text>
+        <text x="1046" y="558" font-family="Fira Code" font-size="10" fill="#6e7a8c">one lane · one owner</text>
+        <g font-family="Fira Code" font-size="10.5" font-weight="700" text-anchor="middle">
+          <rect x="1190" y="524" width="118" height="44" rx="10" fill="#191408" stroke="#d4af37" stroke-opacity=".7" stroke-width="1.4"/>
+          <text x="1249" y="543" fill="#d4af37">LEG 01</text><text x="1249" y="560" fill="#eaedf2">staged</text>
+          <rect x="1332" y="524" width="118" height="44" rx="10" fill="#191408" stroke="#d4af37" stroke-opacity=".7" stroke-width="1.4"/>
+          <text x="1391" y="543" fill="#d4af37">LEG 02</text><text x="1391" y="560" fill="#eaedf2">reconciled</text>
+          <rect x="1474" y="524" width="118" height="44" rx="10" fill="#191408" stroke="#d4af37" stroke-opacity=".7" stroke-width="1.4"/>
+          <text x="1533" y="543" fill="#d4af37">LEG 03</text><text x="1533" y="560" fill="#eaedf2">served</text>
+        </g>
+        <g stroke="#d4af37" stroke-width="1.6" stroke-opacity=".8">
+          <path d="M1308 546 H1326"/><path d="M1450 546 H1468"/>
+        </g>
+        <polygon points="1332,546 1324,542 1324,550" fill="#d4af37"/>
+        <polygon points="1474,546 1466,542 1466,550" fill="#d4af37"/>
+        <text x="1640" y="552" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#6e7a8c">states,</text>
+        <text x="1640" y="570" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#6e7a8c">never activities</text>
+
+        <text x="60" y="530" font-family="Newsreader" font-style="italic" font-size="15" fill="#6e7a8c">“A seam is a place where you can alter behavior without editing everything around it.”</text>
+        <text x="60" y="556" font-family="Fira Code" font-size="10" fill="#4d5666">— M. FEATHERS · WORKING EFFECTIVELY WITH LEGACY CODE (2004) · SEAMWISE MAPS THESE, IT DOES NOT INVENT THEM</text>
+      </svg>
+
+      <div class="d2-sw-defs">
+        <div class="d2-sw-def" style="--dc:var(--cyan);">
+          <div class="d2-sw-def-k">SEAM</div>
+          <div class="d2-sw-def-t">the crossing</div>
+          <div class="d2-sw-def-b">Where two systems hand off — you can change what happens on one side <b>without editing the other</b>. Evidence decides where it falls.</div>
+        </div>
+        <div class="d2-sw-def" style="--dc:var(--accent);">
+          <div class="d2-sw-def-k">SWIMLANE</div>
+          <div class="d2-sw-def-t">the owner</div>
+          <div class="d2-sw-def-b">One lane inside the seam, <b>one owner</b>. Ownership is singular or it is nothing — a lane with two owners is a seam that was not cut.</div>
+        </div>
+        <div class="d2-sw-def" style="--dc:var(--gold);">
+          <div class="d2-sw-def-k">LEG</div>
+          <div class="d2-sw-def-t">the capability state</div>
+          <div class="d2-sw-def-b">One observable state in the lane — <b>staged, reconciled, served</b>. States, never activities: each leg can be checked, not just done.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- S14e · TOPOLOGY — the shape that proves the plan -->
+  <section class="slide" data-act="CRAFT" data-act-name="Seam topology" data-accent="green"
+           style="padding-top:clamp(20px,3vh,40px);padding-bottom:clamp(20px,3vh,40px);">
+    <div class="aurora aurora--green" aria-hidden="true"><b></b></div>
+    <div class="reveal d2-rmap" style="position:relative;z-index:2;width:100%;max-width:1720px;margin:0 auto;">
+
+      <div class="d2-rmap-copy">
+        <span class="tag" style="--tag-c:var(--green);">Topology · dependency · contention · lineage</span>
+        <h2 class="h2">The plan is a shape,<br><span style="color:var(--green);">not a list.</span></h2>
+        <p class="lede">Legs are not ordered by hope. SeamWise proves <b>dependency ordering</b>, serializes <b>contention</b>, and binds every unit to its seam, its lane, its leg and its source digest.</p>
+
+        <div class="d2-rmap-decision" style="border-left-color:var(--green);">
+          <h3 style="color:var(--green);">Compile fails closed.</h3>
+          <p><b>No current review receipt, no compile.</b> The receipt binds to the exact plan digest — change the plan and the receipt goes stale. A rerun produces identical bytes, or nothing at all.</p>
+          <p><b>Lineage travels with the work:</b> every unit id names its seam, lane and leg — boundary, owner, order and proof stay attached, or the split was confetti.</p>
+        </div>
+        <div class="d2-sw-chips">
+          <span class="d2-sw-chip"><b>seamwise/</b>task-plan.json</span>
+          <span class="d2-sw-chip"><b>seamwise/</b>task-plan-lineage.json</span>
+        </div>
+        <div class="src">compile → TaskPlan/v1 + SeamwiseTaskPlanLineage/v1 · one lock-protected transaction · status rebuilds the projections and fails closed</div>
+      </div>
+
+      <div class="d2-rmap-viz">
+        <svg viewBox="0 0 1000 900" role="img" aria-label="Leg topology: three capability legs chained by dependency edges, a parallel leg joined by a red contention edge marked serialized, the steel thread running through all three, and a lineage bar binding every unit to seam, lane, leg and digest.">
+          <defs>
+            <filter id="swTop" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+
+          <path d="M40 60 L40 640" stroke="#22d3ee" stroke-width="3" stroke-opacity=".85" filter="url(#swTop)"/>
+          <polygon points="40,652 34,640 46,640" fill="#22d3ee"/>
+          <text x="24" y="360" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2" fill="#22d3ee" transform="rotate(-90 24 360)">STEEL THREAD · TYPE 01</text>
+
+          <rect x="80" y="80" width="380" height="84" rx="16" fill="#191408" stroke="#d4af37" stroke-width="2" stroke-opacity=".9" filter="url(#swTop)"/>
+          <circle cx="116" cy="122" r="13" fill="#d4af37"/>
+          <text x="116" y="126.6" text-anchor="middle" font-family="Fira Code" font-size="12" font-weight="bold" fill="#000">1</text>
+          <text x="146" y="114" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="1.5" fill="#d4af37">LEG 01 · STAGED</text>
+          <text x="146" y="140" font-family="Instrument Serif" font-size="17" fill="#eaedf2">landing Parquet + readiness</text>
+
+          <path d="M270 164 L270 292" stroke="#4a9eff" stroke-width="2" stroke-opacity=".8"/>
+          <polygon points="270,300 264,288 276,288" fill="#4a9eff"/>
+          <text x="284" y="234" font-family="Fira Code" font-size="9.5" fill="#6e7a8c">dependency</text>
+
+          <rect x="80" y="302" width="380" height="84" rx="16" fill="#191408" stroke="#d4af37" stroke-width="2" stroke-opacity=".9" filter="url(#swTop)"/>
+          <circle cx="116" cy="344" r="13" fill="#d4af37"/>
+          <text x="116" y="348.6" text-anchor="middle" font-family="Fira Code" font-size="12" font-weight="bold" fill="#000">2</text>
+          <text x="146" y="336" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="1.5" fill="#d4af37">LEG 02 · RECONCILED</text>
+          <text x="146" y="362" font-family="Instrument Serif" font-size="17" fill="#eaedf2">golden-match keys proven</text>
+
+          <rect x="620" y="302" width="300" height="84" rx="16" fill="#111114" stroke="#b0bec5" stroke-opacity=".5" stroke-width="1.4"/>
+          <text x="646" y="336" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="1.5" fill="#b0bec5">LEG 02·B · QUARANTINE</text>
+          <text x="646" y="362" font-family="Instrument Serif" font-size="16" fill="#eaedf2">wired in the same pass</text>
+          <path d="M460 344 L612 344" stroke="#f85149" stroke-width="2" stroke-opacity=".85" stroke-dasharray="6 6"/>
+          <text x="536" y="330" text-anchor="middle" font-family="Fira Code" font-size="9.5" font-weight="700" fill="#f88b84">CONTENTION — SERIALIZED</text>
+
+          <path d="M270 386 L270 514" stroke="#4a9eff" stroke-width="2" stroke-opacity=".8"/>
+          <polygon points="270,522 264,510 276,510" fill="#4a9eff"/>
+          <text x="284" y="456" font-family="Fira Code" font-size="9.5" fill="#6e7a8c">dependency</text>
+
+          <rect x="80" y="524" width="380" height="84" rx="16" fill="#191408" stroke="#d4af37" stroke-width="2" stroke-opacity=".9" filter="url(#swTop)"/>
+          <circle cx="116" cy="566" r="13" fill="#d4af37"/>
+          <text x="116" y="570.6" text-anchor="middle" font-family="Fira Code" font-size="12" font-weight="bold" fill="#000">3</text>
+          <text x="146" y="558" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="1.5" fill="#d4af37">LEG 03 · SERVED</text>
+          <text x="146" y="584" font-family="Instrument Serif" font-size="17" fill="#eaedf2">read-only surface live</text>
+
+          <path d="M270 608 L270 692" stroke="#a78bfa" stroke-width="1.6" stroke-opacity=".7"/>
+          <polygon points="270,700 264,688 276,688" fill="#a78bfa"/>
+          <text x="284" y="656" font-family="Fira Code" font-size="9.5" fill="#6e7a8c">every unit bound ↓</text>
+
+          <rect x="80" y="702" width="840" height="96" rx="16" fill="rgba(167,139,250,0.05)" stroke="#a78bfa" stroke-opacity=".5" stroke-width="1.4"/>
+          <text x="106" y="738" font-family="Fira Code" font-size="12.5" font-weight="700" fill="#c4b5fd">SeamwiseTaskPlanLineage/v1</text>
+          <g font-family="Fira Code" font-size="10" fill="#9d8bc8">
+            <rect x="106" y="752" width="150" height="30" rx="7" fill="none" stroke="#a78bfa" stroke-opacity=".35"/>
+            <text x="181" y="771" text-anchor="middle">unit → seam</text>
+            <rect x="270" y="752" width="150" height="30" rx="7" fill="none" stroke="#a78bfa" stroke-opacity=".35"/>
+            <text x="345" y="771" text-anchor="middle">unit → lane</text>
+            <rect x="434" y="752" width="150" height="30" rx="7" fill="none" stroke="#a78bfa" stroke-opacity=".35"/>
+            <text x="509" y="771" text-anchor="middle">unit → leg</text>
+            <rect x="598" y="752" width="210" height="30" rx="7" fill="none" stroke="#a78bfa" stroke-opacity=".35"/>
+            <text x="703" y="771" text-anchor="middle">unit → source digest</text>
+          </g>
+
+          <rect x="80" y="826" width="840" height="52" rx="14" fill="none" stroke="#d4af37" stroke-opacity=".5" stroke-width="1.2" stroke-dasharray="7 8"/>
+          <text x="500" y="858" text-anchor="middle" font-family="Fira Code" font-size="11" fill="#c9b778">review receipt ⇢ bound to the plan digest · stale receipt ⇒ compile refuses</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+
   <!-- S14b · THE SIX-RING MAP — harness lights tonight (ported from d4, recolored) -->
   <section class="slide" data-act="CRAFT" data-act-name="The rings" data-accent="cyan"
            style="padding-top:clamp(20px,3vh,40px);padding-bottom:clamp(20px,3vh,40px);">
@@ -3762,7 +4060,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
       </div>
 
       <div class="d2-rmap-viz">
-        <svg viewBox="0 0 1000 1000" role="img" aria-label="The six engineering rings around the Model core: Graph, Context, Prompt/Spec, Harness, Loop, and Eval + human gate — every ring lit in its own colour, Harness glowing brightest as tonight's ring.">
+        <svg viewBox="0 0 1000 1000" role="img" aria-label="The six engineering rings around the Model core: Graph, Context, Prompt/Spec, Harness, Loop, and Eval — every ring lit in its own colour, Harness glowing brightest as tonight's ring.">
           <defs>
             <radialGradient id="d2rGraph" cx="50%" cy="50%" r="50%"><stop offset="83%" stop-color="#a78bfa" stop-opacity="0"/><stop offset="100%" stop-color="#a78bfa" stop-opacity=".12"/></radialGradient>
             <radialGradient id="d2rEval" cx="50%" cy="50%" r="50%"><stop offset="78%" stop-color="#3fb950" stop-opacity="0"/><stop offset="100%" stop-color="#3fb950" stop-opacity=".13"/></radialGradient>
@@ -3793,8 +4091,8 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
           <text x="500" y="66" fill="#c4b5fd" font-family="Instrument Serif" font-size="26" text-anchor="middle">Graph</text>
           <text x="500" y="84" fill="#9d8bc8" font-family="Fira Code" font-size="11" text-anchor="middle">dependencies · order · unlocks</text>
 
-          <text x="500" y="129" fill="#72d986" font-family="Instrument Serif" font-size="24" text-anchor="middle">Eval + human gate</text>
-          <text x="500" y="147" fill="#5ea86e" font-family="Fira Code" font-size="11" text-anchor="middle">evals · proof · sign-off</text>
+          <text x="500" y="129" fill="#72d986" font-family="Instrument Serif" font-size="24" text-anchor="middle">Eval</text>
+          <text x="500" y="147" fill="#5ea86e" font-family="Fira Code" font-size="11" text-anchor="middle">human gate · proof · sign-off</text>
 
           <text x="500" y="192" fill="#f0a83d" font-family="Instrument Serif" font-size="26" text-anchor="middle">Loop</text>
           <text x="500" y="210" fill="#c99a3d" font-family="Fira Code" font-size="11" text-anchor="middle">act · observe · repeat</text>
@@ -3808,13 +4106,13 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
           <text x="500" y="387" fill="#e6ecef" font-family="Instrument Serif" font-size="26" text-anchor="middle">Prompt / Spec</text>
           <text x="500" y="405" fill="#9aa7ad" font-family="Fira Code" font-size="11" text-anchor="middle">task · proof · contract</text>
 
-          <text x="500" y="488" fill="#fff" font-family="Instrument Serif" font-size="40" text-anchor="middle">Model</text>
+          <text x="500" y="454" fill="#fff" font-family="Instrument Serif" font-size="30" text-anchor="middle">Model</text>
+          <text x="500" y="470" fill="#e6dcff" font-family="Fira Code" font-size="9.5" letter-spacing="0.5" text-anchor="middle">rented by the token</text>
           <g opacity=".95">
-            <image href="../assets/openai.svg" x="434" y="506" width="20" height="20"/>
-            <image href="../assets/claudecode.svg" x="462" y="506" width="20" height="20"/>
-            <image href="../assets/gemini.svg" x="490" y="506" width="20" height="20"/>
-            <image href="../assets/grok.png" x="518" y="506" width="20" height="20"/>
-            <image href="../assets/kimi.svg" x="546" y="506" width="20" height="20"/>
+            <image href="../assets/openai.svg" x="468" y="482" width="28" height="28"/>
+            <image href="../assets/claudecode.svg" x="504" y="482" width="28" height="28"/>
+            <image href="../assets/grok.png" x="468" y="518" width="28" height="28"/>
+            <image href="../assets/kimi.svg" x="504" y="518" width="28" height="28"/>
           </g>
         </svg>
       </div>
