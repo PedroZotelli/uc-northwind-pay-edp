@@ -1,11 +1,11 @@
 # 06 · Specs + OntoLayer
 
-- Slide: Floor · Show · OntoLayer + specs, then Hands-On B (HUD 17–18)
+- Slide: Execute 05–06 (Hands-On **slice c · query**) — tile 06
 - Slice: **C · Query**
 - Who: every seat, through **their** agent + MCP
-- Next: [`07-prompt-kits.md`](07-prompt-kits.md)
+- Next: Dig Show Converge + Seamwise, then [`07-prompt-kits.md`](07-prompt-kits.md) on Execute 07–10
 
-Show first. Same question without, then with. Mail is not the judge.
+Show first. Same question without, then with. Mail is not the judge. MCP `catalog_ask` first.
 
 ## Prompt 1 — specs (verbatim)
 

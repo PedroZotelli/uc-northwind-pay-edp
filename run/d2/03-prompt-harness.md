@@ -1,11 +1,11 @@
 # 03 · Prompt — Agent Harness
 
-- Slide: Craft · Show · Harness, then Hands-On A (HUD 12–14)
+- Slide: Execute 03–04 (Hands-On **slice b · harness** · chip **03–04**) — tile 03
 - Slice: **B · Harness**
 - Who: every seat, through **their** agent
-- Next: [`04-fail-closed.md`](04-fail-closed.md)
+- Next: [`04-fail-closed.md`](04-fail-closed.md) on the **same board**
 
-Show first on the deck. Then this prompt. Then the volunteer refuse.
+Shows first: Agent Harness + Bind is rails. The rings / Agent = Model + Harness are talk. Then this board.
 
 ## Prompt (verbatim)
 

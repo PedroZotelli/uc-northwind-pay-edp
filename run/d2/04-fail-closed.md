@@ -1,9 +1,9 @@
 # 04 · Hands-On A — fail closed
 
-- Slide: Craft · Hands-On A (HUD 14)
+- Slide: Execute 03–04 (Hands-On **slice b · harness**) — tile 04
 - Slice: **B · Harness**
 - Who: instructor first, then one volunteer agent per table
-- Next: Floor Show HUD **16–17**, then [`05-query-brain.md`](05-query-brain.md)
+- Next: Floor Shows (Second Brain, OntoLayer + specs), then [`05-query-brain.md`](05-query-brain.md) on Execute 05–06
 
 ## Prompt (verbatim)
 

@@ -1,6 +1,6 @@
 # 12 · Research — then walk
 
-- Slide: Debrief · Research (HUD 27), then Next (28), silent Tomorrow (29)
+- Slide: Research, then Next, silent Tomorrow
 - Slice: **Close**
 - Who: room, through their agent + Second Brain + OntoLayer
 - Next: none — the Night closes

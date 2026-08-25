@@ -1,11 +1,11 @@
 # 09 · Pass 3 — Decompose (Seamwise)
 
-- Slide: Dig · Hands-On C (HUD 21)
+- Slide: Execute 07–10 (Hands-On **slice d · barrier**) — tile 09
 - Slice: **D · 2–4**
 - Who: instructor cuts in public, room copies
 - Next: [`10-consensus.md`](10-consensus.md)
 
-Seamwise attaches here. One lane. Do not write Task-Specs yet.
+Seamwise already taught on the side kit. This beat **writes** `docs/seams.md`. One lane. Do not write Task-Specs yet.
 
 ## Do
 

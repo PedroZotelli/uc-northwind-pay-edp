@@ -1,11 +1,11 @@
 # 01 · Prompt — make status
 
-- Slide: Stage · Recap · closed (HUD 03)
+- Slide: Execute 01–02 (Hands-On **slice a · recap** · chip `run/d2/` · **01–02**)
 - Slice: **A · Recap**
 - Who: every seat, through **their** agent
-- Next: [`02-prompt-papers.md`](02-prompt-papers.md)
+- Next: [`02-prompt-papers.md`](02-prompt-papers.md) on the **same board**
 
-Opening + Stage divider (HUD 01–02) are already on the deck. Recap receipts are HUD 03. SWE / java2py / ingest (HUD 05–10) come **after** beat 02 — you talk; they do not type.
+Shows first: Recap · closed, Q&A · impressions, Recap · papers. Then this board. Leave the deck.
 
 ## Prompt (verbatim)
 

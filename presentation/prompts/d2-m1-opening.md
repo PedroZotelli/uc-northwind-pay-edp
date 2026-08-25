@@ -2,14 +2,20 @@
 
 Copy this prompt to the builder. One move. Do not author Stage–Debrief in this pass.
 
-You are building Night 2 of the NorthWind Pay bootcamp. Quality bar is
-[`../d1-archaeologist.html`](../d1-archaeologist.html) — the live Day 1
-deck. Match its chrome, type, HUD, motion, and density. Do **not** match
-its story. Do **not** open [`../d2-translator.html`](../d2-translator.html)
+You are building Night 2 of the NorthWind Pay bootcamp. Chrome (tokens,
+HUD, script) comes from [`../d1-archaeologist.html`](../d1-archaeologist.html).
+**Look** is this file once live: cyan night, plant still, glass, giant
+type. Visual bible for every later move:
+[`d2-visuals.md`](d2-visuals.md). Do **not** match Day 1’s story. Do
+**not** open [`../d2-translator.html`](../d2-translator.html)
 (old 32-slide night; discarded).
 
 Scope for the Night: [`../../agenda/d2.md`](../../agenda/d2.md) → **PPT blocks**.
-This pass is **Opening only** (HUD 01).
+Staff clock (what they **type**): [`../../run/d2/README.md`](../../run/d2/README.md) —
+12 beats, four Hands-On boards **A–D**, Mesh is Show. This pass is
+**Opening only** (HUD 01). Opening has **no** run file.
+
+If a later slide disagrees with a staff file, **the staff file wins**.
 
 ---
 
@@ -151,3 +157,8 @@ Note under the spine (italic, one line):
 
 Move 2 appends Stage HUD 02–10 after this section, still in this file.
 Same chrome. Do not restyle tokens.
+
+Stage Recap HUD **03–04** = staff [`01-prompt-status.md`](../../run/d2/01-prompt-status.md)
++ [`02-prompt-papers.md`](../../run/d2/02-prompt-papers.md) (they type).
+Then **pause**: HUD 05–10 is lecture (SWE, java2py, ingest) — no run file.
+Do not add Q&A, “The translator,” or a second First write.

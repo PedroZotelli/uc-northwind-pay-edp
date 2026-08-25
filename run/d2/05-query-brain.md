@@ -1,9 +1,9 @@
 # 05 · Query Second Brain
 
-- Slide: Floor · Show · Second Brain, then Hands-On B (HUD 16, 18)
+- Slide: Execute 05–06 (Hands-On **slice c · query** · chip **05–06**) — tile 05
 - Slice: **C · Query**
 - Who: every seat, **their** notebook from Day 1. Do not rebuild
-- Next: [`06-query-graph.md`](06-query-graph.md)
+- Next: [`06-query-graph.md`](06-query-graph.md) on the **same board**
 
 Same nine sources. No tenth file. Paste one, wait, then the next.
 

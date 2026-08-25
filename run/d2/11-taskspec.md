@@ -1,11 +1,11 @@
 # 11 · Pass 5 — Task-Spec
 
-- Slide: Dig · Show · Task-Spec, then Hands-On D (HUD 22–23)
+- Slide: Execute 11 (Hands-On **slice e · leaf** · chip **11**) after Task-Spec Show + the separate kit
 - Slice: **E · Task-Spec**
 - Who: instructor authors the first leaf in public, then every seat
-- Next: HUD **24** Show · Task-Mesh (no typing), then [`12-research.md`](12-research.md)
+- Next: Task-Mesh (Show only — no file), then Debrief · In hand, then [`12-research.md`](12-research.md)
 
-Show first. Skip this beat if Consensus is unsigned. No eval, no build. `signed_off` starts **false**. No product code tonight.
+Skip this beat if Consensus is unsigned (Execute D stays dark). No eval, no build. `signed_off` starts **false**. No product code tonight.
 
 ## Prompt (verbatim)
 
@@ -38,4 +38,4 @@ A Task-Spec exists under `docs/tasks/`. It has an eval. `signed_off` is false. N
 
 ## If fail
 
-No eval → tear it up. Do not Loop. HUD 24 Task-Mesh is Show — internals, not a license to write Parquet.
+No eval → tear it up. Do not Loop. Task-Mesh is Show — internals, not a license to write Parquet.

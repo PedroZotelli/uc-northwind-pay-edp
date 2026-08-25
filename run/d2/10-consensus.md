@@ -1,11 +1,11 @@
 # 10 · Pass 4 — Consensus
 
-- Slide: Dig · Hands-On C (HUD 21)
+- Slide: Execute 07–10 (Hands-On **slice d · barrier**) — tile 10
 - Slice: **D · 2–4**
 - Who: a **different** voice, then the owner
-- Next: [`11-taskspec.md`](11-taskspec.md)
+- Next: Task-Spec Show, **pause** for the Task-Spec kit, return to Execute 11, then [`11-taskspec.md`](11-taskspec.md)
 
-If they will not sign, **skip 11**. Design is done when the owner signs.
+If they will not sign, **skip 11**. Design is done when the owner signs. Do not paste the leaf from inside the Task-Spec kit.
 
 ## Do
 

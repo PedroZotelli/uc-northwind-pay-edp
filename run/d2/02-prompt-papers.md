@@ -1,9 +1,11 @@
 # 02 · Prompt — BRD + tech-spec
 
-- Slide: Stage · Recap · papers (HUD 04)
+- Slide: Execute 01–02 (Hands-On **slice a · recap**) — tile 02
 - Slice: **A · Recap**
 - Who: every seat, through **their** agent
-- Next: HUD **05–10** (SWE, java2py, ingest — deck only, no typing), then [`03-prompt-harness.md`](03-prompt-harness.md)
+- Next: Stage lecture (SWE Role · java2py · The translator · First write · Why a file · Five-file package). Then Craft Shows, then [`03-prompt-harness.md`](03-prompt-harness.md) on Execute 03–04.
+
+Why a file **is** the ingest seam (`sense → claim → emit`). No extra beat.
 
 Do not rerun Pass 0–1. The agent **reads**. Map: [`docs/README.md`](../../docs/README.md).
 
