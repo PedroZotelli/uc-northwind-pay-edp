@@ -5,7 +5,7 @@
 - Who: instructor authors the first leaf in public, then every seat
 - Next: Task-Mesh (Show only — no file), then Debrief · In hand, then [`12-research.md`](12-research.md)
 
-Skip this beat if Consensus is unsigned (Execute D stays dark). No eval, no build. `signed_off` starts **false**. No product code tonight.
+Skip this beat if Consensus is unsigned (Execute 11 stays dark). No eval, no build. `signed_off` starts **false**. No product code tonight.
 
 ## Prompt (verbatim)
 

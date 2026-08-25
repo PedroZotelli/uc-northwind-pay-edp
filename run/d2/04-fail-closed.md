@@ -1,4 +1,4 @@
-# 04 · Hands-On A — fail closed
+# 04 · Hands-On · slice b · refuse
 
 - Slide: Execute 03–04 (Hands-On **slice b · harness**) — tile 04
 - Slice: **B · Harness**

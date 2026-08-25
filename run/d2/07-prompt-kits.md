@@ -3,9 +3,9 @@
 - Slide: Execute 07–10 (Hands-On **slice d · barrier** · chip **07–10**) — tile 07
 - Slice: **D · 2–4**
 - Who: every seat, through **their** agent
-- Next: **Pause** — [`../../presentation/seamwise.html`](../../presentation/seamwise.html). Return to the same board, then [`08-structure.md`](08-structure.md)
+- Next: [`08-structure.md`](08-structure.md) on the **same board**
 
-Show Converge + Seamwise first. Tile 07: ask, **do not start Pass 2 yet.** Then the Seamwise kit. Then 08–10. `cvg` gates; the agent drafts.
+Show Converge + Seamwise first. Then **Leave · Seamwise** — park, open [`../../presentation/seamwise.html`](../../presentation/seamwise.html), explain internals, return. Then this board: tile 07 names the kits from the repo (**do not start Pass 2 yet**), then 08–10. `cvg` gates; the agent drafts. Do not paste 07–10 from inside the kit.
 
 ## Prompt (verbatim)
 

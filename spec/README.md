@@ -36,8 +36,9 @@ The week is not "open `contracts/` and write a parser." The week is:
    Converge **0 Capture** and **1 Intent**. No parser. No `modern/`.
 3. Hold the meetings the documents imply. Find what is true, what is
    stale, and who lied.
-4. **Day 2** — Structure (ADRs), Decompose (Seamwise), Consensus, then
-   the first write (landing Parquet).
+4. **Day 2** — Bind, Structure (ADRs), Decompose (Seamwise), Consensus,
+   one Task-Spec leaf. First write is landing Parquet **when the mesh
+   later runs**.
 5. Days 3–4 build the vertical. Day 5 is a **new** pack (`06`), not this
    zip.
 

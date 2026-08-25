@@ -96,7 +96,7 @@ Update **Status** as each night closes. Do not invent a Pass the brief did not a
 | Night | Seat | Rings | Converge | Closes | Status |
 |---|---|---|---|---|---|
 | **1** | Archaeologist (SA + AI) | Prompt + context | **0 Capture → 1 Intent** | MATCHED plant. Second Brain (nine packs). OntoLayer without/with. BRD + tech-spec in [`docs/`](docs/README.md). **No product code.** | **live** |
-| **2** | Translator (SWE) | Harness (Bind) | **2–4**, then 5–8 on ingest → landing | Recap 0–1. Query brain + graph. **Bind** fail-closed. ADRs in `docs/adrs/`. Consensus **signed**. Type `01` landing Parquet | next |
+| **2** | Translator (SWE) | Harness (Bind) | Recap 0–1. **2–4**, then **5** Task-Spec. Mesh internals. Factory 6–8 is Day 4 | Recap MATCHED + papers. Bind fail-closed. Query. ADRs, seams, **Consensus signed**. One leaf in `docs/tasks/`. **No `modern/` required** | **live** |
 | **3** | Constructor (DE + analytics) | Harness + loop seed | 5–8 on dlt → Gold | Bronze → Gold. Golden-match attached | — |
 | **4** | Orchestrator | Loop + eval | 7–8. Type `05` unattended | Small `HALF_UP` pill. Bind + Loop | — |
 | **5** | Dark Factory | Orchestration | Full 0–8 on sealed Type `06` | Classify. Do not patch `legacy/` | sealed |
@@ -104,7 +104,7 @@ Update **Status** as each night closes. Do not invent a Pass the brief did not a
 ```mermaid
 flowchart LR
   D1["1 Archaeologist — 0-1 understand"]
-  D2["2 Translator — 2-4 then landing"]
+  D2["2 Translator — 2-4 then Task-Spec"]
   D3["3 Constructor — dlt to Gold"]
   D4["4 Orchestrator — Type 05 loop"]
   D5["5 Dark Factory — Type 06 classify"]
@@ -114,12 +114,12 @@ flowchart LR
 | Role tonight | Owns |
 |---|---|
 | **Scope** | [`agenda/`](agenda/README.md) — what the night closes |
-| **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats). Night 2: [`run/d2/`](run/d2/README.md) (16 beats, six boards). Days 3–5 still stubs |
-| **What the room sees** | [`presentation/`](presentation/README.md) — Night 1 HTML **live** (44). Night 2 file exists, HUD **not** signed off — drive `run/d2/` |
+| **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats, six boards). Night 2: [`run/d2/`](run/d2/README.md) (12 beats, five boards). Days 3–5 still stubs |
+| **What the room sees** | [`presentation/`](presentation/README.md) — Night 1 HTML **live** (44). Night 2 HTML **live** (`d2-translator-java2py.html`, 34 slides). Identify Night 2 by `data-act-name` |
 | **Converge papers** | [`docs/`](docs/README.md) — BRD + tech-spec exist; ADRs / sign / tasks are Night 2 |
 | **Engagement map** | [`plans/`](plans/README.md) — legacy, modern, factory seed |
 
-Day 1 public page lists *P1 Intent · P2 Structure*. **This week keeps Capture + Intent on Day 1** so the brain and the graph exist before ADRs. Night 2 **recaps** 0–1, **Binds** the Agent Harness, then Structure → Consensus, then the first modern write. An unsigned tech-spec is not a license to code.
+Day 1 public page lists *P1 Intent · P2 Structure*. **This week keeps Capture + Intent on Day 1** so the brain and the graph exist before ADRs. Night 2 **recaps** 0–1, **Binds** the Agent Harness, then Structure → Consensus → one Task-Spec leaf. First write is landing Parquet **when the mesh later runs** — not required Tuesday. An unsigned Consensus is not a license to code.
 
 ---
 
@@ -234,15 +234,15 @@ Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 | [`brain/notebooklm/`](brain/notebooklm/README.md) | Human Second Brain — nine packs compiled from `spec/`. Days 2–5 **query** it. No tenth source |
 | [`ontology/`](ontology/README.md) | Read-only graph over live Postgres. `make ontology`. Not Converge |
 | [`agenda/`](agenda/README.md) | Five-day scope |
-| [`run/`](run/README.md) | Staff follow-along. Night 1 live (17 beats). Night 2 live (16 beats, six boards). Days 3–5 stubs |
+| [`run/`](run/README.md) | Staff follow-along. Night 1 live (17 beats). Night 2 live (12 beats, five boards). Days 3–5 stubs |
 | [`plans/`](plans/README.md) | Engagement map — legacy, modern, factory seed |
-| [`presentation/`](presentation/README.md) | Night 1 deck live (44). Night 2 HUD not signed off. Method manuals live here, not in `docs/` |
+| [`presentation/`](presentation/README.md) | Night 1 deck live (44). Night 2 deck live (34). Method manuals live here, not in `docs/` |
 | [`docs/`](docs/README.md) | Converge paper trail — BRD, tech-spec, ADRs, seams, consensus, Task-Specs. Not the HTML manuals |
 | [`transcripts/`](transcripts/README.md) | Live Night captions (`.vtt`). Speech, not the brief |
 | [`assets/`](assets/) | Images and logos the decks reference |
 | [`validation/golden-match/`](validation/README.md) | Modern referee — attached when that implementation exists |
 | `evidence/` | Per-run packet. `make clean` removes it. Open in the **terminal** |
-| `modern/` | **Must not exist on Day 1.** First write is Day 2, after Bind + Consensus |
+| `modern/` | **Must not exist on Day 1.** Day 2 designs it. Disk write is after the sign — not required Tuesday |
 
 ```text
 spec/          inbound  — mail, meetings, layouts, samples

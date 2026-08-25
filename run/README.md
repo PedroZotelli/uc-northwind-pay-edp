@@ -16,7 +16,7 @@ One folder per night. One file per beat, numbered. **One Night** — no
 morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
 
 Night 1 HTML is live — lockstep with [`d1-archaeologist.html`](../presentation/d1-archaeologist.html).
-Night 2 — lockstep with [`d2/`](d2/README.md) and [`d2-translator-java2py.html`](../presentation/d2-translator-java2py.html) (Opening live; HUD 02–29 append). Old `d2-translator.html` is archive. Days 3–5 are stubs until those decks exist.
+Night 2 HTML is live — lockstep with [`d2/`](d2/README.md) and [`d2-translator-java2py.html`](../presentation/d2-translator-java2py.html) (34 slides, five Hands-On boards). Identify Night 2 slides by `data-act-name`. Days 3–5 are stubs until those decks exist.
 
 ```text
 run/

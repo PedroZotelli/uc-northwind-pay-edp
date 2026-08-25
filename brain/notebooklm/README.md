@@ -17,7 +17,7 @@ Handout: [`northwind-pay-brain.zip`](northwind-pay-brain.zip)
 | `08-the-lie.md` | Same shape of lie on every live type. |
 
 Staff beat (Day 1 upload): [`../../run/d1/12-notebooklm.md`](../../run/d1/12-notebooklm.md)  
-Staff beat (Day 2 query): [`../../run/d2/05-brain-java.md`](../../run/d2/05-brain-java.md)
+Staff beat (Day 2 query): [`../../run/d2/05-query-brain.md`](../../run/d2/05-query-brain.md)
 
 **Day 2 does not add a tenth source.** The room queries this notebook. Specs, the graph, and `docs/` answer “what we build.” Java, contracts, the tech-spec, ADRs, and `modern/` stay out.
 

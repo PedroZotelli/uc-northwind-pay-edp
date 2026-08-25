@@ -2208,6 +2208,9 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
 .d2-rmap-count b { color: var(--cyan); }
 .d2-rmap-viz { display: grid; place-items: center; min-width: 0; height: 100%; }
 .d2-rmap-viz svg { width: 100%; height: min(88vh,900px); display: block; overflow: visible; }
+.d2-sw-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(12px,1.8vh,18px); }
+.d2-sw-chip { display: inline-block; font-family: var(--font-mono); font-size: clamp(8.5px,.78vw,10.5px); letter-spacing: .4px; color: var(--silver-bright); background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 5px 11px; }
+.d2-sw-chip b { color: var(--accent); font-weight: 700; }
 .d2-breathe { transform-box: fill-box; transform-origin: center; animation: d2-ring-breathe 9s ease-in-out infinite; }
 .d2-breathe.r2 { animation-delay: 1.2s; }
 .d2-breathe.r3 { animation-delay: 2.4s; }
@@ -3906,7 +3909,7 @@ Talk track: this is the same center as the previous slide — we zoomed into the
         </div>
 
         <div>
-          <span class="tag" style="--tag-c:var(--silver);margin-bottom:clamp(9px,1.5vh,15px);">Slices D + E · five beats</span>
+          <span class="tag" style="--tag-c:var(--silver);margin-bottom:clamp(9px,1.5vh,15px);">Slices D + E · the barrier</span>
           <ul class="wkrail">
             <li class="wkr wkr--now">
               <span class="wkr-d" style="color:var(--gold);">01</span>
@@ -3915,29 +3918,36 @@ Talk track: this is the same center as the previous slide — we zoomed into the
                 <div class="wkr-job">the spine, inverted — 0–1 look · 2–4 tonight · 6–8 Day 4</div>
               </div>
             </li>
-            <li class="wkr" style="--wk-c:var(--gold);opacity:0.88;">
+            <li class="wkr" style="--wk-c:var(--accent);opacity:0.9;">
               <span class="wkr-d">02</span>
               <div class="wkr-body">
-                <div class="wkr-seat">Hands-On · Execute 07–10</div>
-                <div class="wkr-job">kits → pause Seamwise → ADRs → seams → <b>the owner signs</b></div>
+                <div class="wkr-seat">Leave · Seamwise</div>
+                <div class="wkr-job">open <span style="font-family:var(--font-mono);font-style:normal;">seamwise.html</span> — internals, then return</div>
               </div>
             </li>
-            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.78;">
+            <li class="wkr" style="--wk-c:var(--gold);opacity:0.8;">
               <span class="wkr-d">03</span>
+              <div class="wkr-body">
+                <div class="wkr-seat">Hands-On · Execute 07–10</div>
+                <div class="wkr-job">kits → ADRs → seams → <b>the owner signs</b></div>
+              </div>
+            </li>
+            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.72;">
+              <span class="wkr-d">04</span>
               <div class="wkr-body">
                 <div class="wkr-seat">Show · Task-Spec</div>
                 <div class="wkr-job">one leaf, one eval, <span style="font-family:var(--font-mono);font-style:normal;">signed_off</span> false</div>
               </div>
             </li>
-            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.66;">
-              <span class="wkr-d">04</span>
+            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.62;">
+              <span class="wkr-d">05</span>
               <div class="wkr-body">
                 <div class="wkr-seat">Hands-On · Execute 11</div>
                 <div class="wkr-job">one leaf · dark if 10 is unsigned</div>
               </div>
             </li>
-            <li class="wkr" style="--wk-c:var(--green);opacity:0.56;">
-              <span class="wkr-d">05</span>
+            <li class="wkr" style="--wk-c:var(--green);opacity:0.5;">
+              <span class="wkr-d">06</span>
               <div class="wkr-body">
                 <div class="wkr-seat">Show · Task-Mesh</div>
                 <div class="wkr-job">internals only — attempt → eval → retry / settle</div>
@@ -3996,7 +4006,115 @@ Talk track: this is the same center as the previous slide — we zoomed into the
 
       <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:clamp(10px,1.15vw,17px);margin-top:clamp(14px,2.2vh,22px);padding-top:clamp(12px,1.9vh,18px);border-top:1px solid var(--rule);">
         <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">after this show</span>
-        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Then <b style="color:var(--text);font-style:normal;font-weight:600;">Execute 07–10</b>. Tile 07 first — do not start Pass 2 yet. Pause <span style="font-family:var(--font-mono);font-style:normal;font-size:0.9em;">seamwise.html</span> after 07, then return.</span>
+        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Next is the <b style="color:var(--text);font-style:normal;font-weight:600;">leave</b> — open the Seamwise kit, explain internals, then return to Execute 07–10.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- D02b · LEAVE · SEAMWISE — slide 15 mold from d2-translator.html + kit path -->
+  <section class="slide" data-act="DIG" data-act-name="Leave · Seamwise" data-accent="accent"
+           style="padding-top:clamp(20px,3vh,40px);padding-bottom:clamp(20px,3vh,40px);">
+    <div class="aurora aurora--accent" aria-hidden="true"><b></b></div>
+    <div class="reveal d2-rmap" style="position:relative;z-index:2;width:100%;max-width:1720px;margin:0 auto;">
+
+      <div class="d2-rmap-copy">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:clamp(10px,1.6vh,16px);">
+          <span class="tag" style="--tag-c:var(--silver);">presentation/seamwise.html</span>
+          <span class="tag" style="--tag-c:var(--gold);">Pass 3 · Decompose</span>
+        </div>
+        <span class="tag" style="--tag-c:var(--accent);">SeamWise · Decomposition Engine</span>
+        <h2 class="h2" style="margin-top:clamp(10px,1.8vh,20px);">One initiative in.<br><span style="color:var(--accent);">A reviewed plan out.</span></h2>
+        <p class="lede" style="margin-top:clamp(10px,1.7vh,18px);">
+          An architecture-aware decomposition compiler. Out comes not a list of tasks but the
+          system's own joints made explicit — <b>seams, swimlanes, capability legs</b> and the
+          ordering between them — reviewed by a human, compiled into a plan other engines can
+          contract on.
+        </p>
+
+        <div class="d2-rmap-decision" style="border-left-color:var(--accent);">
+          <h3 style="color:var(--accent);">The invariant.</h3>
+          <p><b>SeamWise decomposes. Task-Spec contracts. Converge coordinates.</b></p>
+          <p><b>The boundary is the product:</b> it maps evidence-backed seams, gives each seam one
+          owning swimlane, lowers work into capability legs — then stops. It never materializes
+          tasks and never dispatches.</p>
+        </div>
+        <div class="d2-sw-chips">
+          <span class="d2-sw-chip"><b>materializes_tasks:</b> false</span>
+          <span class="d2-sw-chip"><b>dispatch_authority:</b> false</span>
+          <span class="d2-sw-chip"><b>compile:</b> atomic · deterministic</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:clamp(14px,2.2vh,22px);">
+          <img src="../assets/seamwise-icon.svg" alt="SeamWise" style="width:38px;height:38px;">
+          <div>
+            <div style="font-family:var(--font-display);font-size:18px;line-height:1;color:var(--text);">Leave this Night. Open the kit. <span style="font-family:var(--font-mono);font-size:9.5px;color:var(--text-mute);">then Execute 07–10</span></div>
+            <div style="font-family:var(--font-mono);font-size:9.5px;color:var(--accent);margin-top:4px;">presentation/seamwise.html · ingest → landing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d2-rmap-viz">
+        <svg viewBox="0 0 1000 900" role="img" aria-label="The SeamWise authority pipeline: an approved initiative becomes a seam map, the delivery plan stops at NEEDS_REVIEW, a human review gate binds a receipt, compile emits a TaskPlan with lineage. Materialization and dispatch stay outside the boundary.">
+          <defs>
+            <filter id="d2leaveSwGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+
+          <rect x="110" y="30" width="780" height="770" rx="20" fill="none" stroke="#b0bec5" stroke-opacity=".22" stroke-width="1"/>
+          <text x="132" y="20" fill="#6e7a8c" font-family="Fira Code" font-size="10" letter-spacing="3">SEAMWISE AUTHORITY — DECOMPOSES, NEVER DISPATCHES</text>
+
+          <rect x="180" y="56" width="640" height="96" rx="16" fill="#0d0f15" stroke="#4a9eff" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="200" y="56" width="600" height="3" rx="1.5" fill="#9ec9ff"/>
+          <rect x="180" y="56" width="640" height="96" rx="16" fill="none" stroke="#4a9eff" stroke-opacity=".26" stroke-width="5" filter="url(#d2leaveSwGlow)"/>
+          <text x="500" y="80" text-anchor="middle" font-family="Fira Code" font-size="10.5" font-weight="700" letter-spacing="2.4" fill="#9ec9ff">ONE IN</text>
+          <text x="500" y="112" text-anchor="middle" font-family="Instrument Serif" font-size="26" fill="#eaedf2">Initiative</text>
+          <text x="500" y="134" text-anchor="middle" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">approved · evidence attached</text>
+          <path d="M500 152 L500 180" stroke="#4a9eff" stroke-width="2.2" stroke-opacity=".7"/>
+
+          <rect x="180" y="180" width="640" height="96" rx="16" fill="#0d0f15" stroke="#4a9eff" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="200" y="180" width="600" height="3" rx="1.5" fill="#9ec9ff"/>
+          <rect x="180" y="180" width="640" height="96" rx="16" fill="none" stroke="#4a9eff" stroke-opacity=".3" stroke-width="5" filter="url(#d2leaveSwGlow)"/>
+          <text x="500" y="204" text-anchor="middle" font-family="Fira Code" font-size="10.5" font-weight="700" letter-spacing="2.4" fill="#8ec4ff">THE CUT</text>
+          <text x="500" y="236" text-anchor="middle" font-family="Instrument Serif" font-size="26" fill="#eaedf2">Seam map</text>
+          <text x="500" y="258" text-anchor="middle" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">seams · swimlanes · capability legs · topology</text>
+          <path d="M500 276 L500 304" stroke="#4a9eff" stroke-width="2.2" stroke-opacity=".7"/>
+
+          <rect x="180" y="304" width="640" height="96" rx="16" fill="#0d0f15" stroke="#4a9eff" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="200" y="304" width="600" height="3" rx="1.5" fill="#9ec9ff"/>
+          <rect x="180" y="304" width="640" height="96" rx="16" fill="none" stroke="#4a9eff" stroke-opacity=".26" stroke-width="5" filter="url(#d2leaveSwGlow)"/>
+          <text x="500" y="328" text-anchor="middle" font-family="Fira Code" font-size="10.5" font-weight="700" letter-spacing="2.4" fill="#9ec9ff">THE STOP</text>
+          <text x="500" y="360" text-anchor="middle" font-family="Instrument Serif" font-size="26" fill="#eaedf2">Delivery plan</text>
+          <text x="500" y="382" text-anchor="middle" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">ordering proven · stops at NEEDS_REVIEW — never dispatches</text>
+          <path d="M500 400 L500 428" stroke="#d4af37" stroke-width="2.2" stroke-opacity=".8"/>
+
+          <rect x="180" y="428" width="640" height="104" rx="16" fill="#191408" stroke="#d4af37" stroke-opacity=".85" stroke-width="2"/>
+          <rect x="200" y="428" width="600" height="3" rx="1.5" fill="#f4dd94"/>
+          <rect x="180" y="428" width="640" height="104" rx="16" fill="none" stroke="#d4af37" stroke-opacity=".32" stroke-width="5" filter="url(#d2leaveSwGlow)"/>
+          <text x="500" y="455" text-anchor="middle" font-family="Fira Code" font-size="10.5" font-weight="800" letter-spacing="2.4" fill="#f4dd94">THE GATE</text>
+          <text x="500" y="489" text-anchor="middle" font-family="Instrument Serif" font-size="26" fill="#eaedf2">Human review</text>
+          <text x="500" y="511" text-anchor="middle" font-family="Fira Code" font-size="10.5" fill="#c9b778">a named reviewer · receipt bound to the plan digest</text>
+          <path d="M500 532 L500 560" stroke="#4a9eff" stroke-width="2.2" stroke-opacity=".7"/>
+
+          <rect x="180" y="560" width="640" height="96" rx="16" fill="#0d0f15" stroke="#22d3ee" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="200" y="560" width="600" height="3" rx="1.5" fill="#67e8f9"/>
+          <rect x="180" y="560" width="640" height="96" rx="16" fill="none" stroke="#22d3ee" stroke-opacity=".26" stroke-width="5" filter="url(#d2leaveSwGlow)"/>
+          <text x="500" y="584" text-anchor="middle" font-family="Fira Code" font-size="10.5" font-weight="700" letter-spacing="2.4" fill="#67e8f9">THE COMPILE</text>
+          <text x="500" y="616" text-anchor="middle" font-family="Instrument Serif" font-size="26" fill="#eaedf2">Compile</text>
+          <text x="500" y="638" text-anchor="middle" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">atomic · deterministic · refuses when the receipt is stale</text>
+          <path d="M500 656 L500 676" stroke="#4a9eff" stroke-width="2" stroke-opacity=".6"/>
+          <path d="M500 676 L310 684" stroke="#4a9eff" stroke-width="1.6" stroke-opacity=".55" fill="none"/>
+          <path d="M500 676 L690 684" stroke="#4a9eff" stroke-width="1.6" stroke-opacity=".55" fill="none"/>
+
+          <rect x="140" y="684" width="330" height="84" rx="14" fill="#0d0f15" stroke="#22d3ee" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="160" y="684" width="290" height="3" rx="1.5" fill="#67e8f9"/>
+          <text x="305" y="720" text-anchor="middle" font-family="Instrument Serif" font-size="22" fill="#67e8f9">TaskPlan/v1</text>
+          <text x="305" y="746" text-anchor="middle" font-family="Fira Code" font-size="9.5" fill="#6e7a8c">the reviewed plan · portable units</text>
+          <rect x="530" y="684" width="330" height="84" rx="14" fill="#0d0f15" stroke="#a78bfa" stroke-opacity=".7" stroke-width="1.5"/>
+          <rect x="550" y="684" width="290" height="3" rx="1.5" fill="#c4b5fd"/>
+          <text x="695" y="720" text-anchor="middle" font-family="Instrument Serif" font-size="22" fill="#c4b5fd">Lineage/v1</text>
+          <text x="695" y="746" text-anchor="middle" font-family="Fira Code" font-size="9.5" fill="#6e7a8c">unit → seam · lane · leg · digest</text>
+
+          <text x="500" y="816" text-anchor="middle" font-family="Fira Code" font-size="11.5" fill="#6e7a8c">Task-Spec contracts · Converge coordinates — outside the boundary</text>
+          <text x="500" y="840" text-anchor="middle" font-family="Fira Code" font-size="10" fill="#4d5666">open presentation/seamwise.html · return to Execute 07–10</text>
+        </svg>
       </div>
     </div>
   </section>
@@ -4013,7 +4131,7 @@ Talk track: this is the same center as the previous slide — we zoomed into the
             <span class="hs-range">beats 07–10 · in order</span>
           </div>
           <h2 class="slide__heading" style="font-size:clamp(30px,4.6vw,58px);">Name the kits. Cut the lane. <span class="gradient-gold">Then sign.</span></h2>
-          <p class="slide__body" style="max-width:72ch;">Leave the deck. 07 from the repo — then pause Seamwise — then ADRs, seams, the owner’s sign. Come back when <code>docs/consensus.md</code> exists.</p>
+          <p class="slide__body" style="max-width:72ch;">The Seamwise kit already ran. Leave this board for 07–10 in order: name the kits from the repo, then ADRs, seams, the owner’s sign. Come back when <code>docs/consensus.md</code> exists.</p>
         </div>
         <span class="hs-run"><b>run/d2/</b> · 07–10</span>
       </div>
@@ -4023,7 +4141,7 @@ Talk track: this is the same center as the previous slide — we zoomed into the
           <div class="req-idx">07 · kits</div>
           <div class="req-name">Name them</div>
           <div class="req-note">Converge, Seamwise, the one lane, papers in <code>docs/</code>. Tonight 2–4 then 5. <b>Do not start Pass 2 yet.</b></div>
-          <div class="req-proof">proof · <b>then seamwise.html</b></div>
+          <div class="req-proof">proof · <b>kits named from the repo</b></div>
         </div></div>
         <div class="req" style="--rq-c:var(--accent);"><div class="req-inner">
           <img class="req-logo" src="../assets/keep-spec-icon.svg" alt="Structure">

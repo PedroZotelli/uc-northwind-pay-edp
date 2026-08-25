@@ -67,27 +67,23 @@ Staff: [`run/d1/`](../run/d1/README.md). Deck live: [`d1-archaeologist.html`](..
 
 ### Night 2 — Translator · translate
 
-**Rings:** harness (Bind). **Converge:** 2–4, then 5–8 on **ingest → landing**.
+**Rings:** harness (Bind). **Converge:** Recap 0–1. Run **2–4**, then **5**.
+Mesh internals. Factory 6–8 is Day 4.
 
 Yesterday you created the seat, the brain, the graph, and the brief.
-Tonight you query them, bind the machine, sign, and write.
+Tonight you recap, bind the machine, query, sign, and hold leaves.
 
-1. **Recap.** MATCHED still. Restate the BRD and the tech-spec. Look, not
-   the Night.
-2. **First write & independence.** Same bytes. Landing Parquet, not SFTP.
-   Do not port Java. Grasp Java as **concepts** from the Second Brain.
+1. **Recap.** MATCHED still. Restate the BRD and the tech-spec.
+2. **java2py.** Second plant, not a Java port. First write is Parquet, not SFTP.
 3. **Bind the Agent Harness.** Frozen: `legacy/`, `contracts/`, `gen/`,
    `infra/`. Touch `legacy/processor/` → fail closed, or **stop**.
-4. **Specs + kits.** What we build / how. Seamwise at Pass 3. Task-Spec
-   at Pass 5. Papers in [`docs/`](../docs/README.md).
-5. **Consensus is the barrier.** ADRs (what is true, never how) → seams
-   → owner **signs** (`docs/consensus.md`). No sign → no parser.
-6. **SWE proof.** One leaf, one eval. `valid-minimal` → Parquet + replay.
-   `DF-SOURCE-001` and malformed → **zero** Parquet. Bind stays on.
+4. **Query.** Second Brain + OntoLayer until 2–4 has evidence.
+5. **Consensus is the barrier.** ADRs → seams → owner **signs**. No sign → no leaf.
+6. **Task-Spec.** One leaf, one eval, `signed_off` false. Mesh is Show.
+   **No `modern/` required Tuesday.**
 
-Public six beats are capabilities, not the clock. Clock: recap → picture
-→ Bind → sign → landing → Research. Staff: [`run/d2/`](../run/d2/README.md).
-HUD not signed off — drive the run folder.
+Staff: [`run/d2/`](../run/d2/README.md) — 12 beats, five boards.
+Deck live: [`d2-translator-java2py.html`](../presentation/d2-translator-java2py.html).
 
 ### Night 3 — Constructor · register
 

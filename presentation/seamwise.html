@@ -215,6 +215,8 @@ body::after {
 .code .w  { color: var(--text); }
 .code .hl { background: rgba(47,107,255,0.18); border-radius: 3px; box-shadow: 0 0 0 1px rgba(47,107,255,0.35); }
 .code.journey-code { font-size: clamp(8.5px,0.78vw,10.5px); }
+.code.skill-install-code { font-size: clamp(8.5px,0.79vw,10.5px); line-height: 1.68; }
+.code.close-code { font-size: clamp(9px,0.84vw,11.5px); line-height: 1.72; }
 
 /* ── mac window chrome for code blocks ────────────────────────────── */
 .code--mac {
@@ -277,6 +279,49 @@ body::after {
   border-top: 7px solid var(--fb, var(--text-mute));
 }
 
+/* ── TaskPlan anatomy cards ───────────────────────────────────── */
+.artifact-aspects {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(9px,1.2vw,14px);
+}
+.artifact-aspect {
+  position: relative; overflow: hidden; min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--ac, var(--accent)) 34%, transparent);
+  border-top: 3px solid var(--ac, var(--accent)); border-radius: 13px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--ac, var(--accent)) 11%, transparent), rgba(13,15,21,0.96) 70%);
+  padding: clamp(11px,1.55vh,15px) clamp(12px,1.15vw,18px) clamp(12px,1.7vh,17px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 34px -26px rgba(0,0,0,0.78);
+}
+.artifact-aspect::after {
+  content: ''; position: absolute; width: 120px; height: 120px; top: -72px; right: -58px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--ac, var(--accent)) 25%, transparent), transparent 70%);
+}
+.artifact-aspect-head { display: flex; align-items: baseline; gap: 9px; position: relative; z-index: 1; }
+.artifact-aspect-num {
+  font-family: var(--font-mono); font-size: clamp(8px,0.74vw,9.5px); font-weight: 800;
+  letter-spacing: 1.4px; color: var(--ac, var(--accent));
+}
+.artifact-aspect-title {
+  font-family: var(--font-mono); font-size: clamp(8px,0.76vw,10px); font-weight: 800;
+  letter-spacing: 1.7px; text-transform: uppercase; color: var(--text);
+}
+.artifact-aspect-question {
+  margin-top: 5px; font-family: var(--font-editorial); font-style: italic;
+  font-size: clamp(10px,0.96vw,12.5px); color: var(--text-dim);
+}
+.artifact-aspect-fields {
+  position: relative; z-index: 1; margin-top: clamp(8px,1.15vh,11px);
+  font-family: var(--font-mono); font-size: clamp(7.5px,0.67vw,9px); line-height: 1.48;
+  color: var(--ac, var(--cyan)); overflow-wrap: anywhere;
+}
+.artifact-aspect-note {
+  position: relative; z-index: 1; margin-top: 5px;
+  font-family: var(--font-editorial); font-size: clamp(9.5px,0.89vw,11.5px); line-height: 1.35;
+  color: var(--text-dim);
+}
+@media (max-width: 940px) { .artifact-aspects { grid-template-columns: 1fr; } }
+
 /* ── horizontal flow ──────────────────────────────────────────────── */
 .hflow { display: flex; align-items: stretch; width: 100%; }
 .hf-node {
@@ -308,13 +353,13 @@ body::after {
 .hf-note { font-family: var(--font-editorial); font-size: clamp(11px,1.05vw,14px); line-height: 1.38; color: var(--text-dim); margin-top: clamp(9px,1.4vh,13px); }
 .hf-note b { color: var(--text); font-weight: 600; font-style: normal; }
 .hf-tag {
-  margin-top: auto; padding-top: clamp(10px,1.6vh,15px); border-top: 1px solid var(--rule);
-  font-family: var(--font-mono); font-size: clamp(7px,0.68vw,9px); font-weight: 800; letter-spacing: 1px; color: var(--hc, var(--accent));
+  margin-top: auto; padding-top: clamp(10px,1.6vh,15px);
+  font-family: var(--font-mono); font-size: clamp(7px,0.68vw,9px); font-weight: 800; letter-spacing: 1px;
 }
 .hf-tag > span {
-  display: inline-flex; max-width: 100%; padding: 4px 8px; border-radius: 999px; overflow-wrap: anywhere;
-  border: 1px solid color-mix(in srgb, var(--hc, var(--accent)) 34%, transparent);
-  background: color-mix(in srgb, var(--hc, var(--accent)) 9%, transparent);
+  display: inline-flex; max-width: 100%; padding: 4px 8px; border-radius: 3px; overflow-wrap: anywhere;
+  background: var(--hc, var(--accent)); color: #050507; text-transform: uppercase;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 18px -12px var(--hc, var(--accent));
 }
 .hf-tag--long { font-size: clamp(6px,0.55vw,7.5px); letter-spacing: .45px; }
 .hf-tag--long > span { padding-inline: 6px; white-space: nowrap; }
@@ -831,12 +876,15 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
       </div>
 
       <svg viewBox="0 0 1600 400" role="img" style="width:100%;height:auto;max-height:42vh;display:block;margin-top:clamp(28px,4.4vh,50px);overflow:visible;"
-           aria-label="A pool of swimlanes. Column headers: owner, owns, write surface, reads only through contract. Lane A owns seam 01, writes its own modules, schema and deploy, and reads seam 02 by contract from lane B. Lane B mirrors it with seam 02. Blue dashed links cross between lanes only at the contracts. A third red dashed lane shows the two refused states: contested, two owners claiming one seam, and orphan, a seam with no owner.">
+           aria-label="A pool of swimlanes. Column headers: owner, owns, write surface, reads only through contract. Lane A owns seam 01, writes its own modules, schema and deploy, and reads seam 02 by contract from lane B. Lane B mirrors it with seam 02. Solid blue and cyan gradient links cross between lanes only at the contracts, matching the highlighted borders of the read-only contract cards. A third red gradient-bordered lane shows the two refused states: contested, two owners claiming one seam, and orphan, a seam with no owner.">
         <defs>
           <filter id="laneGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <linearGradient id="laneA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2F6BFF" stop-opacity=".16"/><stop offset="1" stop-color="#2F6BFF" stop-opacity=".02"/></linearGradient>
           <linearGradient id="laneB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee" stop-opacity=".14"/><stop offset="1" stop-color="#22d3ee" stop-opacity=".02"/></linearGradient>
           <linearGradient id="laneX" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f85149" stop-opacity=".12"/><stop offset="1" stop-color="#f85149" stop-opacity=".01"/></linearGradient>
+          <linearGradient id="laneContractA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2F6BFF" stop-opacity=".25"/><stop offset=".5" stop-color="#9db9ff" stop-opacity=".95"/><stop offset="1" stop-color="#2F6BFF" stop-opacity=".25"/></linearGradient>
+          <linearGradient id="laneContractB" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee" stop-opacity=".25"/><stop offset=".5" stop-color="#8ae4f2" stop-opacity=".95"/><stop offset="1" stop-color="#22d3ee" stop-opacity=".25"/></linearGradient>
+          <linearGradient id="laneRefusedBorder" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f85149" stop-opacity=".3"/><stop offset=".5" stop-color="#f88b84" stop-opacity=".95"/><stop offset="1" stop-color="#f85149" stop-opacity=".3"/></linearGradient>
         </defs>
 
         <!-- column headers -->
@@ -851,9 +899,11 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         <!-- ═══ lane A ═══ -->
         <g transform="translate(0 -8)">
           <rect x="40" y="46" width="1520" height="104" rx="16" fill="url(#laneA)" stroke="#6ea2ff" stroke-opacity=".55" stroke-width="1.4"/>
-          <text x="62" y="86" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#6ea2ff">LANE A</text>
-          <text x="62" y="112" font-family="Instrument Serif" font-size="24" fill="#eaedf2">owner A</text>
-          <text x="62" y="132" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">one team · one call</text>
+          <g transform="translate(0 -8)">
+            <text x="62" y="86" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#6ea2ff">LANE A</text>
+            <text x="62" y="112" font-family="Instrument Serif" font-size="24" fill="#eaedf2">owner A</text>
+            <text x="62" y="132" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">one team · one call</text>
+          </g>
           <!-- owns: seam 01 -->
           <line x1="316" y1="60" x2="316" y2="136" stroke="#2F6BFF" stroke-width="6" stroke-opacity=".55" filter="url(#laneGlow)"/>
           <line x1="316" y1="60" x2="316" y2="136" stroke="#9db9ff" stroke-width="2"/>
@@ -873,16 +923,18 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
             <text x="972" y="112" font-family="Fira Code" font-size="9" letter-spacing="1" fill="#c9b778">may write</text>
           </g>
           <!-- reads only -->
-          <rect x="1160" y="66" width="376" height="62" rx="10" fill="rgba(34,211,238,0.04)" stroke="#22d3ee" stroke-opacity=".5" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <rect x="1160" y="66" width="376" height="62" rx="10" fill="rgba(34,211,238,0.04)" stroke="url(#laneContractB)" stroke-opacity=".95" stroke-width="1.6"/>
           <text x="1180" y="93" font-family="Instrument Serif" font-size="18" fill="#eaedf2">Seam 02 contract <tspan font-family="Newsreader" font-style="italic" font-size="13" fill="#74c8d5">— from lane B</tspan></text>
           <text x="1180" y="112" font-family="Fira Code" font-size="9" letter-spacing="1" fill="#74c8d5">read only · never edits lane B's surface</text>
         </g>
 
         <!-- ═══ lane B ═══ -->
         <rect x="40" y="166" width="1520" height="104" rx="16" fill="url(#laneB)" stroke="#22d3ee" stroke-opacity=".5" stroke-width="1.4"/>
-        <text x="62" y="206" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#74c8d5">LANE B</text>
-        <text x="62" y="232" font-family="Instrument Serif" font-size="24" fill="#eaedf2">owner B</text>
-        <text x="62" y="252" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">one team · one call</text>
+        <g transform="translate(0 -8)">
+          <text x="62" y="206" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#74c8d5">LANE B</text>
+          <text x="62" y="232" font-family="Instrument Serif" font-size="24" fill="#eaedf2">owner B</text>
+          <text x="62" y="252" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">one team · one call</text>
+        </g>
         <!-- owns: seam 02 -->
         <line x1="316" y1="180" x2="316" y2="256" stroke="#22d3ee" stroke-width="6" stroke-opacity=".45" filter="url(#laneGlow)"/>
         <line x1="316" y1="180" x2="316" y2="256" stroke="#8ae4f2" stroke-width="2"/>
@@ -902,31 +954,41 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
           <text x="972" y="232" font-family="Fira Code" font-size="9" letter-spacing="1" fill="#c9b778">may write</text>
         </g>
         <!-- reads only -->
-        <rect x="1160" y="186" width="376" height="62" rx="10" fill="rgba(47,107,255,0.05)" stroke="#6ea2ff" stroke-opacity=".5" stroke-width="1.2" stroke-dasharray="4 5"/>
+        <rect x="1160" y="186" width="376" height="62" rx="10" fill="rgba(47,107,255,0.05)" stroke="url(#laneContractA)" stroke-opacity=".95" stroke-width="1.6"/>
         <text x="1180" y="213" font-family="Instrument Serif" font-size="18" fill="#eaedf2">Seam 01 contract <tspan font-family="Newsreader" font-style="italic" font-size="13" fill="#9db9ff">— from lane A</tspan></text>
         <text x="1180" y="232" font-family="Fira Code" font-size="9" letter-spacing="1" fill="#9db9ff">read only · never edits lane A's surface</text>
 
         <!-- cross-lane links · contracts only -->
-        <path d="M 316 128 C 316 156 1348 156 1348 186" fill="none" stroke="#9db9ff" stroke-opacity=".55" stroke-width="1.4" stroke-dasharray="3 6"/>
-        <path d="M 316 180 C 316 156 1348 156 1348 120" fill="none" stroke="#8ae4f2" stroke-opacity=".55" stroke-width="1.4" stroke-dasharray="3 6"/>
-        <rect x="680" y="145" width="240" height="20" rx="5" fill="#0b0f1a" stroke="#9db9ff" stroke-opacity=".5" stroke-width="1"/>
-        <text x="800" y="159" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#c9d9ff">lanes talk only through contracts</text>
+        <path d="M 316 128 C 316 156 1348 156 1348 186" fill="none" stroke="url(#laneContractA)" stroke-width="2.4" stroke-opacity=".95" stroke-linecap="round"/>
+        <circle cx="316" cy="128" r="3" fill="#6ea2ff"/>
+        <circle cx="1348" cy="186" r="3" fill="#2F6BFF"/>
+        <path d="M 316 180 C 316 156 1348 156 1348 120" fill="none" stroke="url(#laneContractB)" stroke-width="2.4" stroke-opacity=".95" stroke-linecap="round"/>
+        <circle cx="316" cy="180" r="3" fill="#8ae4f2"/>
+        <circle cx="1348" cy="120" r="3" fill="#22d3ee"/>
+        <rect x="680" y="144" width="240" height="20" rx="5" fill="#0b0f1a" stroke="#9db9ff" stroke-opacity=".6" stroke-width="1"/>
+        <text x="800" y="158" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#c9d9ff">lanes talk only through contracts</text>
 
         <!-- ═══ refused lane ═══ -->
-        <rect x="40" y="286" width="1520" height="96" rx="16" fill="url(#laneX)" stroke="#f85149" stroke-opacity=".55" stroke-width="1.3" stroke-dasharray="6 6"/>
-        <text x="62" y="322" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#f88b84">REFUSED</text>
-        <text x="62" y="348" font-family="Instrument Serif" font-size="24" fill="#eaedf2">by the map</text>
-        <text x="62" y="368" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">exit 2 · owner input required</text>
+        <rect x="40" y="286" width="1520" height="96" rx="16" fill="url(#laneX)" stroke="url(#laneRefusedBorder)" stroke-opacity=".95" stroke-width="1.8"/>
+        <g transform="translate(0 -8)">
+          <text x="62" y="322" font-family="Fira Code" font-size="10" font-weight="800" letter-spacing="2.4" fill="#f88b84">REFUSED</text>
+          <text x="62" y="348" font-family="Instrument Serif" font-size="24" fill="#eaedf2">by the map</text>
+          <text x="62" y="368" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">exit 2 · owner input required</text>
+        </g>
         <!-- contested -->
         <line x1="316" y1="300" x2="316" y2="370" stroke="#f85149" stroke-width="2" stroke-opacity=".8"/>
-        <text x="336" y="326" font-family="Fira Code" font-size="9.5" font-weight="800" letter-spacing="2" fill="#f88b84">CONTESTED</text>
-        <text x="336" y="350" font-family="Instrument Serif" font-size="20" fill="#eaedf2">two owners claim one seam</text>
-        <text x="336" y="370" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">who coordinates? nobody — so it is refused until one lane is named</text>
+        <g transform="translate(0 -8)">
+          <text x="336" y="326" font-family="Fira Code" font-size="9.5" font-weight="800" letter-spacing="2" fill="#f88b84">CONTESTED</text>
+          <text x="336" y="350" font-family="Instrument Serif" font-size="20" fill="#eaedf2">two owners claim one seam</text>
+          <text x="336" y="370" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">who coordinates? nobody — so it is refused until one lane is named</text>
+        </g>
         <!-- orphan -->
-        <line x1="900" y1="300" x2="900" y2="370" stroke="#f85149" stroke-width="2" stroke-opacity=".8" stroke-dasharray="3 5"/>
-        <text x="920" y="326" font-family="Fira Code" font-size="9.5" font-weight="800" letter-spacing="2" fill="#f88b84">ORPHAN</text>
-        <text x="920" y="350" font-family="Instrument Serif" font-size="20" fill="#eaedf2">a seam nobody owns</text>
-        <text x="920" y="370" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">a boundary with no keeper drifts — refused until a lane takes it</text>
+        <line x1="900" y1="300" x2="900" y2="370" stroke="#f85149" stroke-width="2" stroke-opacity=".8"/>
+        <g transform="translate(0 -8)">
+          <text x="920" y="326" font-family="Fira Code" font-size="9.5" font-weight="800" letter-spacing="2" fill="#f88b84">ORPHAN</text>
+          <text x="920" y="350" font-family="Instrument Serif" font-size="20" fill="#eaedf2">a seam nobody owns</text>
+          <text x="920" y="370" font-family="Newsreader" font-style="italic" font-size="12" fill="#8a96a5">a boundary with no keeper drifts — refused until a lane takes it</text>
+        </g>
       </svg>
 
       <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,24px);margin-top:clamp(14px,2.2vh,24px);padding-top:clamp(12px,1.9vh,18px);border-top:1px solid var(--rule);">
@@ -1428,81 +1490,6 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
     </div>
   </section>
 
-  <!-- ═══════════ S07 · THE CLI ═══════════ -->
-  <section class="slide" data-act="THE CLI" data-act-name="The surface" data-accent="cyan">
-    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
-    <div class="wrap reveal" style="max-width:1760px;">
-
-      <div>
-        <span class="tag" style="--tag-c:var(--cyan);">the cli · one binary, one result contract</span>
-        <h2 class="h2" style="font-size:clamp(32px,4.5vw,62px);margin-top:clamp(10px,1.7vh,18px);">
-          Every command returns <span class="grad-cyan">exactly one object</span>
-        </h2>
-        <p class="lede" style="max-width:80ch;margin-top:clamp(10px,1.6vh,16px);">
-          The whole surface is one binary. In <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--cyan);">--json</code> mode every
-          command emits a single <b>SeamwiseCLIResult/v1</b> — an exact token, the artifact paths, diagnostics, and the
-          <b>next safe action</b> — so an agent never has to parse prose. The exit code is the gate speaking:
-          <b>0</b> means the intended boundary was reached, <b>2</b> means a human input is required. The one highlighted
-          line is the only command a machine cannot run for you.
-        </p>
-      </div>
-
-      <div class="cols" style="--cols:0.95fr 1.05fr;margin-top:clamp(18px,2.8vh,30px);gap:clamp(16px,1.9vw,36px);">
-
-        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.9vh,20px);min-width:0;">
-          <div class="code code--mac">
-            <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">seamwise --help</span></div>
-<span class="c"># author &amp; compile</span>
-<span class="w">seamwise</span> <span class="n">init</span>                    <span class="c"># workspace</span>
-<span class="w">seamwise</span> <span class="n">recipe schema</span>           <span class="c"># the authoring contract</span>
-<span class="w">seamwise</span> <span class="n">map</span> <span class="s">--source recipe.yaml</span>
-<span class="w">seamwise</span> <span class="n">plan</span>                    <span class="c"># stops at NEEDS_REVIEW</span>
-<span class="hl"><span class="w">seamwise</span> <span class="n">review</span> <span class="s">--accept --reviewer &lt;name&gt; --reason &lt;why&gt;</span></span>
-<span class="w">seamwise</span> <span class="n">compile</span>                 <span class="c"># two artifacts, atomic</span>
-<span class="w">seamwise</span> <span class="n">prepare</span> <span class="s">--source recipe.yaml</span>  <span class="c"># automates, still stops at the gate</span>
-
-<span class="c"># inspect &amp; report</span>
-<span class="w">seamwise</span> <span class="n">status</span> · <span class="n">next</span> · <span class="n">inspect</span> <span class="s">[TASK_ID]</span> · <span class="n">graph</span>
-<span class="w">seamwise</span> <span class="n">report</span> <span class="s">--format html|json</span>
-<span class="w">seamwise</span> <span class="n">capabilities</span>            <span class="c"># the machine boundary</span>
-
-<span class="c"># hosts &amp; health</span>
-<span class="w">seamwise</span> <span class="n">agent-context</span> <span class="s">--host codex|claude|chat</span>
-<span class="w">seamwise</span> <span class="n">install</span> <span class="s">codex|claude|all --scope project|user</span>
-<span class="w">seamwise</span> <span class="n">doctor</span> <span class="s">--host core|codex|claude|all</span></div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.9vh,20px);min-width:0;">
-          <div class="code code--mac">
-            <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">SeamwiseCLIResult/v1 · stdout</span></div>
-<span class="w">{</span>
-  <span class="n">"contract"</span>: <span class="s">"SeamwiseCLIResult/v1"</span>,
-  <span class="n">"command"</span>:  <span class="s">"status"</span>,  <span class="n">"ok"</span>: <span class="g">true</span>,
-  <span class="n">"token"</span>:    <span class="s">"STATUS=READY"</span>,
-  <span class="n">"next"</span>: [<span class="s">"Pass task-plan.json + lineage to the coordinator."</span>],
-  <span class="n">"data"</span>: {
-    <span class="n">"reviewed"</span>: <span class="g">true</span>,  <span class="n">"units"</span>: <span class="w">4</span>,
-    <span class="n">"materialization_receipt"</span>: <span class="r">false</span>,
-    <span class="n">"dispatch_authorized"</span>:     <span class="r">false</span>   <span class="c">← always</span>
-  }
-<span class="w">}</span></div>
-
-          <div class="panel" style="--pk:var(--cyan);">
-            <div class="panel-k">exit codes — the gate speaks in numbers</div>
-            <div class="pf"><span class="pf-l" style="color:var(--green);">0</span><span class="pf-r">succeeded, or reached its <b>intended boundary</b></span></div>
-            <div class="pf"><span class="pf-l" style="color:var(--gold);">2</span><span class="pf-r">evidence, ownership, decision, or review input required</span></div>
-            <div class="pf"><span class="pf-l" style="color:var(--gold);">3</span><span class="pf-r">command or authored contract invalid</span></div>
-            <div class="pf"><span class="pf-l" style="color:var(--red);">4</span><span class="pf-r">integrity, concurrency, or topology conflict</span></div>
-            <div class="pf"><span class="pf-l" style="color:var(--red);">5</span><span class="pf-r">required host runtime unavailable</span></div>
-            <div class="pf"><span class="pf-l" style="color:var(--red);">10</span><span class="pf-r">internal mechanism failure</span></div>
-          </div>
-        </div>
-      </div>
-
-      <aside class="speaker-notes" hidden>Talk track: the highlighted line in the left block is the only one a machine cannot run for you. On the right, point at the two false flags — they are not configuration, they are the advertised contract. Exit code 2 is the compiler asking for a human input, not an error.</aside>
-    </div>
-  </section>
-
   <!-- ═══════════ S07b · INSIDE THE TASKPLAN ═══════════ -->
   <section class="slide" data-act="THE ARTIFACT" data-act-name="Inside the TaskPlan" data-accent="green">
     <div class="aurora aurora--green" aria-hidden="true"><b></b></div>
@@ -1545,22 +1532,30 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 <span class="w">}</span></div>
 
         <div style="display:flex;flex-direction:column;gap:clamp(10px,1.6vh,16px);min-width:0;">
-          <div class="flow" style="gap:clamp(8px,1.2vh,12px);">
-            <div class="fl-node" style="--fc:var(--blue-bright);">
-              <div class="fl-k">identity · who this leaf is</div>
-              <div class="fl-note" style="margin-top:4px;"><code>id · title · effort · profile · agent · depends_on</code> — sized, ordered, engine-agnostic</div>
+          <div class="artifact-aspects">
+            <div class="artifact-aspect" style="--ac:var(--blue-bright);">
+              <div class="artifact-aspect-head"><span class="artifact-aspect-num">01</span><span class="artifact-aspect-title">Identity</span></div>
+              <div class="artifact-aspect-question">who this leaf is</div>
+              <div class="artifact-aspect-fields">id · title · effort · profile · agent · depends_on</div>
+              <div class="artifact-aspect-note">Sized, ordered, engine-agnostic.</div>
             </div>
-            <div class="fl-node" style="--fc:var(--cyan);">
-              <div class="fl-k">boundary · where it may act</div>
-              <div class="fl-note" style="margin-top:4px;"><code>touches_paths · creates_paths · do_not_touch</code> — the seam and the lane's write surface, per unit</div>
+            <div class="artifact-aspect" style="--ac:var(--cyan);">
+              <div class="artifact-aspect-head"><span class="artifact-aspect-num">02</span><span class="artifact-aspect-title">Boundary</span></div>
+              <div class="artifact-aspect-question">where it may act</div>
+              <div class="artifact-aspect-fields">touches_paths · creates_paths · do_not_touch</div>
+              <div class="artifact-aspect-note">The seam and the lane's write surface, per unit.</div>
             </div>
-            <div class="fl-node" style="--fc:var(--gold);">
-              <div class="fl-k">proof · when it is done</div>
-              <div class="fl-note" style="margin-top:4px;"><code>goal · done_condition · evals[]</code> — every eval is a <b style="color:var(--text);">runnable command</b>; the terminal one closes the leaf</div>
+            <div class="artifact-aspect" style="--ac:var(--gold);">
+              <div class="artifact-aspect-head"><span class="artifact-aspect-num">03</span><span class="artifact-aspect-title">Proof</span></div>
+              <div class="artifact-aspect-question">when it is done</div>
+              <div class="artifact-aspect-fields">goal · done_condition · evals[]</div>
+              <div class="artifact-aspect-note">Every eval is runnable; the terminal one closes the leaf.</div>
             </div>
-            <div class="fl-node" style="--fc:var(--green);">
-              <div class="fl-k">safety &amp; origin · if it goes wrong</div>
-              <div class="fl-note" style="margin-top:4px;"><code>rollback · anti_patterns · observability</code> — and the lineage sidecar: <code>unit → seam · lane · leg · sha256</code></div>
+            <div class="artifact-aspect" style="--ac:var(--green);">
+              <div class="artifact-aspect-head"><span class="artifact-aspect-num">04</span><span class="artifact-aspect-title">Safety &amp; origin</span></div>
+              <div class="artifact-aspect-question">if it goes wrong</div>
+              <div class="artifact-aspect-fields">rollback · anti_patterns · observability</div>
+              <div class="artifact-aspect-note">Lineage binds unit → seam · lane · leg · sha256.</div>
             </div>
           </div>
 
@@ -1642,20 +1637,94 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
     </div>
   </section>
 
+  <!-- ═══════════ S07 · THE CLI ═══════════ -->
+  <section class="slide" data-act="THE CLI" data-act-name="The surface" data-accent="cyan">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="wrap reveal" style="max-width:1760px;">
+
+      <div>
+        <span class="tag" style="--tag-c:var(--cyan);">the cli · one binary, one result contract</span>
+        <h2 class="h2" style="font-size:clamp(32px,4.5vw,62px);margin-top:clamp(10px,1.7vh,18px);">
+          Every command returns <span class="grad-cyan">exactly one object</span>
+        </h2>
+        <p class="lede" style="max-width:80ch;margin-top:clamp(10px,1.6vh,16px);">
+          The whole surface is one binary. In <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--cyan);">--json</code> mode every
+          command emits a single <b>SeamwiseCLIResult/v1</b> — an exact token, the artifact paths, diagnostics, and the
+          <b>next safe action</b> — so an agent never has to parse prose. The exit code is the gate speaking:
+          <b>0</b> means the intended boundary was reached, <b>2</b> means a human input is required. The one highlighted
+          line is the only command a machine cannot run for you.
+        </p>
+      </div>
+
+      <div class="cols" style="--cols:0.95fr 1.05fr;margin-top:clamp(18px,2.8vh,30px);gap:clamp(16px,1.9vw,36px);">
+
+        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.9vh,20px);min-width:0;">
+          <div class="code code--mac">
+            <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">seamwise --help</span></div>
+<span class="c"># author &amp; compile</span>
+<span class="w">seamwise</span> <span class="n">init</span>                    <span class="c"># workspace</span>
+<span class="w">seamwise</span> <span class="n">recipe schema</span>           <span class="c"># the authoring contract</span>
+<span class="w">seamwise</span> <span class="n">map</span> <span class="s">--source recipe.yaml</span>
+<span class="w">seamwise</span> <span class="n">plan</span>                    <span class="c"># stops at NEEDS_REVIEW</span>
+<span class="hl"><span class="w">seamwise</span> <span class="n">review</span> <span class="s">--accept --reviewer &lt;name&gt; --reason &lt;why&gt;</span></span>
+<span class="w">seamwise</span> <span class="n">compile</span>                 <span class="c"># two artifacts, atomic</span>
+<span class="w">seamwise</span> <span class="n">prepare</span> <span class="s">--source recipe.yaml</span>  <span class="c"># automates, still stops at the gate</span>
+
+<span class="c"># inspect &amp; report</span>
+<span class="w">seamwise</span> <span class="n">status</span> · <span class="n">next</span> · <span class="n">inspect</span> <span class="s">[TASK_ID]</span> · <span class="n">graph</span>
+<span class="w">seamwise</span> <span class="n">report</span> <span class="s">--format html|json</span>
+<span class="w">seamwise</span> <span class="n">capabilities</span>            <span class="c"># the machine boundary</span>
+
+<span class="c"># hosts &amp; health</span>
+<span class="w">seamwise</span> <span class="n">agent-context</span> <span class="s">--host codex|claude|chat</span>
+<span class="w">seamwise</span> <span class="n">install</span> <span class="s">codex|claude|all --scope project|user</span>
+<span class="w">seamwise</span> <span class="n">doctor</span> <span class="s">--host core|codex|claude|all</span></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:clamp(12px,1.9vh,20px);min-width:0;">
+          <div class="code code--mac">
+            <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">SeamwiseCLIResult/v1 · stdout</span></div>
+<span class="w">{</span>
+  <span class="n">"contract"</span>: <span class="s">"SeamwiseCLIResult/v1"</span>,
+  <span class="n">"command"</span>:  <span class="s">"status"</span>,  <span class="n">"ok"</span>: <span class="g">true</span>,
+  <span class="n">"token"</span>:    <span class="s">"STATUS=READY"</span>,
+  <span class="n">"next"</span>: [<span class="s">"Pass task-plan.json + lineage to the coordinator."</span>],
+  <span class="n">"data"</span>: {
+    <span class="n">"reviewed"</span>: <span class="g">true</span>,  <span class="n">"units"</span>: <span class="w">4</span>,
+    <span class="n">"materialization_receipt"</span>: <span class="r">false</span>,
+    <span class="n">"dispatch_authorized"</span>:     <span class="r">false</span>   <span class="c">← always</span>
+  }
+<span class="w">}</span></div>
+
+          <div class="panel" style="--pk:var(--cyan);">
+            <div class="panel-k">exit codes — the gate speaks in numbers</div>
+            <div class="pf"><span class="pf-l" style="color:var(--green);">0</span><span class="pf-r">succeeded, or reached its <b>intended boundary</b></span></div>
+            <div class="pf"><span class="pf-l" style="color:var(--gold);">2</span><span class="pf-r">evidence, ownership, decision, or review input required</span></div>
+            <div class="pf"><span class="pf-l" style="color:var(--gold);">3</span><span class="pf-r">command or authored contract invalid</span></div>
+            <div class="pf"><span class="pf-l" style="color:var(--red);">4</span><span class="pf-r">integrity, concurrency, or topology conflict</span></div>
+            <div class="pf"><span class="pf-l" style="color:var(--red);">5</span><span class="pf-r">required host runtime unavailable</span></div>
+            <div class="pf"><span class="pf-l" style="color:var(--red);">10</span><span class="pf-r">internal mechanism failure</span></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="speaker-notes" hidden>Talk track: the highlighted line in the left block is the only one a machine cannot run for you. On the right, point at the two false flags — they are not configuration, they are the advertised contract. Exit code 2 is the compiler asking for a human input, not an error.</aside>
+    </div>
+  </section>
+
   <!-- ═══════════ S09 · THE SKILLS ═══════════ -->
   <section class="slide" data-act="SKILLS" data-act-name="Five skills" data-accent="purple">
     <div class="aurora aurora--purple" aria-hidden="true"><b></b></div>
     <div class="wrap reveal" style="max-width:1720px;">
 
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(24px,3vw,60px);flex-wrap:wrap;">
-        <div style="flex:1 1 auto;min-width:0;">
-          <span class="tag" style="--tag-c:var(--purple);">the skills · agents drive the same cli</span>
-          <h2 class="h2" style="font-size:clamp(32px,4.5vw,62px);margin-top:clamp(10px,1.7vh,18px);">
-            Five skills. <span class="grad-purple">The chat proposes — it never decides.</span>
-          </h2>
-        </div>
-        <p class="lede" style="flex:0 1 40ch;max-width:40ch;text-align:right;">Installed into Codex, Claude Code, or both.
-        Every skill drives the <b>shared CLI</b> — none recreates compiler behavior in the model.</p>
+      <div>
+        <span class="tag" style="--tag-c:var(--purple);">the skills · agents drive the same cli</span>
+        <h2 class="h2" style="font-size:clamp(32px,4.5vw,62px);margin-top:clamp(10px,1.7vh,18px);">
+          Five skills. <span class="grad-purple">The chat proposes — it never decides.</span>
+        </h2>
+        <p class="lede" style="max-width:86ch;margin-top:clamp(10px,1.6vh,16px);">Installed into Codex, Claude Code, or both.
+        Every skill drives the <b>shared CLI</b>; none recreates compiler behavior in the model. A chat may propose each pass
+        and run its gates, but review, materialization, and dispatch remain outside the conversation.</p>
       </div>
 
       <div class="cols" style="--cols:1.15fr 0.85fr;margin-top:clamp(18px,2.8vh,30px);gap:clamp(18px,2.2vw,44px);">
@@ -1695,7 +1764,8 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
             </ul>
           </div>
 
-          <div class="code" data-lang="install" style="margin-top:clamp(14px,2.2vh,22px);">
+          <div class="code code--mac skill-install-code" style="margin-top:clamp(14px,2.2vh,22px);">
+            <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">install · codex or claude</span></div>
 <span class="w">uv tool install</span> <span class="s">"git+https://github.com/luanmorenommaciel/seamwise.git@v0.2.0"</span>
 <span class="w">seamwise</span> <span class="n">install</span> <span class="s">claude --scope project</span>   <span class="c"># or: codex · all</span>
 <span class="w">seamwise</span> <span class="n">--json</span> <span class="n">doctor</span> <span class="s">--host all</span>         <span class="c"># prove the seats work</span></div>
@@ -1746,12 +1816,13 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         Stop for a named human. Project — <b>and never dispatch.</b>
       </p>
 
-      <div class="code" data-lang="bash" style="max-width:860px;margin:clamp(24px,3.8vh,42px) auto 0;text-align:left;">
+      <div class="code code--mac close-code" style="max-width:900px;margin:clamp(18px,2.8vh,30px) auto 0;text-align:left;">
+        <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">seamwise · install and inspect</span></div>
 <span class="w">uv tool install</span> <span class="s">"git+https://github.com/luanmorenommaciel/seamwise.git@v0.2.0"</span>
 <span class="w">seamwise</span> <span class="n">--version</span>
 <span class="w">seamwise</span> <span class="n">--json</span> <span class="n">capabilities</span>   <span class="c"># read the boundary before you trust it</span></div>
 
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:clamp(24px,3.8vh,42px);">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:clamp(18px,2.8vh,30px);">
         <img src="../assets/seamwise-icon.svg" alt="SeamWise" style="width:44px;height:44px;">
         <div style="text-align:left;">
           <div style="font-family:var(--font-display);font-size:clamp(17px,1.6vw,22px);line-height:1;color:var(--text);">SeamWise <span style="font-family:var(--font-mono);font-size:clamp(9px,0.85vw,10.5px);color:var(--text-mute);">· MIT</span></div>

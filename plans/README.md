@@ -47,7 +47,7 @@ second implementation**. Neither may edit `contracts/`, `legacy/`,
 | Five signed type contracts (`01`–`05`) | `modern/` for those same five types — **from Day 2**, after Consensus |
 | DataGen, SFTP, Java 21, PostgreSQL | Golden-match wiring against live modern observations |
 | Independent oracles under `validation/oracle/` | One vertical at a time, `01` first |
-| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Day 1: Second Brain + OntoLayer + Capture → Intent under [`docs/`](../docs/README.md). Day 2: Bind, ADRs in `docs/adrs/`, sign, then translation |
+| Inbound packs for `01`–`05` under [`spec/`](../spec/README.md) | Day 1: Second Brain + OntoLayer + Capture → Intent under [`docs/`](../docs/README.md). Day 2: Bind, ADRs, sign, one Task-Spec leaf |
 | Human Second Brain ([`brain/notebooklm/`](../brain/notebooklm/README.md), nine packs) | Queried Days 2–4. **No tenth source.** Type `06` is a new source on Friday, not in the zip |
 | OntoLayer over live Postgres | Without (`make ontology-ask-sql`) then with (`make ontology-ask` / MCP) |
 | `validation/golden-match/golden_match.py` | Tests, Make targets, `evidence/modern/` |
@@ -68,12 +68,14 @@ Day 2 staff: [`run/d2/`](../run/d2/README.md). Papers: [`docs/`](../docs/README.
    nine packs, types `01`–`05`). Ask OntoLayer without, then with. Run
    Converge **0 Capture** and **1 Intent**. **No product code. No ADRs.
    No `modern/`.**
-3. **Design, then write (Day 2).** Recap Pass 0–1 in [`docs/`](../docs/README.md).
+3. **Design (Day 2).** Recap Pass 0–1 in [`docs/`](../docs/README.md).
    **Bind** the Agent Harness (fail closed on frozen folders). Query the
    Second Brain for Java *concepts* — do not rebuild it. Open
    [`modern.md`](modern.md). Close or park the ten questions as ADRs under
-   `docs/adrs/`. Consensus is the barrier (`docs/consensus.md`). **Then**
-   Type `01` landing Parquet. The ten questions are not closed on Day 1.
+   `docs/adrs/`. Consensus is the barrier (`docs/consensus.md`). One
+   Task-Spec leaf in `docs/tasks/`. First write is landing Parquet **when
+   the mesh later runs** — not required Tuesday. The ten questions are
+   not closed on Day 1.
 4. **Build the week's types (Days 2–4).** `01`–`05` only. Type `01`
    first. Type `06` stays sealed until day five.
 5. **Adjudicate.** Golden-match asks two questions and never nets them:

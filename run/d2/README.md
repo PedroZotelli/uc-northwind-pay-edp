@@ -1,7 +1,7 @@
 # Day 2 — follow-along
 
 Staff execute folder. Scope: [`agenda/d2.md`](../../agenda/d2.md).  
-Deck: [`presentation/d2-translator-java2py.html`](../../presentation/d2-translator-java2py.html) — **live, all six acts.** Identify slides by **`data-act-name`**, not a HUD integer (Stage/Craft extras shift the counter). Old [`d2-translator.html`](../../presentation/d2-translator.html) is archive. Do not drive it.
+Deck: [`presentation/d2-translator-java2py.html`](../../presentation/d2-translator-java2py.html) — **live, all six acts.** Identify slides by **`data-act-name`**, not a HUD integer (Stage/Craft extras shift the counter). The old `d2-translator.html` HUD is gone from the tree. Do not drive a Night from git history.
 
 **Same mold as [`../d1/`](../d1/README.md).** Show the board, send the room into the numbered beats, **look up** at the proof. Do not flip a slide per prompt. Do not skip a Show.
 
@@ -46,7 +46,8 @@ If a table dies, they follow your screen. Do not debug a provider.
 | **Execute 05–06** | Hands-On **slice c** · [`05`](05-query-brain.md)–[`06`](06-query-graph.md) |
 | Dig | talk |
 | Converge + Seamwise | Show |
-| **Execute 07–10** | Hands-On **slice d** · [`07`](07-prompt-kits.md)–[`10`](10-consensus.md). After tile 07: **pause** [`seamwise.html`](../../presentation/seamwise.html). Return for 08–10. |
+| **Leave · Seamwise** | Park. Open [`seamwise.html`](../../presentation/seamwise.html). Explain internals. Return. Do not write seams from that HUD. |
+| **Execute 07–10** | Hands-On **slice d** · [`07`](07-prompt-kits.md)–[`10`](10-consensus.md) |
 | Task-Spec | Show. **Pause:** Task-Spec kit (separate). Return. Skip Execute 11 if unsigned. |
 | **Execute 11** | Hands-On **slice e** · [`11`](11-taskspec.md) |
 | Task-Mesh | Show only — no file |
