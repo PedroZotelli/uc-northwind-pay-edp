@@ -220,7 +220,7 @@ body::after {
 
 /* ── mac window chrome for code blocks ────────────────────────────── */
 .code--mac {
-  border-radius: 14px; padding-top: 52px;
+  border-radius: 14px; padding-top: 58px;
   border-color: rgba(120,160,220,0.22);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 30px 60px -30px rgba(0,0,0,0.85), 0 0 44px -22px rgba(47,107,255,0.35);
 }
@@ -1371,16 +1371,16 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         <div class="thread" role="group" aria-label="Chat thread between the developer and the coding agent, joined by one vertical rail">
           <div class="msg user">
             <img class="avatar" src="../assets/luan-moreno.png" alt="Luan">
-            <div class="bubble"><span class="bubble-who">luan · 1 · ask <i>09:41</i></span>Create a task to add a <b>deterministic search command</b> to the CLI. Keep it offline, small, and give it a contract test.</div>
+            <div class="bubble"><span class="bubble-who">luan · 1 · ask <i>09:41</i></span>Implement a feature: <b>add CSV export to the payments report</b>. Keep it small, and prove it with a test.</div>
           </div>
           <div class="sys"><span class="tag" style="--tag-c:var(--purple);">2 · skill loaded · task-spec 3.9.0 · operating loop</span></div>
           <div class="msg agent">
             <img class="avatar" src="../assets/claude-code-icon.png" alt="Claude Code">
-            <div class="bubble"><span class="bubble-who">claude code · 3 · plan preview <i>09:41</i></span>I read the repo. Search touches <b>bin/taskspec</b> and needs one new test, so this is one <b>S leaf</b>. I wrote the plan and previewed it — nothing is materialized yet.
+            <div class="bubble"><span class="bubble-who">claude code · 3 · plan preview <i>09:41</i></span>I read the repo. The export touches <b>src/reports/payments.py</b> and needs one new test, so this is one <b>S leaf</b>. I wrote the plan and previewed it — nothing is materialized yet.
               <div class="tool">
-                <div class="tool-head"><span class="tk">bash</span><span class="cmd">taskspec plan --manifest tasks/.plans/add-search.yaml</span><span class="st">exit 0</span></div>
+                <div class="tool-head"><span class="tk">bash</span><span class="cmd">taskspec plan --manifest tasks/.plans/payments-csv.yaml</span><span class="st">exit 0</span></div>
                 <div class="tool-out">TaskPlan v1 · <span class="n">not approved</span> · digest 947c7cbe6a8a
-<span class="w">T-20260826-add-search-command</span>  leaf · S · codex · Add a deterministic search command
+<span class="w">T-20260826-payments-csv-export</span>  leaf · S · codex · Add CSV export to the payments report
 <span class="g">TASK_PLAN=OK</span>  <span class="c">← reviewable, not yet approved</span></div>
               </div>
             </div>
@@ -1396,7 +1396,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
                 <div class="tool-head"><span class="tk">bash</span><span class="cmd">taskspec batch --plan … && taskspec validate … && taskspec dod …</span><span class="st">exit 0</span></div>
                 <div class="tool-out">created: 1 Task-Spec scaffold(s) in tasks/  <span class="g">TASK_BATCH=OK</span>
 <span class="g">OK:</span> valid Task-Spec v3 (profile: standard, status: ready)
-[ ] eval_1 — contract test passes ⟵ B-1  <span class="g">DOD=COMPLETE</span></div>
+[ ] eval_1 — CSV export test passes ⟵ B-1  <span class="g">DOD=COMPLETE</span></div>
               </div>
               <div class="tok-row"><span class="tag" style="--tag-c:var(--gold);">TASK_PLAN=OK</span><span class="tag" style="--tag-c:var(--cyan);">TASK_BATCH=OK</span><span class="tag" style="--tag-c:var(--green);">DOD=COMPLETE</span></div>
             </div>
@@ -1404,33 +1404,34 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         </div>
 
         <div class="devflow-code">
-          <div class="code code--mac" data-lang="yaml" style="--lang-c:var(--gold);"><div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">the agent wrote · tasks/.plans/add-search.yaml</span></div><span class="k">kind</span>: TaskPlan
+          <div class="code code--mac" data-lang="yaml" style="--lang-c:var(--gold);"><div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">the agent wrote · tasks/.plans/payments-csv.yaml</span></div><span class="k">kind</span>: TaskPlan
 <span class="k">approved</span>: <span class="r">false</span>        <span class="c"># you flip this, not the agent</span>
 <span class="k">units</span>:
-  - <span class="k">id</span>: T-20260826-add-search-command
+  - <span class="k">id</span>: T-20260826-payments-csv-export
+    <span class="k">title</span>: Add CSV export to the payments report
     <span class="k">effort</span>: S
-    <span class="k">touches_paths</span>: [bin/taskspec]
-    <span class="k">creates_paths</span>: [tests/test-search-command.sh]
+    <span class="k">touches_paths</span>: [src/reports/payments.py]
+    <span class="k">creates_paths</span>: [tests/test_csv_export.py]
     <span class="k">behaviors</span>:
       - <span class="k">id</span>: B-1
-        <span class="k">given</span>: a repository with Task-Spec installed
-        <span class="k">when</span>: the user invokes the search command with a query
-        <span class="k">then</span>: a deterministic local result is returned
+        <span class="k">given</span>: a payments report with rows
+        <span class="k">when</span>: the user requests CSV export
+        <span class="k">then</span>: a CSV file with the same rows is produced
     <span class="k">evals</span>:
       - <span class="k">id</span>: eval_1
-        <span class="k">description</span>: the search command contract test passes
+        <span class="k">description</span>: the CSV export contract test passes
           </div>
-          <div class="code code--mac" data-lang="markdown" style="--lang-c:var(--cyan);"><div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">the CLI generated · tasks/T-20260826-add-search-command.md</span></div>---
-<span class="k">id</span>: T-20260826-add-search-command
+          <div class="code code--mac" data-lang="markdown" style="--lang-c:var(--cyan);"><div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">the CLI generated · tasks/T-20260826-payments-csv-export.md</span></div>---
+<span class="k">id</span>: T-20260826-payments-csv-export
 <span class="k">status</span>: <span class="g">ready</span>    <span class="k">format_version</span>: 3    <span class="k">profile</span>: standard
-<span class="k">effort</span>: S             <span class="k">budget_iterations</span>: 15
-<span class="k">touches_paths</span>: [bin/taskspec]
-<span class="k">creates_paths</span>: [tests/test-search-command.sh]
+<span class="k">effort</span>: S    <span class="k">budget_iterations</span>: 15
+<span class="k">touches_paths</span>: [src/reports/payments.py]
+<span class="k">creates_paths</span>: [tests/test_csv_export.py]
 <span class="k">execution_backend</span>: codex
 <span class="k">signed_off</span>: <span class="r">false</span>   <span class="c"># only gate --stamp changes this</span>
 <span class="k">accepted</span>: <span class="r">false</span>     <span class="c"># only accept --stamp changes this</span>
 ---
-<span class="w"># Add a deterministic search command</span>
+<span class="w"># Add CSV export to the payments report</span>
 <span class="c">## Goal · ## Behavior (B-1) · ## Contract · ## Guardrails · ## Exit Check</span>
           </div>
         </div>
@@ -1441,7 +1442,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">The agent proposed, the human approved, the CLI generated and checked — and <b style="color:var(--text);font-style:normal;font-weight:600;">the two fields that matter stayed false</b> until a gate says otherwise.</span>
       </div>
 
-      <aside class="speaker-notes">Story: show the loop from the developer's chair. Read the chat top to bottom. The ask is one sentence in plain words. The skill loads and the agent follows the SKILL.md operating loop: inspect the repo, compose a TaskPlan, preview it with taskspec plan, stop and ask for approval. Point out that TASK_PLAN=OK means reviewable, not approved. The human flips approved: true. Only then does batch materialize a file, and validate and dod run immediately. Right column: the plan the agent wrote is short and declarative; the file the CLI generated carries the full frontmatter, with signed_off and accepted still false. Close on that: creation never grants authority. Transition: who is allowed to flip those two fields? Two gates, and they answer different questions. Sources: SKILL.md operating loop; harness/claude-code/; src/author/taskplan.py; src/author/batch-generate.sh; src/gate/validate-task-spec.sh; src/gate/definition-of-done.sh; docs/examples/task-plan.yaml. Command output on this slide is the real shape from taskspec 3.9.0 (docs/examples/task-plan.yaml), with the date and approval state adjusted to tell the story.</aside>
+      <aside class="speaker-notes">Story: show the loop from the developer's chair. Read the chat top to bottom. The ask is one sentence in plain words. The skill loads and the agent follows the SKILL.md operating loop: inspect the repo, compose a TaskPlan, preview it with taskspec plan, stop and ask for approval. Point out that TASK_PLAN=OK means reviewable, not approved. The human flips approved: true. Only then does batch materialize a file, and validate and dod run immediately. Right column: the plan the agent wrote is short and declarative; the file the CLI generated carries the full frontmatter, with signed_off and accepted still false. Close on that: creation never grants authority. Transition: who is allowed to flip those two fields? Two gates, and they answer different questions. Sources: SKILL.md operating loop; harness/claude-code/; src/author/taskplan.py; src/author/batch-generate.sh; src/gate/validate-task-spec.sh; src/gate/definition-of-done.sh; docs/examples/task-plan.yaml. Command output keeps the real shape from taskspec 3.9.0; the scenario is adapted from the shipped search-command example to a familiar feature (CSV export on a payments report) so a business audience recognizes it.</aside>
     </div>
   </section>
 
