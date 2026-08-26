@@ -1,189 +1,248 @@
-# Tech-spec — Type 01 card settlement
+# Tech-Spec — NorthWind Pay, Type 01 Card Settlement
 
-> Pass 1 Intent draft. Answers `docs/brd-type-01-card-settlement.md`.
-> No product code. No stack. No ADRs. Brief-in, spec-out.
-> An unsigned tech-spec is not a license to code.
+**Answers:** `docs/brd-type-01-card-settlement.md` (Pass 0 Capture, unsigned draft)
+**Owner:** Helena Dias, Partner Integration · **Drafted:** 2026-08-24 · Converge Pass 1 · Intent
+**Altitude:** intent. Falsifiable requirements only — no architecture, no components, no technology.
 
-## 1. The brief, restated
+---
 
-### Problem restated
+## 1. The brief, restated — problem restated
 
-Helena Dias asked to rebuild the five live settlement files **beside**
-Java, not instead of it. Overnight files land; Type 01 is the steel
-thread; types 02–05 exist in the drop; Type 06 is not in the drop.
-Done is accepted, refused, or a **kept source lie**. Trailer **173.44**
-vs rows **173.45** — keep the declaration, refuse the batch. Inbound
-prose does not outrank the contract. First write of the second plant is
-**later**, and is **not SFTP**. Do not pick a stack.
+NorthWind Pay settles overnight card files through a line that already works: a batch lands on
+SFTP, Java 21 parses, validates and sanitizes it, and the results are applied and reconciled in
+the legacy relational store. Helena asked for a **second, independent implementation built
+beside that line** — one that reads the same raw bytes from the drop she mailed, never calls or
+copies the existing Java, and still reaches the same terminal verdict on every batch.
 
-No new facts. That is the BRD in one breath.
+The reason is evidence, not throughput. Today one reader exists, so when a number disagrees
+nobody can tell a **source** defect from a **plant** defect. The drop carries a deliberate case
+of exactly that: a batch whose trailer declares **173.44** while its detail rows add to
+**173.45**. Marina has explained that same cent twice in twelve days. A second reader that
+independently reaches "the source is wrong, and here is the number it declared" ends that
+conversation permanently.
 
-### Scope
+**In scope:** Types `01` through `05`, all five mailed with inbound notes, samples and expected
+outputs; Type `01` is the steel thread. Reading the same raw bytes and producing one of three
+terminal verdicts per batch.
 
-**In**
+**Out of scope, explicitly:** Type `06` — it is not in this drop and is not opened here.
+Replacing, editing, calling, or reading the existing Java line to derive an answer. Editing
+`legacy/`, `contracts/`, `gen/`, or `infra/`. Any architecture, component boundary, storage
+format, or tool decision — those belong to later passes, not to this one.
 
-- Type 01 card settlement as tonight’s steel thread (`valid-minimal`
-  accepted net 173.45 on 2 record; `df-source-001` lie kept).
-- Name types 02–05 as present in the drop, not as tonight’s build.
-- Restate inbound vs judge vs frozen plant vs observation.
-
-**Out of scope**
-
-- Type 06 (0 file of type 06 in this drop).
-- Replacing Java or editing the live line.
-- Picking a stack, writing ADRs, cutting seams, creating `modern/`.
-- Rewriting 173.44 to 173.45.
+---
 
 ## 2. Requirements
 
-Falsifiable. Must / should / could / wont. Traced to BRD KPIs.
+Priority: **must** = the outcome fails without it. **should** = expected, negotiable at plan
+altitude. **wont** = explicitly excluded at this altitude (`W-n`).
 
-### Must
+### Correctness of the accepted path
 
-- **R-1 — Keep the lie.** On Type 01 `df-source-001` / batch
-  `B202607230000004`, the declared trailer net stays **173.44** (BRL)
-  and the independently summed details stay **173.45** (BRL). The
-  second plant must **not** write 173.45 into the trailer. Current:
-  source declares 173.44 vs rows 173.45 → Target: declaration kept,
-  batch refused. Input: that one batch, 2 record. BRD KPI-2.
-- **R-2 — Refuse a control mismatch.** When declared net ≠ computed
-  net, the outcome is `SOURCE_CONTROL_TOTAL_MISMATCH`, status
-  quarantined, **0** sanitized row, **0** business mutation, quarantine
-  scope = that 1 batch, unrelated batches continue. Current: Marina
-  will not send a “corrected” file → Target: refuse, do not patch.
-  Comparator: declared amount **less than** computed amount by 0.01
-  BRL on this fixture. BRD KPI-2.
-- **R-3 — Type 01 steel thread.** `valid-minimal` is accepted: net
-  **173.45** BRL, **2 record**, amount delta **0.00**, status MATCHED,
-  privacy holds, tolerances are **0**. Current: drop already names
-  this happy path → Target: any later plant matches that oracle, not
-  a rewritten trailer. BRD KPI-1.
-- **R-4 — Three done outcomes.** Every Type 01 sample in the drop ends
-  in exactly 1 of: accepted (sanitized + recon match oracle), refused
-  (stable code, 0 CSV row, 0 business row, peers continue), or kept
-  source lie (classified, never repaired). At least 1 sample of each
-  of those three roles exists in the drop (`valid-minimal`,
-  `malformed`, `df-source-001`).
-- **R-5 — Inbound does not outrank the judge.** `spec/` is mail.
-  `contracts/` is the judge. When Marina says “settlement total” and
-  the layout says “net amount,” the contract still wins. **0** edits
-  of `contracts/` to match a meeting noun.
-- **R-6 — Frozen plant.** Nothing in `legacy/`, `contracts/`, `gen/`,
-  or `infra/` is edited to make a later gate pass. At least 4 frozen
-  trees named. Java is not replaced. The second plant does not import
-  Java to invent an answer.
-- **R-7 — First write of the second plant is later, and is not SFTP.**
-  Current: 0 files of a second plant on this tree tonight → Target:
-  first write happens after Consensus, and that first write is **not**
-  an SFTP drop. BRD KPI-3.
-- **R-8 — Types in the drop.** Exactly 5 live types are in this drop
-  (`01`–`05`). Type 01 is the steel thread (1 type tonight). Types
-  02–05 exist (4 types later). Type 06 count in this drop = **0**.
+- **R-1 (must)** — For every accepted sample, the independently computed net amount must equal
+  the expected net amount with an absolute difference of exactly `0.00`, and the record count
+  must match exactly. Tolerance is `0` and stays `0`. Reference: `valid-minimal` = `173.45`
+  over 2 records; `negative-overpunch` = `-12.34`.
+- **R-2 (must)** — Money must be carried as exact decimal end to end. Binary floating point is
+  excluded; a value that cannot round-trip to the same 2 decimal places fails the requirement.
+- **R-3 (must)** — All 5 mailed Type `01` samples must reach their declared expected outcome:
+  3 accepted, 1 grammar refusal, 1 source refusal. Fewer than 5 of 5 is a failed type.
 
-### Should
+### The lie, and the refusal
 
-- **R-9 — Same shape of lie on 02–05.** Keep each type’s declared
-  number; refuse the batch. Not tonight’s eval; at least 1 lie sample
-  per later type is already in the drop (BRD pack 08). Could wait
-  until that night.
+- **R-4 (must)** — Exactly `0` declared control values may be rewritten. When a batch's declared
+  control total disagrees with the total computed from its own detail rows, the implementation
+  **must keep the declared value unchanged** and must
+  not write the computed value into any field that represents the source's declaration. For
+  `df-source-001`: declared stays `173.44`; computed is reported as `173.45`; the difference of
+  `0.01` is reported, never closed.
+- **R-5 (must)** — That batch must be **refused**, not accepted with a correction. Expected
+  finding `SOURCE_CONTROL_TOTAL_MISMATCH`, attributed to the source system in its role as
+  system of record. Exactly 0 sanitized output rows and 0 business-state mutations may result
+  from a refused batch.
+- **R-6 (must)** — A refusal must carry a stable code drawn from the approved vocabulary. The
+  code for a given defect must not vary between 2 runs of the same input.
+- **R-7 (must)** — Refusal must be **batch-scoped**: when 1 batch is refused, every unrelated
+  batch in the same cycle must continue to completion. A refusal that halts more than the
+  1 offending batch fails this requirement.
+- **R-8 (must)** — A grammar defect and a source defect must be distinguishable in the output.
+  `malformed` yields `INVALID_OVERPUNCH`; `df-source-001` yields
+  `SOURCE_CONTROL_TOTAL_MISMATCH`. Collapsing these 2 into 1 code fails the requirement.
+- **R-9 (should)** — The same keep-the-declaration rule should hold unchanged for the other
+  4 live types, whose lies are 173.44/173.45, 198.49/198.50, 999.99/1000.00, and 0.99/1.00.
 
-### Could
+### Independence
 
-- **R-10 — Ops vocabulary note.** Record that trailer bytes 16–30 are
-  “net amount” in the layout and “settlement total” in ops mail, as
-  an owned open question — not as a silent default.
+- **R-10 (must)** — The implementation must derive its answer from the raw bytes and the signed
+  contract alone. It must not call, import, decompile, or transcribe the existing Java line,
+  and must not re-use the existing stored routines to produce its answer. At most `0` of its
+  outputs may depend on the legacy line executing.
+- **R-11 (must)** — Where the 2 implementations disagree, both results must be preserved and
+  reported, with at most `0` of them silently overwritten by the other.
 
-### Wont
+### Privacy
 
-- **W-1 — No Type 06.** Do not open Type 06. **0** Type 06 packs in
-  this drop. A sixth file arrives as its own pack later.
-- **W-2 — No stack tonight.** Do not pick a warehouse engine, a
-  transform tool, a lakehouse, or any serving layer. Stack is not an
-  answer at Intent. Owner preference in a 2026-06-09 sketch is mail;
-  revisit only after Consensus.
-- **W-3 — No ADRs, no seams, no `modern/`.** Pass 2–8 are not tonight.
-  Do not cut seams. Do not create `modern/`.
-- **W-4 — No repair of 173.44.** Do not “correct” the trailer.
+- **R-12 (must)** — Restricted identifiers must appear **0 times in the clear** downstream.
+  Card numbers, national identifiers, account numbers and holder names may exist in the raw
+  file, and no more than `0` of them may appear unprotected in
+  any downstream output, log, evidence record, or reporting surface, unless the type policy
+  names an approved transform.
+- **R-13 (must)** — Privacy must fail closed: if a required transform key is unavailable, the
+  batch must halt with 0 outputs written rather than proceed unprotected. A single leak stalls
+  the type; there is no demo exception.
 
-### Success metrics
+### Explicit non-requirements at this altitude
 
-Traced to BRD KPIs. Current → target.
+- **W-1 (wont)** — No storage format, engine, framework, library, or product is chosen here.
+  0 technologies are named in this spec by design; that decision belongs to a later pass.
+- **W-2 (wont)** — No component boundaries, no seams, no swimlanes, no interfaces. 0 of them
+  are cut at intent altitude.
+- **W-3 (wont)** — No architecture decision records. 0 are written here.
+- **W-4 (wont)** — Type `06` is not specified, not sampled, and not designed for. It appears
+  0 times as a requirement.
 
-| Metric | Current | Target | BRD KPI |
-|---|---|---|---|
-| Steel thread named | Type 01 `valid-minimal` net 173.45, 2 record, MATCHED | later plant matches that oracle without rewriting the source | KPI-1 |
-| Lie kept | trailer 173.44 vs rows 173.45 | declaration kept; batch refused; 0 sanitized row | KPI-2 |
-| Altitude | unsigned BRD + this draft | 0 product files tonight; first second-plant write later, not SFTP | KPI-3 |
+## Success metrics (current → target, traced to BRD KPIs)
 
-### Data named
+| # | Metric | Current | Target | Traces to |
+|---|---|---|---|---|
+| M-1 | Live types with an independent second reader | 0 of 5 | 5 of 5 | K1 |
+| M-2 | Source lies kept and refused, never repaired | 0 kept independently | 5 of 5 kept, 0 repairs | K1 |
+| M-3 | Accepted samples matching expected output, zero tolerance | Java's word only | 100% match, delta `0.00` | K2 |
+| M-4 | Restricted values surviving sanitize | unverified outside Java | 0 occurrences | K3 |
+| M-5 | Times the same cent must be re-explained by hand | 2 in 12 days | 0 — the refusal cites itself | K4 |
 
-The **source records** the engagement acts on are overnight Type 01
-card-settlement files (`CRD_SETTLE01`, `.dat`, one header, detail
-records, one trailer), plus the four other live types in the drop
-(instant payment, payment slip, TED, merchant fees) as named later
-threads. Inputs the second plant **reads** are those raw files and
-their checksums — the same bytes the live line already reads — not
-Java internals. Type 06 is not among the source records in this drop.
+## Data named (problem level)
+
+The records this work acts on, named at problem level and not as a schema:
+
+- **The raw settlement file** — a fixed-width, single-byte-encoded file carrying a header, detail
+  records, and a trailer, with signed amounts encoded in the final byte of the amount field.
+- **The declared controls** — the source's own record count and net amount, carried in the
+  trailer. These are the source's claim about itself and are the subject of R-4.
+- **The detail records** — the individual settlement rows whose independently computed sum is
+  compared against the declared control.
+- **The source manifest and checksum** — what the sender says it sent, and the hash that proves
+  the bytes did not change in transit.
+- **The expected outputs** — per-sample sanitized rows, reconciliation, and refusal findings
+  that constitute the oracle for this type.
+- **Restricted identifiers** — present in the raw records, governed by R-12 and R-13.
+
+---
 
 ## 3. Truth roles on this tree
 
-| Role | On this tree |
-|---|---|
-| **Inbound** | `spec/` — mail, meetings, layouts, samples. Contradictions allowed. `cover.md` is mail, not the judge. |
-| **Judge / source of correctness** | `contracts/` — signed layouts and oracles. Outranks inbound prose and outranks code. |
-| **Frozen plant** | `legacy/`, `gen/`, `infra/` — and `contracts/` with them. Do not write. Java stays the live privacy boundary. |
-| **Source of observation** | Immutable SFTP bytes, hashes, manifests, database observations, and per-run `evidence/`. Gitignored; open in the terminal. MATCHED or it did not happen. |
-| **System of record** | The simulated source owns its raw file and declared controls; committed applied tables own applied legacy state. A source of record may still emit 173.44 vs 173.45. |
-| **Executable Git contract** | Versioned YAML, schemas, fixtures, tests — the currently approved expectation. No implementation silently redefines it. |
+Four roles, and no requirement may blur them.
 
-Inbound vs judge vs frozen plant must all three be named. They are.
+| Role | Who holds it here | Consequence |
+|---|---|---|
+| **System of record** | The source, for its raw file and declared controls; the committed legacy tables, for applied state | A source can be the system of record **and** emit a defective batch — R-4 exists because of this |
+| **Source of observation** | Immutable inbound bytes, hashes, manifests, and the per-run evidence packet | Shows what happened; never decides what should have happened |
+| **Source of correctness** | The independently reviewed expected outputs and governed business rules | Decides what should happen; no implementation may redefine its own expected answer |
+| **Executable contract** | The versioned schemas, canonical fixtures, and tests | Encodes the currently approved expectation; changes by version, never by edit |
+
+Applied to the folders on this tree:
+
+- **Inbound — `spec/`.** How the request arrived: mail, meeting notes, layout documents, dated
+  routines, policies. Contradictions here are allowed and deliberate. **Inbound prose does not
+  outrank the judge.** The cover letter is mail. A meeting note is mail.
+- **Judge — `contracts/`.** The source of correctness, signed. It outranks the code: where an
+  implementation and the contract disagree, the implementation is the bug. A meeting using the
+  wrong noun is not a reason to edit it.
+- **Frozen plant — `legacy/`, `gen/`, `infra/`** (and `contracts/` itself). Not editable to make
+  any gate pass. If a gate cannot pass without changing something in there, that is a hard stop
+  to classify and escalate, not a task.
+- **Observation — `evidence/`.** The per-run packet. It records what happened; it never
+  adjudicates, and it is not committed truth.
+
+The live vocabulary disagreement in the drop belongs here: Ops has said "settlement total" for
+six years, while the mailed layout describes the same bytes differently. That is a question to
+escalate to its owner, recorded below — **not** a licence to rename anything in the judge.
+
+---
 
 ## 4. What the second plant must not do
 
-- **Must not** replace Java or call Java to produce the second answer.
-- **Must not** edit `legacy/`, `contracts/`, `gen/`, or `infra/` to go
-  green.
-- **Must not** repair 173.44. Keep the declaration. Refuse the batch.
-- **Must not** treat `spec/` as the contract.
-- **Must not** write its first artifact as an SFTP drop. The first
-  write of the second plant is **later**, and is **not SFTP**.
-- **Must not** exist on the tree tonight. Do not create `modern/`.
-- **Must not** open Type 06.
-- **Must not** pick a stack at Intent (no warehouse, no transform
-  tool, no lakehouse named as a decision).
+These are the boundaries the brief bought, restated as constraints on the work — every one of
+them out of scope for the implementation, permanently or for now.
 
-Helena is not sending a parser or permission to edit the live line.
-Rafael does not want the new team reading Java “to go faster.”
+1. **It must not repair the source.** `173.44` stays `173.44`. Computing `173.45` and reporting
+   the `0.01` difference is the deliverable; closing that difference destroys the only evidence
+   Marina has. This does not expire at any later pass.
+2. **It must not write to SFTP, and its first write comes later.** The existing line's first
+   write is a sanitized file on SFTP. **The second plant's first write is its own, it is not
+   SFTP, and it does not happen tonight** — it happens only after the owner signs the hardened
+   plans at the Consensus barrier. Writing to the existing line's destination is a failed day.
+3. **It must not read Java for the answer.** Not to go faster, not to break a tie. It reads the
+   bytes and the contract. A second reader that consults the first is not a second reader.
+4. **It must not re-use the legacy routines** to invent an answer it could not derive itself.
+5. **It must not edit the frozen plant** — `legacy/`, `contracts/`, `gen/`, `infra/` — to turn
+   any gate green.
+6. **It must not let a restricted value through**, and must fail closed rather than proceed
+   without a required transform.
+7. **It must not exist yet.** No implementation directory is created at this altitude; the
+   first write is after Consensus.
+8. **It must not open Type `06`.** Not in scope, not in this drop, not designed for here.
+9. **It must not pick its own tools in this document.** The stack is decided later, on evidence,
+   by the pass that owns that decision.
+
+---
 
 ## 5. Open questions
 
-Open assumptions. Each has an owner. No silent defaults. Stack is not
-an answer. Dated 2026-08-25.
+Carried from the brief, each owned and dated. None blocks this spec; each blocks the work it
+names.
 
-- question: "When is the second plant’s first write, and what artifact
-  is it — later, and not SFTP, but which night?"
-  owner: Helena Dias
-  default (not a decision): after Consensus; not tonight
-  blocks: Pass 2 calendar only
-- question: "Which word does reporting speak for trailer bytes 16–30 —
-  layout ‘net amount’ or ops ‘settlement total’ — without letting
-  inbound outrank `contracts/`?"
+### Open assumptions & gap register
+
+- id: GAP-001
+  question: "Is the reporting noun 'settlement total' or 'net'? Ops has said one for six years; the mailed layout says another."
+  type: definition
+  severity: minor
   owner: Marina Alves
-  default (not a decision): layout noun for the field; ops noun may
-  appear in prose; the judge is still `contracts/`
-  blocks: vocabulary in later ADRs, not tonight’s code
-- question: "The 2026-06-09 sync sketched a second reader and a
-  medallion path. That is mail. What, if anything, is owner preference
-  for Pass 3 — recorded as preference, not as Intent?"
-  owner: Helena Dias
-  default (not a decision): **no stack at Pass 1**; revisit only after
-  Consensus
-  blocks: nothing tonight
+  raised: 2026-07-02
+  blocks: naming any reporting surface for this type
+  resolution: "Deferred to the owner. This spec deliberately avoids fixing the noun; R-4 and R-5 are stated in terms of declared versus computed values, which hold under either name."
 
-No blocker gap is left `pending`. None of these block tonight’s
-altitude. Pass 2 must not consume this draft as canonical.
+- id: GAP-002
+  question: "Who owns Type 05 rounding language — the ops email or the fee schedule?"
+  type: scope
+  severity: minor
+  owner: Marina Alves
+  raised: 2026-06-02
+  blocks: any Type 05 work; raised P1 at kick-off
+  resolution: "Out of scope for Type 01. Must be answered by its owner before Type 05 requirements are written; it does not affect R-1 through R-13."
+
+- id: GAP-003
+  question: "Do the unused columns on the mailed table dumps carry forward? The sender said most were for a report that died."
+  type: data
+  severity: minor
+  owner: Rafael Costa
+  raised: 2026-06-09
+  blocks: any served model, whenever one is designed
+  resolution: "Deferred. No requirement here depends on those columns; the question returns when a serving surface is specified."
+
+- id: GAP-004
+  question: "Who signs this spec canonical, and when?"
+  type: scope
+  severity: minor
+  owner: Helena Dias
+  raised: 2026-08-24
+  blocks: Pass 2 consuming this spec
+  resolution: "Named: Helena Dias is the decider of record per the brief's stakeholder table. The verdict below stays pending until she signs; no later pass may proceed on the draft."
+
+**Assumption carried, not verified here:** that the expected outputs mailed with the drop are
+themselves correct. This spec treats them as the oracle. If an expected output is ever shown to
+be wrong, that is a contract-versioning event owned by the contract, not a licence for any
+implementation to adjust its own answer.
+
+---
 
 ## Sign-off
 
-- **Owner/decider:** Helena Dias, Partner Integration — verdict: pending
-- **Date:** (unset — draft; owner writes canonical + ISO date after review)
+- **Owner/decider:** Helena Dias, Partner Integration — verdict: _pending_
+- **Date:** —
+
+A draft validates structure and authorizes nothing. This spec is not canonical, and **Pass 2
+must not consume it** — an unsigned tech-spec is not a licence to code. Structure, decomposition
+and consensus are later passes; the barrier is still ahead. Drafted by the agent, gated by the
+referee, signed by the owner.

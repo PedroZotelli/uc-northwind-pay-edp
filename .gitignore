@@ -20,5 +20,6 @@ ontology/output/
 # agent tooling (local, not repo content)
 .agents/
 .claude/
+.grok/
 skills-lock.json
 *.egg-info/

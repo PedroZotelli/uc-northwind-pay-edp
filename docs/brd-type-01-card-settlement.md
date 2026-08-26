@@ -1,316 +1,259 @@
-# BRD — Type 01 card settlement (Helena’s drop)
+# BRD — NorthWind Pay, Type 01 Card Settlement
 
-> Pass 0 Capture draft. Owner’s voice. No product code. No stack.
-> Facts from the Second Brain (packs 00, 01, 02, 03, 08) and `spec/` inbound.
-> This is mail compiled into a brief. It is not `contracts/`.
+**Owner:** Helena Dias, Partner Integration · **Drafted:** 2026-08-24 · Converge Pass 0 · Capture
+**Altitude:** idea → brief. No requirements, no solution shape, no technology.
 
-## 1. Who asked, and what is out of scope
-
-Helena Dias, Partner Integration, asked on 2026-06-24 to rebuild the five
-live settlement files **beside** the current Java line. Do not replace
-Java. Do not “fix” source totals.
-
-*(Second Brain pack 01 / `spec/estate/cover.md`; kick-off
-`spec/estate/meetings/2026-06-02-kick-off.md` — D1 Java is not replaced.)*
-
-**Out of scope for this drop**
-
-- Type `06`. It is not in the share. If a sixth file appears, it arrives
-  as its own pack. *(cover.md; `spec/README.md`; Second Brain pack 00,
-  02.)*
-- A parser, a lakehouse model, or permission to edit the live line.
-  Helena is not sending those. *(cover.md.)*
-- Rewriting source totals so a trailer matches the rows. Marina: keep
-  their number. *(cover.md; `spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md`.)*
-
-Helena is the decider on this brief.
-
-## 2. What lands
-
-Overnight files, not an API. A batch lands on SFTP. Type `01` card
-settlement is **tonight’s steel thread**. Types `02` instant payment
-(PIX), `03` payment slip, `04` TED, and `05` merchant fees **exist in
-this drop** so later nights can ask them. They are not tonight’s build.
-
-*(Second Brain packs 00 and 02; `spec/README.md`; cover.md five types;
-`spec/type-01-card-settlement/README.md`.)*
-
-Type `01` arrives as `CRD_SETTLE01`, `.dat`, ISO-8859-1 fixed width,
-COBOL overpunch. Filename shape
-`NW_CARD_SETTLEMENT_YYYYMMDD_B###############.dat`. One header, details,
-one trailer. *(Second Brain pack 03 /
-`spec/type-01-card-settlement/inbound/card-settlement-layout-rev3.md`.)*
-
-Five Type `01` samples sit next to checksums. If a sidecar is missing,
-stop. *(Helena mail `spec/estate/mail/2026-06-24-share-folder-drop.md`;
-type pack `samples/`.)*
-
-| Sample | Role | What the pack already says |
-|---|---|---|
-| `valid-minimal` | Happy | accepted · net `173.45` (measured — `spec/type-01-card-settlement/README.md`) |
-| `valid-boundary` | Boundary | accepted |
-| `negative-overpunch` | Type edge | accepted · net `-12.34` (measured — same README) |
-| `malformed` | Grammar | `INVALID_OVERPUNCH` |
-| `df-source-001` | Source lie | declared `173.44` · computed `173.45` (measured — same README) |
-
-The first write of the **second** plant is **later**. It is not tonight.
-Do not pick a stack. Helena did not send a lakehouse. The 2026-06-09
-sync sketched a second reader of the same raw bytes; that sketch is
-mail, not a technology decision for Capture.
-
-*(cover.md “not sending a parser, a lakehouse model”;
-`spec/estate/meetings/2026-06-09-file-decomposition.md`; `spec/README.md`
-Day 1: no parser, no `modern/`.)*
-
-## 3. What “done” means
-
-Done is three terminal outcomes, not a green parser. Helena:
-
-- **Accepted sample** — sanitized rows and reconciliation match the
-  oracle, privacy holds, tolerances are zero.
-- **Refusal** — stable code, no CSV, no business rows, peers continue.
-- **Source lie** — classified as a source defect, **never repaired**.
-  Keep the declaration. Compute the truth. Refuse the batch.
-
-*(cover.md “Done means”; Second Brain pack 01.)*
-
-Type `01` happy path the drop already names: `valid-minimal`, net
-`173.45` (measured — type README; inbound expected recon
-`spec/type-01-card-settlement/expected/valid-minimal.reconciliation.yaml`
-status `MATCHED`, `amount_delta` `0.00`).
-
-Marina: quarantine is batch-scoped. One bad batch does not stop the
-line. *(kick-off D3; type expected finding `quarantine_scope: batch`.)*
-
-## 4. The lie
-
-The source **can** lie. Keep the declaration. Refuse the batch. Do not
-patch it.
-
-Type `01` steel thread of the lie: trailer field (layout bytes 16–30,
-**net amount** in the PDF; Marina still says **settlement total**)
-declares **173.44** while the details add to **173.45**.
-
-- Declared `173.44` (measured — Marina mail 2026-07-14; type README
-  `df-source-001`; expected finding
-  `spec/type-01-card-settlement/expected/df-source-001.finding.yaml`
-  `declared_net_amount: "173.44"`).
-- Computed `173.45` (measured — same three sources
-  `computed_net_amount: "173.45"`).
-- Finding the drop already names: `SOURCE_CONTROL_TOTAL_MISMATCH`.
-- Batch Marina named: `B202607230000004` (measured — mail 2026-07-14;
-  expected finding `batch_id: B202607230000004`).
-- No CSV. No business mutation. Peers continue.
-
-Marina, 2026-07-14: she is not sending another “corrected” file. If the
-new plant quietly writes `173.45` into the trailer, ops has nothing to
-show the source. Keep their number. Refuse the batch. That is the whole
-point.
-
-*(Second Brain pack 08; `spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md`;
-`spec/type-01-card-settlement/inbound/2026-07-02-settlement-total.md`;
-layout rev 3 trailer 16–30.)*
-
-Same **shape** on the other live types in this drop (keep their number,
-refuse):
-
-| Type | Declares | Rows add to |
-|---|---|---|
-| `02` PIX | **173.44** | **173.45** |
-| `03` slips | **198.49** | **198.50** |
-| `04` TED | **999.99** | **1000.00** |
-| `05` fees | **0.99** assessed | **1.00** |
-
-(measured — Second Brain pack 08 / Marina mail.) Those types exist; they
-are not tonight’s steel thread.
-
-Do not rewrite `173.44` to `173.45`.
-
-## 5. Inbound vs judge
-
-`spec/` is how the customer **arrives** — mail, meetings, policies,
-layouts, samples. Messy on purpose. Contradictions are allowed in
-inbound prose. `cover.md` is mail. It is not the contract.
-
-`contracts/` is the **judge** once installed — signed layouts and
-oracles. When inbound and the contract disagree, inbound does **not**
-outrank the contract. We do not “fix” `contracts/` because a meeting
-used the wrong noun (Marina’s “settlement total” vs layout “net
-amount”).
-
-*( `spec/README.md` “This folder vs the brain vs contracts/”; Second
-Brain pack 00: mail is not the judge; pack 03 walk-through 2026-06-30
-open question on the noun.)*
-
-The Second Brain is queryable memory of inbound prose. It does not
-contain `contracts/` or Java. Capture used it for owner voice and the
-lie in prose. The judge remains `contracts/`.
-
-## 6. What we will not do tonight
-
-Tonight is Pass 0 Capture. Human-led. No product code.
-
-We will not:
-
-- Pick DuckDB, dbt, a lakehouse, Parquet, or any stack.
-- Write ADRs (Pass 2).
-- Cut seams (Pass 3).
-- Run Consensus, Task-Spec, Bind, or the Loop (Passes 4–8).
-- Create `modern/`.
-- Open Type `06`.
-- Repair `173.44`.
-- Replace Java or edit the live line.
-- Treat this unsigned draft as a license to code.
-
-The first write of the second plant is **later**, and it is **not
-SFTP**. Do not pick a stack.
+> **The six headings the room must be able to restate**, and where each one lives:
+> 1. Who asked, and what is out of scope → *Problem* · *Scope*
+> 2. What lands → *Problem*
+> 3. What "done" means → *Definition of success*
+> 4. The lie → *Problem*
+> 5. Inbound vs judge → *Constraints*
+> 6. What we will not do tonight → *Scope*
 
 ---
 
 ## Executive summary
 
-Helena asked to rebuild five settlement files beside Java, not instead
-of it. Tonight’s steel thread is Type 01; 02–05 exist; 06 is not in the
-drop. Done is accepted, refused, or a kept source lie. Trailer 173.44
-vs rows 173.45 — keep the lie. First modern write is later; no stack.
+We run five live settlement file types through SFTP → Java 21 → PostgreSQL. The same one-cent
+trailer mismatch — declared 173.44 against details of 173.45 — has been re-explained twice in
+twelve days, because Java is our only reader and no second opinion exists. I want an
+independent implementation built beside that line, reading our drop. Type 01 first.
 
 ## Problem
 
-Partners still fire overnight files at a live Java line and then argue
-about a one-cent trailer. Helena’s 2026-06-24 drop (measured) asks for a
-second plant that reads **this folder**, not the Java, and still reaches
-the same terminal outcomes. Marina will not send another “corrected”
-file: card settlement batch `B202607230000004` (measured) still
-declares **173.44** (measured) while details add to **173.45**
-(measured). If a new plant quietly writes 173.45 (measured) into the
-trailer, ops has nothing to show the source.
+### 1. Who asked, and what is out of scope
 
-The pain is not “Java is old.” The pain is a source-owned lie that must
-stay visible, plus a drop that is mail rather than a parser.
-Type 01 (measured) is the steel thread; types 02–05 (measured) share
-the same one-cent shape in this drop. Type 06 (measured) is not here.
+I asked. We already settle overnight through SFTP → Java 21 → sanitized CSV → PostgreSQL, and I
+want a **second, independent implementation built beside that line** — one that reads the drop
+we mailed, not our Java, and still reaches the same terminal outcomes (`spec/estate/cover.md`).
 
-**If we build nothing:** the live line keeps settling, and the
-modernization team still has no owner brief that names the lie, the
-judge, and the fence. Capture would have failed its only job. That cost
-is not tolerable for tonight; this brief exists instead of a no-go
-record.
+I am not asking you to replace Java. Rafael's decision D1 at kick-off: Java is not replaced,
+the live line stays the oracle (`spec/estate/meetings/2026-06-02-kick-off.md`). I am not asking
+you to fix source totals — Marina's D3: source totals are never rewritten, the lie is evidence.
+And Type 06 is not in this drop — D2: five types only; a sixth file is a later pack.
+
+We are not sending a parser, a lakehouse model, or permission to edit the live line (`cover.md`).
+
+**The pain.** The same cent has been explained twice in twelve days: settlement total declared
+**173.44** against details adding to **173.45** — on 2026-07-02, and again on 2026-07-14, where
+Marina wrote that she is not sending another "corrected" file **(measured — two dated mails,
+same cent:** `spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md`,
+`spec/type-01-card-settlement/inbound/2026-07-02-settlement-total.md`**)**. The same shape of
+lie sits on all five live types — 5 of 5 **(measured** — `brain/notebooklm/08-the-lie.md`**)**.
+Because Java is the only reader, a source defect and a plant defect look identical from here.
+
+**Do-nothing answer.** If we build nothing, the line still settles — nothing breaks tonight.
+But Marina re-sends the same explanation every few weeks, and the first genuine plant defect
+will be indistinguishable from a source defect. Inaction is not catastrophic; it is corrosive.
+That is why this is a brief and not a no-go record.
+
+### 2. What lands
+
+Money does not arrive as an API call. A batch lands on SFTP (`README.md`).
+
+Tonight's steel thread is **Type 01, card settlement** — `CRD_SETTLE01`, a `.dat` file in
+ISO-8859-1 fixed width with COBOL overpunch (`spec/type-01-card-settlement/README.md`). The
+canonical run is batch `B202607230000001`, net **173.45**, reaching `MATCHED` **(measured** —
+`evidence/B202607230000001/reconciliation.json`, run tonight**)**.
+
+Type 01 mailed five samples, each with a job:
+
+| Sample | Role | Expected |
+|---|---|---|
+| `valid-minimal` | happy | accepted · net `173.45` |
+| `valid-boundary` | boundary | accepted |
+| `negative-overpunch` | type edge | accepted · net `-12.34` |
+| `malformed` | grammar | `INVALID_OVERPUNCH` |
+| `df-source-001` | source lie | `SOURCE_CONTROL_TOTAL_MISMATCH` · declared `173.44` · computed `173.45` |
+
+The other four live types exist and are mailed — 02 instant payment, 03 payment slip, 04 TED,
+05 merchant fees (`cover.md`, `spec/README.md`). They are not tonight's thread, but they are in
+the drop. **Type 06 is not here** — not a folder, not an empty folder, not a hint.
+
+The first write of the second plant comes later, and it is not SFTP (`README.md`). That write
+is not tonight's business.
+
+### 4. The lie
+
+Every live type ships one source-owned lie, and keeping it is the point of the engagement.
+
+Type 01, sample `df-source-001`, batch `B202607230000004`: the trailer declares **173.44**; the
+detail rows add to **173.45**. Detail count agrees at 2 on both sides — only the money
+disagrees. Expected finding `SOURCE_CONTROL_TOTAL_MISMATCH`, quarantined at java-validation,
+source system role `system_of_record`, `csv_produced: false`,
+`postgres_business_mutation: false` **(measured** —
+`spec/type-01-card-settlement/expected/df-source-001.finding.yaml`**)**.
+
+The same shape runs through the drop **(measured** — `brain/notebooklm/08-the-lie.md`**)**:
+
+| Type | Sample | Declares | Rows add to | Finding |
+|---|---|---|---|---|
+| `01` card | `df-source-001` | 173.44 | 173.45 | `SOURCE_CONTROL_TOTAL_MISMATCH` |
+| `02` PIX | `df-source-002` | 173.44 | 173.45 | `SOURCE_CONTROL_NET_MISMATCH` |
+| `03` slips | `df-source-003` | 198.49 | 198.50 | `SOURCE_CONTROL_NET_MISMATCH` |
+| `04` TED | `df-source-004` | 999.99 | 1000.00 | `SOURCE_CONTROL_NET_MISMATCH` |
+| `05` fees | `df-source-005` | 0.99 | 1.00 | assessed-fee lie |
+
+**Keep the declaration. Compute the truth. Refuse the batch.** In Marina's words: if your new
+plant quietly writes 173.45 into the trailer, we will have nothing to show the source — keep
+their number, refuse the batch, that is the whole point
+(`spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md`).
+
+A source system can be our system of record and still emit a defective batch. Naming that
+mismatch is the deliverable. Silently correcting it destroys the only evidence we have.
+**Do not "fix" 173.44.**
 
 ## Goals & KPIs
 
-- **KPI-1 — steel thread named.** Type 01 `valid-minimal` already
-  states accepted net `173.45` (measured — type README) as the happy
-  path the rest of the week can point at.
-- **KPI-2 — the lie kept.** `df-source-001` stays declared `173.44`
-  vs computed `173.45` (measured) and is refused, not patched.
-- **KPI-3 — altitude held.** Tonight ends at a BRD + later a tech-spec.
-  Zero product files. First write of the second plant → later (desired).
+| # | KPI, in my terms | Current | Desired |
+|---|---|---|---|
+| K1 | Source lies kept and refused, never repaired | 0 of 5 types have an independent second reader | 5 of 5 classified as source defects, 0 repairs |
+| K2 | Accepted batches matching the oracle, zero tolerance | Java's word only | Every accepted sample matches sanitized rows + reconciliation |
+| K3 | Restricted values surviving sanitize | unverified outside Java | 0, in any CSV, Parquet, log, evidence packet, ticket, or warehouse table |
+| K4 | Times Marina re-explains the same cent | twice in twelve days (measured) | 0 — the refusal cites itself |
 
 ## Scope
 
-**In:**
-- Compile Helena’s Type 01 ask into this BRD (Pass 0), from the Second
-  Brain and `spec/` inbound.
-- Name types 02–05 as in-the-drop, not tonight’s steel thread.
-- Name the Type 01 lie (173.44 vs 173.45) and the three done outcomes:
-  accepted, refused, kept source lie.
+**In:** Types `01`–`05`, all five mailed with inbound, samples, and expected outputs. Type `01`
+is tonight's steel thread.
 
-**Out:**
-- Type 06.
-- Replacing Java or editing the live line.
-- Picking a stack, writing ADRs, cutting seams, creating `modern/`.
-- Rewriting a source trailer to go green.
+**In:** An independent reader of the same raw bytes, reaching accepted / refused / kept-lie.
 
-**Undecided:**
-- When the second plant’s first write happens (after Consensus; not
-  tonight). Owned below.
+**Out:** Type `06` — not in this drop. It arrives later as its own pack with its own expected
+outputs.
+
+**Out:** Replacing, editing, or calling the live Java line; changing our SFTP roles; editing
+`legacy/`, `contracts/`, `gen/`, or `infra/`.
+
+**Out — 6. What we will not do tonight.** Tonight is Pass 0 Capture and Pass 1 Intent, human-led,
+no product code:
+
+- **No stack.** No DuckDB, no dbt, no lakehouse, no warehouse, no library.
+- **No ADRs** — Pass 2 Structure is tomorrow.
+- **No seams, no swimlanes, no legs** — Pass 3 Decompose is tomorrow.
+- **No Consensus** — Pass 4 is the barrier, and an unsigned tech-spec is not a licence to code.
+- **No `modern/`** — it must not exist today; its first write comes after Consensus is signed.
+- **No repair of 173.44** — not tonight, not ever.
+- **No Type `06`.**
+
+**Undecided:** the reporting noun — "settlement total" versus "net" (see Open questions, Q3).
+**Undecided:** whether the dead columns on Rafael's table dumps carry forward (Q2).
 
 ## Definition of success
 
-Helena can point at this brief and say: five types named, 06 out, Type
-01 is the thread, done is accepted / refused / kept lie, 173.44 vs
-173.45 is kept, inbound is not the judge, and nobody picked a stack
-tonight.
+### 3. What "done" means
+
+In three months I point at a batch and say: the second plant read the same bytes and reached
+the same verdict, without anyone opening Java. Done has exactly **three** shapes, and all
+three are successes:
+
+1. **Accepted.** Sanitized rows and reconciliation match the oracle, privacy holds, tolerances
+   are zero (`cover.md`).
+2. **Refused.** A stable code, no CSV, no business rows, and peers continue (`cover.md`).
+   Quarantine is batch-scoped — Marina's D3 at the decomposition sync — so one bad batch never
+   stops the line (`spec/estate/meetings/2026-06-09-file-decomposition.md`).
+3. **A kept source lie.** Classified as a source defect, never repaired (`cover.md`).
+
+A refusal is not a failure. `df-source-001` quarantining with no CSV and no business mutation,
+while unrelated batches continue, is a correct night.
 
 ## Stakeholders
 
-- **Helena Dias, Partner Integration — owner and decider.** Asked for
-  the rebuild beside Java. Breaks ties on this brief.
-- **Marina Alves, Settlement Ops** — feels the trailer; will not send a
-  corrected file; owns “do not fix totals.”
-- **Rafael Costa, Legacy Platform** — live Java line; does not want the
-  new team reading Java “to go faster.”
-- **Priya Shah, Privacy** — privacy finished before any CSV.
+| Name | Role | Stake |
+|---|---|---|
+| **Helena Dias** | Partner Integration, requesting side | **Decider** — owns this brief and breaks ties |
+| Marina Alves | Settlement Ops, NorthWind Pay | Feels the pain; owns the kept-lie rule (D3) and the reporting noun |
+| Rafael Costa | Legacy Platform, NorthWind Pay | Owns the frozen line (D1); does not want the team reading Java to go faster |
+| Priya Shah | Privacy, NorthWind Pay | Owns the privacy boundary (D4) — privacy finished before any CSV |
 
 ## Risks
 
-Pre-mortem: it is six months from now, this shipped, and it failed —
-what killed it?
+The pre-mortem — it is six months from now, this shipped, and it failed. What killed it:
 
-- **The second plant “fixes” 173.44 to 173.45.** Not accepted. Marina
-  already wrote the refusal. Capture records the lie as a requirement
-  for Intent.
-- **Inbound prose treated as the contract** (settlement total vs net
-  amount). Not accepted. `spec/` is mail; `contracts/` is the judge.
-- **Tonight’s agent writes `modern/` or picks a lakehouse because a
-  2026-06-09 sketch mentioned Parquet.** Not accepted. That sketch is
-  mail. Stack is out of Capture.
-- **Unsigned brief treated as license to code.** Accepted as a process
-  risk only if we stop: verdict stays pending until Helena marks
-  canonical. Pass 1 must not consume an unsigned brief as if it were
-  signed.
+- **The new plant quietly wrote the computed total** and we lost the evidence. Marina's exact
+  fear, stated in writing. *Accepted as the primary risk; it is the reason this brief exists.*
+- **Somebody read Java to go faster** and we got a copy scored against itself instead of an
+  independent reader. Rafael's implicit signal at kick-off. *Accepted.*
+- **A stack was chosen before anyone agreed what the problem was**, and the argument became
+  about tools. *Accepted — mitigated by holding Pass 1 free of technology.*
+- **A restricted value reached a Parquet file** and stalled the type. *Accepted; the privacy
+  policy fails closed and there is no exception for a demo.*
+- **A vocabulary disagreement was settled by editing the contract** instead of escalating it.
+  *Converted to Q3.*
 
 ## Constraints
 
-- Do not replace Java (Helena, Rafael — kick-off D1).
-- Do not rewrite source totals (Helena cover; Marina D3).
-- Type 06 is a later pack (Helena D2).
-- Privacy before any CSV (Priya D4).
-- No product code tonight. First modern write is later.
-- Inbound does not outrank `contracts/`.
+Business constraints only.
 
-A lakehouse named in a meeting is a **preference in the mail**, not a
-constraint here. Recorded as an open question for later passes. Not a
-Capture decision.
+- **Sixteen-week parallel modernization** of the five live files (kick-off, 2026-06-02).
+- **Java stays the privacy boundary on the current line.** Not negotiable (D1, D4).
+- **NorthWind keeps SFTP and PCI-adjacent bytes inside its own roles** (kick-off).
+- **Privacy is finished before any CSV.** PAN, CPF, CNPJ, account numbers and holder names may
+  exist in the raw file and must not exist after sanitize in any CSV, Parquet, log, evidence
+  packet, ticket, or warehouse table, unless a type policy names an approved transform. Fail
+  closed if a tokenization key is missing. A leak stalls the type
+  (`spec/estate/policies/privacy.md`).
+- **Exact decimal — no float money** (Rafael, D2, decomposition sync).
+
+### 5. Inbound vs judge
+
+`spec/` and `contracts/` are two different folders and they do not rank the same.
+
+| | `spec/` — inbound | `contracts/` — judge |
+|---|---|---|
+| What it is | How the request arrived: mail, meetings, layouts, procs, policies | The source of correctness, signed |
+| Contradictions | Allowed, and deliberate | Never |
+| Authority | None over the contract | Outranks the code |
+
+**Inbound prose does not outrank `contracts/`.** My cover letter is mail. A meeting note is
+mail. When a meeting used the wrong noun, we do not edit the contract to match it
+(`spec/README.md`). When two components disagree, `contracts/` decides which one is wrong; when
+an implementation and a contract disagree, the implementation is the bug
+(`contracts/README.md`).
+
+Our own drop contains a live example: Marina wants "settlement total" on the recon report
+because that is what the ops dashboard has said for six years, and does not care what the
+layout PDF calls bytes 16–30. That is a vocabulary question to escalate — not a licence to
+rename anything in `contracts/`.
 
 ## Open questions
 
-- question: "When does the second plant’s first write happen, and what
-  is its first artifact — later, and not SFTP, but the exact night is
-  not Helena’s cover letter?"
-  owner: Helena Dias
-  blocks: Pass 2+ schedule, not tonight’s BRD
-- question: "Ops noun ‘settlement total’ vs layout ‘net amount’ for
-  trailer bytes 16–30 — which word does reporting speak, without letting
-  inbound outrank the contract?"
+- question: "Who owns Type 05 rounding language — the ops email or the fee schedule?"
   owner: Marina Alves
-  blocks: vocabulary in Intent; not a license to edit contracts/
-- question: "2026-06-09 sync sketched Parquet / Bronze / Silver / Gold
-  as a second reader. Owner preference for later passes only — Capture
-  must not pick it."
+  blocks: any Type 05 work; raised P1 at kick-off 2026-06-02
+
+- question: "Do the unused columns on Rafael's table dumps belong in the served model? He said most of those were for a report that died."
+  owner: Rafael Costa
+  blocks: nothing tonight; blocks the served layer whenever it is designed
+
+- question: "Is the reporting noun 'settlement total' or 'net'? Ops has said one for six years; the layout says another."
+  owner: Marina Alves
+  blocks: nothing tonight; must be settled before any reporting surface is named
+
+- question: "Which single person signs this brief canonical, and when?"
   owner: Helena Dias
-  blocks: nothing tonight; revisit after Consensus, not here
+  blocks: Pass 1 consuming this brief as canonical
 
 ## Source
 
-- Second Brain packs `00-how-this-notebook-thinks.md`, `01-estate.md`,
-  `02-five-types.md`, `03-type-01-inbound.md`, `08-the-lie.md`
-  (compiled from `spec/`; NotebookLM cannot read overpunch `.dat`).
-- `spec/estate/cover.md` (Helena, 2026-06-24).
-- `spec/estate/mail/2026-06-24-share-folder-drop.md`.
-- `spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md` (Marina).
-- `spec/estate/meetings/2026-06-02-kick-off.md`.
-- `spec/estate/meetings/2026-06-09-file-decomposition.md` (mail, not a
-  stack decision).
-- `spec/type-01-card-settlement/README.md` and inbound layout /
-  walk-through / Marina 2026-07-02 note.
-- `spec/type-01-card-settlement/expected/valid-minimal.reconciliation.yaml`
-  and `df-source-001.finding.yaml`.
-- `spec/README.md` (five live types; inbound vs judge; Type 06 not here).
+- `spec/estate/cover.md` — the drop's cover letter, 2026-06-24
+- `spec/estate/meetings/2026-06-02-kick-off.md` — decisions D1–D4, open question Q1
+- `spec/estate/meetings/2026-06-09-file-decomposition.md` — Java stays, rebuild beside it
+- `spec/estate/policies/privacy.md` — restricted data, 2026-06-16
+- `spec/estate/mail/2026-07-14-the-cent-that-will-not-die.md` — Marina on the trailer
+- `spec/type-01-card-settlement/` — README, inbound notes, samples, `expected/`
+- `spec/README.md` — the five live types; Type 06 not in the drop
+- `brain/notebooklm/08-the-lie.md` and packs `00`–`08` — the Second Brain, compiled from the drop
+- `evidence/B202607230000001/reconciliation.json` — tonight's MATCHED run
 
-Captured 2026-08-25. Pass 0. Human-led.
+Facts came from the Second Brain packs and `spec/`. Not from `contracts/`, not from reading Java.
 
 ## Sign-off
 
-- **Owner/decider:** Helena Dias, Partner Integration — verdict: pending
-- **Date:** (unset — draft; owner writes canonical + ISO date after review)
+- **Owner/decider:** Helena Dias, Partner Integration — verdict: _pending_
+- **Date:** —
+
+A green draft token is structure, never owner authorization. This brief is a draft until the
+owner writes canonical, and Pass 1 must not consume an unsigned brief. Drafted by the agent;
+gated by `cvg`; the owner signs.
