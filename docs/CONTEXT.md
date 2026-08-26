@@ -23,13 +23,6 @@ Papers live in `docs/`, not `cvg/docs/`.
 | **Privacy boundary** | Clear PAN and CPF die at the parser. Token + last4 / `*******` + last4 before landing (ADR 0004). Live line: Java. Second plant: the Type 01 parser, not a Java import. |
 | **Bind** | Rails on the harness. Frozen trees refuse writes. A polite prompt is not a fence. |
 | **Consensus** | Pass 4. Owner signs. No sign → no parser. |
-| **Lakehouse / dlt / dbt** | Night 3. dlt **registers** landing only (ADR 0007). DuckLake / DuckDB is **local** (ADR 0008). Bronze / Silver / Gold grains (ADR 0009). Parser owns privacy + Decimal; dbt does not retokenize (ADR 0010). |
-| **Register (dlt)** | Load published Parquet into the local catalog. Not a second parser. Not a net. |
-| **Bronze** | Source-aligned Type 01 movements. Grain `batch_id` + `source_record_number`. |
-| **Silver** | Conformed Type 01 movements at the same grain. Conserves Bronze money. |
-| **Gold (Type 01)** | Governed recon that may later be served. Grain `batch_id` + `currency` — same as legacy paid. Observation of Postgres is not an input. |
-| **Golden-match** | Two questions, never netted. Six codes. Referee is `validation/golden-match/golden_match.py`. Do not add a tolerance (ADR 0011). |
-| **Lakehouse Consensus** | `docs/consensus-lakehouse.md`. Does not overwrite ingest `docs/consensus.md`. |
-| **Dagster / FastAPI / serve** | Day 4. Still parked (ADR 0006 rows 8–9). |
+| **Lakehouse / dlt / dbt / Dagster** | Later nights. Not chosen in Structure (ADR 0006). |
 
 Do not upload this file into NotebookLM.

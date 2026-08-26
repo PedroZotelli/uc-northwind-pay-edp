@@ -1,7 +1,0 @@
-# Type 01 Constructor stack. No Dagster, no FastAPI (ADR 0006 rows 8–9).
-pyarrow==25.0.0
-duckdb==1.5.5
-dlt[duckdb]==1.29.1
-dbt-core==1.12.0
-dbt-duckdb==1.10.1
-PyYAML==6.0.3
