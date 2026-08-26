@@ -19,7 +19,7 @@ morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
 
 Night 1 HTML is live — [`d1-archaeologist.html`](../presentation/d1-archaeologist.html) · [`d1/`](d1/README.md).
 Night 2 HTML is live — [`d2-translator.html`](../presentation/d2-translator.html) · [`d2/`](d2/README.md). Identify by `data-act-name`.
-Night 3 HTML is live — [`d3-constructor.html`](../presentation/d3-constructor.html) · [`d3/`](d3/README.md) (12 beats, four boards). Type 01 Gold steel thread. Identify by `data-act-name`.
+Night 3 HTML is live — [`d3-constructor.html`](../presentation/d3-constructor.html) · [`d3/`](d3/README.md) (13 beats, four boards). Type 01 Gold steel thread. Identify by `data-act-name`. J5 abstains, then they render the SA mermaids in [`plans/modern.md`](../plans/modern.md).
 Days 4–5 staff are stubs.
 
 Kits (park the Night HUD, teach, **return**): [`seamwise.html`](../presentation/seamwise.html), [`task-spec.html`](../presentation/task-spec.html).
@@ -34,11 +34,12 @@ Do **not** walk 07–11 on `main` — those beats write `docs/` and `modern/`. U
 |---|---|
 | 01 | Ingest signed. 0006 parked. One parser leaf. **No** `modern/landing/` unless emit already ran |
 | 02–03 | Nine-pack notebook. Paid grain `batch_id + currency`. Abstain on dlt/dbt if not in the brain |
-| 04–07 | Lakehouse ADRs + seam 2 legs + `docs/consensus-lakehouse.md`. Do not recut ingest `consensus.md` |
-| 08–11 | **Dark** if 07 unsigned. Else Type 01 only: emit → dlt register → B/S/G → golden-match |
-| 12 | Lineage · Type 05 subject line · Milestone 4. No Dagster on disk |
+| 04 | Three mermaids from [`plans/modern.md`](../plans/modern.md). Not an ADR. Dagster on the flowchart = Thursday |
+| 05–08 | Lakehouse ADRs + seam 2 legs + `docs/consensus-lakehouse.md`. Do not recut ingest `consensus.md` |
+| 09–12 | **Dark** if 08 unsigned. Else Type 01 only: emit → dlt register → B/S/G → golden-match |
+| 13 | Lineage · Type 05 subject line · Milestone 4. No Dagster on disk |
 
-`cvg` may error (Task-Spec 3.9 vs 3.8). Agent still writes `docs/`. Do not `cvg init` unless you are also rehearsing Thursday. Do not author Types `02`–`05`. Do not merge generated papers back to `main`. `make deploy` recreates SFTP (`--force-recreate`) so a stale `sftpusers` container cannot fail the boot — stop Compose on `main` first. Evidence is gitignored — open it in the **terminal**.
+`cvg` may error (Task-Spec 3.9 vs 3.8). Agent still writes `docs/`. Do not `cvg init` unless you are also rehearsing Thursday. Do not author Types `02`–`05`. `make deploy` recreates SFTP (`--force-recreate`) so a stale `sftpusers` container cannot fail the boot — stop Compose on `main` first **or remap ports / `COMPOSE_PROJECT_NAME` on a worktree**. Evidence is gitignored — open it in the **terminal**. Hyphenated `01-card-settlement/` is not an importable package; do not shadow pip `dlt`. See [`d3/README.md`](d3/README.md) Staff traps.
 
 ```text
 run/
@@ -60,14 +61,14 @@ run/
     07–10      D · Pass 2–4 (kits, ADRs, seams, sign)
     11         E · Task-Spec
     12         Close · Research
-  d3/          live — 12 beats, four boards + Close. Type 01 Gold.
+  d3/          live — 13 beats, four boards + Close. Type 01 Gold.
     README.md  Recap + slices A–D + Close
     01         Recap · papers + disk (no HO badge)
-    02–03      A · Query (brain, graph)
-    04–07      B · Barrier (kits, unpark, seam 2, lakehouse sign)
-    08         C · Task-Spec Type 01 remainder + lakehouse leaves
-    09–11      D · Gold (landing, dlt+B/S/G, golden-match)
-    12         Close · Research
+    02–04      A · Query (brain, graph, SA mermaids from plans/modern.md)
+    05–08      B · Barrier (kits, unpark, seam 2, lakehouse sign)
+    09         C · Task-Spec Type 01 remainder + lakehouse leaves
+    10–12      D · Gold (landing, dlt+B/S/G, golden-match)
+    13         Close · Research
   d4.md        stub — Orchestrator
   d5.md        stub — Dark Factory
 ```

@@ -1,9 +1,9 @@
-# 08 · Pass 5 — Task-Spec (Type 01 lakehouse)
+# 09 · Pass 5 — Task-Spec (Type 01 lakehouse)
 
-- Slide: Execute 10 (Hands-On **slice c · leaf** · chip **08**) after Task-Spec Show + [`../../presentation/task-spec.html`](../../presentation/task-spec.html)
+- Slide: Execute 10 (Hands-On **slice c · leaf** · chip **09**) after Task-Spec Show + [`../../presentation/task-spec.html`](../../presentation/task-spec.html)
 - Slice: **C · Leaf**
 - Who: instructor authors the first lakehouse leaf in public, then every seat
-- Next: [`09-landing.md`](09-landing.md) on Execute Gold
+- Next: [`10-landing.md`](10-landing.md) on Execute Gold
 
 Skip this beat if lakehouse Consensus is unsigned (Execute 10 stays dark). No eval, no build. `signed_off` starts **false**. Types `02`–`05` are not leaves tonight.
 
