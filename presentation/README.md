@@ -94,16 +94,17 @@ Staff: [`run/d2/README.md`](../run/d2/README.md).
 
 [`d3-constructor.html`](d3-constructor.html) — six blocks, four Hands-On
 boards (A–D). Identify by `data-act-name`. Extra Stage talk slides (Lakehouse,
-Agentic field) are talk only — they have **no** `run/d3/` file.
+Agentic field) are talk only — they have **no** `run/d3/` file. **SA plan · mermaids**
+is Stage Show; the room **types** it as `run/d3/04` on Execute 08 after J5 abstains.
 
 | Block | Mode |
 |---|---|
 | Opening | title · Constructor |
-| Stage | Recap, DE+analytics role, foundations, pipeline, engines, medallion, agentic modeling |
+| Stage | Recap, DE+analytics role, foundations, pipeline, engines, **SA plan mermaids**, medallion, agentic modeling |
 | Craft | Bind still on (Show). Kits. **No** fail-closed board |
-| Floor | Second Brain + OntoLayer Shows, **Execute 08** (`run/d3/` 02–03) |
-| Dig | Converge Show, Leave · SeamWise, **Execute 09** (04–07), Task-Spec Show, **Execute 10** (08), **Execute Gold** (09–11), Task-Mesh seed, Thursday queue |
-| Debrief | In hand, Research (`run/d3/12`), Next, silent Tomorrow |
+| Floor | Second Brain + OntoLayer Shows, **Execute 08** (`run/d3/` 02–04) |
+| Dig | Converge Show, Leave · SeamWise, **Execute 09** (05–08), Task-Spec Show, **Execute 10** (09), **Execute Gold** (10–12), Task-Mesh seed, Thursday queue |
+| Debrief | In hand, Research (`run/d3/13`), Next, silent Tomorrow |
 
 Type 01 **steel thread** tonight: leftover emit if no Parquet, then dlt
 register → Bronze → Silver → Gold → golden-match. Types `02`–`05` wait for

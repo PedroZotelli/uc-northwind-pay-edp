@@ -1,9 +1,9 @@
-# 09 · Execute — Type 01 landing Parquet
+# 10 · Execute — Type 01 landing Parquet
 
-- Slide: Execute Gold (Hands-On **slice d · gold** · chip **09–11**) — tile 09
+- Slide: Execute Gold (Hands-On **slice d · gold** · chip **10–12**) — tile 10
 - Slice: **D · Gold**
 - Who: instructor first, then every seat through **their** agent
-- Next: [`10-lakehouse.md`](10-lakehouse.md) on the **same board**
+- Next: [`11-lakehouse.md`](11-lakehouse.md) on the **same board**
 
 Order is mandatory. **Landing before dlt.** If Parquet already exists for `valid-minimal`, prove it and skip emit. Frozen folders stay frozen.
 
@@ -31,3 +31,5 @@ Do not start dlt until this proof holds.
 ## If fail
 
 Emit fails → **stop**. dlt has nothing to register. Do not “register raw.” Do not copy Java CSV into landing.
+
+`modern/ingestion/src/northwind_pay/types/01-card-settlement/` is **not** an importable Python package (hyphen + leading digit). Load `parser.py` / `handler.py` by file path and register the module in `sys.modules` **before** `dataclass` runs. Do not rename the ADR 0002 path. Parser may already exist with `signed_off: false` — finish schema / writer / handler; do not recut the parser to make Gold easier.

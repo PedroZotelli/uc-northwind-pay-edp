@@ -1,4 +1,4 @@
-# 12 · Research — then walk
+# 13 · Research — then walk
 
 - Slide: Research, then Next, silent Tomorrow
 - Slice: **Close**
