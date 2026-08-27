@@ -40,7 +40,7 @@ the same shape.
 The week is one steel thread that **widens**: Type `01` card settlement,
 trailer lie **173.44** vs rows **173.45**, keep the declaration, refuse
 the batch. Days 2–3 run **Type 01 only** (SWE landing, then DE Gold).
-Day 4 generates remaining SWE+DE and cranks the loop. Autonomy goes up.
+Day 4 walks the Type 01 trail, then generates remaining SWE+DE and cranks the loop. Autonomy goes up.
 HITL goes down. Type `06` stays sealed until Friday.
 
 ### Night 1 — Archaeologist · understand
@@ -117,18 +117,18 @@ Deck live: [`d3-constructor.html`](../presentation/d3-constructor.html).
 **Linear** is the board. Type `05` unattended. Mesh is **not** inside Task-Spec.
 
 1. Recap: Type 01 Gold **or named gap**. Keep **173.44**. Do not recut signs.
-2. **Context Layer:** brain · OntoLayer (paid grain) · `docs/` · `contracts/`.
-   Agents that migrate or golden-match ask here first.
-3. **Eval:** `golden_match.py` — two questions, six codes, no tolerance.
-4. **Packet:** the loop writes `evidence/`. No packet → no settle.
-5. SeamWise remaining lanes. Task-Spec generates remaining SWE+DE. Empty
-   packages forbidden. Host: pin Task-Spec 3.8.x, `cvg init`, this plant’s
-   seams (`ingest-landing`, `dlt-gold`, `orchestrate-serve`).
-6. Mesh + Pass 6–8 **crank**. Watch the eval. Linear moves with the packet.
-7. Type `05` unattended. `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. Small pill:
+2. **Trail:** requisites → problem → decisions → SWE → DE/AE → tonight.
+   Cite a file per chapter. Do not re-ask where paid lives.
+3. **Context · Eval · Loop** (Stage talk): four rooms; `golden_match.py`;
+   packet under `evidence/`. No packet → no settle.
+4. Remaining types on the **same two lanes**. Task-Spec generates remaining
+   SWE+DE. Empty packages forbidden. Host: pin Task-Spec 3.8.x, `cvg init`,
+   this plant’s seams (`ingest-landing`, `dlt-gold`, `orchestrate-serve`).
+5. Mesh + Pass 6–8 **crank Type 01 first**. Watch the eval. Linear moves with the packet.
+6. Type `05` unattended. `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. Small pill:
    `rounding-half-up` is `HALF_UP`. `HALF_EVEN` → `MODERN_DEFECT`. Do not change
    `expected/`. Do not break Java.
-8. Type `06` still absent.
+7. Type `06` still absent.
 
 Staff: [`run/d4/`](../run/d4/README.md) — 9 beats, four boards. Trail first. Stage live.
 

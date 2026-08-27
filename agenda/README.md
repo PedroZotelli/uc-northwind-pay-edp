@@ -16,7 +16,7 @@ curve lands on **this** repo.
 | 4 | Orchestrator | [`d4.md`](d4.md) | Loop + eval | Context · Eval · Loop. Then **6–8** crank. Linear. Type `05` unattended | Remaining SWE+DE + packet; small `HALF_UP` pill |
 | 5 | Dark Factory | [`d5.md`](d5.md) | Orchestration | Full 0–8 on sealed Type `06` | Never-seen type onboarded live. Large pill: `CONFIRMED_LEGACY_DEFECT` |
 
-**Story of the week (steel threads, then the factory).** Days 2–3 **explain one seat and run one Type 01 lane** — SWE ingest → landing, then DE landing → Gold. Day 4 teaches **Context · Eval · Loop**, then generates remaining SWE+DE, cranks Mesh + Pass 6–8 (Linear), then Type `05` unattended. Day 5 is sealed Type `06`. Do not dump Types `02`–`05` on Wednesday.
+**Story of the week (steel threads, then the factory).** Days 2–3 **explain one seat and run one Type 01 lane** — SWE ingest → landing, then DE landing → Gold. Day 4 teaches **Context · Eval · Loop**, **walks the Type 01 trail**, then generates remaining SWE+DE, cranks Mesh + Pass 6–8 (Linear), then Type `05` unattended. Day 5 is sealed Type `06`. Do not dump Types `02`–`05` on Wednesday.
 
 **The week starts at Day 1.** You arrive as an AI-native engineer from scratch.
 You do not inherit a brain, a graph, or last run's ADRs.
@@ -26,7 +26,7 @@ You do not inherit a brain, a graph, or last run's ADRs.
 | 1 | Plant **MATCHED**. Second Brain fed (whole drop, types `01`–`05`). OntoLayer via MCP. Capture + Intent. Research queries for Day 2. **No product code.** |
 | 2 | Recap Pass 0–1. **Bind** fail-closed. Query Second Brain + OntoLayer. ADRs, seams, **Consensus signed**. One Task-Spec leaf. Mesh internals. **No `modern/` required.** Research for Day 3. |
 | 3 | Type 01 DE steel thread: landing → Gold + golden-match. Mesh seed. `02`–`04` parked |
-| 4 | Context Layer · eval · loop packet. Generate remaining SWE+DE. Mesh + Pass 6–8 (Linear). Unattended Type `05` |
+| 4 | Context · Eval · Loop. Type 01 trail. Generate remaining SWE+DE. Mesh + Pass 6–8 (Linear). Unattended Type `05` |
 | 5 | Sealed Type `06`. Full spine. Classify, do not patch |
 
 Every day uses the same swing: **Stage → Craft → Floor → Dig → Debrief**.

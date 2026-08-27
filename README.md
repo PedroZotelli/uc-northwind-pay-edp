@@ -115,11 +115,11 @@ flowchart LR
 |---|---|
 | **Scope** | [`agenda/`](agenda/README.md) — what the night closes |
 | **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats). Night 2: [`run/d2/`](run/d2/README.md) (12). Night 3: [`run/d3/`](run/d3/README.md) (13). Night 4: [`run/d4/`](run/d4/README.md) (9). Day 5 still a stub |
-| **What the room sees** | [`presentation/`](presentation/README.md) — Nights 1–3 HTML **live**. Night 4 deck **not built** (clock live). Identify by `data-act-name` |
+| **What the room sees** | [`presentation/`](presentation/README.md) — Nights 1–3 HTML **live**. Night 4 Stage live (clock trail-first). Identify by `data-act-name` |
 | **Converge papers** | [`docs/`](docs/README.md) — ingest papers on disk. Day 3 writes lakehouse ADRs, seam 2, `consensus-lakehouse.md`, Type 01 Gold leaves **in the room** (not pre-seeded on `main`). Day 4 queries that trail, then remaining types |
 | **Engagement map** | [`plans/`](plans/README.md) — legacy, modern, factory seed |
 
-Day 1 public page lists *P1 Intent · P2 Structure*. **This week keeps Capture + Intent on Day 1** so the brain and the graph exist before ADRs. Nights 2–3 are **Type 01 steel threads** (SWE ingest → landing, then DE landing → Gold). Night 4 teaches **Context · Eval · Loop**, then generates remaining SWE+DE, cranks Mesh + Pass 6–8 (Linear), then Type `05` unattended. An unsigned Consensus is not a license to code.
+Day 1 public page lists *P1 Intent · P2 Structure*. **This week keeps Capture + Intent on Day 1** so the brain and the graph exist before ADRs. Nights 2–3 are **Type 01 steel threads** (SWE ingest → landing, then DE landing → Gold). Night 4 teaches **Context · Eval · Loop**, **walks the Type 01 trail**, then generates remaining SWE+DE, cranks Mesh + Pass 6–8 (Linear), then Type `05` unattended. An unsigned Consensus is not a license to code.
 
 ---
 
@@ -236,7 +236,7 @@ Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 | [`agenda/`](agenda/README.md) | Five-day scope |
 | [`run/`](run/README.md) | Staff follow-along. Night 1 live (17). Night 2 live (12). Night 3 live (13). Night 4 live (9, trail then factory). Day 5 stub |
 | [`plans/`](plans/README.md) | Engagement map — legacy, modern, factory seed |
-| [`presentation/`](presentation/README.md) | Nights 1–3 HTML **live**. Night 4 clock live, deck **not built**. Method manuals live here, not in `docs/` |
+| [`presentation/`](presentation/README.md) | Nights 1–3 HTML **live**. Night 4 Stage live, clock trail-first. Method manuals live here, not in `docs/` |
 | [`docs/`](docs/README.md) | Converge paper trail — BRD, tech-spec, ADRs, seams, consensus, Task-Specs. Not the HTML manuals |
 | [`transcripts/`](transcripts/README.md) | Live Night captions (`.vtt`). Speech, not the brief |
 | [`assets/`](assets/) | Images and logos the decks reference |

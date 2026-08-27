@@ -5,7 +5,7 @@
 - Who: instructor maps in public, room copies
 - Next: [`04-generate-queue.md`](04-generate-queue.md) on the **same board**
 
-Show Converge 6–8 + Linear on Stage. Craft Bind still on. Then **Leave · SeamWise** — park, open [`../../presentation/seamwise.html`](../../presentation/seamwise.html), return. Then this tile.
+Show Converge 6–8 + Linear on Stage. Craft Bind still on. Then **Leave · SeamWise** — park, open [`../../presentation/seamwise.html`](../../presentation/seamwise.html), return. Then **this tile (03)**. Tile **04** waits until the Task-Spec Show on the next HUD.
 
 Not “Pass 3 again” as a method class. Place remaining work on the **same two lanes** they just walked, plus tonight’s column.
 

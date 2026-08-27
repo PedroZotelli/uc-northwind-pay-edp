@@ -21,8 +21,8 @@ scope**; **run wins on the clock**. Identify Night 2–4 slides by
 Friday.
 
 **Live this week:** Night 1 (44), Night 2 (34), Night 3 (Constructor +
-[`run/d3/`](../run/d3/README.md)). Night 4 **clock** live ([`run/d4/`](../run/d4/README.md)
-— 9 beats, trail then factory). Stage live. **Not built:** Night 5 HTML.
+[`run/d3/`](../run/d3/README.md)). Night 4 live ([`d4-orchestrator.html`](d4-orchestrator.html) · [`run/d4/`](../run/d4/README.md)
+— 28 slides, 9 beats, trail then factory). Identify by `data-act-name`. **Not built:** Night 5 HTML.
 
 ---
 
@@ -33,8 +33,8 @@ Friday.
 | [`d1-archaeologist.html`](d1-archaeologist.html) | Night 1 deck | Onboard + Archaeologist. **44 slides**, six blocks, HUD `01`–`44`. Pass **0–1** only. **Live.** | Night 1. Staff: [`run/d1/`](../run/d1/README.md) |
 | [`d2-translator.html`](d2-translator.html) | Night 2 deck | Translator · java2py. **34 slides**, six blocks, five Hands-On boards (slices a–e). Identify by `data-act-name`. **Live.** | Night 2. Staff: [`run/d2/`](../run/d2/README.md) |
 | [`d3-constructor.html`](d3-constructor.html) | Night 3 deck | Constructor · DE + analytics. Six blocks, four Hands-On boards (A–D). Identify by `data-act-name`. **Live.** Lockstep with `run/d3/`. | Night 3. Staff: [`run/d3/`](../run/d3/README.md) |
-| [`d4-orchestrator.html`](d4-orchestrator.html) | Night 4 deck | Orchestrator. Stage live. Floor/Dig follow `run/d4/`. | Night 4. Staff: [`run/d4/`](../run/d4/README.md) |
-| [`seamwise.html`](seamwise.html) | Method kit | SeamWise internals. **Leave · SeamWise** parks here (Nights 2 and 3), then **returns** to the numbered beat | Pass 3 kit. Not the Night clock |
+| [`d4-orchestrator.html`](d4-orchestrator.html) | Night 4 deck | Orchestrator. **28 slides**, six blocks. Identify by `data-act-name`. Lockstep with `run/d4/`. | Night 4. Staff: [`run/d4/`](../run/d4/README.md) |
+| [`seamwise.html`](seamwise.html) | Method kit | SeamWise internals. **Leave · SeamWise** parks here (Nights 2–4), then **returns** to the numbered beat | Pass 3 kit. Not the Night clock |
 | [`task-spec.html`](task-spec.html) | Method kit | Task-Spec internals. Dig **Show**, then return (Night 2: Execute 11 · Night 3: 09 · Night 4: 03–04) | Pass 5 kit. Mesh is **not** inside it |
 | [`cvg-aut-systems-spine-steps.html`](cvg-aut-systems-spine-steps.html) | Method manual | Converge spine — nine passes, two phases, one human barrier. **36 slides**, print-page layout. v7 · Converge 0.2.0 | When the room needs the kit, not the Night. Papers: [`docs/`](../docs/README.md) |
 | [`asd-agentic-loop.html`](asd-agentic-loop.html) | Method manual | ASD — the Agentic Loop. Scroll document, **12 sections** (not a HUD deck) | Doctrine |
@@ -46,8 +46,8 @@ One Night — no morning / afternoon split.
 
 **Week story on these HUDs:** Night 1 understands (0–1). Nights 2–3 are
 **Type 01 steel threads** (SWE ingest → landing, then DE landing → Gold).
-Night 4 clock teaches **Context · Eval · Loop**, then generates remaining
-SWE+DE and cranks (Mesh + Pass 6–8, Linear), then Type `05` unattended. Deck not built.
+Night 4 clock teaches **Context · Eval · Loop**, **walks the Type 01 trail**,
+then generates remaining SWE+DE and cranks (Mesh + Pass 6–8, Linear), then Type `05` unattended. Stage live.
 
 ---
 

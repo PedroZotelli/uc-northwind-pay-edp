@@ -13,10 +13,13 @@ Telemetry is the packet. Dagster is lineage — **not** the parser. Skip the has
 Look up the packet from the Type 01 leaf you just cranked (terminal, not Git).
 Name: leaf, attempt, eval, exit, classification or skip, paths.
 
+Look up evidence/loop/T-20260825-type-01-landing-parser.json (terminal, not Git).
+Look up evidence/modern/B202607230000001/golden-match.json — both questions true.
+
 If Type 01 Gold exists on disk:
 - Direct rebuild from landing and orchestrated (Dagster) must hash the same Gold.
 - Parsing does not move into the orchestrator.
-If Gold is missing, say so and stop the hash — do not stand up Dagster to look busy.
+If Dagster is not running, **say so and skip the hash** — do not stand up Dagster to look busy.
 
 Do not serve unresolved Gold.
 Do not write FastAPI unless the ADR for 0006 row 9 is signed and Gold is approved.

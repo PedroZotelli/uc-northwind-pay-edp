@@ -25,6 +25,7 @@ Rules:
 Do not settle if the packet is missing.
 Do not rewrite golden_match.py.
 Do not start Type 05 on this tile.
+Tonight the Type 01 packet is already at evidence/loop/T-20260825-type-01-landing-parser.json — look it up; do not invent a second crank.
 ```
 
 ## Proof

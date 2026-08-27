@@ -2777,120 +2777,6 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
     </div>
   </section>
 
-  <!-- S07a · EVAL BASICS I — what an eval is · generic · D1 slide-5 mold -->
-  <section class="slide" data-act="STAGE" data-act-name="Eval basics · what an eval is" data-accent="green"
-           style="justify-content:flex-start;padding-top:clamp(18px,3vh,36px);">
-    <div class="hands-bg" style="background-image:url('../assets/df-risco-opt.jpg');background-position:center right;transform:scale(1.1) translateX(6%);filter:saturate(0.6) hue-rotate(80deg);" aria-hidden="true"></div>
-    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(8,8,10,0.97) 0%,rgba(8,8,10,0.9) 40%,rgba(8,8,10,0.62) 70%,rgba(8,8,10,0.4) 100%),linear-gradient(180deg,rgba(8,8,10,0.6) 0%,transparent 20%,transparent 70%,rgba(8,8,10,0.9) 100%);" aria-hidden="true"></div>
-    <div class="aurora aurora--green" style="z-index:1;" aria-hidden="true"><b></b></div>
-
-    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1780px;margin:0 auto;">
-      <span class="tag" style="--tag-c:var(--green);">Eval Engineering · basics I · what an eval is</span>
-      <h2 class="h2" style="margin-top:clamp(10px,1.6vh,16px);font-size:clamp(29px,4.1vw,55px);">
-        An eval is a test that can <span style="color:var(--green);">say no</span>
-      </h2>
-      <p class="lede" style="max-width:70ch;margin-top:clamp(10px,1.7vh,17px);">
-        A fixed input goes in, the system runs, the output is compared to something decided <b>before</b> the run,
-        and a verdict comes out with a reason. Three properties: <b>runnable, deterministic, falsifiable</b>.
-      </p>
-
-      <div class="mac" style="max-width:860px;margin-top:clamp(9px,1.4vh,15px);">
-        <div class="mac-bar" style="padding:clamp(6px,0.9vh,9px) clamp(14px,1.4vw,22px);">
-          <span class="mac-dots" aria-hidden="true"><i style="background:#ff5f57;"></i><i style="background:#febc2e;"></i><i style="background:#28c840;"></i></span>
-          <span class="tag" style="--tag-c:var(--green);text-transform:none;letter-spacing:0.4px;">evals/test_total.py · one case</span>
-          <span class="tag" style="--tag-c:var(--silver);margin-left:auto;">then: run it</span>
-        </div>
-        <div class="mac-body" style="font-family:var(--font-mono);font-size:clamp(10px,0.95vw,12.5px);line-height:1.5;color:#c8d0dc;padding:clamp(10px,1.5vh,16px) clamp(15px,1.5vw,24px) clamp(9px,1.4vh,14px);">
-          <span style="color:#94a3b8;font-style:italic;"># 1 · fixed input &nbsp;→ 2 · system under test &nbsp;→ 3 · oracle decided beforehand &nbsp;→ 4 · verdict with a reason</span><br>
-          <span style="color:#c4b5fd;">def</span> <span style="color:#eaedf2;">test_total_matches_expected</span>():<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;out &nbsp;= run(<span style="color:#86efac;">"fixtures/batch_001.dat"</span>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#94a3b8;"># same bytes, every run</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;want = load(<span style="color:#86efac;">"fixtures/batch_001.expected"</span>) <span style="color:#94a3b8;"># the oracle — written before, never after</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0a83d;">assert</span> out.total == want.total, <span style="color:#86efac;">f"got {out.total}, want {want.total}"</span><br>
-          <span style="color:#7dd3fc;">$</span> <span style="color:#eaedf2;">pytest evals/ -q</span><br>
-          <span style="color:#f87171;">FAILED</span> test_total_matches_expected — <span style="color:#eaedf2;">got 10.50, want 10.00</span> &nbsp;<span style="color:#94a3b8;">· exit 1 · the loop stops here, with a reason</span>
-        </div>
-      </div>
-
-      <div style="margin-top:clamp(8px,1.3vh,15px);">
-        <svg class="arch" viewBox="0 0 1780 380" role="img"
-             aria-label="A fixture enters the system under test, the output is compared against an oracle, and the comparison fans into two outcomes: pass with exit zero and the work continues, or fail with exit one and a reason, and the loop stops.">
-          <defs>
-            <linearGradient id="d4ev-a" gradientUnits="userSpaceOnUse" x1="360" y1="0" x2="500" y2="0"><stop offset="0%" stop-color="#22d3ee" stop-opacity=".6"/><stop offset="100%" stop-color="#b0bec5" stop-opacity=".4"/></linearGradient>
-            <linearGradient id="d4ev-b" gradientUnits="userSpaceOnUse" x1="800" y1="0" x2="940" y2="0"><stop offset="0%" stop-color="#b0bec5" stop-opacity=".55"/><stop offset="100%" stop-color="#d4af37" stop-opacity=".45"/></linearGradient>
-            <linearGradient id="d4ev-p" gradientUnits="userSpaceOnUse" x1="1240" y1="0" x2="1380" y2="0"><stop offset="0%" stop-color="#d4af37" stop-opacity=".6"/><stop offset="100%" stop-color="#3fb950" stop-opacity=".45"/></linearGradient>
-            <linearGradient id="d4ev-f" gradientUnits="userSpaceOnUse" x1="1240" y1="0" x2="1380" y2="0"><stop offset="0%" stop-color="#d4af37" stop-opacity=".45"/><stop offset="100%" stop-color="#f85149" stop-opacity=".45"/></linearGradient>
-            <filter id="d4ev-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-
-          <!-- flows -->
-          <path d="M 360 176 C 415 176, 445 176, 500 176" fill="none" stroke="url(#d4ev-a)" stroke-width="2.4"/>
-          <path d="M 800 176 C 855 176, 885 176, 940 176" fill="none" stroke="url(#d4ev-b)" stroke-width="2.4"/>
-          <path d="M 1240 176 C 1302 176, 1318 80, 1380 80" fill="none" stroke="url(#d4ev-p)" stroke-width="2.4"/>
-          <path d="M 1240 176 C 1302 176, 1318 315, 1380 315" fill="none" stroke="url(#d4ev-f)" stroke-width="2.4" stroke-dasharray="7 6"/>
-          <circle cx="360" cy="176" r="3" fill="#8ae9f6"/><circle cx="500" cy="176" r="3" fill="#b0bec5"/>
-          <circle cx="800" cy="176" r="3" fill="#cfd8dc"/><circle cx="940" cy="176" r="3" fill="#d4af37"/>
-          <circle cx="1240" cy="176" r="3" fill="#f4dd94"/><circle cx="1380" cy="80" r="3" fill="#3fb950"/><circle cx="1380" cy="315" r="3" fill="#f85149"/>
-
-          <text x="1530" y="16" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#4d5666">two outcomes &#183; only one lets the work continue</text>
-
-          <!-- 1 · FIXTURE -->
-          <rect x="60" y="124" width="300" height="104" rx="16" fill="#111114" stroke="#22d3ee" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="60" y="124" width="300" height="104" rx="16" fill="none" stroke="#22d3ee" stroke-opacity=".3" stroke-width="5" filter="url(#d4ev-glow)"/>
-          <text x="96" y="148" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#8ae9f6">1 · THE INPUT</text>
-          <text x="96" y="180" font-family="Instrument Serif" font-size="27" fill="#eaedf2">Fixture</text>
-          <text x="96" y="202" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">fixed · versioned · small</text>
-          <text x="96" y="218" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">the same bytes every run</text>
-
-          <!-- 2 · SYSTEM UNDER TEST -->
-          <rect x="500" y="124" width="300" height="104" rx="16" fill="#111114" stroke="#b0bec5" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="500" y="124" width="300" height="104" rx="16" fill="none" stroke="#b0bec5" stroke-opacity=".3" stroke-width="5" filter="url(#d4ev-glow)"/>
-          <text x="536" y="148" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#cfd8dc">2 · THE SYSTEM</text>
-          <text x="536" y="180" font-family="Instrument Serif" font-size="27" fill="#eaedf2">Under test</text>
-          <text x="536" y="202" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">a function · a pipeline · an agent</text>
-          <text x="536" y="218" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">treated as a black box</text>
-
-          <!-- 3 · ORACLE -->
-          <rect x="940" y="124" width="300" height="104" rx="16" fill="#111114" stroke="#d4af37" stroke-opacity=".65" stroke-width="1.5"/>
-          <rect x="940" y="124" width="300" height="104" rx="16" fill="none" stroke="#d4af37" stroke-opacity=".3" stroke-width="5" filter="url(#d4ev-glow)"/>
-          <text x="976" y="148" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#f4dd94">3 · THE ORACLE</text>
-          <text x="976" y="180" font-family="Instrument Serif" font-size="27" fill="#eaedf2">Expected</text>
-          <text x="976" y="202" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">golden file · invariant · rubric</text>
-          <text x="976" y="218" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">decided before the run, not after</text>
-
-          <!-- 4a · PASS -->
-          <rect x="1380" y="28" width="300" height="104" rx="16" fill="#111114" stroke="#3fb950" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="1380" y="28" width="300" height="104" rx="16" fill="none" stroke="#3fb950" stroke-opacity=".3" stroke-width="5" filter="url(#d4ev-glow)"/>
-          <text x="1416" y="52" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#72d986">4 · VERDICT · PASS</text>
-          <text x="1416" y="84" font-family="Instrument Serif" font-size="27" fill="#eaedf2">exit 0</text>
-          <text x="1416" y="106" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">output == expected</text>
-          <text x="1416" y="122" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">the work may continue</text>
-
-          <!-- 4b · FAIL -->
-          <rect x="1380" y="263" width="300" height="104" rx="16" fill="#111114" stroke="#f85149" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="8 5"/>
-          <rect x="1380" y="263" width="300" height="104" rx="16" fill="none" stroke="#f85149" stroke-opacity=".22" stroke-width="5" filter="url(#d4ev-glow)"/>
-          <text x="1416" y="287" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#fca5a5">4 · VERDICT · FAIL</text>
-          <text x="1416" y="319" font-family="Instrument Serif" font-size="27" fill="#eaedf2">exit 1 + a reason</text>
-          <text x="1416" y="341" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">got 10.50, want 10.00</text>
-          <text x="1416" y="357" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">the loop stops here</text>
-
-          <!-- not an eval -->
-          <rect x="60" y="301" width="680" height="66" rx="14" fill="#111114" stroke="#f85149" stroke-opacity=".4" stroke-width="1.2"/>
-          <text x="96" y="329" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2.2" fill="#f85149">NOT AN EVAL · NOTHING WAS COMPARED</text>
-          <text x="96" y="355" font-family="Instrument Serif" font-size="18" fill="#8b96a8" style="text-decoration:line-through;">&ldquo;looks right&rdquo; · &ldquo;the agent said done&rdquo; · &ldquo;no errors in the log&rdquo;</text>
-        </svg>
-      </div>
-
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:clamp(10px,1.15vw,17px);margin-top:clamp(10px,1.6vh,18px);padding-top:clamp(11px,1.7vh,16px);border-top:1px solid var(--rule);">
-        <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">Three properties</span>
-        <span class="tag" style="--tag-c:var(--cyan);">runnable · one command, no human in the middle</span>
-        <span class="tag" style="--tag-c:var(--silver);">deterministic · same input, same verdict</span>
-        <span class="tag" style="--tag-c:var(--green);">falsifiable · it can fail, and you can see why</span>
-        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">If it cannot fail, it is not an eval — it is a <b style="color:var(--text);font-style:normal;font-weight:600;">demo</b>.</span>
-      </div>
-    </div>
-  </section>
-
-
   <!-- S07 · EVAL ENGINEERING — one leaf, one command, one fail -->
   <section class="slide" data-act="STAGE" data-act-name="Eval Engineering" data-accent="green"
            style="justify-content:center;">
@@ -2998,164 +2884,6 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
         <span class="tag" style="--tag-c:var(--red);">no tolerance · do not rewrite the referee</span>
         <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Wednesday showed &ldquo;seven completed&rdquo; and no verdict. Tonight every leaf carries the command that can say <b style="color:var(--text);font-style:normal;font-weight:600;">no</b>.</span>
       </div>
-  </section>
-
-  <!-- S08a · TELEMETRY & OBSERVABILITY BASICS — session → trace → spans · S07a mold -->
-  <section class="slide" data-act="STAGE" data-act-name="Telemetry &amp; Observability basics" data-accent="cyan"
-           style="justify-content:flex-start;padding-top:clamp(18px,3vh,36px);">
-    <div class="hands-bg" style="background-image:url('../assets/df-risco-opt.jpg');background-position:center right;transform:scale(1.1) translateX(6%);filter:saturate(0.55) hue-rotate(170deg);" aria-hidden="true"></div>
-    <div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(8,8,10,0.97) 0%,rgba(8,8,10,0.9) 40%,rgba(8,8,10,0.62) 70%,rgba(8,8,10,0.4) 100%),linear-gradient(180deg,rgba(8,8,10,0.6) 0%,transparent 20%,transparent 70%,rgba(8,8,10,0.9) 100%);" aria-hidden="true"></div>
-    <div class="aurora aurora--cyan" style="z-index:1;" aria-hidden="true"><b></b></div>
-
-    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1860px;margin:0 auto;">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:clamp(18px,2.2vw,36px);">
-        <div style="min-width:0;flex:1 1 auto;">
-          <span class="tag" style="--tag-c:var(--cyan);">Telemetry &amp; Observability · basics I · the flight recorder</span>
-          <h2 class="h2" style="margin-top:clamp(10px,1.6vh,16px);font-size:clamp(29px,4.1vw,55px);">
-            The run is a tree. Observability <span style="color:var(--cyan);">reads it</span>
-          </h2>
-          <p class="lede" style="max-width:58ch;margin-top:clamp(10px,1.7vh,17px);">
-            An agent can return 200 and still be wrong, slow, and expensive. Telemetry is the signals the run emits.
-            Observability is reconstructing them as <b>session → trace → spans</b> well enough to ask why.
-          </p>
-        </div>
-        <aside aria-label="Technologies used to build telemetry" style="flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-top:2px;">
-          <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">the stack · traces live here</span>
-          <div style="display:flex;align-items:stretch;gap:8px;">
-            <div title="Langfuse" style="width:clamp(58px,4.8vw,70px);display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px 7px;border-radius:12px;background:rgba(8,8,10,0.72);border:1px solid rgba(34,211,238,0.28);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
-              <img src="../assets/langfuse.svg" alt="" width="28" height="28" style="width:28px;height:28px;object-fit:contain;">
-              <span style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.4px;color:#8b96a8;">Langfuse</span>
-            </div>
-            <div title="OpenTelemetry" style="width:clamp(58px,4.8vw,70px);display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px 7px;border-radius:12px;background:rgba(8,8,10,0.72);border:1px solid rgba(34,211,238,0.28);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
-              <img src="../assets/opentelemetry.svg" alt="" width="28" height="28" style="width:28px;height:28px;object-fit:contain;">
-              <span style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.4px;color:#8b96a8;">OTel</span>
-            </div>
-            <div title="Grafana" style="width:clamp(58px,4.8vw,70px);display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px 7px;border-radius:12px;background:rgba(8,8,10,0.72);border:1px solid rgba(34,211,238,0.28);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
-              <img src="../assets/grafana.svg" alt="" width="28" height="28" style="width:28px;height:28px;object-fit:contain;">
-              <span style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.4px;color:#8b96a8;">Grafana</span>
-            </div>
-            <div title="Jaeger" style="width:clamp(58px,4.8vw,70px);display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px 7px;border-radius:12px;background:rgba(8,8,10,0.72);border:1px solid rgba(34,211,238,0.28);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
-              <img src="../assets/jaeger.svg" alt="" width="28" height="28" style="width:28px;height:28px;object-fit:contain;">
-              <span style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.4px;color:#8b96a8;">Jaeger</span>
-            </div>
-            <div title="Datadog" style="width:clamp(58px,4.8vw,70px);display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px 7px;border-radius:12px;background:rgba(8,8,10,0.72);border:1px solid rgba(34,211,238,0.28);box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">
-              <img src="../assets/datadog.svg" alt="" width="28" height="28" style="width:28px;height:28px;object-fit:contain;">
-              <span style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.4px;color:#8b96a8;">Datadog</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <div class="mac" style="max-width:920px;margin-top:clamp(9px,1.4vh,15px);border-color:color-mix(in srgb,var(--cyan) 45%,transparent);box-shadow:0 30px 60px -38px rgba(0,0,0,0.9),0 0 54px -30px var(--cyan),inset 0 1px 0 rgba(255,255,255,0.05);">
-        <div class="mac-bar" style="padding:clamp(6px,0.9vh,9px) clamp(14px,1.4vw,22px);">
-          <span class="mac-dots" aria-hidden="true"><i style="background:#ff5f57;"></i><i style="background:#febc2e;"></i><i style="background:#28c840;"></i></span>
-          <span class="tag" style="--tag-c:var(--cyan);text-transform:none;letter-spacing:0.4px;">trace · attempt 1 · reconstructed</span>
-          <span class="tag" style="--tag-c:var(--silver);margin-left:auto;">one ID on every line</span>
-        </div>
-        <pre class="mac-body" style="margin:0;font-family:var(--font-mono);font-size:clamp(10px,0.95vw,12.5px);line-height:1.55;color:#c8d0dc;padding:clamp(10px,1.5vh,16px) clamp(15px,1.5vw,24px) clamp(9px,1.4vh,14px);font-variant-ligatures:none;white-space:pre;"><span style="color:#94a3b8;font-style:italic;"># 1 · session  → 2 · trace (one attempt)  → 3 · spans (nested, timed)</span>
-<span style="color:#8ae9f6;">SESSION</span>  <span style="color:#94a3b8;">conversation_id=leaf-T0142</span>
-<span style="color:#4a9eff;">TRACE</span>    <span style="color:#94a3b8;">attempt=1</span>   <span style="color:#eaedf2;">12.4s</span>   <span style="color:#94a3b8;">tokens=8.1k</span>
-  <span style="color:#c9b8ff;">plan</span>                  <span style="color:#6e7a8c;">0.4s</span>
-  <span style="color:#8ec4ff;">chat gpt-4o</span>           <span style="color:#6e7a8c;">2.1s</span>   <span style="color:#94a3b8;">in=1420 out=87</span>
-  <span style="color:#8ae9f6;">execute_tool match</span>    <span style="color:#f0a83d;">6.8s</span>   <span style="color:#f0a83d;">&larr; here</span>
-  <span style="color:#8ec4ff;">chat gpt-4o</span>           <span style="color:#6e7a8c;">1.9s</span>   <span style="color:#94a3b8;">retry</span>
-  <span style="color:#f4dd94;">eval</span>                  <span style="color:#f87171;">0.8s</span>   <span style="color:#f4dd94;">exit 1  CONFIRMED_SOURCE_DEFECT</span></pre>
-      </div>
-
-      <div style="margin-top:clamp(8px,1.3vh,15px);">
-        <svg class="arch" viewBox="0 0 1960 390" role="img"
-             aria-label="A session wraps one trace. Inside the trace, five nested spans form a waterfall: plan, model, a slow tool, a retry, and a failing eval. From that tree you can ask what happened, where it slowed, and why it stopped. A green log with no shared ID is not observability.">
-          <defs>
-            <filter id="d4s09-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-
-          <text x="1730" y="16" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="15" fill="#8b96a8">now you can ask · the tree is the call stack</text>
-
-          <!-- 1 · SESSION -->
-          <rect x="40" y="24" width="1100" height="266" rx="16" fill="#111114" stroke="#22d3ee" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="40" y="24" width="1100" height="266" rx="16" fill="none" stroke="#22d3ee" stroke-opacity=".3" stroke-width="5" filter="url(#d4s09-glow)"/>
-          <path d="M 60 25 h 1060" stroke="#22d3ee" stroke-width="2.5" stroke-opacity=".9"/>
-          <text x="60" y="50" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#8ae9f6">1 · SESSION</text>
-          <text x="214" y="50" font-family="Instrument Serif" font-size="22" fill="#eaedf2">the conversation</text>
-          <text x="1118" y="50" text-anchor="end" font-family="Fira Code" font-size="11" fill="#6e7a8c">conversation_id = leaf-T0142</text>
-
-          <!-- 2 · TRACE -->
-          <rect x="56" y="64" width="1068" height="210" rx="14" fill="#0b0d12" stroke="#4a9eff" stroke-opacity=".6" stroke-width="1.4"/>
-          <path d="M 76 65 h 1028" stroke="#4a9eff" stroke-width="2.2" stroke-opacity=".85"/>
-          <text x="76" y="88" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#8ec4ff">2 · TRACE</text>
-          <text x="214" y="88" font-family="Instrument Serif" font-size="22" fill="#eaedf2">one attempt</text>
-          <text x="1102" y="88" text-anchor="end" font-family="Fira Code" font-size="11" fill="#6e7a8c">12.4s · tokens 8.1k · attempt=1</text>
-
-          <!-- 3 · SPANS · waterfall · 1s = 62px · origin x=268 -->
-          <text x="76" y="112" font-family="Fira Code" font-size="10.5" font-weight="700" letter-spacing="2.2" fill="#c9b8ff">3 · SPANS</text>
-
-          <text x="76" y="138" font-family="Fira Code" font-size="12.5" fill="#c9b8ff">plan</text>
-          <rect x="268" y="124" width="25" height="18" rx="4" fill="#a78bfa"/>
-          <text x="301" y="138" font-family="Fira Code" font-size="11" fill="#8b96a8">0.4s</text>
-
-          <text x="76" y="168" font-family="Fira Code" font-size="12.5" fill="#8ec4ff">chat · gpt-4o</text>
-          <rect x="268" y="154" width="130" height="18" rx="4" fill="#4a9eff"/>
-          <text x="406" y="168" font-family="Fira Code" font-size="11" fill="#8b96a8">2.1s · in 1420 · out 87</text>
-
-          <text x="76" y="198" font-family="Fira Code" font-size="12.5" fill="#8ae9f6">execute_tool</text>
-          <rect x="268" y="184" width="422" height="18" rx="4" fill="#ef9000" filter="url(#d4s09-glow)"/>
-          <text x="698" y="198" font-family="Fira Code" font-size="11.5" font-weight="700" fill="#f0a83d">6.8s · here</text>
-
-          <text x="76" y="228" font-family="Fira Code" font-size="12.5" fill="#8ec4ff">chat · retry</text>
-          <rect x="268" y="214" width="118" height="18" rx="4" fill="#4a9eff" fill-opacity=".72"/>
-          <text x="394" y="228" font-family="Fira Code" font-size="11" fill="#8b96a8">1.9s · retry</text>
-
-          <text x="76" y="258" font-family="Fira Code" font-size="12.5" fill="#f4dd94">eval</text>
-          <rect x="268" y="244" width="50" height="18" rx="4" fill="#f85149"/>
-          <text x="326" y="258" font-family="Fira Code" font-size="11" fill="#fca5a5">0.8s · exit 1</text>
-
-          <!-- connectors to questions · solid horizontal -->
-          <line x1="1140" y1="67" x2="1520" y2="67" stroke="#22d3ee" stroke-width="2.2" stroke-opacity=".85"/>
-          <line x1="1140" y1="163" x2="1520" y2="163" stroke="#ef9000" stroke-width="2.2" stroke-opacity=".85"/>
-          <line x1="1140" y1="259" x2="1520" y2="259" stroke="#f85149" stroke-width="2.2" stroke-opacity=".85"/>
-          <circle cx="1140" cy="67" r="3" fill="#8ae9f6"/>
-          <circle cx="1520" cy="67" r="3" fill="#8ae9f6"/>
-          <circle cx="1140" cy="163" r="3" fill="#f0a83d"/>
-          <circle cx="1520" cy="163" r="3" fill="#f0a83d"/>
-          <circle cx="1140" cy="259" r="3" fill="#f85149"/>
-          <circle cx="1520" cy="259" r="3" fill="#f85149"/>
-
-          <!-- Q1 · WHAT -->
-          <rect x="1520" y="24" width="420" height="86" rx="16" fill="#111114" stroke="#22d3ee" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="1520" y="24" width="420" height="86" rx="16" fill="none" stroke="#22d3ee" stroke-opacity=".3" stroke-width="5" filter="url(#d4s09-glow)"/>
-          <text x="1556" y="48" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#8ae9f6">WHAT HAPPENED?</text>
-          <text x="1556" y="78" font-family="Instrument Serif" font-size="22" fill="#eaedf2">plan → model → tool → retry → eval</text>
-          <text x="1556" y="96" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">the path, in order, with one ID</text>
-
-          <!-- Q2 · WHERE -->
-          <rect x="1520" y="120" width="420" height="86" rx="16" fill="#111114" stroke="#ef9000" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="1520" y="120" width="420" height="86" rx="16" fill="none" stroke="#ef9000" stroke-opacity=".28" stroke-width="5" filter="url(#d4s09-glow)"/>
-          <text x="1556" y="144" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#f0a83d">WHERE DID IT SLOW?</text>
-          <text x="1556" y="174" font-family="Instrument Serif" font-size="22" fill="#eaedf2">the tool · 6.8s of 12.4s</text>
-          <text x="1556" y="192" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">not the model · not the CPU</text>
-
-          <!-- Q3 · WHY -->
-          <rect x="1520" y="216" width="420" height="86" rx="16" fill="#111114" stroke="#f85149" stroke-opacity=".6" stroke-width="1.5"/>
-          <rect x="1520" y="216" width="420" height="86" rx="16" fill="none" stroke="#f85149" stroke-opacity=".28" stroke-width="5" filter="url(#d4s09-glow)"/>
-          <text x="1556" y="240" font-family="Fira Code" font-size="11.5" font-weight="700" letter-spacing="2.4" fill="#fca5a5">WHY DID IT STOP?</text>
-          <text x="1556" y="270" font-family="Instrument Serif" font-size="22" fill="#eaedf2">eval said no</text>
-          <text x="1556" y="288" font-family="Fira Code" font-size="10.5" fill="#6e7a8c">exit 1 · CONFIRMED_SOURCE_DEFECT</text>
-
-          <!-- not observability -->
-          <rect x="40" y="304" width="1100" height="66" rx="14" fill="#111114" stroke="#f85149" stroke-opacity=".4" stroke-width="1.2"/>
-          <text x="76" y="330" font-family="Fira Code" font-size="11" font-weight="700" letter-spacing="2.2" fill="#f85149">NOT OBSERVABILITY · NOTHING WAS CORRELATED</text>
-          <text x="76" y="354" font-family="Instrument Serif" font-size="18" fill="#8b96a8">&ldquo;CPU is fine&rdquo; · &ldquo;the agent said done&rdquo; · &ldquo;no errors in the log&rdquo;</text>
-        </svg>
-      </div>
-
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:clamp(10px,1.15vw,17px);margin-top:clamp(10px,1.6vh,18px);padding-top:clamp(11px,1.7vh,16px);border-top:1px solid var(--rule);">
-        <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">Three layers</span>
-        <span class="tag" style="--tag-c:var(--cyan);">session · the conversation</span>
-        <span class="tag" style="--tag-c:var(--accent);">trace · one attempt</span>
-        <span class="tag" style="--tag-c:var(--gold);">spans · nested operations</span>
-        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">If you cannot reconstruct the run, you are <b style="color:var(--text);font-style:normal;font-weight:600;">monitoring</b>, not observing.</span>
-      </div>
-    </div>
   </section>
 
   <!-- S08 · TELEMETRY — the packet -->
@@ -3899,7 +3627,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
               <span class="wkr-d" style="color:var(--accent);">01</span>
               <div class="wkr-body" style="border-left:2px solid var(--accent);">
                 <div class="wkr-seat">Leave · SeamWise<span class="wkr-now-tag" style="background:var(--accent);">now</span></div>
-                <div class="wkr-job">park the deck · <span style="font-family:var(--font-mono);font-style:normal;">prt-seamwise.html</span> · the remaining lanes · return</div>
+                <div class="wkr-job">park the deck · <span style="font-family:var(--font-mono);font-style:normal;">presentation/seamwise.html</span> · the remaining lanes · return</div>
               </div>
             </li>
             <li class="wkr" style="--wk-c:var(--gold);opacity:0.9;">
@@ -3945,7 +3673,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
 
       <div class="d2-rmap-copy">
         <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:clamp(10px,1.6vh,16px);">
-          <span class="tag" style="--tag-c:var(--silver);">ebooks/prt-seamwise.html</span>
+          <span class="tag" style="--tag-c:var(--silver);">presentation/seamwise.html</span>
           <span class="tag" style="--tag-c:var(--gold);">Pass 3 · Decompose · again</span>
         </div>
         <span class="tag" style="--tag-c:var(--accent);">SeamWise · Decomposition Engine</span>
@@ -3972,7 +3700,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
           <img src="../assets/seamwise-icon.svg" alt="SeamWise" style="width:38px;height:38px;">
           <div>
             <div style="font-family:var(--font-display);font-size:18px;line-height:1;color:var(--text);">Leave this Night. Open the kit. <span style="font-family:var(--font-mono);font-size:9.5px;color:var(--text-mute);">then Execute 03–04</span></div>
-            <div style="font-family:var(--font-mono);font-size:9.5px;color:var(--accent);margin-top:4px;">ebooks/prt-seamwise.html · remaining lanes · return here</div>
+            <div style="font-family:var(--font-mono);font-size:9.5px;color:var(--accent);margin-top:4px;">presentation/seamwise.html · remaining lanes · return here</div>
           </div>
         </div>
       </div>
@@ -4113,7 +3841,6 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
     </div>
   </section>
 
-  <!-- D03 · HANDS-ON B · EXECUTE 03–05 — cut, author, register -->
   <section class="slide" data-act="DIG" data-act-name="Execute 03–04" data-accent="gold">
     <div class="aurora aurora--gold" aria-hidden="true"><b></b></div>
     <span class="hands-on">Hands On</span>
@@ -4125,7 +3852,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
             <span class="hs-range">beats 03–04 · place, then generate + queue</span>
           </div>
           <h2 class="slide__heading" style="font-size:clamp(30px,4.6vw,58px);">Place remaining on the two lanes. <span class="gradient-gold">Then generate the queue.</span></h2>
-          <p class="slide__body" style="max-width:74ch;">Instructor maps in public, the room copies. Same SWE and DE lanes they just walked. Tile 04 after the Task-Spec Show. Come back when remaining work is <b>placed</b>, leaves have <b>real evals</b>, and Linear shows the queue. <b>Nothing cranks on this board.</b></p>
+          <p class="slide__body" style="max-width:74ch;">Instructor maps in public, the room copies. Same SWE and DE lanes they just walked. <b>Tile 03 now</b> (place, no Task-Specs). Next slide is the Task-Spec kit — park, open <code>presentation/task-spec.html</code>, return. <b>Then tile 04</b> (generate + queue). Come back when remaining work is <b>placed</b>, leaves have <b>real evals</b>, and Linear shows the queue. <b>Nothing cranks on this board.</b></p>
         </div>
         <span class="hs-run"><b>run/d4/</b> · 03–04</span>
       </div>
@@ -4160,7 +3887,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
 
       <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;">
         <span class="tag" style="--tag-c:var(--cyan);">Show · Task-Spec · pause the kit, return here</span>
-        <span class="tag" style="--tag-c:var(--silver);">ebooks/prt-task-spec.html</span>
+        <span class="tag" style="--tag-c:var(--silver);">presentation/task-spec.html</span>
       </div>
       <h2 class="h2" style="margin-top:clamp(9px,1.5vh,15px);font-size:clamp(32px,4.4vw,60px);">
         A leaf is a <span class="gradient-cyan">contract</span>, not a to-do.
@@ -4204,7 +3931,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
         <span class="tag" style="--tag-c:var(--red);">empty type packages forbidden</span>
         <span class="tag" style="--tag-c:var(--silver);">signed_off starts false</span>
         <span class="tag" style="--tag-c:var(--red);">no Type 06</span>
-        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Pause here, open the kit, come back — then tile <b style="color:var(--text);font-style:normal;font-weight:600;">04</b> on board B.</span>
+        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Pause here, open <span style="font-family:var(--font-mono);font-style:normal;">presentation/task-spec.html</span>, come back — then tile <b style="color:var(--text);font-style:normal;font-weight:600;">04</b> on board B.</span>
       </div>
     </div>
   </section>
@@ -4308,7 +4035,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
     </div>
   </section>
 
-  <!-- D07 · HANDS-ON D · EXECUTE 08–09 — Type 05 unattended, then the cent -->
+  <!-- D07 · HANDS-ON D · EXECUTE 07–08 — Type 05 unattended, then the cent -->
   <section class="slide" data-act="DIG" data-act-name="Execute 07–08" data-accent="red">
     <div class="aurora aurora--red" aria-hidden="true"><b></b></div>
     <span class="hands-on">Hands On</span>

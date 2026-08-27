@@ -15,9 +15,10 @@ Inbound: [`spec/type-05-merchant-fee-assessment/`](../../spec/type-05-merchant-f
 Bind Type 05. Hand the inbound pack. Walk away.
 
 The eval is the judge. When the loop returns, look up:
-1. valid-minimal — classified, packet on disk.
-2. malformed — classified. No invented artifacts.
-3. DF-SOURCE-005 / df-source-005 — CONFIRMED_SOURCE_DEFECT. Keep the declaration. Refuse.
+1. make run TYPE=05 SCENARIO=valid-minimal — classified, packet on disk.
+2. make run TYPE=05 SCENARIO=malformed — classified. No invented artifacts.
+3. make run TYPE=05 SCENARIO=DF-SOURCE-005 — CONFIRMED_SOURCE_DEFECT. Keep the declaration. Refuse.
+   (uppercase DF-SOURCE-005 — lowercase df-source-005 is not a registered scenario)
 
 Do not implement rounding-half-up on this tile.
 Do not change expected/.
@@ -27,7 +28,12 @@ Do not open Type 06.
 
 ## Proof
 
-`DF-SOURCE-005` = **`CONFIRMED_SOURCE_DEFECT`**. Packets in the terminal. Frozen `legacy/` untouched.
+Look up `evidence/B202607230000405/final-status.json`:
+`status: quarantined` · `code: SOURCE_CONTROL_ASSESSED_FEE_MISMATCH`
+(declared assessed 0.99 vs calculated 1.00). That refusal **is**
+`CONFIRMED_SOURCE_DEFECT` in golden-match language. The JSON will **not**
+say `CONFIRMED_SOURCE_DEFECT` — do not hunt for that string. Frozen
+`legacy/` untouched.
 
 ## If fail
 

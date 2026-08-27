@@ -20,6 +20,7 @@ Name landing Parquet, lakehouse, and a golden-match packet — or say MISSING.
 Keep 173.44. The trail is the next board.
 
 Do not make run unless evidence/B202607230000001/reconciliation.json is missing.
+Do not re-run TYPE=01 SCENARIO=valid-minimal if that file already says MATCHED 173.45.
 Do not write any file.
 ```
 
@@ -29,4 +30,4 @@ Gold **present or named as a gap**. `main` may have none — that is allowed. **
 
 ## If fail
 
-Gold missing → **do not run 03–08**. Stage and the trail still run. Missing MATCHED packet → [`../d1/05-boot.md`](../d1/05-boot.md). Do not share Compose port **2222**.
+Gold missing → **do not run 03–08**. Stage and the trail still run. Missing MATCHED packet → [`../d1/05-boot.md`](../d1/05-boot.md). Tonight Gold **is** on `wrktr-e2e`. Do not share Compose port **2222** with `main`.

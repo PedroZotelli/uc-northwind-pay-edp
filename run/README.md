@@ -15,7 +15,7 @@ It is not the student brief. It is not the deck.
 One folder per night. One file per beat, numbered. **One Night** — no
 morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
 
-**Week story:** Nights 2–3 are **Type 01 steel threads** (SWE ingest → landing, then DE landing → Gold). Night 4 teaches **Context · Eval · Loop**, then **generates remaining swimlanes / SWE+DE** and cranks them (Mesh + Pass 6–8, Linear), then Type `05` unattended. Night 5 is sealed Type `06`.
+**Week story:** Nights 2–3 are **Type 01 steel threads** (SWE ingest → landing, then DE landing → Gold). Night 4 teaches **Context · Eval · Loop**, **walks the Type 01 trail**, then generates remaining SWE+DE and cranks them (Mesh + Pass 6–8, Linear), then Type `05` unattended. Night 5 is sealed Type `06`.
 
 Night 1 HTML is live — [`d1-archaeologist.html`](../presentation/d1-archaeologist.html) · [`d1/`](d1/README.md).
 Night 2 HTML is live — [`d2-translator.html`](../presentation/d2-translator.html) · [`d2/`](d2/README.md). Identify by `data-act-name`.
