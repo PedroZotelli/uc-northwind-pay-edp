@@ -978,8 +978,8 @@ body::after {
 }
 .codex-artifact .mac-title { padding-inline:74px; letter-spacing:.8px; font-size:clamp(7.2px,.63vw,8.5px); }
 .codex-spec-code {
-  flex:1 1 auto; min-height:0; margin:0; overflow:hidden; padding:0 11px 12px;
-  white-space:pre-wrap; overflow-wrap:anywhere; color:#c8d0dc; font:500 clamp(8px,.88vw,10.6px)/1.45 var(--font-mono);
+  flex:1 1 auto; min-height:0; margin:0; overflow:hidden; padding:0 clamp(14px,1.4vw,24px) clamp(16px,2.4vh,26px);
+  white-space:pre-wrap; overflow-wrap:anywhere; color:#c8d0dc; font:500 clamp(8.5px,.8vw,10.5px)/1.6 var(--font-mono);
   background:transparent;
 }
 .codex-spec-code .k { color:var(--purple); }
@@ -3554,12 +3554,8 @@ ID                                   KIND  SIZE  BACKEND  TITLE
            aria-label="A graph under a spotlight. Lit: the export scheduler leaf, its done dependency CSV export, and their parent payments-reporting, joined by bright rails and marked in the closure. Dimmed outside the light: export audit log, schedule alerts and email delivery. Below, three task and revision pairs feed a sha256 formula that produces the closure digest.">
         <defs>
           <filter id="s24-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <radialGradient id="s24-spot" cx=".5" cy=".5" r=".65"><stop offset="0" stop-color="#68C7FF" stop-opacity=".09"/><stop offset=".7" stop-color="#68C7FF" stop-opacity=".03"/><stop offset="1" stop-color="#68C7FF" stop-opacity="0"/></radialGradient>
           <linearGradient id="s24-dep" gradientUnits="userSpaceOnUse" x1="520" y1="0" x2="700" y2="0"><stop offset="0" stop-color="#39D98A" stop-opacity=".4"/><stop offset="1" stop-color="#68C7FF" stop-opacity=".95"/></linearGradient>
         </defs>
-
-        <!-- spotlight -->
-        <ellipse cx="640" cy="140" rx="640" ry="220" fill="url(#s24-spot)"/>
 
         <!-- parent (lit) -->
         <rect x="440" y="0" width="440" height="58" rx="13" fill="rgba(255,107,102,.03)" stroke="#FF6B66" stroke-opacity=".6" stroke-width="1.5"/>
@@ -4447,27 +4443,29 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
           <!-- ring -->
           <circle cx="360" cy="220" r="150" fill="none" stroke="#39D98A" stroke-opacity=".22" stroke-width="7" filter="url(#s34-glow)"/>
           <circle cx="360" cy="220" r="150" fill="none" stroke="#68C7FF" stroke-opacity=".7" stroke-width="2.2"/>
-          <polygon points="360,66 372,74 360,82" fill="#9fd6ff" transform="rotate(0 360 74)"/>
-          <polygon points="506,214 514,226 498,226" fill="#9fd6ff"/>
-          <polygon points="366,362 354,372 354,354" fill="#9fd6ff"/>
-          <polygon points="214,226 206,214 222,214" fill="#9fd6ff"/>
+          <g fill="#9fd6ff" filter="url(#s34-glow)">
+            <path d="M -7 -6 L 8 0 L -7 6 Z" transform="translate(466,114) rotate(45)"/>
+            <path d="M -7 -6 L 8 0 L -7 6 Z" transform="translate(466,326) rotate(135)"/>
+            <path d="M -7 -6 L 8 0 L -7 6 Z" transform="translate(254,326) rotate(225)"/>
+            <path d="M -7 -6 L 8 0 L -7 6 Z" transform="translate(254,114) rotate(315)"/>
+          </g>
 
           <!-- stations -->
-          <rect x="270" y="20" width="180" height="56" rx="12" fill="#111114" stroke="#68C7FF" stroke-opacity=".75" stroke-width="1.5"/>
-          <text x="360" y="44" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">change the code</text>
-          <text x="360" y="64" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8b96a8">inside the write surface</text>
+          <rect x="270" y="6" width="180" height="56" rx="12" fill="#111114" stroke="#68C7FF" stroke-opacity=".75" stroke-width="1.5"/>
+          <text x="360" y="30" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">change the code</text>
+          <text x="360" y="50" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8b96a8">inside the write surface</text>
 
-          <rect x="460" y="192" width="200" height="56" rx="12" fill="rgba(57,217,138,.05)" stroke="#39D98A" stroke-opacity=".8" stroke-width="1.5"/>
-          <text x="560" y="216" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">run the evals</text>
-          <text x="560" y="236" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8ff0bd">taskspec run --ci</text>
+          <rect x="520" y="192" width="200" height="56" rx="12" fill="rgba(57,217,138,.05)" stroke="#39D98A" stroke-opacity=".8" stroke-width="1.5"/>
+          <text x="620" y="216" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">run the evals</text>
+          <text x="620" y="236" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8ff0bd">taskspec run --ci</text>
 
-          <rect x="270" y="364" width="180" height="56" rx="12" fill="#111114" stroke="#68C7FF" stroke-opacity=".75" stroke-width="1.5"/>
-          <text x="360" y="388" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">read the verdict</text>
-          <text x="360" y="408" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8b96a8">pass · fail · which eval, why</text>
+          <rect x="270" y="378" width="180" height="56" rx="12" fill="#111114" stroke="#68C7FF" stroke-opacity=".75" stroke-width="1.5"/>
+          <text x="360" y="402" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">read the verdict</text>
+          <text x="360" y="422" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#8b96a8">pass · fail · which eval, why</text>
 
-          <rect x="60" y="192" width="200" height="56" rx="12" fill="#111114" stroke="#E4A51A" stroke-opacity=".75" stroke-width="1.5"/>
-          <text x="160" y="216" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">retry with reason</text>
-          <text x="160" y="236" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#F5D67A">retry_with_reason</text>
+          <rect x="6" y="192" width="200" height="56" rx="12" fill="#111114" stroke="#E4A51A" stroke-opacity=".75" stroke-width="1.5"/>
+          <text x="106" y="216" text-anchor="middle" font-family="Instrument Serif" font-size="18" fill="#eaedf2">retry with reason</text>
+          <text x="106" y="236" text-anchor="middle" font-family="Fira Code" font-size="8.5" letter-spacing="1" fill="#F5D67A">retry_with_reason</text>
 
           <!-- counters -->
           <text x="360" y="196" text-anchor="middle" font-family="Fira Code" font-size="8.5" font-weight="800" letter-spacing="2" fill="#8f969f">TWO BRAKES IT CANNOT RESET</text>
@@ -4475,17 +4473,20 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
           <text x="360" y="250" text-anchor="middle" font-family="Fira Code" font-size="12" font-weight="700" fill="#F5D67A">no-progress  <tspan fill="#F5F2EA">1</tspan> / 3</text>
 
           <!-- exits -->
-          <line x1="660" y1="220" x2="760" y2="150" stroke="#39D98A" stroke-opacity=".85" stroke-width="2.4" stroke-linecap="round"/>
-          <polygon points="751,146 762,148 755,158" fill="#8ff0bd"/>
-          <rect x="650" y="96" width="180" height="46" rx="10" fill="rgba(57,217,138,.06)" stroke="#39D98A" stroke-opacity=".8" stroke-width="1.4" filter="url(#s34-glow)"/>
+          <path d="M 660 192 Q 700 162 728 144" fill="none" stroke="#39D98A" stroke-opacity=".85" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="660" cy="192" r="3" fill="#8ff0bd"/>
+          <path d="M -7 -6 L 8 0 L -7 6 Z" fill="#8ff0bd" transform="translate(732,142) rotate(-33)"/>
+          <rect x="648" y="96" width="184" height="46" rx="10" fill="rgba(57,217,138,.06)" stroke="#39D98A" stroke-opacity=".8" stroke-width="1.4" filter="url(#s34-glow)"/>
           <text x="740" y="115" text-anchor="middle" font-family="Fira Code" font-size="9" font-weight="800" letter-spacing="1.4" fill="#8ff0bd">EVAL=PASS</text>
           <text x="740" y="133" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#9fd8b8">a candidate — hand it to POST</text>
 
-          <line x1="60" y1="220" x2="10" y2="300" stroke="#FF6B66" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>
-          <polygon points="6,290 8,304 20,298" fill="#FF9B97"/>
-          <rect x="0" y="306" width="230" height="46" rx="10" fill="rgba(255,107,102,.05)" stroke="#FF6B66" stroke-opacity=".7" stroke-width="1.4"/>
-          <text x="115" y="325" text-anchor="middle" font-family="Fira Code" font-size="9" font-weight="800" letter-spacing="1.4" fill="#FF9B97">BREAKER TRIPS → parked_with_context</text>
-          <text x="115" y="343" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="12" fill="#a86b67">budget spent or no progress — stop, keep the evidence</text>
+          <path d="M 106 248 Q 108 316 118 358" fill="none" stroke="#FF6B66" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="106" cy="248" r="3" fill="#FF9B97"/>
+          <path d="M -7 -6 L 8 0 L -7 6 Z" fill="#FF9B97" transform="translate(120,364) rotate(78)"/>
+          <rect x="0" y="370" width="250" height="66" rx="10" fill="rgba(255,107,102,.05)" stroke="#FF6B66" stroke-opacity=".7" stroke-width="1.4"/>
+          <text x="125" y="391" text-anchor="middle" font-family="Fira Code" font-size="9.5" font-weight="800" letter-spacing="1.6" fill="#FF9B97">BREAKER TRIPS</text>
+          <text x="125" y="409" text-anchor="middle" font-family="Fira Code" font-size="9.5" fill="#FF9B97">→ parked_with_context</text>
+          <text x="125" y="427" text-anchor="middle" font-family="Newsreader" font-style="italic" font-size="11.5" fill="#a86b67">stop, keep the evidence</text>
         </svg>
 
         <div>
