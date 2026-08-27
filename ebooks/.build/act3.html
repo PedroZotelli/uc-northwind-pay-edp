@@ -1,0 +1,521 @@
+<!-- ACT 3 — The decomposition grammar: S18–S32 -->
+
+<!-- S18 — One grammar lowers altitude without losing lineage -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <div class="cols c2w" style="align-items:center;">
+      <div>
+        <span class="kick">INTENT → SEAM → LANE → LEG → UNIT</span>
+        <h2 class="h2">One grammar lowers altitude <span class="grad-purple">without losing lineage</span></h2>
+        <p class="lede">From an <b>approved initiative</b> to a <b>TaskPlan/v1 unit</b>, each stage adds exactly one kind of structure — never two, never none.</p>
+        <div class="rows" style="margin-top:18pt;">
+          <div class="row"><span class="rn">01</span><span class="rt"><b>Seam</b> — adds the boundary: an evidence-backed responsibility cut.</span></div>
+          <div class="row"><span class="rn">02</span><span class="rt"><b>Owning swimlane</b> — adds ownership: one lane jurisdiction for the seam.</span></div>
+          <div class="row"><span class="rn">03</span><span class="rt"><b>Capability leg</b> — adds observable state with proof.</span></div>
+          <div class="row"><span class="rn">04</span><span class="rt"><b>Runnable task contract</b> — adds runnable proof: one provable leaf.</span></div>
+          <div class="row"><span class="rn">05</span><span class="rt"><b>TaskPlan/v1 unit</b> — adds lineage: projection plus digest-bound lineage.</span></div>
+        </div>
+      </div>
+      <div class="mmd frame">
+flowchart TB
+    I["Delivery Intent"] --> S["Seam"]
+    S --> W["Owning swimlane"]
+    W --> L["Capability leg"]
+    L --> T["Runnable task contract"]
+    T --> U["TaskPlan unit"]
+    U --> X["Lineage entry"]
+      </div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[O]</b> AGENTS.md · <b>[I]</b> engine stages and taskspec_adapter.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S18 · </span>
+  </div>
+</section>
+
+<!-- S19 — Seam anatomy -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">EIGHT LOAD-BEARING FIELDS</span>
+    <h2 class="h2">The seam is a boundary with <span class="grad-purple">load-bearing fields</span></h2>
+    <p class="lede">ID and responsibility name the cut; <code>consumes</code>, <code>produces</code>, and <code>owner</code> make the joint concrete; evidence and <code>independent_proof</code> let it stand alone; decision IDs and <code>rejected_alternatives</code> remember why the cut exists — all attached to <b>one swimlane</b>.</p>
+    <div class="cols c2w" style="margin-top:20pt;">
+      <div class="codewin" data-lang="yaml"><span class="cm"># seam frontmatter — the cut, the contract, the proof, the memory</span>
+<span class="kw">id</span>: SEAM-POLICY-CONTRACT
+<span class="kw">responsibility</span>: Define and validate versioned policy data.
+<span class="kw">consumes</span>: [<span class="st">authored organization policy</span>]
+<span class="kw">produces</span>: [<span class="st">validated policy document</span>]
+<span class="kw">owner</span>: platform-contracts
+<span class="gd">independent_proof</span>: Invalid limits fail schema validation.
+<span class="kw">rejected_alternatives</span>:
+  - <span class="kw">alternative</span>: Treat the API handler as the boundary
+    <span class="kw">reason</span>: It would mix contract, resolution, and enforcement.</div>
+      <div>
+        <span class="kick" style="margin-bottom:8pt;">A seam is not a component</span>
+        <table class="tbl">
+          <tr><th>Component</th><th>Seam</th></tr>
+          <tr><td>names a structural unit</td><td>names a responsibility boundary</td></tr>
+          <tr><td>may share authority</td><td>has one owner</td></tr>
+          <tr><td>may lack an external contract</td><td>states consumes and produces</td></tr>
+          <tr><td>testing may require the whole system</td><td>carries independent proof</td></tr>
+          <tr><td>existence can be incidental</td><td>rejected alternatives justify the cut</td></tr>
+        </table>
+        <div class="note" style="margin-top:14pt;">Next: the two contract lists make the joint concrete.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> render_seam</span>
+    <span class="spacer"></span>
+    <span class="folio">S19 · </span>
+  </div>
+</section>
+
+<!-- S20 — Consumes and produces define the joint -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">INFORMATION CROSSES; OWNERSHIP DOES NOT</span>
+    <h2 class="h2">Information crosses the seam; <span class="grad-purple">ownership does not</span></h2>
+    <p class="lede">Seams interact through <b>named inputs and outputs</b> — one versioned artifact leaves one lane's <code>produces</code> and enters the other's <code>consumes</code>. There is no invisible shared mutation.</p>
+    <div class="mmd frame" style="margin-top:14pt;">
+flowchart LR
+    A["consumes"] --> J["SEAM\nresponsibility\nowner\nevidence"]
+    J --> B["produces"]
+    P["independent proof"] --> J
+    D["accepted decisions"] --> J
+    X["rejected alternatives"] --> J
+    J --> L["one owning swimlane"]
+    </div>
+    <div class="cards c3" style="margin-top:18pt;">
+      <div class="card acc-red"><span class="ck">Too vague</span><div class="ct">“uses database”</div><div class="cb">Which <b>state</b> crosses, in which direction, at which version? A resource name carries no state semantics.</div></div>
+      <div class="card acc-red"><span class="ck">Too vague</span><div class="ct">“calls backend”</div><div class="cb">A call is an activity, not a contract. The seam needs the <b>named artifact</b> the call exchanges.</div></div>
+      <div class="card acc-red"><span class="ck">Too vague</span><div class="ct">“shares model”</div><div class="cb">Shared mutation with no named crossing — <b>ownership blurs</b> and the joint disappears.</div></div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[D]</b> current HTML S03–S04</span>
+    <span class="spacer"></span>
+    <span class="folio">S20 · </span>
+  </div>
+</section>
+
+<!-- S21 — One accepted seam has exactly one owning swimlane -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">NO ORPHANS, NO CO-OWNED ESCAPE HATCH</span>
+    <h2 class="h2">One accepted seam, <span class="grad-purple">exactly one owning swimlane</span></h2>
+    <p class="lede"><code>seam.owner</code> must equal <code>seam.swimlane.owner</code> — the same name on both sides of the joint. Two owners is an escape hatch; no owner is an orphan. Both stop the map.</p>
+    <div class="cols c2" style="margin-top:20pt;align-items:center;">
+      <div class="pool">
+        <div class="phead">LANE-POLICY-RESOLUTION · owner: platform-contracts</div>
+        <div class="pbody">
+          <span class="wblock">SEAM-POLICY-RESOLUTION — accepted, owned</span>
+          <span class="rblock">reads: authored organization policy</span>
+        </div>
+      </div>
+      <div class="stack" style="gap:12pt;">
+        <div class="failcard"><div class="fk">Two owners</div><div class="ft">A co-owned seam cannot say who writes. The map stops: <b>SEAM_MAP=NEEDS_OWNER_INPUT</b>, exit 2.</div></div>
+        <div class="failcard"><div class="fk">No owner</div><div class="ft">An ownerless seam enters no lane. Same token, same stop — the repair is to <b>name one owner consistently</b>.</div></div>
+      </div>
+    </div>
+    <div class="gate" style="margin-top:18pt;"><span class="gk">Fail closed</span><span class="gt">Ownership missing or mismatched → <b>SEAM_MAP=NEEDS_OWNER_INPUT</b>. The seam stays unmapped until one name owns both sides of the joint.</span></div>
+    <div class="note" style="margin-top:14pt;">Next: a lane owns a boundary, not a department.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[O]</b> AGENTS.md · <b>[I]</b> recipe.py and planning.py · <b>[T]</b> test_missing_owner_needs_owner_input</span>
+    <span class="spacer"></span>
+    <span class="folio">S21 · </span>
+  </div>
+</section>
+
+<!-- S22 — A swimlane is a write-and-proof jurisdiction -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">OWNER, WRITES, READS, CONTRACT CROSSINGS</span>
+    <h2 class="h2">A swimlane is a <span class="grad-purple">write-and-proof jurisdiction</span></h2>
+    <p class="lede">The lane header names the <b>owner</b>. Gold blocks are the capability states the lane may <b>write and prove</b>; dashed context stays <b>read-only</b>. Anything that crosses the lane border crosses through a seam contract.</p>
+    <div class="cols c2l" style="margin-top:20pt;align-items:center;">
+      <div class="pool">
+        <div class="phead">LANE-POLICY-RESOLUTION · owner: platform-contracts</div>
+        <div class="pbody">
+          <span class="wblock">validated policy document</span>
+          <span class="wblock">effective policy decision</span>
+          <span class="wblock">denial reason + telemetry</span>
+          <span class="rblock">authored organization policy — read-only</span>
+          <span class="rblock">evidence/blueprint.md — read-only</span>
+        </div>
+      </div>
+      <div>
+        <span class="kick" style="margin-bottom:8pt;">A lane is not a team</span>
+        <table class="tbl">
+          <tr><th>Team</th><th>Swimlane</th></tr>
+          <tr><td>organizational identity</td><td>delivery jurisdiction for one seam</td></tr>
+          <tr><td>can own many unrelated concerns</td><td>owns one accepted boundary</td></tr>
+          <tr><td>may read and write broadly</td><td>write/proof scope is explicit</td></tr>
+          <tr><td>membership can change</td><td>owner identity is part of reviewed topology</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="gate" style="margin-top:18pt;"><span class="gk">Refusal</span><span class="gt">Lanes do not become <b>parallel</b> merely because they are drawn side by side.</span></div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[D]</b> current HTML S04 · <b>[I]</b> render_swimlane and delivery-plan projection</span>
+    <span class="spacer"></span>
+    <span class="folio">S22 · </span>
+  </div>
+</section>
+
+<!-- S23 — A capability leg is a state, not an activity -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">SOMETHING TESTABLE BECOMES TRUE</span>
+    <h2 class="h2">A capability leg is a state, <span class="grad-purple">not an activity</span></h2>
+    <p class="lede">“Implement policy schema” is an activity. <b>“Policy documents are schema-valid”</b> is a leg — an observable state with a proof, a requires/produces contract, and one or more tasks that make it true.</p>
+    <div class="cols c2l" style="margin-top:20pt;">
+      <div class="codewin" data-lang="yaml"><span class="cm"># capability leg — a state the system can be tested against</span>
+<span class="kw">id</span>: LEG-EFFECTIVE-POLICY-RESOLVED
+<span class="gd">observable_state</span>: Every organization has one effective policy
+<span class="gn">proof</span>: Precedence tests return one decision with provenance.
+<span class="kw">requires</span>: [<span class="st">validated policy document</span>]
+<span class="kw">produces</span>: [<span class="st">effective policy decision</span>]</div>
+      <div>
+        <span class="kick" style="margin-bottom:8pt;">A leg is not a task</span>
+        <table class="tbl">
+          <tr><th>Capability leg</th><th>Task</th></tr>
+          <tr><td>observable system state</td><td>bounded change unit</td></tr>
+          <tr><td>states requires/produces</td><td>states depends_on</td></tr>
+          <tr><td>proved by one or more tasks</td><td>carries behavior/evals</td></tr>
+          <tr><td>architecture-level progress</td><td>future Task-Spec leaf input</td></tr>
+        </table>
+        <div class="tokset" style="margin-top:14pt;">
+          <span class="tok gold">observable_state</span><span class="tok gold">proof</span><span class="tok">requires</span><span class="tok">produces</span><span class="tok purple">≥ 1 task</span>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:14pt;">Next: the steel thread selects the smallest sequence that proves the system.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[O]</b> AGENTS.md · <b>[S]</b> recipe leg definition · <b>[D]</b> current HTML S05</span>
+    <span class="spacer"></span>
+    <span class="folio">S23 · </span>
+  </div>
+</section>
+
+<!-- S24 — The steel thread is the minimum proving path -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">NOT THE WHOLE ROADMAP</span>
+    <h2 class="h2">The steel thread is the <span class="grad-gold">minimum proving path</span></h2>
+    <p class="lede">Ordered leg IDs form the <b>thinnest end-to-end capability chain</b> that proves the initiative's core outcome. Optional legs remain in the plan — they just do not carry the proof.</p>
+    <div class="thread" style="margin-top:30pt;">
+      <div class="tleg"><div class="node"><div class="nt">Policy documents are schema-valid</div><div class="np">LEG-POLICY-SCHEMA-VALID</div></div></div>
+      <div class="tleg"><div class="node"><div class="nt">Effective policy is resolved</div><div class="np">LEG-EFFECTIVE-POLICY-RESOLVED</div></div></div>
+      <div class="tleg"><div class="node"><div class="nt">Request 101 is denied</div><div class="np">LEG-REQUEST-101-DENIED</div></div></div>
+      <div class="tleg"><div class="node"><div class="nt">Reason and telemetry agree</div><div class="np">LEG-REASON-TELEMETRY-AGREE</div></div></div>
+    </div>
+    <div class="cards c2" style="margin-top:30pt;">
+      <div class="card acc-gold"><span class="ck">On the thread</span><div class="ct">Four states, one chain</div><div class="cb">Each gold node is a <b>capability leg</b> the core outcome depends on — ordered, end to end, nothing spare.</div></div>
+      <div class="card acc-silver"><span class="ck">Off the thread</span><div class="ct">Optional legs stay visible</div><div class="cb">Legs outside the steel thread <b>remain in the plan and the graph</b> — they extend capability without disappearing.</div></div>
+    </div>
+    <div class="note" style="margin-top:16pt;">Next: thread order must also exist as task causality.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe steel_thread · <b>[T]</b> rate-limiting fixture · <b>[I]</b> render_steel_thread</span>
+    <span class="spacer"></span>
+    <span class="folio">S24 · </span>
+  </div>
+</section>
+
+<!-- S25 — Capability requirements need one producer -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">STATE NAMES BECOME CAUSAL OBLIGATIONS</span>
+    <h2 class="h2">Every required state needs <span class="grad-purple">exactly one producer</span></h2>
+    <p class="lede">A leg's <code>requires</code> is not a wish — it is a <b>causal obligation</b>. Some other leg's <code>produces</code> must deliver that state: one origin, no more, no less.</p>
+    <div class="flowarrow" style="margin-top:26pt;">
+      <div class="fnode">producer leg · produces</div>
+      <div class="fedge"></div>
+      <div class="fnode">state artifact · validated policy document</div>
+      <div class="fedge"></div>
+      <div class="fnode">consumer leg · requires</div>
+    </div>
+    <div class="cards c3" style="margin-top:26pt;">
+      <div class="card acc-green"><span class="ck">Exactly one</span><div class="ct">The obligation resolves</div><div class="cb">One distinct producing leg delivers the required state — causality is <b>unambiguous</b>.</div></div>
+      <div class="card acc-red"><span class="ck">Zero producers</span><div class="ct">Unproduced requirement</div><div class="cb">Nothing produces the required state → <code>capability_requirement_unproduced</code>.</div></div>
+      <div class="card acc-red"><span class="ck">Two producers</span><div class="ct">Ambiguous producer</div><div class="cb">Two legs claim the same state → <code>capability_producer_ambiguous</code>.</div></div>
+    </div>
+    <div class="note" style="margin-top:16pt;">Next: a state arrow without a task dependency is still fiction.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[I]</b> graph.py · <b>[T]</b> fail-closed capability tests</span>
+    <span class="spacer"></span>
+    <span class="folio">S25 · </span>
+  </div>
+</section>
+
+<!-- S26 — Root tasks must depend on the producing leg -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">LABELS DO NOT CREATE ORDER</span>
+    <h2 class="h2">A capability edge is real only when <span class="grad-purple">the task DAG agrees</span></h2>
+    <p class="lede">Each consumer-leg <b>root task</b> needs a <b>transitive dependency</b> on a task in the producer leg. Two rails, one truth: the capability rail above, task causality below.</p>
+    <div class="mmd frame" style="margin-top:16pt;">
+flowchart TB
+    CA["Capability A produced"] --> CB["Capability B requires A"]
+    TA["Task A"] --> TB["Task B"]
+    CA -. "owned by" .-> TA
+    CB -. "owned by" .-> TB
+    </div>
+    <div class="cols c2" style="margin-top:20pt;">
+      <div class="gate"><span class="gk">Diagnostic</span><span class="gt">A root task with no transitive producer dependency stops compile: <b>missing_capability_dependency</b>.</span></div>
+      <div class="gate gold"><span class="gk">Boundary</span><span class="gt">The rule also binds legs <b>outside the steel thread</b> — optional does not mean unordered.</span></div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[I]</b> graph.py · <b>[T]</b> required-capability and outside-thread tests</span>
+    <span class="spacer"></span>
+    <span class="folio">S26 · </span>
+  </div>
+</section>
+
+<!-- S27 — A runnable task owns one coherent done-condition -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">FUTURE TASK-SPEC INPUT</span>
+    <h2 class="h2">A runnable task owns <span class="grad-purple">one coherent done-condition</span></h2>
+    <p class="lede">One authored recipe task becomes <b>one TaskPlan/v1 unit</b>. Thirteen fields travel together — split them, and the leaf loses its proof.</p>
+    <div class="flowarrow" style="margin-top:22pt;">
+      <div class="fnode">recipe task · task contract</div>
+      <div class="fedge"></div>
+      <div class="fnode">TaskPlan/v1 unit + lineage entry</div>
+    </div>
+    <div class="cards c4" style="margin-top:24pt;">
+      <div class="card acc-purple"><span class="ck">Intent</span><div class="ct">Why it exists</div><div class="cb"><b>goal</b> · <b>done condition</b></div></div>
+      <div class="card acc-blue"><span class="ck">Execution</span><div class="ct">How it runs</div><div class="cb"><b>effort</b> · <b>profile</b> · <b>backend</b> · <b>tools</b></div></div>
+      <div class="card acc-cyan"><span class="ck">Causality &amp; surface</span><div class="ct">Where it lands</div><div class="cb"><b>dependencies</b> · <b>paths</b></div></div>
+      <div class="card acc-gold"><span class="ck">Proof &amp; safety</span><div class="ct">How it holds</div><div class="cb"><b>behavior</b> · <b>evals</b> · <b>guardrails</b> · <b>rollback</b> · <b>observability</b></div></div>
+    </div>
+    <div class="gate gold" style="margin-top:22pt;"><span class="gk">Boundary</span><span class="gt">This is <b>authored task intent</b> — a task contract, the future leaf input. Seamwise projects the unit; no Task-Spec file exists yet, and the Task-Spec seal belongs downstream.</span></div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe task definition · <b>[I]</b> taskspec_adapter.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S27 · </span>
+  </div>
+</section>
+
+<!-- S28 — Exactly two behaviors, in canonical order -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">B-1 AND B-2</span>
+    <h2 class="h2">Exactly two behaviors, <span class="grad-purple">in canonical order</span></h2>
+    <p class="lede">Every task authors exactly <b>B-1</b> and <b>B-2</b>, each with <code>given</code>, <code>when</code>, <code>then</code> — the two cards the done-condition stands on.</p>
+    <div class="cols c2w" style="margin-top:20pt;align-items:center;">
+      <div class="codewin" data-lang="yaml"><span class="kw">behavior</span>:
+  - <span class="kw">id</span>: <span class="gd">B-1</span>
+    <span class="kw">given</span>: a valid organization override
+    <span class="kw">when</span>: effective policy is resolved
+    <span class="kw">then</span>: the override and provenance are returned
+  - <span class="kw">id</span>: <span class="gd">B-2</span>
+    <span class="kw">given</span>: no organization override
+    <span class="kw">when</span>: effective policy is resolved
+    <span class="kw">then</span>: the validated default is returned</div>
+      <div class="stack" style="gap:14pt;">
+        <div class="card acc-purple"><span class="ck">B-1 · the override path</span><div class="cb">A valid organization override exists → resolution returns <b>the override and its provenance</b>.</div></div>
+        <div class="card acc-purple"><span class="ck">B-2 · the default path</span><div class="cb">No organization override exists → resolution returns <b>the validated default</b>.</div></div>
+        <div class="gate gold"><span class="gk">Qualifier</span><span class="gt">A <b>recipe-v1 constraint</b>, not a universal task-design law — other shapes stop as <b>unsupported_traceability_shape</b>.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> recipe.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S28 · </span>
+  </div>
+</section>
+
+<!-- S29 — Exactly three evals, no orphan behavior -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">EVAL_1, EVAL_2, EVAL_3</span>
+    <h2 class="h2">Exactly three evals, <span class="grad-purple">no orphan behavior</span></h2>
+    <p class="lede">Every task authors exactly <code>eval_1</code>–<code>eval_3</code>, and <code>verifies</code> must cover the full set <b>B-1/B-2</b>. A behavior without a witness does not compile.</p>
+    <div class="mmd frame" style="margin-top:16pt;">
+flowchart LR
+    B1["B-1"] --> E1["eval_1"]
+    B1 --> E3["eval_3 · terminal in TaskPlan"]
+    B2["B-2"] --> E2["eval_2"]
+    B2 --> E3
+    </div>
+    <div class="cards c3" style="margin-top:22pt;">
+      <div class="card acc-blue"><span class="ck">Witnesses</span><div class="ct">eval_1 · eval_2</div><div class="cb">Non-terminal checks — together with eval_3 they cover every edge of the B-1/B-2 set.</div></div>
+      <div class="card acc-green"><span class="ck">Terminal</span><div class="ct">eval_3</div><div class="cb">Both behaviors converge here — TaskPlan marks <b>only the final eval</b> terminal.</div></div>
+      <div class="card acc-silver"><span class="ck">Projection detail</span><div class="ct">10 seconds each</div><div class="cb">The adapter assigns <code>expected_duration_sec 10</code> to every eval in the plan.</div></div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> recipe.py and taskspec_adapter.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S29 · </span>
+  </div>
+</section>
+
+<!-- S30 — Paths are portable, explicit, and contradiction-free -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">TOUCH, CREATE, PROTECT</span>
+    <h2 class="h2">Paths are portable, explicit, <span class="grad-purple">contradiction-free</span></h2>
+    <p class="lede"><code>touches_paths</code> names existing or ancestor-created paths; <code>creates_paths</code> names absent paths; <code>do_not_touch</code> may not overlap either — a blue write moat inside a red protected boundary.</p>
+    <div class="cards c3" style="margin-top:24pt;">
+      <div class="card acc-blue"><span class="ck">Touch</span><div class="ct">touches_paths</div><div class="cb">Existing paths, or paths an ancestor task creates first. The write moat is <b>explicit</b>.</div></div>
+      <div class="card acc-green"><span class="ck">Create</span><div class="ct">creates_paths</div><div class="cb">Paths that must be <b>absent</b> before the task runs — no silent overwrites.</div></div>
+      <div class="card acc-red"><span class="ck">Protect</span><div class="ct">do_not_touch</div><div class="cb">The protected boundary — it may <b>not overlap</b> the touch or create lists.</div></div>
+    </div>
+    <div class="cols c2" style="margin-top:24pt;">
+      <ul class="tick cross">
+        <li><b>absolute paths</b> and <b>backslashes</b> — not portable</li>
+        <li><b>dot segments</b> and <b>empty segments</b> — not canonical</li>
+      </ul>
+      <ul class="tick cross">
+        <li><b>globs</b> — the surface must be enumerable</li>
+        <li><b>case-only collisions</b> and <b>symlink escapes</b> — contradiction</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[I]</b> recipe.py, safety.py, graph.py · <b>[T]</b> path tests</span>
+    <span class="spacer"></span>
+    <span class="folio">S30 · </span>
+  </div>
+</section>
+
+<!-- S31 — Effort limits write breadth -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">SIZE MUST MATCH BLAST RADIUS</span>
+    <h2 class="h2">Effort caps <span class="grad-purple">write breadth</span></h2>
+    <p class="lede"><b>Unique canonical write paths</b> are capped by the declared effort. A task that outgrows its size cannot be proved safe, and the graph stops.</p>
+    <div class="cols c2w" style="margin-top:22pt;align-items:center;">
+      <table class="tbl">
+        <tr><th>Effort</th><th class="num">Maximum write paths</th></tr>
+        <tr><td>XS</td><td class="num">1</td></tr>
+        <tr><td>S</td><td class="num">2</td></tr>
+        <tr><td>M</td><td class="num">3</td></tr>
+        <tr><td>L</td><td class="num">5</td></tr>
+      </table>
+      <div class="stack" style="gap:14pt;">
+        <div class="card acc-purple"><span class="ck">The budget</span><div class="ct">Blast radius is declared</div><div class="cb">Effort is not a hint — it bounds <b>how broad the write surface may become</b>. Exceed the cap and the node is unprovable.</div></div>
+        <div class="tokset"><span class="tok red">TASK_GRAPH=UNPROVABLE_NODE</span></div>
+        <div class="gate gold"><span class="gk">Boundary</span><span class="gt">Seamwise recipe v1 supports <b>XS/S/M/L only</b> — composition sizes belong downstream.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16pt;">Next: even valid task sizes can still collide.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> graph.py · <b>[T]</b> write-surface budget test</span>
+    <span class="spacer"></span>
+    <span class="folio">S31 · </span>
+  </div>
+</section>
+
+<!-- S32 — Contention is explicit ordering, not optimistic parallelism -->
+<section class="page" data-accent="purple">
+  <div class="hud top">
+    <span class="actcap">ACT III · The decomposition grammar</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">BETWEEN, RESOLUTION, ORDER</span>
+    <h2 class="h2">Contention is explicit ordering, <span class="grad-purple">not optimistic parallelism</span></h2>
+    <p class="lede">Two tasks sharing a resource require an <b>explicit ordered contention</b> or a dependency path. <code>contention.between</code> and <code>contention.order</code> must name the <b>same two known tasks</b>.</p>
+    <div class="cards c3" style="margin-top:22pt;">
+      <div class="card acc-blue"><span class="ck">Between</span><div class="ct">Name the pair</div><div class="cb">Sibling tasks converge on one path — <code>contention.between</code> names the <b>two known tasks</b> in the collision.</div></div>
+      <div class="card acc-gold"><span class="ck">Order</span><div class="ct">Fix the sequence</div><div class="cb">The order rail resolves the collision — <code>contention.order</code> names the <b>same two tasks</b>, in the sequence they may write.</div></div>
+      <div class="card acc-red"><span class="ck">No declared order</span><div class="ct">Fail closed</div><div class="cb">An unordered write overlap stops compile: <b>TASK_GRAPH=COLLISION</b> — order it, declare contention, or redesign the boundaries.</div></div>
+    </div>
+    <div class="cols c2" style="margin-top:22pt;align-items:center;">
+      <div class="codewin" data-lang="yaml"><span class="kw">contention</span>:
+  <span class="kw">between</span>: [<span class="st">TASK-A</span>, <span class="st">TASK-B</span>]   <span class="cm"># the colliding pair</span>
+  <span class="kw">order</span>:   [<span class="st">TASK-A</span>, <span class="st">TASK-B</span>]   <span class="cm"># same pair, one sequence</span></div>
+      <div class="gate"><span class="gk">Refusal</span><span class="gt"><b>Sibling position never grants concurrency.</b> Two tasks drawn side by side still write in the declared order — or not at all.</span></div>
+    </div>
+    <div class="note" style="margin-top:16pt;">Next: with the grammar assembled, mapping can create the first validated projection.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe/delivery-plan schemas · <b>[I]</b> graph.py · <b>[T]</b> collision tests</span>
+    <span class="spacer"></span>
+    <span class="folio">S32 · </span>
+  </div>
+</section>

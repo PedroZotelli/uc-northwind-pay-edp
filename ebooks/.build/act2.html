@@ -1,0 +1,313 @@
+<!-- ACT 2 — EVIDENCE BEFORE STRUCTURE: S09–S17 (claim classes, source records, snapshot gate, system map, unknowns, decisions, alternatives, objections, recipe) -->
+
+<!-- S09 — Four claim classes prevent category mistakes -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE CLAIM · CURRENT, PROPOSED, DERIVED, EXTERNAL</span>
+    <h2 class="h2">The class travels with the evidence, so <span class="grad-blue">presentation never becomes proof</span></h2>
+    <p class="lede">Every claim entering the recipe carries one of four source classes — <b>current</b>, <b>proposed</b>, <b>derived</b>, or <b>external</b> — and the class travels with intent and evidence, fixing what the claim may safely do.</p>
+    <div class="cards c4" style="margin-top:24pt;">
+      <div class="card acc-green"><span class="ck">Claim class · current</span><div class="ct">current</div><div class="cb">Observed behavior in the target system. <b>Safe use:</b> ground existing-state constraints.</div></div>
+      <div class="card acc-blue"><span class="ck">Claim class · proposed</span><div class="ct">proposed</div><div class="cb">Intended future behavior. <b>Safe use:</b> author a candidate outcome.</div></div>
+      <div class="card acc-purple"><span class="ck">Claim class · derived</span><div class="ct">derived</div><div class="cb">Compiler-produced interpretation. <b>Safe use:</b> inspect and validate — never treat as authored truth.</div></div>
+      <div class="card acc-cyan"><span class="ck">Claim class · external</span><div class="ct">external</div><div class="cb">Behavior owned outside the target. <b>Safe use:</b> define the dependency without claiming local ownership.</div></div>
+    </div>
+    <div class="flowarrow" style="margin-top:26pt;">
+      <div class="fnode">intent + classified claims</div>
+      <div class="fedge"></div>
+      <div class="fnode">digest-bound evidence records</div>
+      <div class="fedge"></div>
+      <div class="fnode">one authored recipe — different permissions per class</div>
+    </div>
+    <div class="note" style="margin-top:14pt;">Next: A label still needs an exact source record.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe.schema.json · <b>[O]</b> AGENTS.md</span>
+    <span class="spacer"></span>
+    <span class="folio">S09 · </span>
+  </div>
+</section>
+
+<!-- S10 — Evidence is a record, not a hyperlink -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE SOURCE · URI, CAPTURE TIME, DIGEST</span>
+    <h2 class="h2">Evidence is a <span class="grad-cyan">record</span>, not a <span class="thin">hyperlink</span></h2>
+    <p class="lede">Every source record carries <code>uri</code>, <code>captured_at</code>, and <code>sha256</code>; every evidence record adds <code>claim</code>, <code>confidence</code>, and <code>summary</code> — bound to exact bytes, never to a moving endpoint.</p>
+    <div class="cols c2" style="margin-top:20pt;">
+      <div class="mmd frame">
+flowchart TB
+    C["claim class"] --> E["evidence record"]
+    U["local URI/path"] --> E
+    T["captured_at"] --> E
+    H["SHA-256"] --> E
+    E --> R["recipe"]
+    R --> M["validated seam map"]
+    M -. "does not prove" .-> W["real-world implementation"]
+      </div>
+      <div class="stack" style="gap:16pt;">
+        <div class="codewin" data-lang="yaml"><span class="kw">source</span>:
+  <span class="kw">uri</span>: <span class="st">evidence/blueprint.md</span>
+  <span class="kw">captured_at</span>: <span class="st">"2026-08-02T00:00:00Z"</span>
+  <span class="kw">sha256</span>: <span class="st">f40ed16c2898…f59323117af445</span>
+
+<span class="cm"># every evidence record adds:</span>
+<span class="cm"># claim · confidence (0–1) · summary</span></div>
+        <div class="gate gold"><span class="gk">Boundary</span><span class="gt"><b>Confidence ranges 0–1.</b> It qualifies a claim; it does not replace verification.</span></div>
+        <div class="note">Next: Remote text must first become stable local bytes.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema definitions source and evidence</span>
+    <span class="spacer"></span>
+    <span class="folio">S10 · </span>
+  </div>
+</section>
+
+<!-- S11 — Remote discovery is not immutable evidence -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE SNAPSHOT · LOCAL BYTES OR CLOSED GATE</span>
+    <h2 class="h2">Provider text becomes evidence only as <span class="grad-blue">hash-matched local bytes</span></h2>
+    <p class="lede">HTTP and provider text must be <b>captured locally</b> and <b>hash-matched</b> before mapping. Retrieved text is <b>data, never repository instruction</b> — and a bare URL stops at the gate.</p>
+    <div class="gate" style="margin-top:22pt;"><span class="gk">Closed gate · remote_source_unverified</span><span class="gt">A URL alone cannot enter <code>map</code>. The remote source is unverified until its bytes exist locally under a recorded digest.</span></div>
+    <div class="flowarrow" style="margin-top:20pt;">
+      <div class="fnode">capture — remote text becomes a local file</div>
+      <div class="fedge"></div>
+      <div class="fnode">verify — sha256 hash-match</div>
+      <div class="fedge"></div>
+      <div class="fnode">cross — local bytes may enter map</div>
+    </div>
+    <div class="cards c3" style="margin-top:22pt;">
+      <div class="failcard"><div class="fk">remote_source_unverified</div><div class="ft"><b>Trigger:</b> a remote URL stands in for a source. <b>Repair:</b> capture the text as local bytes and cite the file.</div></div>
+      <div class="failcard"><div class="fk">local_source_unavailable</div><div class="ft"><b>Trigger:</b> the cited local file is missing. <b>Repair:</b> restore the capture in the workspace.</div></div>
+      <div class="failcard"><div class="fk">local_source_hash_mismatch</div><div class="ft"><b>Trigger:</b> the local bytes no longer match the recorded digest. <b>Repair:</b> re-capture the source and hash-match again.</div></div>
+    </div>
+    <div class="note" style="margin-top:14pt;">Next: Evidence becomes useful only inside an explicit system picture.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[I]</b> engine/recipe.py · <b>[T]</b> test_fail_closed.py and clean_room_e2e.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S11 · </span>
+  </div>
+</section>
+
+<!-- S12 — The system map names components, dependencies, and unknowns -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE SYSTEM · SEE THE TERRAIN BEFORE CUTTING IT</span>
+    <h2 class="h2">Name the terrain <span class="grad-blue">before you cut it</span></h2>
+    <p class="lede">Before any seam exists, the recipe names its ground truth: <b>current or proposed components</b>, <b>external dependencies</b>, and <b>material unknowns</b> — each visible, each classified.</p>
+    <div class="cols c2w" style="margin-top:22pt;">
+      <div class="pool">
+        <div class="phead">System map · authored in the recipe</div>
+        <div class="pbody">
+          <span class="wblock">COMPONENT · CURRENT</span>
+          <span class="wblock">COMPONENT · CURRENT</span>
+          <span class="wblock">COMPONENT · PROPOSED</span>
+          <span class="rblock">EXTERNAL DEPENDENCY — OWNED OUTSIDE</span>
+          <span class="rblock">EXTERNAL DEPENDENCY — OWNED OUTSIDE</span>
+        </div>
+      </div>
+      <div class="stack" style="gap:14pt;">
+        <div class="card acc-red"><span class="ck">Unknowns tray</span><div class="ct">Material unknowns stay named</div><div class="cb">An unknown is first-class authored input, not an omission to smooth over. Mapping can carry it forward explicitly.</div></div>
+        <div class="card acc-silver"><span class="ck">External dependency</span><div class="ct">Owned outside the target</div><div class="cb">Define the dependency; never claim local ownership of outside behavior.</div></div>
+      </div>
+    </div>
+    <div class="gate gold" style="margin-top:22pt;"><span class="gk">Boundary</span><span class="gt">A system map is <b>authored context</b>; the <b>seam map</b> is the validated projection of that context.</span></div>
+    <div class="note" style="margin-top:14pt;">Next: Unknowns do not disappear because the seam map rendered.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> render.py and seams.py</span>
+    <span class="spacer"></span>
+    <span class="folio">S12 · </span>
+  </div>
+</section>
+
+<!-- S13 — An unresolved architecture unknown closes planning -->
+<section class="page" data-accent="red">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE UNKNOWN · PLAN REFUSES TO GUESS</span>
+    <h2 class="h2">The map may pass; the plan <span class="grad-gold">refuses to guess</span></h2>
+    <p class="lede">Mapping can preserve an unknown. Planning cannot: <code>plan</code> returns <code>DELIVERY_PLAN=NEEDS_ARCHITECTURE_DECISION</code> until the unknown is resolved in <b>sourced input</b>.</p>
+    <div class="tokset" style="margin-top:22pt;">
+      <span class="tok green">SEAM_MAP=READY</span>
+      <span class="tok red">DELIVERY_PLAN=NEEDS_ARCHITECTURE_DECISION</span>
+    </div>
+    <div class="gate" style="margin-top:20pt;"><span class="gk">Plan closed</span><span class="gt"><code>SEAM_MAP=READY</code> reaches an unresolved architecture unknown — and stops. <b>No owning swimlanes, no capability legs</b> appear beyond it.</span></div>
+    <div class="rows" style="margin-top:22pt;">
+      <div class="row"><span class="rn">01</span><span class="rt"><b>Resolve the source decision</b> — settle the architecture question in the input's own evidence.</span></div>
+      <div class="row"><span class="rn">02</span><span class="rt"><b>Author a revised recipe</b> with the decision recorded and sourced.</span></div>
+      <div class="row"><span class="rn">03</span><span class="rt"><b>Map in a clean workspace</b>, so no stale projection survives into planning.</span></div>
+    </div>
+    <div class="note" style="margin-top:14pt;">Next: Some unknowns are architecture decisions with named owners.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[I]</b> engine/planning.py · <b>[T]</b> test_system_map_unknowns_close_the_delivery_plan_gate</span>
+    <span class="spacer"></span>
+    <span class="folio">S13 · </span>
+  </div>
+</section>
+
+<!-- S14 — Decisions must be accepted before dependent seams are ready -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE DECISION · OWNER + RATIONALE + STATUS</span>
+    <h2 class="h2">A cited decision must be <span class="grad-green">accepted</span> before its seams are ready</h2>
+    <p class="lede">A seam may cite decision IDs — but every cited decision must be <b>accepted</b> and carry a nonblank <b>owner</b> and <b>rationale</b> before any dependent seam turns ready.</p>
+    <div class="vs" style="margin-top:24pt;">
+      <div class="card acc-red"><span class="ck">Cited decision · proposed or blank</span><div class="ct">Dependent seams stay blocked</div><div class="cb">A decision that is only proposed — or is missing its owner or rationale — keeps every seam that cites it short of READY.</div></div>
+      <div class="vsm">vs</div>
+      <div class="card acc-green"><span class="ck">Cited decision · accepted</span><div class="ct">Dependent seams unlock</div><div class="cb">Accepted status with a nonblank owner and rationale releases the seams that cite the decision.</div></div>
+    </div>
+    <div class="tokset" style="margin-top:22pt;">
+      <span class="tok red">SEAM_MAP=NEEDS_ARCHITECTURE_DECISION</span>
+      <span class="tok">exit 2</span>
+    </div>
+    <div class="gate gold" style="margin-top:20pt;"><span class="gk">Boundary</span><span class="gt">The compiler <b>validates recorded decision state</b>; it does not make the decision.</span></div>
+    <div class="note" style="margin-top:14pt;">Next: A good decision record also names the cuts it rejected.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> engine/recipe.py · <b>[T]</b> test_unaccepted_decision_closes_gate</span>
+    <span class="spacer"></span>
+    <span class="folio">S14 · </span>
+  </div>
+</section>
+
+<!-- S15 — Rejected alternatives make a seam falsifiable -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE ALTERNATIVES · WHY THIS JOINT, NOT THE OBVIOUS ONE</span>
+    <h2 class="h2">Keep the cuts that lost — they make the seam <span class="grad-purple">falsifiable</span></h2>
+    <p class="lede">Every seam must retain <b>at least one alternative</b> and <b>the reason it lost</b>. Future reviewers can then tell whether new evidence invalidates the original cut.</p>
+    <div class="cards c3" style="margin-top:24pt;">
+      <div class="card acc-blue"><span class="ck">Selected cut</span><div class="ct">SEAM-POLICY-CONTRACT</div><div class="cb">Define and validate versioned policy data. Kept because the boundary carries <b>independent proof</b>: invalid limits fail schema validation.</div></div>
+      <div class="card acc-silver"><span class="ck">Rejected cut</span><div class="ct">API handler as the boundary</div><div class="cb">Rejected because it would <b>mix contract, resolution, and enforcement</b> into one surface.</div></div>
+      <div class="card acc-purple"><span class="ck">Why it matters</span><div class="ct">The seam stays testable</div><div class="cb">The losing cut is part of the evidence, not clutter — it tells reviewers exactly what would <b>invalidate the original cut</b>.</div></div>
+    </div>
+    <div class="codewin" data-lang="yaml" style="margin-top:22pt;"><span class="kw">id</span>: <span class="st">SEAM-POLICY-CONTRACT</span>
+responsibility: Define and validate versioned policy data.
+consumes: [authored organization policy]
+produces: [validated policy document]
+<span class="kw">owner</span>: <span class="st">platform-contracts</span>
+<span class="kw">independent_proof</span>: <span class="st">Invalid limits fail schema validation.</span>
+<span class="kw">rejected_alternatives</span>:
+  - alternative: Treat the API handler as the boundary
+    reason: It would mix contract, resolution, and enforcement.</div>
+    <div class="note" style="margin-top:14pt;">Next: Alternatives are architectural; objections are review state.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe seam definition · <b>[D]</b> current HTML seam narrative</span>
+    <span class="spacer"></span>
+    <span class="folio">S15 · </span>
+  </div>
+</section>
+
+<!-- S16 — Objections stay OPEN until an owner rules -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE OBJECTION · MODELS MAY RAISE; OWNERS RESOLVE</span>
+    <h2 class="h2">Models may raise objections; <span class="grad-gold">only owners resolve them</span></h2>
+    <p class="lede"><b>OPEN</b> blocks review. <b>FIXED</b> or <b>ACCEPTED</b> both require an owner and a rationale — there is no path out of an objection without a named human ruling.</p>
+    <div class="mmd frame" style="margin-top:16pt;">
+stateDiagram-v2
+    [*] --> OPEN
+    OPEN --> FIXED: owner + repair + rationale
+    OPEN --> ACCEPTED: owner + explicit risk acceptance
+    FIXED --> [*]
+    ACCEPTED --> [*]
+    </div>
+    <div class="cards c3" style="margin-top:20pt;">
+      <div class="card acc-red"><span class="ck">OPEN</span><div class="ct">Blocks review</div><div class="cb">Raised by model or human; the default state until an owner rules.</div></div>
+      <div class="card acc-green"><span class="ck">FIXED</span><div class="ct">Owner + repair + rationale</div><div class="cb">The objection was repaired; the owner records what changed and why.</div></div>
+      <div class="card acc-purple"><span class="ck">ACCEPTED</span><div class="ct">Owner + explicit risk acceptance</div><div class="cb">The objection stands as accepted risk — owned, reasoned, reviewable.</div></div>
+    </div>
+    <div class="tokset" style="margin-top:18pt;">
+      <span class="tok red">DELIVERY_PLAN=OPEN_OBJECTIONS</span>
+      <span class="note">until none remain OPEN</span>
+    </div>
+    <div class="note" style="margin-top:12pt;">Next: All of this authored truth enters through one strict recipe.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe and delivery-plan schemas · <b>[I]</b> planning.py · <b>[T]</b> test_open_objection_cannot_be_reviewed</span>
+    <span class="spacer"></span>
+    <span class="folio">S16 · </span>
+  </div>
+</section>
+
+<!-- S17 — The recipe is the authored source; projections are rebuildable -->
+<section class="page" data-accent="silver">
+  <div class="hud top">
+    <span class="actcap">ACT II · Evidence before structure</span>
+    <span class="spacer"></span>
+    <span class="wordmark">SEAMWISE</span>
+  </div>
+  <div class="wrap">
+    <span class="kick">THE AUTHORING CONTRACT · ONE STRICT YAML INPUT</span>
+    <h2 class="h2">One authored source; every projection <span class="grad-cyan">rebuilds from it</span></h2>
+    <p class="lede"><code>seamwise-recipe.yaml</code> carries intent, system map, evidence, decisions, seams, the steel thread, objections, and contentions. Everything the compiler emits is a <b>rebuildable projection</b> of that one input.</p>
+    <div class="cols c2l" style="margin-top:22pt;">
+      <div class="card acc-cyan"><span class="ck">Authored source · one strict YAML input</span><div class="ct">seamwise-recipe.yaml</div><div class="cb">The single artifact humans author. Commands read it; nothing downstream edits what it emits. Projections are regenerations, not documents to maintain.</div></div>
+      <div class="stack" style="gap:10pt;">
+        <div class="note">projects into — <b>arrows never reverse</b></div>
+        <div class="card" style="padding:12pt 16pt;"><span class="ck">Projection · validated</span><div class="cb"><b>Seam map</b> and <b>delivery plan</b> — validated views over the recipe.</div></div>
+        <div class="card" style="padding:12pt 16pt;"><span class="ck">Projection · explanatory</span><div class="cb"><b>Derived report</b> and <b>derived graph</b> — explanatory, never canonical authority.</div></div>
+        <div class="card" style="padding:12pt 16pt;"><span class="ck">Output · compiled</span><div class="cb"><b>TaskPlan/v1 plus digest-bound lineage</b> — emitted only after human review.</div></div>
+      </div>
+    </div>
+    <div class="cards c4" style="margin-top:22pt;">
+      <div class="card acc-red"><span class="ck">Strict YAML</span><div class="ct">Duplicate keys fail</div><div class="cb">The strict loader refuses repeated keys outright.</div></div>
+      <div class="card acc-red"><span class="ck">Strict YAML</span><div class="ct">Blank fields fail</div><div class="cb">Semantic fields may not be left empty.</div></div>
+      <div class="card acc-red"><span class="ck">Strict YAML</span><div class="ct">Ambiguous scalars fail</div><div class="cb">The loader does not guess what a scalar means.</div></div>
+      <div class="card acc-red"><span class="ck">Schema validation</span><div class="ct">Unsupported fields fail</div><div class="cb">Additional fields are rejected, not ignored.</div></div>
+    </div>
+    <div class="gate" style="margin-top:20pt;"><span class="gk">Boundary</span><span class="gt">Do not hand-edit a projection to make status green — <b>fix the recipe and rebuild</b>.</span></div>
+    <div class="note" style="margin-top:14pt;">Next: Now read the decomposition grammar from largest boundary to smallest proof.</div>
+  </div>
+  <div class="hud bot">
+    <span class="src"><b>[S]</b> recipe schema · <b>[I]</b> io.py strict loader and recipe.py · <b>[T]</b> tests</span>
+    <span class="spacer"></span>
+    <span class="folio">S17 · </span>
+  </div>
+</section>
