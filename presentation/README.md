@@ -101,13 +101,13 @@ Agentic field) are talk only — they have **no** `run/d3/` file.
 | Opening | title · Constructor |
 | Stage | Recap, DE+analytics role, foundations, pipeline, engines, medallion, agentic modeling |
 | Craft | Bind still on (Show). Kits. **No** fail-closed board |
-| Floor | Second Brain + OntoLayer Shows, **Execute 08** (`run/d3/` 02–03) |
-| Dig | Converge Show, Leave · SeamWise, **Execute 09** (04–07), Task-Spec Show, **Execute 10** (08), **Execute Gold** (09–11), Task-Mesh seed, Thursday queue |
+| Floor | Second Brain + OntoLayer Shows, **Execute 02–03** |
+| Dig | Converge Show, Leave · SeamWise, **Execute 04–07**, Task-Spec Show, **Execute 08**, **Execute 09–11**, Task-Mesh seed, Thursday queue |
 | Debrief | In hand, Research (`run/d3/12`), Next, silent Tomorrow |
 
 Type 01 **steel thread** tonight: leftover emit if no Parquet, then dlt
 register → Bronze → Silver → Gold → golden-match. Types `02`–`05` wait for
-Thursday. Unsigned lakehouse sign → skip Execute 10–Gold.
+Thursday. Unsigned lakehouse sign → skip Execute 08 and Execute 09–11.
 
 Staff: [`run/d3/README.md`](../run/d3/README.md).
 

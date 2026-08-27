@@ -1,6 +1,6 @@
 # 11 · Execute — golden-match attach
 
-- Slide: Execute Gold (Hands-On **slice d · gold**) — tile 11
+- Slide: Execute 09–11 (Hands-On **slice d · gold**) — tile 11
 - Slice: **D · Gold**
 - Who: instructor first, then every seat
 - Next: Task-Mesh Show (no file), Thursday queue, Debrief · In hand, then [`12-research.md`](12-research.md)

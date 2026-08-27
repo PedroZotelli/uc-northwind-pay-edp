@@ -22,7 +22,14 @@ Papers live in `docs/`, not `cvg/docs/`.
 | **Decimal** | Exact money. Never binary float (ADR 0003). Tolerances are zero. |
 | **Privacy boundary** | Clear PAN and CPF die at the parser. Token + last4 / `*******` + last4 before landing (ADR 0004). Live line: Java. Second plant: the Type 01 parser, not a Java import. |
 | **Bind** | Rails on the harness. Frozen trees refuse writes. A polite prompt is not a fence. |
-| **Consensus** | Pass 4. Owner signs. No sign → no parser. |
-| **Lakehouse / dlt / dbt / Dagster** | Later nights. Not chosen in Structure (ADR 0006). |
+| **Consensus** | Pass 4. Ingest sign is `docs/consensus.md` (canonical 2026-08-25). Lakehouse sign is `docs/consensus-lakehouse.md`. Do not overwrite ingest Consensus. No lakehouse sign → skip Gold. |
+| **dlt** | Registers immutable `modern/landing/` Parquet only. Does not re-parse raw. Does not own money, privacy, or grammar (ADR 0007). |
+| **DuckLake / DuckDB** | Local catalog and engine for Type 01 Gold. Not a cloud warehouse copy. Not a clone of legacy Postgres (ADR 0008). |
+| **Bronze** | Source-aligned landing records. Grain: `batch_id` + `source_record_number`. Minimal reinterpretation (ADR 0009). |
+| **Silver** | Conformed entities, signs, dates, business grain. Record identity `batch_id` + `source_record_number`. Paid / batch grain `batch_id` + `currency` (ADR 0009). |
+| **Gold** | Governed reports, controls, reconciliations. Grain: `batch_id` + `currency`. May later be served; unresolved Gold is not servable (ADR 0009). Staging is not Gold. |
+| **Rule split** | Parser already did privacy + Decimal. dbt does not retokenize, unmask, or re-decode overpunch (ADR 0010). |
+| **Golden-match** | Referee on the tree. Aggregate keys `batch_id` + `currency`; record keys `batch_id` + `source_record_number`. Two questions never netted. Not the Dark Factory (ADR 0011). |
+| **Dagster / FastAPI** | Day 4. Still parked (ADR 0006 rows 8–9). |
 
 Do not upload this file into NotebookLM.

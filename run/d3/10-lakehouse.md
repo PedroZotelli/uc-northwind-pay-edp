@@ -1,6 +1,6 @@
 # 10 · Execute — dlt register → Bronze → Silver → Gold
 
-- Slide: Execute Gold (Hands-On **slice d · gold**) — tile 10
+- Slide: Execute 09–11 (Hands-On **slice d · gold**) — tile 10
 - Slice: **D · Gold**
 - Who: instructor first, then every seat
 - Next: [`11-golden-match.md`](11-golden-match.md) on the **same board**

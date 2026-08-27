@@ -1,9 +1,9 @@
 # 07 · Pass 4 — Lakehouse Consensus
 
-- Slide: Execute 09 (Hands-On **slice b · barrier**) — tile 07
+- Slide: Execute 04–07 (Hands-On **slice b · barrier**) — tile 07
 - Slice: **B · Barrier**
 - Who: a **different** voice, then the owner
-- Next: Task-Spec Show, **pause** for the Task-Spec kit, return to Execute 10, then [`08-taskspec.md`](08-taskspec.md)
+- Next: Task-Spec Show, **pause** for the Task-Spec kit, return to Execute 08, then [`08-taskspec.md`](08-taskspec.md)
 
 If they will not sign, **skip 08–11**. Do not overwrite [`docs/consensus.md`](../../docs/consensus.md) (ingest → landing stays canonical). Do not paste leaves from inside the Task-Spec kit.
 

@@ -1,9 +1,9 @@
 # 03 · Specs + OntoLayer
 
-- Slide: Execute 08 (Hands-On **slice a · query**) — tile 03
+- Slide: Execute 02–03 (Hands-On **slice a · query**) — tile 03
 - Slice: **A · Query**
 - Who: every seat, through **their** agent + MCP
-- Next: Dig Show Converge + SeamWise, Leave · SeamWise, then [`04-prompt-kits.md`](04-prompt-kits.md) on Execute 09
+- Next: Dig Show Converge + SeamWise, Leave · SeamWise, then [`04-prompt-kits.md`](04-prompt-kits.md) on Execute 04–07
 
 Show first. Same paid question without, then with. Mail is not the judge. MCP `catalog_ask` first.
 

@@ -14,10 +14,10 @@ SeamWise and Task-Spec are **separate kits**. Night deck = spine + boards. Leave
 | Slice | Beats | Deck (`data-act-name`) | Look up when |
 |---|---|---|---|
 | **Recap** | [`01`](01-prompt-recap.md) | Recap · closed / papers (talk; **no** HO badge) | Sign · 0001–0005 · **0006 parked** · parser on disk · **no Parquet** · keep 173.44 |
-| **A · Query** | [`02`](02-query-brain.md)–[`03`](03-query-graph.md) | Shows, then **Execute 08** | page + paid grain; nine sources |
-| **B · Barrier** | [`04`](04-prompt-kits.md)–[`07`](07-consensus.md) | Leave · SeamWise, then **Execute 09** | lakehouse ADRs · seam 2 legs · **lakehouse sign** |
-| **C · Leaf** | [`08`](08-taskspec.md) | Task-Spec Show, then **Execute 10** | Type 01 leaves in `docs/tasks/` with evals |
-| **D · Gold** | [`09`](09-landing.md)–[`11`](11-golden-match.md) | **Execute Gold** | Parquet → dlt register → B/S/G → golden-match |
+| **A · Query** | [`02`](02-query-brain.md)–[`03`](03-query-graph.md) | Shows, then **Execute 02–03** | page + paid grain; nine sources |
+| **B · Barrier** | [`04`](04-prompt-kits.md)–[`07`](07-consensus.md) | Leave · SeamWise, then **Execute 04–07** | lakehouse ADRs · seam 2 legs · **lakehouse sign** |
+| **C · Leaf** | [`08`](08-taskspec.md) | Task-Spec Show, then **Execute 08** | Type 01 leaves in `docs/tasks/` with evals |
+| **D · Gold** | [`09`](09-landing.md)–[`11`](11-golden-match.md) | **Execute 09–11** | Parquet → dlt register → B/S/G → golden-match |
 | **Close** | [`12`](12-research.md) | Research, then Next, silent Tomorrow | three citations; then walk |
 
 Public agenda lists Role / Foundations / Pipeline / Engines / Medallion / Agentic modeling as talk. **No run file** on those slides. Clock puts Bind (Craft Show) **before** query so an unbound agent never drafts lakehouse ADRs.
@@ -41,13 +41,13 @@ If a table dies, they follow your screen. Do not debug a provider.
 | Data & Analytics Engineering Role · Foundations · Pipeline · Engines · Medallion · Agentic Systems Data Modeling · Two questions · Six codes · Type 01 closes tonight | talk |
 | Craft · Bind is rails · Kits tonight | Show. Bind **still on**. No fail-closed board. |
 | Floor · Second Brain · OntoLayer + specs | Show |
-| **Execute 08** | Hands-On **slice a** · [`02`](02-query-brain.md)–[`03`](03-query-graph.md) |
+| **Execute 02–03** | Hands-On **slice a** · [`02`](02-query-brain.md)–[`03`](03-query-graph.md) |
 | Dig · Converge + SeamWise | Show |
 | **Leave · SeamWise** | Park. Open [`seamwise.html`](../../presentation/seamwise.html). Explain internals. Return. Do not write seams from that HUD. |
-| **Execute 09** | Hands-On **slice b** · [`04`](04-prompt-kits.md)–[`07`](07-consensus.md) |
-| Task-Spec | Show. **Pause:** [`task-spec.html`](../../presentation/task-spec.html). Return. Skip Execute 10–Gold if unsigned. |
-| **Execute 10** | Hands-On **slice c** · [`08`](08-taskspec.md) |
-| **Execute Gold** | Hands-On **slice d** · [`09`](09-landing.md)–[`11`](11-golden-match.md) |
+| **Execute 04–07** | Hands-On **slice b** · [`04`](04-prompt-kits.md)–[`07`](07-consensus.md) |
+| Task-Spec | Show. **Pause:** [`task-spec.html`](../../presentation/task-spec.html). Return. Skip Execute 08 and Execute 09–11 if unsigned. |
+| **Execute 08** | Hands-On **slice c** · [`08`](08-taskspec.md) |
+| **Execute 09–11** | Hands-On **slice d** · [`09`](09-landing.md)–[`11`](11-golden-match.md) |
 | Task-Mesh · Thursday queue | Show / talk — no file |
 | Debrief · In hand | talk |
 | Research | **type [`12`](12-research.md)** (Close, not a Hands-On badge — same as Day 2 12) |

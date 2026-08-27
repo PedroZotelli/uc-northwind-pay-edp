@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: type01_bronze
+    description: Type 01 Bronze. Grain batch_id + source_record_number.
+    columns:
+      - name: batch_id
+        tests: [not_null]
+      - name: source_record_number
+        tests: [not_null]
+      - name: card_token
+        tests: [not_null]
+      - name: amount_brl
+        tests: [not_null]

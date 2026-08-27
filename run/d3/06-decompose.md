@@ -1,6 +1,6 @@
 # 06 · Pass 3 — Decompose (seam 2)
 
-- Slide: Execute 09 (Hands-On **slice b · barrier**) — tile 06
+- Slide: Execute 04–07 (Hands-On **slice b · barrier**) — tile 06
 - Slice: **B · Barrier**
 - Who: instructor cuts in public, room copies
 - Next: [`07-consensus.md`](07-consensus.md)
