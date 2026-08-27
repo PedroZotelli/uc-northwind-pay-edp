@@ -1,11 +1,11 @@
-# 08 · Pass 5 — Task-Spec (Type 01 lakehouse)
+# 09 · Pass 5 — Task-Spec (Type 01 lakehouse)
 
-- Slide: Execute 08 (Hands-On **slice c · leaf** · chip **08**) after Task-Spec Show + [`../../presentation/task-spec.html`](../../presentation/task-spec.html)
+- Slide: Execute 09 (Hands-On **slice c · leaf** · chip **09**) after Task-Spec Show + [`../../presentation/task-spec.html`](../../presentation/task-spec.html)
 - Slice: **C · Leaf**
 - Who: instructor authors the first lakehouse leaf in public, then every seat
-- Next: [`09-landing.md`](09-landing.md) on Execute 09–11
+- Next: [`10-landing.md`](10-landing.md) on Execute 10–12
 
-Skip this beat if lakehouse Consensus is unsigned (Execute 08 stays dark). No eval, no build. `signed_off` starts **false**. Types `02`–`05` are not leaves tonight.
+Skip this beat if lakehouse Consensus is unsigned (Execute 09 stays dark). No eval, no build. `signed_off` starts **false**. Types `02`–`05` are not leaves tonight.
 
 ## Prompt (verbatim)
 
@@ -34,7 +34,7 @@ If `cvg` wrote under `cvg/docs/`, move the leaves into `docs/tasks/`. If `cvg` e
 
 ## Proof
 
-Leaves exist under `docs/tasks/` for emit (if needed), register, B/S/G, match. Each has a runnable eval. `signed_off` is false until Execute 09–11. No Type `05` package.
+Leaves exist under `docs/tasks/` for emit (if needed), register, B/S/G, match. Each has a runnable eval. `signed_off` is false until Execute 10–12. No Type `05` package.
 
 ## If fail
 

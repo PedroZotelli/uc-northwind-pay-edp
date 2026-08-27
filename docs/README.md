@@ -70,13 +70,13 @@ Keep **173.44**. Ingest sign stays canonical.
 |---|---|---|---|
 | 0 | Capture | [`brd-type-01-card-settlement.md`](brd-type-01-card-settlement.md) | Day 1 wrote it. Later nights **look** ([`run/d2/02-prompt-papers.md`](../run/d2/02-prompt-papers.md), [`run/d3/01-prompt-recap.md`](../run/d3/01-prompt-recap.md)) |
 | 1 | Intent | [`tech-spec-type-01-card-settlement.md`](tech-spec-type-01-card-settlement.md) | Same |
-| 2 | Structure | `adrs/` + `CONTEXT.md` | Day 2 landing 0001–0005 + park 0006 ([`run/d2/08-structure.md`](../run/d2/08-structure.md)). Day 3 unparks rows 3–7 as 0007+ ([`run/d3/05-structure.md`](../run/d3/05-structure.md)). Do not recut 0001–0005 |
-| 3 | Decompose | [`seams.md`](seams.md) | Day 2 named three seams; tasked seam 1 ([`run/d2/09-decompose.md`](../run/d2/09-decompose.md)). Day 3 writes **seam 2 legs** (register → medallion → match) ([`run/d3/06-decompose.md`](../run/d3/06-decompose.md)). Day 4 cuts remaining type lanes + orchestrate |
-| 4 | Consensus | [`consensus.md`](consensus.md) · `consensus-lakehouse.md` | Day 2 ingest sign ([`run/d2/10-consensus.md`](../run/d2/10-consensus.md)). Day 3 lakehouse sign ([`run/d3/07-consensus.md`](../run/d3/07-consensus.md)). No lakehouse sign → **skip Gold** (`run/d3` 08–11 dark) |
-| 5 | Tasking | `tasks/` | Day 2: one parser leaf ([`run/d2/11-taskspec.md`](../run/d2/11-taskspec.md)). Day 3: Type 01 remainder + lakehouse leaves ([`run/d3/08-taskspec.md`](../run/d3/08-taskspec.md)). Day 4: remaining SWE + DE (`02`–`04`, Type `05`, orchestrate) |
+| 2 | Structure | `adrs/` + `CONTEXT.md` | Day 2 landing 0001–0005 + park 0006 ([`run/d2/08-structure.md`](../run/d2/08-structure.md)). Day 3: SA mermaids ([`run/d3/04-prompt-sa-plan.md`](../run/d3/04-prompt-sa-plan.md)), then unpark rows 3–7 as 0007+ ([`run/d3/06-structure.md`](../run/d3/06-structure.md)). Do not recut 0001–0005 |
+| 3 | Decompose | [`seams.md`](seams.md) | Day 2 named three seams; tasked seam 1 ([`run/d2/09-decompose.md`](../run/d2/09-decompose.md)). Day 3 writes **seam 2 legs** (register → medallion → match) ([`run/d3/07-decompose.md`](../run/d3/07-decompose.md)). Day 4 cuts remaining type lanes + orchestrate |
+| 4 | Consensus | [`consensus.md`](consensus.md) · `consensus-lakehouse.md` | Day 2 ingest sign ([`run/d2/10-consensus.md`](../run/d2/10-consensus.md)). Day 3 lakehouse sign ([`run/d3/08-consensus.md`](../run/d3/08-consensus.md)). No lakehouse sign → **skip Gold** (`run/d3` 09–12 dark) |
+| 5 | Tasking | `tasks/` | Day 2: one parser leaf ([`run/d2/11-taskspec.md`](../run/d2/11-taskspec.md)). Day 3: Type 01 remainder + lakehouse leaves ([`run/d3/09-taskspec.md`](../run/d3/09-taskspec.md)). Day 4: remaining SWE + DE (`02`–`04`, Type `05`, orchestrate) |
 | 6 | Register | opt-in / `cvg/` | Day 3 Mesh is **seed** (local Gold). Factory Register is Day 4 |
 | 7 | Bind | harness, not a doc | Shown Day 2 fail-closed; **still on** Day 3 ([`run/d3/README.md`](../run/d3/README.md)) |
-| 8 | Loop | product, not this folder | Type 01 Gold is Day 3 product ([`run/d3/09-landing.md`](../run/d3/09-landing.md)–[`11-golden-match.md`](../run/d3/11-golden-match.md)). Factory 6–8 + Linear = Day 4 |
+| 8 | Loop | product, not this folder | Type 01 Gold is Day 3 product ([`run/d3/10-landing.md`](../run/d3/10-landing.md)–[`12-golden-match.md`](../run/d3/12-golden-match.md)). Factory 6–8 + Linear = Day 4 |
 
 `cvg` may error (Task-Spec 3.9 vs Converge 3.8). The **agent still writes
 here**. Do not debug the CLI in front of the room. A dated signature in

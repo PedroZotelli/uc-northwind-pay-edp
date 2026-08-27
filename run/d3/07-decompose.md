@@ -1,9 +1,9 @@
-# 06 · Pass 3 — Decompose (seam 2)
+# 07 · Pass 3 — Decompose (seam 2)
 
-- Slide: Execute 04–07 (Hands-On **slice b · barrier**) — tile 06
+- Slide: Execute 05–08 (Hands-On **slice b · barrier**) — tile 07
 - Slice: **B · Barrier**
 - Who: instructor cuts in public, room copies
-- Next: [`07-consensus.md`](07-consensus.md)
+- Next: [`08-consensus.md`](08-consensus.md)
 
 SeamWise already taught on the side kit. This beat **updates** `docs/seams.md` seam 2. Do not rewrite seam 1. Do not write Task-Specs yet.
 

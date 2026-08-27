@@ -1,11 +1,11 @@
-# 07 · Pass 4 — Lakehouse Consensus
+# 08 · Pass 4 — Lakehouse Consensus
 
-- Slide: Execute 04–07 (Hands-On **slice b · barrier**) — tile 07
+- Slide: Execute 05–08 (Hands-On **slice b · barrier**) — tile 08
 - Slice: **B · Barrier**
 - Who: a **different** voice, then the owner
-- Next: Task-Spec Show, **pause** for the Task-Spec kit, return to Execute 08, then [`08-taskspec.md`](08-taskspec.md)
+- Next: Task-Spec Show, **pause** for the Task-Spec kit, return to Execute 09, then [`09-taskspec.md`](09-taskspec.md)
 
-If they will not sign, **skip 08–11**. Do not overwrite [`docs/consensus.md`](../../docs/consensus.md) (ingest → landing stays canonical). Do not paste leaves from inside the Task-Spec kit.
+If they will not sign, **skip 09–12**. Do not overwrite [`docs/consensus.md`](../../docs/consensus.md) (ingest → landing stays canonical). Do not paste leaves from inside the Task-Spec kit.
 
 ## Do
 
@@ -25,4 +25,4 @@ If `cvg` is missing **or errors**, a dated signature in `docs/consensus-lakehous
 
 ## If fail
 
-Unsigned → **do not run 08–11**. Stay on design. Do not write Gold and sign later. Do not “update” ingest Consensus to smuggle a lakehouse.
+Unsigned → **do not run 09–12**. Stay on design. Do not write Gold and sign later. Do not “update” ingest Consensus to smuggle a lakehouse.

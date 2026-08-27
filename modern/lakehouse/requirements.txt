@@ -1,4 +1,0 @@
-dlt[duckdb,parquet]>=1.12,<2
-duckdb>=1.2,<2
-dbt-duckdb>=1.9,<2
-pyarrow>=21,<23

@@ -1,9 +1,9 @@
 # 03 · Specs + OntoLayer
 
-- Slide: Execute 02–03 (Hands-On **slice a · query**) — tile 03
+- Slide: Execute 02–04 (Hands-On **slice a · query**) — tile 03
 - Slice: **A · Query**
 - Who: every seat, through **their** agent + MCP
-- Next: Dig Show Converge + SeamWise, Leave · SeamWise, then [`04-prompt-kits.md`](04-prompt-kits.md) on Execute 04–07
+- Next: [`04-prompt-sa-plan.md`](04-prompt-sa-plan.md) on the **same board**
 
 Show first. Same paid question without, then with. Mail is not the judge. MCP `catalog_ask` first.
 
@@ -51,4 +51,8 @@ Without ontology: 0 SQL hits for the word “paid”. That contrast is the lesso
 
 ## If fail
 
-Graph down → `make deploy && make ontology`. Do not guess joins. Do not treat staging as paid.
+Graph down → `make deploy && make ontology` **on this checkout only**.
+Compose `northwind-pay-legacy` (port 2222 / 54329) is **one plant**. Do
+not `make deploy` from a worktree while `main` is up — remap
+`COMPOSE_PROJECT_NAME` and ports in `.env`, or stop `main` first. Do
+not guess joins. Do not treat staging as paid.

@@ -1,8 +1,0 @@
-northwind_modern:
-  target: local
-  outputs:
-    local:
-      type: duckdb
-      path: "{{ env_var('NWP_DUCKDB_PATH') }}"
-      threads: 1
-      schema: main

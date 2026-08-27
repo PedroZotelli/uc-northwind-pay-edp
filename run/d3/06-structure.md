@@ -1,9 +1,9 @@
-# 05 · Pass 2 — Structure (unpark 0006)
+# 06 · Pass 2 — Structure (unpark 0006)
 
-- Slide: Execute 04–07 (Hands-On **slice b · barrier**) — tile 05
+- Slide: Execute 05–08 (Hands-On **slice b · barrier**) — tile 06
 - Slice: **B · Barrier**
 - Who: instructor drafts the first lakehouse ADR in public, then every seat
-- Next: [`06-decompose.md`](06-decompose.md)
+- Next: [`07-decompose.md`](07-decompose.md)
 
 SeamWise kit already ran. Do not reopen `seamwise.html` for this beat.
 

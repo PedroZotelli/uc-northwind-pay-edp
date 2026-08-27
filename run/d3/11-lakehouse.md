@@ -1,9 +1,9 @@
-# 10 · Execute — dlt register → Bronze → Silver → Gold
+# 11 · Execute — dlt register → Bronze → Silver → Gold
 
-- Slide: Execute 09–11 (Hands-On **slice d · gold**) — tile 10
+- Slide: Execute 10–12 (Hands-On **slice d · gold**) — tile 11
 - Slice: **D · Gold**
 - Who: instructor first, then every seat
-- Next: [`11-golden-match.md`](11-golden-match.md) on the **same board**
+- Next: [`12-golden-match.md`](12-golden-match.md) on the **same board**
 
 dlt **registers** landing. It does not parse bytes. It does not compute a net. Gold grain is the ADR. Postgres is **observation**, not an input to Gold.
 
@@ -32,3 +32,5 @@ Landing is registered. Bronze / Silver / Gold exist for Type 01. Grain matches t
 ## If fail
 
 dlt parses or owns money → **stop**. Seam is wrong. Green dbt with no grain test → tear it up. Do not proceed to golden-match.
+
+Do not put `modern/lakehouse/` on `sys.path` and `from dlt.registration import …` — that **shadows** the pip `dlt` library. Keep `modern/lakehouse/dlt/registration.py`; import it as `registration`. The pip package is `import dlt` **inside** `register()`.

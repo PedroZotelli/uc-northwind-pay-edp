@@ -1,11 +1,11 @@
-# 04 · Prompt — Converge 2–4–5 + SeamWise (seam 2)
+# 05 · Prompt — Converge 2–4–5 + SeamWise (seam 2)
 
-- Slide: Execute 04–07 (Hands-On **slice b · barrier** · chip **04–07**) — tile 04
+- Slide: Execute 05–08 (Hands-On **slice b · barrier** · chip **05–08**) — tile 05
 - Slice: **B · Barrier**
 - Who: every seat, through **their** agent
-- Next: [`05-structure.md`](05-structure.md) on the **same board**
+- Next: [`06-structure.md`](06-structure.md) on the **same board**
 
-Show Converge + SeamWise first. Then **Leave · SeamWise** — park, open [`../../presentation/seamwise.html`](../../presentation/seamwise.html), explain internals, return. Then this board: tile 04 names the kits (**do not start Pass 2 yet**), then 05–07. `cvg` gates; the agent drafts. Do not paste 05–07 from inside the kit.
+Show Converge + SeamWise first. Then **Leave · SeamWise** — park, open [`../../presentation/seamwise.html`](../../presentation/seamwise.html), explain internals, return. Then this board: tile 05 names the kits (**do not start Pass 2 yet**), then 06–08. `cvg` gates; the agent drafts. Do not paste 06–08 from inside the kit.
 
 ## Prompt (verbatim)
 
