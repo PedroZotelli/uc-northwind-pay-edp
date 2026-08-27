@@ -22,7 +22,7 @@ SeamWise and Task-Spec are **separate kits**. Night deck = spine + boards. Leave
 
 Public agenda lists Role / Foundations / Pipeline / Engines / Medallion / Agentic modeling as talk. **No run file** on those slides. Clock puts Bind (Craft Show) **before** query so an unbound agent never drafts lakehouse ADRs.
 
-Task-Mesh is **Show only**. Board D **is** the loop seed: signed Type 01 leaves run locally. Factory 6–8 is Thursday.
+Task-Mesh is **Show only**. Board D **is** the loop seed: signed Type 01 leaves run locally. Thursday: **Context · Eval · Loop**, then factory 6–8.
 
 If `08` is unsigned, **do not run 09–12**. Do not recut ingest Consensus. Do not rebuild the notebook. Do not author Type `05`. Type `06` is not in the zip. Do not rewrite `golden_match.py`. A mermaid in `plans/modern.md` is **not** an ADR.
 

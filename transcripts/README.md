@@ -108,30 +108,29 @@ the first incident, not a re-parse. Tonight is the **Type 01 DE steel thread**.
    `CONFIRMED_SOURCE_DEFECT`. Zero unexplained. Do not rewrite the referee.
 6. Types `02`–`05` stay parked. No Dagster. No Linear tonight.
 
-Staff: [`run/d3/`](../run/d3/README.md) — 12 beats, four boards.
+Staff: [`run/d3/`](../run/d3/README.md) — 13 beats, four boards.
 Deck live: [`d3-constructor.html`](../presentation/d3-constructor.html).
 
 ### Night 4 — Orchestrator · leave
 
-**Rings:** loop + eval. **Converge:** SeamWise **again**. Generate remaining
-SWE + DE leaves. Pass **6–8**. **Linear** is the board. Type `05` unattended.
+**Rings:** loop + eval. **Converge:** Context · Eval · Loop, then Pass **6–8**.
+**Linear** is the board. Type `05` unattended. Mesh is **not** inside Task-Spec.
 
-1. Recap: Type 01 vertical is Gold. `02`–`04` were parked, not tasked.
-2. SeamWise again: remaining **swimlanes** + **legs** (`02`–`04` ingest and
-   lakehouse, Type `05`, orchestrate). Not a recut of Type 01.
-3. Task-Spec **generates** that backlog. Empty packages forbidden.
-4. Host: pin Task-Spec 3.8.x if needed. `cvg init`. Project **this** plant’s
-   seams (`ingest-landing`, `dlt-gold`, `orchestrate-serve`). Do not copy
-   foreign lane names.
-5. Mesh + Pass 6–8 **crank** the queue. Cross-family engines if doctor is green.
-   You watch the eval, not the keystrokes. Linear moves with settle.
-6. Dagster is lineage — **not** the parser. Direct and orchestrated hash the same.
+1. Recap: Type 01 Gold **or named gap**. Keep **173.44**. Do not recut signs.
+2. **Context Layer:** brain · OntoLayer (paid grain) · `docs/` · `contracts/`.
+   Agents that migrate or golden-match ask here first.
+3. **Eval:** `golden_match.py` — two questions, six codes, no tolerance.
+4. **Packet:** the loop writes `evidence/`. No packet → no settle.
+5. SeamWise remaining lanes. Task-Spec generates remaining SWE+DE. Empty
+   packages forbidden. Host: pin Task-Spec 3.8.x, `cvg init`, this plant’s
+   seams (`ingest-landing`, `dlt-gold`, `orchestrate-serve`).
+6. Mesh + Pass 6–8 **crank**. Watch the eval. Linear moves with the packet.
 7. Type `05` unattended. `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. Small pill:
-   `rounding-half-up` is `HALF_UP`. Python `HALF_EVEN` / ops “normal rounding”
-   → `MODERN_DEFECT`. Do not change `expected/`. Do not break Java.
+   `rounding-half-up` is `HALF_UP`. `HALF_EVEN` → `MODERN_DEFECT`. Do not change
+   `expected/`. Do not break Java.
 8. Type `06` still absent.
 
-Staff: [`run/d4.md`](../run/d4.md) (stub until that folder exists).
+Staff: [`run/d4/`](../run/d4/README.md) — 10 beats, four boards. Deck not built.
 
 ### Night 5 — Dark Factory · classify
 
