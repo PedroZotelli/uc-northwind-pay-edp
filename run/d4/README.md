@@ -33,9 +33,7 @@ Public agenda lists Context / Eval / packet / rings as talk. **No run file** on 
 
 If Type 01 Gold is missing, **do not run 03–08**. Trail **02** still runs from papers. If generate has no evals, **do not run 05–08**. Do not recut ingest or lakehouse Consensus. Do not rebuild the notebook. Do not `catalog_ask` “where does paid live” — they already did. Type `06` is not in the zip. Do not rewrite `golden_match.py`. Do not put Mesh inside Task-Spec. Do not copy foreign lane names.
 
-Host: pin Task-Spec **3.8.x**. `cvg init` **if it accepts 3.8.x**. Tonight `cvg` errors on Task-Spec **3.9.0** — the agent **still writes `docs/tasks/`**. Do not debug `cvg` on stage.
-
-**Live plant for this session:** `/Users/luanmorenomaciel/GitHub/wrktr-e2e` · `COMPOSE_PROJECT_NAME=wrktr-e2e` · ports **2222 / 54329**. Do **not** `make deploy` from `main` while that worktree is up. Replay: [`e2e-replay.sh`](e2e-replay.sh). Linear: [`LINEAR.md`](LINEAR.md) · board [`linear-board.md`](linear-board.md).
+Host: pin Task-Spec **3.8.x**. `cvg init`. Project **`ingest-landing`**, **`dlt-gold`**, **`orchestrate-serve`**. `cvg` may error (Task-Spec 3.9 vs 3.8); the agent still writes `docs/`. Do not debug the CLI on stage.
 
 If a table dies, they follow your screen. Do not debug a provider.
 
@@ -94,11 +92,5 @@ Do not paste generate or crank from inside the kits. Come back to this Night HUD
 | Seams | Copying `assurance` / `foundation` / `models` | This plant: `ingest-landing`, `dlt-gold`, `orchestrate-serve` |
 | Crank | Remaining leaf before Type 01 | Type 01 first — that is the trail |
 | Crank | No packet | Do not settle. Linear does not move |
-| Type 05 | Hunt `CONFIRMED_SOURCE_DEFECT` in `final-status.json` | Legacy writes `SOURCE_CONTROL_ASSESSED_FEE_MISMATCH`. That **is** the source defect |
-| Type 05 | `SCENARIO=df-source-005` (lowercase) | **Unsupported.** Exact: `make run TYPE=05 SCENARIO=DF-SOURCE-005` |
-| Type 05 | Re-walk `rounding-half-up` on tile 07 | Tile 07 is the lie. Tile 08 is the half. Evidence already on disk: `B202607230000405` / `B202607230000404` |
-| Type 01 | Re-run `TYPE=01 SCENARIO=valid-minimal` | Canonical batch already MATCHED. Isolate/clean first or **leave it** |
-| Linear | GitKraken / Linear MCP sign-in | **Do not.** Board is [`linear-board.md`](linear-board.md). Cloud is optional after class |
-| Dagster | Stand up Dagster to look busy | Skip the hash. ADR 0008: lineage, not a parser |
-| Ports | `make deploy` on `main` | wrktr-e2e **owns 2222**. Deploying `main` fights it |
+| Type 05 | Fix `expected/` to match `HALF_EVEN` | That is the pill. Classify `MODERN_DEFECT`. Fix the plant |
 | Type 06 | Searching the repo | It is not there. Friday |

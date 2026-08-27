@@ -29,9 +29,8 @@ Do not create empty type folders.
 Then Pass 6:
 1. Confirm cvg/ exists (cvg init) or say the agent will keep writing docs/.
 2. Project this plant’s seams only: ingest-landing, dlt-gold, orchestrate-serve.
-3. Put the queue on the visible board: run/d4/linear-board.md
-   (Linear cloud / GitKraken is down tonight — do not open a browser.)
-   One card per leaf. The board moves when an eval packet settles — not when chat says done.
+3. Put the queue on Linear (or a visible board if Linear is down). One card per leaf.
+   Linear moves when an eval settles — not when chat says done.
 Do not crank yet.
 ```
 

@@ -1287,6 +1287,106 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
   .skill-line { padding-block: clamp(6px,1vh,10px); }
   .trio-node { padding: clamp(12px,1.9vh,19px) clamp(13px,1.3vw,20px); }
 }
+
+/* ── ebook deep-dive prose pages ────────────────────────────────────
+   Every plate (visual slide) is followed by an .ep page carrying the
+   full narrative: what the plate claims, how to read it, the details,
+   the evidence labels, and the handoff to the next plate. */
+.ep .wrap, .fm .wrap { height: 100%; display: flex; flex-direction: column; }
+.ep-title {
+  font-family: var(--font-display); font-size: clamp(24px,2.75vw,40px);
+  letter-spacing: -0.6px; line-height: 1.06; text-wrap: balance;
+  margin-top: clamp(9px,1.5vh,15px);
+}
+.ep-tagrow { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
+.ep-plateref { font-family: var(--font-mono); font-size: clamp(8.5px,0.8vw,10px); font-weight: 600;
+  letter-spacing: 2.4px; text-transform: uppercase; color: var(--text-mute); }
+.ep-grid {
+  flex: 1 1 auto; min-height: 0; align-items: stretch;
+  display: grid; grid-template-columns: 1.24fr .76fr;
+  gap: clamp(28px,3.6vw,68px); margin-top: clamp(14px,2.2vh,24px);
+}
+.ep-prose {
+  font-family: var(--font-editorial); font-size: clamp(12.5px,1.06vw,15.5px);
+  line-height: 1.6; color: #c3c9d2; min-width: 0;
+}
+.ep-prose p { margin: 0; }
+.ep-prose p + p { margin-top: clamp(7px,1.1vh,12px); }
+.ep-prose b, .ep-prose strong { color: var(--text); font-weight: 600; }
+.ep-lead { color: var(--text); font-size: clamp(13.5px,1.22vw,17.5px); line-height: 1.5; }
+.ep-prose code, .ep-aside code {
+  font-family: var(--font-mono); font-size: .85em; color: var(--cyan);
+  background: rgba(104,199,255,.08); padding: 0 5px; border-radius: 4px; white-space: nowrap;
+}
+.ep-aside { display: flex; flex-direction: column; gap: clamp(9px,1.5vh,15px); min-width: 0; }
+.ep-box {
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--surface);
+  border: 1px solid var(--border); border-radius: 14px;
+  padding: clamp(11px,1.7vh,17px) clamp(13px,1.4vw,19px);
+}
+.ep-box--accent { border-color: var(--border-bright); }
+.ep-box-title { display: block; font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 2.4px; text-transform: uppercase; color: var(--bx-c, var(--accent)); margin-bottom: 8px; }
+.ep-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ep-box li { font-family: var(--font-body); font-size: clamp(10.5px,0.95vw,12.5px); line-height: 1.42;
+  color: var(--text-dim); padding-left: 13px; position: relative; }
+.ep-box li::before { content: ''; position: absolute; left: 0; top: 6px; width: 5px; height: 5px;
+  border-radius: 1px; background: var(--bx-c, var(--accent)); }
+.ep-box li b { color: var(--text); font-weight: 600; }
+.ep-box p { font-family: var(--font-body); font-size: clamp(10.5px,0.95vw,12.5px); line-height: 1.5; color: var(--text-dim); margin: 0; }
+.ep-box p + p { margin-top: 6px; }
+.ep-box p b { color: var(--text); font-weight: 600; }
+.ep-foot {
+  flex: 0 0 auto; margin-top: auto; padding-top: clamp(8px,1.3vh,12px);
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between; gap: 26px; align-items: baseline;
+}
+.ep-sources { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: .3px;
+  color: var(--text-mute); line-height: 1.55; }
+.ep-next { font-family: var(--font-editorial); font-style: italic;
+  font-size: clamp(10.5px,0.95vw,12.5px); color: var(--text-dim); text-align: right; max-width: 44ch; }
+.ep-next b { color: var(--accent); font-style: normal; font-weight: 600; }
+
+/* ── ebook front matter / dividers / appendices ───────────────────── */
+.fm { justify-content: center !important; }
+.fm-hero {
+  font-family: var(--font-display); font-size: clamp(46px,6.4vw,96px);
+  letter-spacing: -2px; line-height: 0.92; text-wrap: balance;
+}
+.fm-sub { font-family: var(--font-editorial); font-size: clamp(14px,1.4vw,20px);
+  line-height: 1.5; color: var(--text-dim); max-width: 62ch; }
+.fm-rule { width: 46px; height: 3px; background: var(--accent); box-shadow: 0 0 22px var(--accent); }
+.divider-num {
+  font-family: var(--font-display); font-size: clamp(120px,17vw,260px); line-height: 0.8;
+  letter-spacing: -6px; color: transparent;
+  -webkit-text-stroke: 1.5px var(--dv-c, var(--accent)); opacity: .55;
+}
+.fm-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.fm-list li { display: flex; align-items: baseline; gap: 12px; font-family: var(--font-body);
+  font-size: clamp(11px,1vw,13.5px); color: var(--text-dim); line-height: 1.4; }
+.fm-list li b { color: var(--text); font-weight: 600; }
+.fm-list .fm-n { font-family: var(--font-mono); font-size: 9px; color: var(--accent);
+  letter-spacing: 1px; min-width: 34px; }
+
+/* ── print: one page per plate/prose sheet, everything visible ────── */
+@media print {
+  @page { size: 1440px 900px; margin: 0; }
+  html, body { height: auto !important; overflow: visible !important; background: var(--bg) !important; }
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+    animation: none !important; transition: none !important;
+  }
+  body::after { display: none !important; }
+  .deck { height: auto !important; overflow: visible !important; scroll-snap-type: none !important; }
+  .slide {
+    height: 900px !important; overflow: hidden !important;
+    page-break-after: always !important; break-after: page !important;
+    page-break-inside: avoid !important; break-inside: avoid !important;
+  }
+  .slide:last-child { page-break-after: auto !important; break-after: auto !important; }
+  .deck-progress, .deck-counter, .deck-tracker { display: none !important; }
+  body.anim-ready .reveal > * { opacity: 1 !important; transform: none !important; }
+}
 </style>
 </head>
 <body>
@@ -1348,6 +1448,45 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 
     </div>
     <aside class="speaker-notes">Story: start with the defining question. Task-Spec turns a worker claim into independently accepted proof. It is a contract and receipt gate, not an agent runtime. Sources: README.md; VERSION; spec/task-spec-v3.md.</aside>
+  </section>
+
+  <!-- S01 · DEEP DIVE -->
+  <section class="slide ep" data-act="TASK-SPEC" data-act-name="Deep dive · Title" data-accent="accent">
+    <div class="wrap" style="max-width:1680px;display:flex;flex-direction:column;">
+      <div class="ep-tagrow">
+        <span class="tag" style="--tag-c:var(--gold);">deep dive</span>
+        <span class="ep-plateref">S01 · plate 01 of 66 · TASK-SPEC — Title</span>
+      </div>
+      <h2 class="ep-title">One bounded task in. One verified attempt out.</h2>
+
+      <div class="ep-grid">
+        <div class="ep-prose">
+          <p class="ep-lead">This book teaches a single discipline: how to delegate work to a coding agent without ever having to take the agent's word for the result. Task-Spec is the open contract that makes that discipline executable.</p>
+          <p>The promise on the plate is deliberately narrow. <b>One bounded task in</b> — a task small enough that its entire write surface can be named in advance. <b>One authorized attempt out</b> — a human seals the exact revision of that task before any worker touches it. <b>Portable handoff</b> — the sealed attempt travels as a machine-readable packet, so any conformant executor can pick it up without reinterpretation. And <b>independently verified acceptance</b> — a gate the worker does not control reruns the proof and decides what may close.</p>
+          <p>The two bold lines underneath are the whole philosophy. <b>No implied authority</b>: if a path, budget, or behavior is not written into the contract, it is not granted. <b>No self-reported done</b>: a worker's claim of completion is an input to verification, never a verdict. Everything in the next sixty-five plates — the schemas, the gates, the graph, the mesh — exists to keep those two sentences true under real delegation.</p>
+          <p>Read the five tags at the bottom of the plate as the table of contents of the system: <b>bounds</b>, <b>seals</b>, <b>hands&nbsp;off</b>, <b>proves</b>, <b>accepts</b>. Each is a mechanism with its own act in this book, and each returns as a gate you can run from the command line.</p>
+        </div>
+        <div class="ep-aside">
+          <div class="ep-box ep-box--accent">
+            <span class="ep-box-title">How to read the plate</span>
+            <ul>
+              <li><b>The lockup and the question card</b> name the category before any mechanism: this is a contract-and-receipt system, not another agent framework.</li>
+              <li><b>The five tags</b> are the five promises, in lifecycle order — bound the task, seal the revision, hand off the attempt, prove the behavior, accept the result.</li>
+              <li><b>The version strip</b> pins what this book describes: Task-Spec v3.9.0, task format v3 by default, MIT-licensed, Bash 3.2+.</li>
+            </ul>
+          </div>
+          <div class="ep-box" style="--bx-c:var(--cyan);">
+            <span class="ep-box-title">Why this page exists</span>
+            <p>Every later mechanism is judged against this promise. If a feature cannot be traced back to bounding, sealing, handing off, proving, or accepting, it does not belong to the contract.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-foot">
+        <span class="ep-sources">SOURCES · [N] normative: README.md, VERSION, spec/task-spec-v3.md — claims on this plate are format-level commitments, not aspirations.</span>
+        <span class="ep-next">That promise exists because a worker saying “done” is not a trust boundary — <b>next: the problem.</b></span>
+      </div>
+    </div>
   </section>
 
   <!-- S02 · THE PROBLEM -->
@@ -4687,6 +4826,47 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
     </div>
   </section>
 
+  <!-- S36 · DEEP DIVE -->
+  <section class="slide ep" data-act="THE POST GATE" data-act-name="Deep dive · Independent acceptance" data-accent="gold">
+    <div class="wrap" style="max-width:1680px;display:flex;flex-direction:column;">
+      <div class="ep-tagrow">
+        <span class="tag" style="--tag-c:var(--gold);">deep dive</span>
+        <span class="ep-plateref">S36 · plate 36 of 66 · THE POST GATE — Independent acceptance</span>
+      </div>
+      <h2 class="ep-title">The second green is the one that counts.</h2>
+
+      <div class="ep-grid">
+        <div class="ep-prose">
+          <p class="ep-lead">A worker finishing green only ever produces a candidate — this page explains the independent gate that turns a candidate into an accepted attempt, or refuses it by name.</p>
+          <p>Everything before this act authorized the work and watched it run; POST is the moment the system decides what may close. The acceptor is independent of the executor, so it trusts nothing the attempt says about itself. Rather than replaying the worker's log, it re-derives the verdict from the artifacts — the runner's green made a candidate, and it never made a done.</p>
+          <p>Read the rail as five checks in a fixed order. <b>A</b> reruns the Exit Check — the declared evals execute again, against this attempt, not against the worker's report of them. <b>B</b> re-measures the world: the handoff packet, the base commit, the frozen closure, and the blast radius are measured, not remembered. <b>C</b> checks authorization integrity — the <b>TaskRevision</b> digest must still equal the sealed bytes, so a mutated contract is a refusal, not a diff. <b>D</b> is the optional gold sanity, and <b>E</b> applies the evidence policy: external receipts count only under the trust the leaf configured.</p>
+          <p>Only when all five hold does the rail reach its terminal node — <b>AcceptanceRecord/v1</b>, one durable object bound to this attempt. Any miss stops the rail with a <b>typed refusal</b>: <code>EVAL_FAILED</code>, <code>POLICY_TAMPER</code>, <code>HANDOFF_STALE</code>, <code>CLOSURE_DRIFT</code>, <code>BLAST_RADIUS</code>, or <code>BASE_DIVERGED</code> — grep-able tokens, never prose, so pipelines and humans can branch on exactly what failed.</p>
+          <p>Hold the distinction the title draws. A replay button reproduces the worker's run; a second gate re-derives it. <b>Authorization</b> happened before the work; <b>acceptance</b> happens after it — and acceptance, alone, writes the record the lifecycle will later call done. That is why the gate reruns proof instead of trusting testimony: the verdict has to survive contact with someone who was not rooting for it.</p>
+        </div>
+        <div class="ep-aside">
+          <div class="ep-box ep-box--accent">
+            <span class="ep-box-title">How to read the plate</span>
+            <ul>
+              <li><b>The five gold cards A–E</b> are the checks, in order — each a gate the attempt must pass, not a step the worker reports.</li>
+              <li><b>The luminous rail</b> runs left to right because order matters: evidence policy is applied before any verdict is written.</li>
+              <li><b>The green terminal node</b> is not a sixth check — it is the object the checks earn: AcceptanceRecord/v1.</li>
+              <li><b>The red chips</b> are typed refusals; any one stops the rail and names why.</li>
+            </ul>
+          </div>
+          <div class="ep-box" style="--bx-c:var(--cyan);">
+            <span class="ep-box-title">Why this page exists</span>
+            <p>The act opens here because every mechanism that follows — blast radius, gold sanity, receipts — is one stop on this rail. If you can retell A through E, you can place every page that comes after.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-foot">
+        <span class="ep-sources">SOURCES · [I] implementation: src/accept/accept-task.sh, src/accept/preflight.py, src/accept/finalize.py — the accept path itself, not a retelling of it.</span>
+        <span class="ep-next">The most tangible check is: what actually changed? — <b>next: the diff.</b></span>
+      </div>
+    </div>
+  </section>
+
   <!-- S37 · THE DIFF -->
   <section class="slide" data-act="THE DIFF" data-act-name="The whole Git reality" data-accent="cyan">
     <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
@@ -7262,20 +7442,21 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
   const tracker = document.getElementById('tracker');
   const ACCENT = { accent: 'var(--gold)', cyan: 'var(--cyan)', purple: 'var(--purple)', gold: 'var(--gold)', green: 'var(--green)', red: 'var(--red)' };
   const slides = Array.from(deck.querySelectorAll('section.slide'));
-  const total = slides.length;
+  const plates = slides.filter((s) => !s.classList.contains('ep'));
+  const total = plates.length;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const pad = (v) => String(v).padStart(2, '0');
 
   counterTotal.textContent = pad(total);
 
-  slides.forEach(() => {
+  plates.forEach(() => {
     const seg = document.createElement('span');
     seg.className = 'dc-seg';
     dcBar.appendChild(seg);
   });
   const segs = Array.from(dcBar.children);
 
-  const dots = slides.map((slide, i) => {
+  const dots = plates.map((slide, i) => {
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'dot';
@@ -7292,16 +7473,19 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
     if (idx === currentIdx) return;
     currentIdx = idx;
     const sl = slides[idx];
+    let pi = -1;
+    for (let i = 0; i <= idx && i < slides.length; i++) { if (!slides[i].classList.contains('ep')) pi++; }
+    if (pi < 0) pi = 0;
     if (sl) {
       dcAct.textContent = sl.dataset.act || '';
       const c = ACCENT[sl.dataset.accent] || ACCENT.accent;
       document.querySelector('.deck-counter').style.setProperty('--dc-c', c);
     }
-    counterN.textContent = pad(idx + 1);
-    dots.forEach((d, i) => { d.className = i === idx ? 'dot current' : 'dot'; });
+    counterN.textContent = pad(pi + 1);
+    dots.forEach((d, i) => { d.className = i === pi ? 'dot current' : 'dot'; });
     segs.forEach((s, i) => {
-      s.classList.toggle('passed', i < idx);
-      s.classList.toggle('current', i === idx);
+      s.classList.toggle('passed', i < pi);
+      s.classList.toggle('current', i === pi);
     });
   }
 

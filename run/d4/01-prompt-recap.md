@@ -30,4 +30,4 @@ Gold **present or named as a gap**. `main` may have none — that is allowed. **
 
 ## If fail
 
-Gold missing → **do not run 03–08**. Stage and the trail still run. Missing MATCHED packet → [`../d1/05-boot.md`](../d1/05-boot.md). Tonight Gold **is** on `wrktr-e2e`. Do not share Compose port **2222** with `main`.
+Gold missing → **do not run 03–08**. Stage and the trail still run. Missing MATCHED packet → [`../d1/05-boot.md`](../d1/05-boot.md). Do not share Compose port **2222**.

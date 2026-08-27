@@ -12,7 +12,7 @@ Two shapes live here:
 
 | Shape | How it plays | Files |
 |---|---|---|
-| **Follow-along deck** | Snap slides, HUD, Hands-On boards. One Night. | `d1-archaeologist.html`, `d2-translator.html`, `d3-constructor.html` |
+| **Follow-along deck** | Snap slides, HUD, Hands-On boards. One Night. | `d1-archaeologist.html`, `d2-translator.html`, `d3-constructor.html`, `d4-orchestrator.html` |
 | **Method / reference** | Manual or workshop. Teach the kit, not the clock. | `seamwise.html`, `task-spec.html`, `cvg-…`, `asd-…`, `boot-…`, `wrkp-…`, `yt-…` |
 
 If a night’s HTML and [`run/dN/`](../run/) disagree, **agenda wins on
@@ -114,7 +114,7 @@ Staff: [`run/d3/README.md`](../run/d3/README.md).
 
 ## Night 4 · Orchestrator
 
-`d4-orchestrator.html` — **not in this folder.** PPT brief: [`agenda/d4.md`](../agenda/d4.md).
+[`d4-orchestrator.html`](d4-orchestrator.html) — **in this folder.** Identify by `data-act-name`. PPT brief: [`agenda/d4.md`](../agenda/d4.md).
 Staff: [`run/d4/README.md`](../run/d4/README.md) — 9 beats, four Hands-On boards A–D.
 Clone Night 3 chrome. Identify by `data-act-name`. If agenda and `run/d4/` disagree on Hands-On ranges, **run wins on the clock**.
 
@@ -176,7 +176,7 @@ not the HUD snap deck.
 - **Hands-On is one mold.** Clone Day 1 Execute 01–04: chip, `run/dN/` path,
   `.req` beat tiles, look-up / do not. Show slides teach; they do not invent a
   local “beat 01”. Point at `run/dN/NN`. Night 1: six boards. Night 2: five.
-  Night 3: four. Night 4: four (when built). Research is Close, not a Hands-On badge.
+  Night 3: four. Night 4: four. Research is Close, not a Hands-On badge.
 - **Each Show slide shows its information differently.** Flow, annotated artifact,
   diff, matrix, gauges — repeating a mechanism is a smell. The Hands-On boards
   are the exception: they must look the same.
