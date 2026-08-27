@@ -60,7 +60,7 @@ Tuesday night the legacy is specified, structured, and designed as leaves.
 | 1 | [`presentation/d1-archaeologist.html`](../presentation/d1-archaeologist.html) — live. 44 slides. Staff: [`run/d1/`](../run/d1/README.md) — 17 beats, six slices A–F + Close 17 |
 | 2 | [`presentation/d2-translator.html`](../presentation/d2-translator.html) — live, 34 slides, six blocks. Staff: [`run/d2/`](../run/d2/README.md) — 12 beats, five Hands-On boards |
 | 3 | [`presentation/d3-constructor.html`](../presentation/d3-constructor.html) — **live**. Identify by `data-act-name`. Staff: [`run/d3/`](../run/d3/README.md) — 13 beats, four boards |
-| 4 | Deck **not built**. Staff: [`run/d4/`](../run/d4/README.md) — 10 beats. Context · Eval · Loop |
+| 4 | Stage live. Staff: [`run/d4/`](../run/d4/README.md) — 9 beats. Trail, then factory |
 | 5 | not built. Staff stub: [`run/d5.md`](../run/d5.md) |
 
 ## What is frozen vs what the week writes

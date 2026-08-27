@@ -130,7 +130,7 @@ Deck live: [`d3-constructor.html`](../presentation/d3-constructor.html).
    `expected/`. Do not break Java.
 8. Type `06` still absent.
 
-Staff: [`run/d4/`](../run/d4/README.md) — 10 beats, four boards. Deck not built.
+Staff: [`run/d4/`](../run/d4/README.md) — 9 beats, four boards. Trail first. Stage live.
 
 ### Night 5 — Dark Factory · classify
 

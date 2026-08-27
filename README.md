@@ -98,7 +98,7 @@ Update **Status** as each night closes. Do not invent a Pass the brief did not a
 | **1** | Archaeologist (SA + AI) | Prompt + context | **0 Capture → 1 Intent** | MATCHED plant. Second Brain (nine packs). OntoLayer without/with. BRD + tech-spec in [`docs/`](docs/README.md). **No product code.** | **live** |
 | **2** | Translator (SWE) | Harness (Bind) | Recap 0–1. **2–4**, then **5** Task-Spec. Mesh internals. Factory 6–8 is Day 4 | Recap MATCHED + papers. Bind fail-closed. Query. ADRs, seams, **Consensus signed**. One leaf in `docs/tasks/`. **No `modern/` required** | **live** |
 | **3** | Constructor (DE + analytics) | Harness + loop seed | Recap. **2–4–5** on dlt → Gold. Mesh seed | Type 01 **steel thread**: landing → Gold + golden-match. `02`–`04` parked | **live** |
-| **4** | Orchestrator | Loop + eval | Context · Eval · Loop. Then **6–8** crank. Linear. Type `05` unattended | Context Layer queried. Remaining SWE+DE generated. Packet on settle. Small `HALF_UP` pill | **next** (clock live, deck not built) |
+| **4** | Orchestrator | Loop + eval | Context · Eval · Loop. Then **6–8** crank. Linear. Type `05` unattended | Type 01 trail assembled. Remaining SWE+DE generated. Packet on settle. Small `HALF_UP` pill | **next** (clock live, Stage built) |
 | **5** | Dark Factory | Orchestration | Full 0–8 on sealed Type `06` | Classify. Do not patch `legacy/` | sealed |
 
 ```mermaid
@@ -114,7 +114,7 @@ flowchart LR
 | Role tonight | Owns |
 |---|---|
 | **Scope** | [`agenda/`](agenda/README.md) — what the night closes |
-| **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats). Night 2: [`run/d2/`](run/d2/README.md) (12). Night 3: [`run/d3/`](run/d3/README.md) (13). Night 4: [`run/d4/`](run/d4/README.md) (10). Day 5 still a stub |
+| **Staff clock** | Night 1: [`run/d1/`](run/d1/README.md) (17 beats). Night 2: [`run/d2/`](run/d2/README.md) (12). Night 3: [`run/d3/`](run/d3/README.md) (13). Night 4: [`run/d4/`](run/d4/README.md) (9). Day 5 still a stub |
 | **What the room sees** | [`presentation/`](presentation/README.md) — Nights 1–3 HTML **live**. Night 4 deck **not built** (clock live). Identify by `data-act-name` |
 | **Converge papers** | [`docs/`](docs/README.md) — ingest papers on disk. Day 3 writes lakehouse ADRs, seam 2, `consensus-lakehouse.md`, Type 01 Gold leaves **in the room** (not pre-seeded on `main`). Day 4 queries that trail, then remaining types |
 | **Engagement map** | [`plans/`](plans/README.md) — legacy, modern, factory seed |
@@ -234,7 +234,7 @@ Root control plane: `Makefile`, `compose.yaml`, `.env.example`.
 | [`brain/notebooklm/`](brain/notebooklm/README.md) | Human Second Brain — nine packs compiled from `spec/`. Days 2–4 **query** it. No tenth source. Type `06` is Friday, not in the zip |
 | [`ontology/`](ontology/README.md) | Read-only graph over live Postgres. `make ontology`. Not Converge |
 | [`agenda/`](agenda/README.md) | Five-day scope |
-| [`run/`](run/README.md) | Staff follow-along. Night 1 live (17). Night 2 live (12). Night 3 live (13). Night 4 live (10, Context · Eval · Loop). Day 5 stub |
+| [`run/`](run/README.md) | Staff follow-along. Night 1 live (17). Night 2 live (12). Night 3 live (13). Night 4 live (9, trail then factory). Day 5 stub |
 | [`plans/`](plans/README.md) | Engagement map — legacy, modern, factory seed |
 | [`presentation/`](presentation/README.md) | Nights 1–3 HTML **live**. Night 4 clock live, deck **not built**. Method manuals live here, not in `docs/` |
 | [`docs/`](docs/README.md) | Converge paper trail — BRD, tech-spec, ADRs, seams, consensus, Task-Specs. Not the HTML manuals |

@@ -22,7 +22,7 @@ Friday.
 
 **Live this week:** Night 1 (44), Night 2 (34), Night 3 (Constructor +
 [`run/d3/`](../run/d3/README.md)). Night 4 **clock** live ([`run/d4/`](../run/d4/README.md)
-— Context · Eval · Loop). **Not built:** Night 4–5 HTML.
+— 9 beats, trail then factory). Stage live. **Not built:** Night 5 HTML.
 
 ---
 
@@ -33,9 +33,9 @@ Friday.
 | [`d1-archaeologist.html`](d1-archaeologist.html) | Night 1 deck | Onboard + Archaeologist. **44 slides**, six blocks, HUD `01`–`44`. Pass **0–1** only. **Live.** | Night 1. Staff: [`run/d1/`](../run/d1/README.md) |
 | [`d2-translator.html`](d2-translator.html) | Night 2 deck | Translator · java2py. **34 slides**, six blocks, five Hands-On boards (slices a–e). Identify by `data-act-name`. **Live.** | Night 2. Staff: [`run/d2/`](../run/d2/README.md) |
 | [`d3-constructor.html`](d3-constructor.html) | Night 3 deck | Constructor · DE + analytics. Six blocks, four Hands-On boards (A–D). Identify by `data-act-name`. **Live.** Lockstep with `run/d3/`. | Night 3. Staff: [`run/d3/`](../run/d3/README.md) |
-| Days 4–5 HTML | — | Orchestrator / Dark Factory. **Not in this folder.** | Build Night 4 from [`agenda/d4.md`](../agenda/d4.md). Staff: [`run/d4/`](../run/d4/README.md) |
+| [`d4-orchestrator.html`](d4-orchestrator.html) | Night 4 deck | Orchestrator. Stage live. Floor/Dig follow `run/d4/`. | Night 4. Staff: [`run/d4/`](../run/d4/README.md) |
 | [`seamwise.html`](seamwise.html) | Method kit | SeamWise internals. **Leave · SeamWise** parks here (Nights 2 and 3), then **returns** to the numbered beat | Pass 3 kit. Not the Night clock |
-| [`task-spec.html`](task-spec.html) | Method kit | Task-Spec internals. Dig **Show**, then return (Night 2: Execute 11 · Night 3: 09 · Night 4: 03–05) | Pass 5 kit. Mesh is **not** inside it |
+| [`task-spec.html`](task-spec.html) | Method kit | Task-Spec internals. Dig **Show**, then return (Night 2: Execute 11 · Night 3: 09 · Night 4: 03–04) | Pass 5 kit. Mesh is **not** inside it |
 | [`cvg-aut-systems-spine-steps.html`](cvg-aut-systems-spine-steps.html) | Method manual | Converge spine — nine passes, two phases, one human barrier. **36 slides**, print-page layout. v7 · Converge 0.2.0 | When the room needs the kit, not the Night. Papers: [`docs/`](../docs/README.md) |
 | [`asd-agentic-loop.html`](asd-agentic-loop.html) | Method manual | ASD — the Agentic Loop. Scroll document, **12 sections** (not a HUD deck) | Doctrine |
 | [`boot-uc-northwind-pay-edp-oss.html`](boot-uc-northwind-pay-edp-oss.html) | Method manual | Bootcamp reference — case framing, Shapiro ladder, the week arc. **19 slides** | Framing. Not the follow-along |
@@ -115,21 +115,21 @@ Staff: [`run/d3/README.md`](../run/d3/README.md).
 ## Night 4 · Orchestrator
 
 `d4-orchestrator.html` — **not in this folder.** PPT brief: [`agenda/d4.md`](../agenda/d4.md).
-Staff: [`run/d4/README.md`](../run/d4/README.md) — 10 beats, four Hands-On boards A–D.
+Staff: [`run/d4/README.md`](../run/d4/README.md) — 9 beats, four Hands-On boards A–D.
 Clone Night 3 chrome. Identify by `data-act-name`. If agenda and `run/d4/` disagree on Hands-On ranges, **run wins on the clock**.
 
 Public eight (same shape as Night 2): Recap · Orchestrator role · Context Engineering · Eval Engineering · Telemetry (packet) · Agent Harness (Loop+Eval) · Loop / Mesh · Converge 6–8 + Linear.
 
-Stage teaches **Context · Eval · Loop first**. Then generate remaining SWE+DE, crank, Type `05` unattended + `HALF_UP`. Task-Mesh is **beside** Task-Spec. Recap Gold from disk; gap → dark 03–09.
+Stage teaches **Context · Eval · Loop first**. Floor **walks the trail**. Then remaining lanes, Type 01 crank, Type `05` unattended + `HALF_UP`. Task-Mesh is **beside** Task-Spec. Recap Gold from disk; gap → dark 03–08.
 
 | Block | Mode |
 |---|---|
 | Opening | title · Orchestrator |
 | Stage | Recap Gold / papers, then Context · Eval · packet · rings |
 | Craft | Bind still on. Host pin Task-Spec 3.8.x + `cvg init`. Kits. |
-| Floor | Context Layer Show, **Execute 02** |
-| Dig | Leave · SeamWise, **Execute 03–05**, Task-Spec Show, Mesh+Linear Show, **Execute 06–07**, **Execute 08–09** |
-| Debrief | In hand, Research (`run/d4/10`), Next, silent Tomorrow |
+| Floor | Trail Show, **Execute 02** |
+| Dig | Leave · SeamWise, **Execute 03–04**, Task-Spec Show, Mesh+Linear Show, **Execute 05–06**, **Execute 07–08** |
+| Debrief | In hand, Research (`run/d4/09`), Next, silent Tomorrow |
 
 ---
 

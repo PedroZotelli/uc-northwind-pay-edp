@@ -1,9 +1,9 @@
-# 08 · Type 05 unattended
+# 07 · Type 05 unattended
 
-- Slide: Execute 08–09 (Hands-On **slice d · pill**) — tile 08
+- Slide: Execute 07–08 (Hands-On **slice d · pill**) — tile 07
 - Slice: **D · Pill**
 - Who: instructor binds, **leaves the table**, then the room looks up
-- Next: [`09-half-up.md`](09-half-up.md) on the **same board**
+- Next: [`08-half-up.md`](08-half-up.md) on the **same board**
 
 Type `05` is a real type, then a pill. Same movie as Type 01’s lie: `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. Do not walk `rounding-half-up` on this tile.
 
@@ -31,4 +31,4 @@ Do not open Type 06.
 
 ## If fail
 
-Narrating the keystrokes → not unattended. Rewriting expected → **stop**. Missing Type 05 leaves → go back to [`04-taskspec-generate.md`](04-taskspec-generate.md).
+Narrating the keystrokes → not unattended. Rewriting expected → **stop**. Missing Type 05 leaves → go back to [`04-generate-queue.md`](04-generate-queue.md).

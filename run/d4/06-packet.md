@@ -1,16 +1,16 @@
-# 07 · Packet + Type 01 Dagster hash
+# 06 · Packet + Type 01 hash
 
-- Slide: Execute 06–07 (Hands-On **slice c · loop**) — tile 07
+- Slide: Execute 05–06 (Hands-On **slice c · loop**) — tile 06
 - Slice: **C · Loop**
 - Who: instructor first, then every seat
-- Next: [`08-type05-unattended.md`](08-type05-unattended.md) on Execute 08–09
+- Next: [`07-type05-unattended.md`](07-type05-unattended.md) on Execute 07–08
 
-Telemetry is the packet. Dagster is lineage — **not** the parser. Skip the hash look-up if Type 01 Gold is missing; the packet from tile 06 still counts.
+Telemetry is the packet. Dagster is lineage — **not** the parser. Skip the hash look-up if Type 01 Gold is missing; the packet from tile 05 still counts.
 
 ## Prompt (verbatim)
 
 ```text
-Look up the packet from the leaf you just cranked (terminal, not Git).
+Look up the packet from the Type 01 leaf you just cranked (terminal, not Git).
 Name: leaf, attempt, eval, exit, classification or skip, paths.
 
 If Type 01 Gold exists on disk:
@@ -28,4 +28,4 @@ Packet restatable with files closed. If Gold exists: direct and orchestrated **s
 
 ## If fail
 
-No packet → go back to [`06-mesh-crank.md`](06-mesh-crank.md). Dagster that parses → **stop**. FastAPI on unresolved Gold → tear it up.
+No packet → go back to [`05-mesh-crank.md`](05-mesh-crank.md). Dagster that parses → **stop**. FastAPI on unresolved Gold → tear it up.

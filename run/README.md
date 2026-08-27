@@ -20,7 +20,7 @@ morning / afternoon split. Converge papers: [`docs/`](../docs/README.md).
 Night 1 HTML is live — [`d1-archaeologist.html`](../presentation/d1-archaeologist.html) · [`d1/`](d1/README.md).
 Night 2 HTML is live — [`d2-translator.html`](../presentation/d2-translator.html) · [`d2/`](d2/README.md). Identify by `data-act-name`.
 Night 3 HTML is live — [`d3-constructor.html`](../presentation/d3-constructor.html) · [`d3/`](d3/README.md) (13 beats, four boards). Type 01 Gold steel thread. Identify by `data-act-name`. J5 abstains, then they render the SA mermaids in [`plans/modern.md`](../plans/modern.md).
-Night 4 staff is live — [`d4/`](d4/README.md) (10 beats, four boards). Context · Eval · Loop, then generate remaining + Type `05`. Deck **not built**. Identify by `data-act-name`.
+Night 4 staff is live — [`d4/`](d4/README.md) (9 beats, four boards). Trail first, then remaining lanes + Type `05`. Stage live; Floor/Dig follow the clock. Identify by `data-act-name`.
 Day 5 staff is a stub.
 
 Kits (park the Night HUD, teach, **return**): [`seamwise.html`](../presentation/seamwise.html), [`task-spec.html`](../presentation/task-spec.html).
@@ -50,12 +50,12 @@ Do **not** generate `02`–`05` on `main` if Type 01 Gold is missing — those b
 
 | Beat | Expect |
 |---|---|
-| 01 | Type 01 Gold **or named gap**. 0006 rows 8–9 tonight. Keep 173.44 |
-| 02 | Paid grain from OntoLayer. Eval named from `plans/modern.md`. Four rooms of the Context Layer |
-| 03–05 | **Dark** if Gold missing. Else remaining legs + leaves with evals + Linear queue. This plant’s seam names only |
-| 06–07 | One signed leaf cranked. **Packet** on disk. Type 01 hash if Gold exists |
-| 08–09 | `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. `HALF_UP`. Never rewrite `expected/` |
-| 10 | Factory / flywheel. Type `06` not searched |
+| 01 | Type 01 Gold **or named gap**. One look. Keep 173.44 |
+| 02 | Six trail chapters cited in order. Right/wrong card started. **Not** paid-grain `catalog_ask` |
+| 03–04 | **Dark** if Gold missing. Remaining work on SWE vs DE vs tonight. Leaves with evals. Linear queue |
+| 05–06 | **Type 01** leaf cranked. **Packet** on disk. Hash if Gold exists |
+| 07–08 | `DF-SOURCE-005` = `CONFIRMED_SOURCE_DEFECT`. `HALF_UP`. Never rewrite `expected/` |
+| 09 | Factory / flywheel. Type `06` not searched |
 
 Host: pin Task-Spec 3.8.x, `cvg init`, project `ingest-landing` / `dlt-gold` / `orchestrate-serve`. Linear is the board, not the judge. Mesh is **not** inside Task-Spec.
 
@@ -87,14 +87,14 @@ run/
     09         C · Task-Spec Type 01 remainder + lakehouse leaves
     10–12      D · Gold (landing, dlt+B/S/G, golden-match)
     13         Close · Research
-  d4/          live — 10 beats, four boards + Close. Context · Eval · Loop.
+  d4/          live — 9 beats, four boards + Close. Trail, then factory.
     README.md  Recap + slices A–D + Close
     01         Recap · Gold or named gap (no HO badge)
-    02         A · Context Layer (docs + OntoLayer + plans/modern.md)
-    03–05      B · Generate (remaining seams, Task-Spec, Linear)
-    06–07      C · Loop (crank one leaf, packet / Dagster hash)
-    08–09      D · Type 05 unattended + HALF_UP
-    10         Close · Research
+    02         A · Trail (requisites → problem → decisions → SWE → DE/AE → tonight)
+    03–04      B · Lanes (place remaining + generate/queue)
+    05–06      C · Loop (Type 01 crank + packet)
+    07–08      D · Type 05 unattended + HALF_UP
+    09         Close · Research
   d5.md        stub — Dark Factory
 ```
 

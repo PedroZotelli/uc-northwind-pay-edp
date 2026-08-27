@@ -1,28 +1,37 @@
 # Day 4 — follow-along
 
 Staff execute folder. Scope: [`agenda/d4.md`](../../agenda/d4.md).  
-Deck: `presentation/d4-orchestrator.html` — **not built yet**. Identify slides by **`data-act-name`**. Fewer slides than Night 3. Stage is Context · Eval · Loop.
-
-**Same mold as [`../d3/`](../d3/README.md).** Show the board, send the room into the numbered beats, **look up**. Do not flip a slide per prompt.
+Deck: `presentation/d4-orchestrator.html` — Stage live; Floor/Dig follow this clock. Identify slides by **`data-act-name`**. Stage is Context · Eval · Loop (talk). Floor is the **trail**.
 
 **One Night.** House stack: Oh My Pi → OpenRouter → a workspace → DeepSeek. Grade gates, not the vendor.
 
-Orchestrator = the seat that **leaves**. Tonight: teach the Context Layer, the eval, and the packet; then generate remaining SWE+DE; crank Mesh + Pass 6–8; Type `05` unattended + `HALF_UP`. Papers: [`docs/README.md`](../../docs/README.md). Contract: [`plans/modern.md`](../../plans/modern.md).
+Tonight **assembles** the week, then the factory runs. Not Night 3’s mold pointed at remaining types. Not another paid-grain query.
+
+```text
+Requisites → problem → decisions
+    → SWE (Tue · ingest → landing)
+    → DE + AE (Wed · dlt → Gold)
+        → tonight (eval · packet · loop)
+            → remaining types on the same two lanes
+            → Type 05 pill
+```
+
+Orchestrator = the seat that **leaves**. Papers: [`docs/README.md`](../../docs/README.md). Contract: [`plans/modern.md`](../../plans/modern.md).
 
 SeamWise and Task-Spec are **separate kits**. Task-Mesh is **beside** Task-Spec, not inside it. Leave the Night HUD, teach, **return**. SeamWise: [`presentation/seamwise.html`](../../presentation/seamwise.html). Task-Spec: [`presentation/task-spec.html`](../../presentation/task-spec.html).
 
 | Slice | Beats | Deck (`data-act-name`) | Look up when |
 |---|---|---|---|
-| **Recap** | [`01`](01-prompt-recap.md) | Recap · Gold / papers (talk; **no** HO badge) | Type 01 vertical **or named gap** · `02`–`04` parked · keep 173.44 · do not recut signs |
-| **A · Query** | [`02`](02-query-context.md) | Context Layer Show, then **Execute 02** | paid grain · eval named · `docs/` is papers |
-| **B · Generate** | [`03`](03-remaining-seams.md)–[`05`](05-register-linear.md) | Leave · SeamWise, then **Execute 03–05** | remaining legs · remaining leaves with evals · Linear queue |
-| **C · Loop** | [`06`](06-mesh-crank.md)–[`07`](07-packet-dagster.md) | Mesh Show, then **Execute 06–07** | one leaf ran · **packet on disk** · Type 01 hash if Gold exists |
-| **D · Pill** | [`08`](08-type05-unattended.md)–[`09`](09-half-up.md) | **Execute 08–09** | `DF-SOURCE-005` · `HALF_UP` · never rewrite `expected/` |
-| **Close** | [`10`](10-research.md) | Research, then Next, silent Tomorrow | factory/flywheel cited; Type `06` **not** searched |
+| **Recap** | [`01`](01-prompt-recap.md) | Recap · Gold / papers (talk; **no** HO badge) | Type 01 vertical **or named gap**. One look. Not the trail |
+| **A · Trail** | [`02`](02-walk-trail.md) | Trail Show, then **Execute 02** | six chapters cited in order · right/wrong card started |
+| **B · Lanes** | [`03`](03-place-lanes.md)–[`04`](04-generate-queue.md) | Leave · SeamWise, Task-Spec Show, then **Execute 03–04** | remaining work on SWE vs DE vs tonight · leaves with evals · Linear queue |
+| **C · Loop** | [`05`](05-mesh-crank.md)–[`06`](06-packet.md) | Mesh Show, then **Execute 05–06** | **Type 01** leaf cranked · packet on disk · hash if Gold exists |
+| **D · Pill** | [`07`](07-type05-unattended.md)–[`08`](08-half-up.md) | **Execute 07–08** | `DF-SOURCE-005` · `HALF_UP` · right/wrong card completed |
+| **Close** | [`09`](09-research.md) | Research, then Next, silent Tomorrow | factory/flywheel cited · Type `06` **not** searched |
 
-Public agenda lists Context / Eval / packet / rings as talk. **No run file** on those slides. Clock puts Bind (Craft Show) **before** generate so an unbound agent never dumps `02`–`05`.
+Public agenda lists Context / Eval / packet / rings as talk. **No run file** on those slides. Clock puts Bind (Craft Show) **before** generate. Recap is one look. The trail is Floor.
 
-If Type 01 Gold is missing, **do not run 03–09**. If generate has no evals, **do not run 06–09**. Do not recut ingest or lakehouse Consensus. Do not rebuild the notebook. Type `06` is not in the zip. Do not rewrite `golden_match.py`. Do not put Mesh inside Task-Spec. Do not copy foreign lane names.
+If Type 01 Gold is missing, **do not run 03–08**. Trail **02** still runs from papers. If generate has no evals, **do not run 05–08**. Do not recut ingest or lakehouse Consensus. Do not rebuild the notebook. Do not `catalog_ask` “where does paid live” — they already did. Type `06` is not in the zip. Do not rewrite `golden_match.py`. Do not put Mesh inside Task-Spec. Do not copy foreign lane names.
 
 Host: pin Task-Spec **3.8.x**. `cvg init`. Project **`ingest-landing`**, **`dlt-gold`**, **`orchestrate-serve`**.
 
@@ -40,16 +49,16 @@ Hands-On is **four boards**. Chip · `run/d4/` range · one tile per beat · loo
 | Recap · Gold · Recap · papers | Show / talk. **Type [`01`](01-prompt-recap.md)** if tables missed Wednesday (no HO badge) |
 | Orchestrator Role · Context Engineering · Eval Engineering · Telemetry · Agent Harness · Loop + Eval · Loop Engineering · Converge 6–8 + Linear | talk |
 | Craft · Bind is rails · Kits tonight | Show. Bind **still on**. Host pin + `cvg init` |
-| Floor · Context Layer · show | Show |
-| **Execute 02** | Hands-On **slice a** · [`02`](02-query-context.md) |
-| Dig · Leave · SeamWise | Park. Open [`seamwise.html`](../../presentation/seamwise.html). Remaining lanes. Return |
-| **Execute 03–05** | Hands-On **slice b** · [`03`](03-remaining-seams.md)–[`05`](05-register-linear.md) |
+| Floor · Trail · show | Show. Week as one picture |
+| **Execute 02** | Hands-On **slice a** · [`02`](02-walk-trail.md) |
+| Dig · Leave · SeamWise | Park. Open [`seamwise.html`](../../presentation/seamwise.html). Remaining onto two lanes. Return |
+| **Execute 03–04** | Hands-On **slice b** · [`03`](03-place-lanes.md)–[`04`](04-generate-queue.md) |
 | Task-Spec | Show. **Pause:** [`task-spec.html`](../../presentation/task-spec.html). Return. Mesh is **not** inside it |
 | Task-Mesh · Linear | Show |
-| **Execute 06–07** | Hands-On **slice c** · [`06`](06-mesh-crank.md)–[`07`](07-packet-dagster.md) |
-| **Execute 08–09** | Hands-On **slice d** · [`08`](08-type05-unattended.md)–[`09`](09-half-up.md) |
+| **Execute 05–06** | Hands-On **slice c** · [`05`](05-mesh-crank.md)–[`06`](06-packet.md) |
+| **Execute 07–08** | Hands-On **slice d** · [`07`](07-type05-unattended.md)–[`08`](08-half-up.md) |
 | Debrief · In hand | talk |
-| Research | **type [`10`](10-research.md)** |
+| Research | **type [`09`](09-research.md)** |
 | Next · Tomorrow | walk |
 
 Do not paste generate or crank from inside the kits. Come back to this Night HUD.
@@ -60,16 +69,15 @@ Do not paste generate or crank from inside the kits. Come back to this Night HUD
 
 | # | File | Slice | What they do |
 |---|---|---|---|
-| 01 | [`01-prompt-recap.md`](01-prompt-recap.md) | Recap | Agent: Type 01 Gold on disk? Lakehouse sign? Parked `02`–`04`? |
-| 02 | [`02-query-context.md`](02-query-context.md) | A | `docs/` + OntoLayer + `plans/modern.md` · Context Layer |
-| 03 | [`03-remaining-seams.md`](03-remaining-seams.md) | B | Pass 3 again · remaining swimlanes + unpark 0006 rows 8–9 |
-| 04 | [`04-taskspec-generate.md`](04-taskspec-generate.md) | B | Pass 5 generate remaining SWE+DE · evals required |
-| 05 | [`05-register-linear.md`](05-register-linear.md) | B | Pass 6 · this plant’s seams · Linear is the board |
-| 06 | [`06-mesh-crank.md`](06-mesh-crank.md) | C | Pass 7–8 · crank **one** signed leaf · watch the eval |
-| 07 | [`07-packet-dagster.md`](07-packet-dagster.md) | C | Packet on disk · Type 01 Dagster hash if Gold exists |
-| 08 | [`08-type05-unattended.md`](08-type05-unattended.md) | D | Bind Type 05 · leave the table · `DF-SOURCE-005` |
-| 09 | [`09-half-up.md`](09-half-up.md) | D | `rounding-half-up` · `HALF_UP` · never rewrite `expected/` |
-| 10 | [`10-research.md`](10-research.md) | Close | Factory / flywheel · do not search Type `06` |
+| 01 | [`01-prompt-recap.md`](01-prompt-recap.md) | Recap | Disk: Gold or named gap. Keep 173.44. Trail is Floor |
+| 02 | [`02-walk-trail.md`](02-walk-trail.md) | A | Six chapters: requisites → problem → decisions → SWE → DE/AE → tonight |
+| 03 | [`03-place-lanes.md`](03-place-lanes.md) | B | Remaining types onto SWE vs DE vs tonight. Unpark 0006 rows 8–9 as tonight’s column |
+| 04 | [`04-generate-queue.md`](04-generate-queue.md) | B | Generate remaining leaves with evals. Linear shows the queue |
+| 05 | [`05-mesh-crank.md`](05-mesh-crank.md) | C | Crank **one Type 01 leaf**. Packet required |
+| 06 | [`06-packet.md`](06-packet.md) | C | Packet restated. Type 01 hash if Gold exists |
+| 07 | [`07-type05-unattended.md`](07-type05-unattended.md) | D | Bind Type 05. Leave the table. `DF-SOURCE-005` |
+| 08 | [`08-half-up.md`](08-half-up.md) | D | `rounding-half-up` · `HALF_UP` · never rewrite `expected/` |
+| 09 | [`09-research.md`](09-research.md) | Close | Factory / flywheel · do not search Type `06` |
 
 ---
 
@@ -77,9 +85,12 @@ Do not paste generate or crank from inside the kits. Come back to this Night HUD
 
 | When | Trap | Do |
 |---|---|---|
-| Recap | Gold missing on `main` | Name the gap. **Dark 03–09.** Wednesday product was not pre-seeded |
+| Recap | Five-question inventory quiz | One look. Trail is 02 |
+| Trail | `catalog_ask` paid grain | They already did. Cite the week in order |
+| Recap / 03 | Gold missing on `main` | Name the gap. **Dark 03–08.** Trail still runs |
 | `cvg` | Task-Spec 3.9 vs Converge 3.8 | Pin 3.8.x. Agent still writes `docs/` |
 | Seams | Copying `assurance` / `foundation` / `models` | This plant: `ingest-landing`, `dlt-gold`, `orchestrate-serve` |
+| Crank | Remaining leaf before Type 01 | Type 01 first — that is the trail |
 | Crank | No packet | Do not settle. Linear does not move |
 | Type 05 | Fix `expected/` to match `HALF_EVEN` | That is the pill. Classify `MODERN_DEFECT`. Fix the plant |
 | Type 06 | Searching the repo | It is not there. Friday |

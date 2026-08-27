@@ -1,9 +1,9 @@
-# 09 · Small pill — HALF_UP
+# 08 · Small pill — HALF_UP
 
-- Slide: Execute 08–09 (Hands-On **slice d · pill**) — tile 09
+- Slide: Execute 07–08 (Hands-On **slice d · pill**) — tile 08
 - Slice: **D · Pill**
 - Who: every seat, look up after the loop
-- Next: Debrief · In hand, then [`10-research.md`](10-research.md)
+- Next: Debrief · In hand, then [`09-research.md`](09-research.md)
 
 | Trusted thing | What it does on the half |
 |---|---|
@@ -11,7 +11,7 @@
 | Estate / mail language | “normal rounding” |
 | Contract + Java on this type | **`HALF_UP`** |
 
-An agent that copies the default looks structurally green and is one cent wrong. That is `MODERN_DEFECT`. Java is specified `HALF_UP`. Do not break the frozen plant.
+An agent that copies the default looks structurally green and is one cent wrong. That is `MODERN_DEFECT`. Java is specified `HALF_UP`. Do not break the frozen plant. Fill the last right/wrong row from the trail card.
 
 ## Prompt (verbatim)
 
@@ -25,13 +25,16 @@ Look up:
 - Re-run until the assessed cent is the contract’s cent.
 - Java still MATCHED. Frozen folders untouched.
 
+Complete the trail card:
+| HALF_EVEN / “normal” | MODERN_DEFECT. Fix modern | rewrite expected/. Break Java |
+
 Do not rewrite validation/golden-match/golden_match.py to add tolerance.
 Do not search for Type 06.
 ```
 
 ## Proof
 
-`rounding-half-up` is **`HALF_UP`**. A wrong default was **`MODERN_DEFECT`** and fixed in modern, not in `expected/`. Java MATCHED.
+`rounding-half-up` is **`HALF_UP`**. A wrong default was **`MODERN_DEFECT`** and fixed in modern, not in `expected/`. Java MATCHED. Right/wrong card complete.
 
 ## If fail
 
