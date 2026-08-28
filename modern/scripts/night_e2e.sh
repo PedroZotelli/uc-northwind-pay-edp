@@ -17,6 +17,19 @@ note() { printf '    \033[2m%s\033[0m\n' "$1"; }
 
 rule; printf '\033[1mDARK FACTORY · end to end\033[0m  \033[2m%s\033[0m\n' "$(date '+%Y-%m-%d %H:%M')"; rule
 
+# ── preflight: say what is missing once, instead of failing eight times ──
+MISS=0
+[ -x "$PLANT" ]      || { printf '  \033[31mmissing\033[0m  modern/.venv            → modern/scripts/bootstrap.sh\n'; MISS=1; }
+[ -x "$ORCH/dagster" ] || { printf '  \033[31mmissing\033[0m  orchestration env       → modern/scripts/bootstrap.sh\n'; MISS=1; }
+for d in evidence modern/landing modern/lakehouse/ducklake; do
+  [ -e "$d" ] || { printf '  \033[31mmissing\033[0m  %-23s → runtime artifact; run the nights on this checkout\n' "$d"; MISS=1; }
+done
+if [ "$MISS" -ne 0 ]; then
+  printf '\n  This checkout cannot run the Night. Evidence, landing and the lakehouse are\n'
+  printf '  gitignored: they are produced by running the plant, never by cloning it.\n'
+  rule; exit 2
+fi
+
 step "1 · legacy ground truth" "the plant that already works"
 if S=$($PLANT -c "import json;d=json.load(open('evidence/B202607230000001/reconciliation.json'));print(d['status'],d['applied_net_amount'])" 2>/dev/null); then
   ok "legacy reconciliation: $S"; note "evidence/B202607230000001/reconciliation.json"
