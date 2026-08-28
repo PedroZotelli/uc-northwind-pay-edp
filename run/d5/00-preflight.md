@@ -44,7 +44,22 @@ cd modern/orchestration && .venv/bin/dagster dev -m definitions
 ```
 
 Use **`modern/.venv`** — it has pyarrow 25, the version that wrote landing. `modern/lakehouse/.venv`
-has pyarrow 22 and will raise `PublicationError`.
+is stale local state carrying pyarrow 22 and will raise `PublicationError`. Nothing is wrong with the
+pins: `modern/scripts/bootstrap.sh` builds both environments from `requirements.txt` and yields
+pyarrow **25.0.0** every time.
+
+### If a step is missing
+
+`night_e2e.sh` preflights before it does anything and names the cause once:
+
+```text
+modern/scripts/bootstrap.sh      # builds modern/.venv and the Dagster env
+```
+
+Bootstrap does **not** create `evidence/`, `modern/landing/` or the lakehouse. Those are gitignored
+artifacts of actually running the nights — a fresh clone can never present the Night without first
+producing them. Rehearsed on 2026-08-28 in the `wrktr-e2e` worktree: a clean checkout preflights
+and stops in one screen, and bootstrap brings both environments up from the pins.
 
 ## Stages and gates
 
