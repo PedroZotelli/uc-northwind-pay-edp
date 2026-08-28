@@ -1,0 +1,577 @@
+<!-- ════════════════════════════════════════════════════════════════════
+     ACT IV · BIND THE RUNTIME · P36–P42
+     src: brf-converge.md ACT IV (S37–S46) · page-plan.md ACT IV
+     ════════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── ACT IV scoped components (bind-the-runtime visuals; .bnd- prefix) ── */
+/* fan: one source card feeding N target cards, one aligned arrow per row */
+.bnd-fan { display: grid; grid-template-columns: minmax(0,0.98fr) 54px minmax(0,1.02fr); row-gap: 14px; }
+.bnd-fan .bnd-src { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.bnd-fan .bnd-l { position: relative; }
+.bnd-fan .bnd-l i { position: absolute; left: 0; right: 2px; top: 50%; height: 2px; margin-top: -1px; background: linear-gradient(90deg, var(--rule), var(--fc, var(--ac))); }
+.bnd-fan .bnd-l i::after { content: ''; position: absolute; right: -1px; top: -3.5px; border-left: 7px solid var(--fc, var(--ac)); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; }
+/* gate bar: verified-gate strip (P36 fold gate, P41 verification rail, P42 preflight) */
+.bnd-gate { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; border: 1.5px solid rgba(61,220,151,0.5); border-radius: 12px; padding: 12px 20px; background: linear-gradient(135deg, rgba(61,220,151,0.12), rgba(13,17,23,0.96) 66%); box-shadow: 0 0 48px -18px rgba(61,220,151,0.5), inset 0 1px 0 rgba(255,255,255,0.05); font-family: var(--font-mono); font-size: 11px; font-weight: 800; letter-spacing: 1.4px; color: var(--green); text-align: center; }
+.bnd-gate small { font-size: 8.5px; font-weight: 600; letter-spacing: 1.6px; color: var(--text-dim); text-transform: uppercase; }
+.bnd-gate .cmd { color: var(--text-dim); font-weight: 600; letter-spacing: 0.4px; }
+/* nested fences (P38): outer task write scope, inner repository gate */
+.bnd-scope { position: relative; border: 1.5px solid color-mix(in srgb, var(--cyan) 42%, transparent); border-radius: 18px; padding: 38px 20px 20px; background: linear-gradient(165deg, rgba(104,199,255,0.05), transparent 55%); }
+.bnd-tag { position: absolute; top: -10px; left: 20px; padding: 2px 10px; background: var(--bg); border-radius: 4px; font-family: var(--font-mono); font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--bt, var(--cyan)); white-space: nowrap; }
+.bnd-denied { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 15px; }
+.bnd-denied .dk { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-mute); }
+.bnd-denied .dc { font-family: var(--font-mono); font-size: 9.5px; padding: 4px 10px; border-radius: 5px; border: 1px solid var(--rule); color: var(--text-mute); text-decoration: line-through; white-space: nowrap; }
+.bnd-fence { position: relative; border: 1.5px solid rgba(167,139,250,0.55); border-radius: 14px; padding: 32px 18px 16px; background: linear-gradient(160deg, rgba(167,139,250,0.10), rgba(13,17,23,0.94) 60%); box-shadow: 0 0 46px -16px rgba(167,139,250,0.5), inset 0 1px 0 rgba(255,255,255,0.06); }
+.bnd-allow { display: flex; gap: 9px; flex-wrap: wrap; }
+.bnd-allow .ac { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; padding: 5px 11px; border-radius: 5px; border: 1px solid rgba(61,220,151,0.4); color: var(--green); background: rgba(61,220,151,0.08); white-space: nowrap; }
+.bnd-lock { margin-top: 13px; padding-top: 10px; border-top: 1px solid var(--rule); font-family: var(--font-editorial); font-style: italic; font-size: 12px; line-height: 1.4; color: var(--text-dim); }
+.bnd-lock b { color: var(--violet); font-weight: 600; font-style: normal; }
+/* write-path lanes (P39): preflight shield vs postflight tripwire */
+.bnd-wpath { display: flex; align-items: center; gap: 18px; border: 1px solid var(--border); border-left: 3px solid var(--wc, var(--violet)); border-radius: 13px; padding: 15px 20px; background: linear-gradient(100deg, color-mix(in srgb, var(--wc, var(--violet)) 7%, transparent), var(--surface) 74%); }
+.bnd-wpath .wp-k { flex: 0 0 182px; font-family: var(--font-mono); font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--wc, var(--violet)); line-height: 1.55; }
+.bnd-wpath .wp-k small { display: block; font-weight: 500; letter-spacing: 1.2px; color: var(--text-mute); }
+.bnd-wpath .wp-flow { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; flex-wrap: wrap; }
+.bnd-chip { font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; padding: 5px 10px; border-radius: 5px; border: 1px solid var(--rule); color: var(--text-dim); white-space: nowrap; }
+.bnd-chip.red { border-color: rgba(255,107,102,0.4); color: var(--red); }
+.bnd-arr { flex: 0 0 26px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--rule), var(--wc, var(--violet))); position: relative; }
+.bnd-arr::after { content: ''; position: absolute; right: -1px; top: -3.5px; border-left: 7px solid var(--wc, var(--violet)); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; }
+.bnd-stop { font-family: var(--font-mono); font-size: 9.5px; font-weight: 800; letter-spacing: 0.8px; padding: 6px 12px; border-radius: 6px; border: 1.5px solid var(--sc, var(--red)); color: var(--sc, var(--red)); background: color-mix(in srgb, var(--sc, var(--red)) 9%, transparent); white-space: nowrap; }
+/* convergence grid (P42): five inputs, one read-only gate */
+.bnd-conv { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 16px; }
+.bnd-conv .cv { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.bnd-conv .cv-chip { width: 100%; text-align: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text); border: 1px solid var(--border-bright); border-radius: 8px; padding: 9px 6px; background: var(--surface); }
+.bnd-conv .cv-arr { width: 2px; height: 24px; background: linear-gradient(180deg, var(--rule), var(--green)); position: relative; }
+.bnd-conv .cv-arr::after { content: ''; position: absolute; bottom: -1px; left: -3px; border-top: 7px solid var(--green); border-left: 4px solid transparent; border-right: 4px solid transparent; }
+</style>
+
+<!-- P36 · PASS 7 BIND + INPUT FRESHNESS -->
+<section class="slide" id="p36" data-act="PASS 7 · BIND" data-act-name="Freeze execution authority · input freshness" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:180px;right:24px;top:120px;" aria-hidden="true">bind</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · BIND</span>
+      <span class="actname">Freeze execution authority · input freshness</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Bind freezes execution authority — <span class="thin">and first proves the input is still the authorized revision.</span></h2>
+    <p class="lede" style="margin-top:10px;">
+      One signed Task-Spec becomes <b>one execution profile plus guards, adapters, and a worker brief</b> —
+      the sealed revision folds into a <code>7A</code> runtime contract and a <code>7B</code> brief.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cols" style="--cols:1.04fr 0.96fr;gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">the fold · sealed revision → 7A + 7B</span>
+        <div class="bnd-fan">
+          <div class="bnd-src" style="grid-row:1 / span 2;">
+            <div class="specimen">
+              <div class="sp-id">T-20260815-health-status</div>
+              <div class="sp-sub">sealed taskrevision · hmac · tier=1</div>
+              <div style="margin-top:10px;font-family:var(--font-mono);font-size:9px;color:var(--text-mute);line-height:1.7;">
+                <span style="color:var(--cyan);">taskspec gate --stamp</span> → signed_off: <span style="color:var(--green);">true</span>
+              </div>
+            </div>
+          </div>
+          <div class="bnd-l" aria-hidden="true"><i></i></div>
+          <div class="card acc-violet">
+            <span class="ck">7A · runtime contract</span>
+            <div class="ct">Execution profile + guards + adapters</div>
+            <div class="cb">Pins the revision, backend, budgets, path policy, and capabilities the runtime may enforce.</div>
+          </div>
+          <div class="bnd-l" aria-hidden="true"><i></i></div>
+          <div class="card acc-cyan">
+            <span class="ck">7B · worker brief</span>
+            <div class="ct">AGENTS.task.md</div>
+            <div class="cb">Human-readable pointer back to the sealed revision — identifiers, epoch, scope, proof route.</div>
+          </div>
+        </div>
+        <div class="bnd-gate" style="margin-top:18px;">CHECK_RUNTIME_CONTRACT=PASS<small>gate · 48/48 runtime checks</small></div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">input freshness · five things must still agree</span>
+        <div class="panel">
+          <ul class="tick check dense" style="gap:7px;">
+            <li><b>Seal</b> — the HMAC stamp still validates.</li>
+            <li><b>Body digest</b> — bytes still hash to the pinned revision.</li>
+            <li><b>Backend</b> — the declared runtime is still the one selected.</li>
+            <li><b>Evidence</b> — the cited slice is present and current.</li>
+            <li><b>Task identity</b> — the same task, even moved to <code>tasks/done</code>.</li>
+          </ul>
+        </div>
+        <div class="panel" style="--pk:var(--red);border-color:rgba(255,107,102,0.30);margin-top:12px;">
+          <span class="panel-k">red gates · refusal + safe move</span>
+          <ul class="tick cross dense" style="gap:7px;margin-top:6px;">
+            <li><b>Mutated body</b> — binding refused; re-seal the exact revision, then re-bind.</li>
+            <li><b>Runtime drift</b> — selection refused; re-run bind against current capabilities.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout cyan">
+      <span class="co-k">read-only re-verification</span>
+      <div class="co-b" style="font-size:13.5px;"><code>bind --check</code> re-verifies without writing, and a task moved to <code>tasks/done</code> remains verifiable by identity — <b>a stale or unsigned task never reaches runtime selection.</b></div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/task-to-runtime-contract/ · <b>[T]</b> runtime suite 48/48 · freshness, determinism, read-only rows</span>
+      <span class="proof green">CHECK_RUNTIME_CONTRACT=PASS · 48/48</span>
+      <span class="pgno">P<b>36</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S37+S38. One signed Task-Spec → one execution profile plus guards, adapters, and a worker brief; the sealed revision folds into the 7A contract and the 7B brief. Gate CHECK_RUNTIME_CONTRACT=PASS; runtime suite 48/48 (policy, binding, freshness, topology, adapters, settlement — cf. P04). Freshness five per brief: seal, body digest, backend, evidence, task identity; mutated body and runtime drift hit red gates. bind --check re-verifies without writing; a task moved to tasks/done remains verifiable by identity; a stale or unsigned task never reaches runtime selection. Steel thread: T-20260815-health-status sealed via taskspec gate --stamp (Task-Spec 3.8.x, TIER=1). Sources: [I] skills/task-to-runtime-contract/; [T] 48/48 runtime checks, freshness/determinism/read-only rows. Transition: “Bind begins by proving the input is still the revision that was authorized.”</aside>
+</section>
+
+<!-- P37 · EXECUTION PROFILE -->
+<section class="slide" id="p37" data-act="PASS 7 · EXECUTION PROFILE" data-act-name="Enforcement, not duplicated prose" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:170px;right:22px;top:122px;" aria-hidden="true">profile</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · EXECUTION PROFILE</span>
+      <span class="actname">Enforcement, not duplicated prose</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">The profile carries enforcement, <span class="thin">not a second copy of the task.</span></h2>
+    <p class="lede" style="margin-top:10px;max-width:98ch;">
+      Pin the task revision, backend, topology, budgets, evidence slice, path policy, capabilities, and authority epoch —
+      <b>the profile references the task; it never becomes a second task contract.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cols" style="--cols:1.06fr 0.94fr;gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">annotated specimen · only load-bearing fields</span>
+        <div class="code code--mac" data-lang="yaml" style="font-size:10.5px;line-height:1.72;">
+          <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">cvg/execution/T-20260815-health-status.profile.yaml</span></div><span class="c"># execution profile — emitted by cvg bind · 7A contract</span>
+<span class="k">task</span>:            <span class="n">T-20260815-health-status</span>
+<span class="k">revision</span>:        <span class="n">sha256:&lt;digest&gt;</span>     <span class="c"># sealed body — pinned exact</span>
+<span class="k">backend</span>:         <span class="n">codex</span>               <span class="c"># one declared runtime</span>
+<span class="k">topology</span>:        <span class="n">single</span>              <span class="c"># default — parallel earns it</span>
+<span class="k">budgets</span>:
+  <span class="k">iterations</span>:   <span class="n">15</span>                  <span class="c"># signed ceilings — tighten only</span>
+  <span class="k">wall_seconds</span>: <span class="n">5400</span>
+  <span class="k">tokens</span>:       <span class="n">120000</span>
+<span class="k">evidence</span>:        <span class="n">cvg/evidence/…</span>      <span class="c"># slice the loop may cite</span>
+<span class="k">path_policy</span>:     <span class="n">repository-gate</span>     <span class="c"># inner fence — outranks scope</span>
+<span class="k">capabilities</span>:
+  <span class="k">grants</span>:       <span class="n">[]</span>                  <span class="c"># default deny</span>
+<span class="k">authority_epoch</span>: <span class="n">&lt;stamped-at-seal&gt;</span>   <span class="c"># re-seal bumps the epoch</span>
+        </div>
+      </div>
+
+      <div class="stack" style="gap:12px;">
+        <span class="eyebrow" style="display:block;">why these eight fields</span>
+        <div class="panel" style="padding:13px 20px;">
+          <div class="pf"><span class="pf-l">revision</span><span class="pf-r">re-hashed at selection — <b>mutation turns the gate red</b></span></div>
+          <div class="pf"><span class="pf-l">topology</span><span class="pf-r">single by default; parallel must earn it (P40)</span></div>
+          <div class="pf"><span class="pf-l">capabilities.grants</span><span class="pf-r"><code>[]</code> = default deny — nothing implicit</span></div>
+          <div class="pf"><span class="pf-l">authority_epoch</span><span class="pf-r">re-sealing bumps the epoch; <b>stale profiles fail closed</b></span></div>
+        </div>
+        <div class="panel" style="padding:13px 20px;">
+          <span class="panel-k">profile checks · runtime suite</span>
+          <div class="tokset" style="margin-top:8px;">
+            <span class="tok green">THIN</span>
+            <span class="tok green">PORTABLE</span>
+            <span class="tok green">DETERMINISTIC</span>
+          </div>
+          <div class="note" style="font-size:12px;margin-top:8px;">Thinner than the Task-Spec on purpose — it carries what the runtime enforces, nothing more.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="co-k">boundary · one contract only</span>
+      <div class="co-b" style="font-size:13.5px;">Prose stays in the sealed Markdown. The profile carries only what the runtime enforces — <b>a reference to authority, not a rival source of it.</b></div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> bind templates/scripts · <b>[T]</b> thin / portable / deterministic checks</span>
+      <span class="proof">PROFILE=THIN · PORTABLE · DETERMINISTIC</span>
+      <span class="pgno">P<b>37</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S39. Eight load-bearing fields per brief: task revision pin, backend, topology, budgets, evidence slice, path policy, capabilities, authority epoch. Budget values are the canonical signed ceilings from the §8 default-deny policy (iterations 15, wall_seconds 5400, tokens 120000); sha256:&lt;digest&gt; and &lt;stamped-at-seal&gt; follow the book's placeholder convention (§8 composition receipt). Boundary verbatim: the profile references the task; it does not become a second task contract. Sources: [I] bind templates/scripts; [T] thin/portable/deterministic checks. Transition: “Task scope is necessary. The repository fence can still be stricter.”</aside>
+</section>
+
+<!-- P38 · TWO FENCES -->
+<section class="slide" id="p38" data-act="PASS 7 · TWO FENCES" data-act-name="The repository gate outranks the task" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:180px;right:24px;top:120px;" aria-hidden="true">fence</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · TWO FENCES</span>
+      <span class="actname">The repository gate outranks the task</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">The repository gate outranks a task <span class="thin">that asks for too much.</span></h2>
+    <p class="lede" style="margin-top:10px;">
+      The task authorizes a <b>candidate set</b>; the trusted repository policy may <b>narrow</b> it —
+      and the fence protects itself from deletion or weakening.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cols" style="--cols:1.02fr 0.98fr;gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:12px;">two fences · candidate set vs trusted policy</span>
+        <div class="bnd-scope" style="min-height:302px;display:flex;flex-direction:column;justify-content:center;">
+          <span class="bnd-tag" style="--bt:var(--cyan);">task write scope · candidate set</span>
+          <div class="bnd-denied">
+            <span class="dk">narrowed away by policy</span>
+            <span class="dc">sibling modules</span>
+            <span class="dc">repo-wide config</span>
+            <span class="dc">git internals</span>
+          </div>
+          <div class="bnd-fence">
+            <span class="bnd-tag" style="--bt:var(--violet);">repository gate · trusted policy</span>
+            <div class="bnd-allow">
+              <span class="ac">allowed: write set ∩ policy</span>
+            </div>
+            <div class="bnd-lock">The fence <b>protects itself</b> — deleting or weakening the policy is itself out of scope.</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.6px;color:var(--text-mute);">task scope is necessary — the repository fence can still be stricter</div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:12px;">canonical diagram d · binding fences (verbatim)</span>
+        <div class="mmd frame" style="--mmd-h:296px;padding:18px 16px;">
+          <pre class="mermaid">
+flowchart TB
+    S["Sealed TaskRevision"] --> B["Bind"]
+    B --> P["Execution profile"]
+    P --> TS["Task write scope"]
+    P --> RG["Repository gate"]
+    RG --> E["Runtime adapter\nprevent or detect"]
+    TS --> E
+    E --> PF["Whole-Git postflight"]
+          </pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards c4">
+      <div class="card acc-violet">
+        <span class="ck">nested projects</span>
+        <div class="ct">Inherit the Git-root policy</div>
+        <div class="cb">A project nested inside the repository does not escape the root fence — the trusted policy still applies.</div>
+      </div>
+      <div class="card acc-violet">
+        <span class="ck">renames</span>
+        <div class="ct">Both endpoints checked</div>
+        <div class="cb">A rename is evaluated at <b>both endpoints</b> — source and destination — never just one side.</div>
+      </div>
+      <div class="card acc-violet">
+        <span class="ck">whole-repo diff</span>
+        <div class="ct">Sibling changes caught</div>
+        <div class="cb">The gate diffs the <b>whole Git reality</b>, so a change beside the declared write set cannot slip through.</div>
+      </div>
+      <div class="card acc-red">
+        <span class="ck">invalid policy</span>
+        <div class="ct">Fails closed</div>
+        <div class="cb">An unreadable or invalid policy <b>refuses the gate</b> — fix the policy file, then re-run the check.</div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> check-gate.py · <b>[T]</b> gate-policy tests · diagram D verbatim from brf-converge §6</span>
+      <span class="proof green">GATE-POLICY TESTS=PASS</span>
+      <span class="pgno">P<b>38</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S40. Outer Task-Spec write scope = the candidate set the task authorizes; inner repository gate = trusted policy that may narrow it and protects itself from deletion or weakening. Mermaid is the EXACT library-D source (brf-converge §6 “Binding fences”), unmodified. Proofs verbatim: nested projects inherit the Git-root policy; renames include both endpoints; whole-repo diff catches sibling changes; invalid policy fails closed. Denied-chip labels are generic categories (sibling modules, repo-wide config, git internals), not repository facts. Sources: [I] check-gate.py; [T] gate-policy tests. Transition: “Not every runtime enforces that fence the same way.”</aside>
+</section>
+
+<!-- P39 · PREVENT VS DETECT -->
+<section class="slide" id="p39" data-act="PASS 7 · ENFORCEMENT HONESTY" data-act-name="Prevent and detect are different classes" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:170px;right:22px;top:126px;" aria-hidden="true">guard</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · ENFORCEMENT HONESTY</span>
+      <span class="actname">Prevent and detect are different classes</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">Prevent and detect are different control classes.</h2>
+    <p class="lede" style="margin-top:12px;">
+      Codex may <b>prevent</b> some writes before the tool call; Claude and Kimi often <b>detect</b> violations
+      postflight — the resolver manifest records which class you actually got.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="stack" style="gap:13px;">
+      <div class="bnd-wpath" style="--wc:var(--violet);">
+        <span class="wp-k">preflight shield<small>codex</small></span>
+        <div class="wp-flow">
+          <span class="bnd-chip red">out-of-scope write attempt</span>
+          <span class="bnd-arr"></span>
+          <span class="bnd-stop">⊘ refused before the tool call</span>
+          <span class="tok violet" style="margin-left:auto;">CLASS: PREVENT · SOME WRITES</span>
+        </div>
+      </div>
+      <div class="bnd-wpath" style="--wc:var(--cyan);">
+        <span class="wp-k" style="color:var(--cyan);">postflight tripwire<small>claude · kimi</small></span>
+        <div class="wp-flow">
+          <span class="bnd-chip red">out-of-scope write executes</span>
+          <span class="bnd-arr" style="--wc:var(--cyan);"></span>
+          <span class="bnd-stop" style="--sc:var(--cyan);">⚑ flagged at the postflight gate</span>
+          <span class="tok cyan" style="margin-left:auto;">CLASS: DETECT · POSTFLIGHT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cols" style="--cols:0.92fr 1.08fr;gap:28px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">resolver manifest · recorded, not marketed</span>
+        <table class="tbl">
+          <thead><tr><th>ADAPTER</th><th>RECORDED CLASS</th><th>WHERE IT BITES</th></tr></thead>
+          <tbody>
+            <tr><td>codex</td><td><b>prevent</b> · some writes</td><td>before the tool call</td></tr>
+            <tr><td>claude</td><td><b>detect</b> · postflight</td><td>at the gate, after the fact</td></tr>
+            <tr><td>kimi</td><td><b>detect</b> · postflight</td><td>at the gate, after the fact</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trap" style="padding:15px 22px;">
+        <span class="trap-k">never-claim trap</span>
+        <div class="trap-h" style="font-size:23px;">Documentation may not upgrade <em>detect</em> to <em>prevent</em>.</div>
+        <div class="trap-b" style="margin-top:7px;font-size:12.5px;">The manifest records the class each adapter actually enforces. Safe move: record the measured class — and when prevention is required, place the write behind the repository gate instead of trusting the prose.</div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[D]</b> docs/trust/index.md · <b>[I]</b> runtime adapters · <b>[T]</b> enforcement/waiver checks</span>
+      <span class="proof">ENFORCEMENT/WAIVER CHECKS=PASS</span>
+      <span class="pgno">P<b>39</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S41. Codex may prevent some writes before the tool call; Claude and Kimi often detect violations postflight — “prevent (some writes)” vs “detect (postflight)” are different control classes, recorded per adapter in the resolver manifest. Boundary verbatim: documentation may not upgrade detect to prevent. Safe move when prevention is required: put the write behind the repository gate. Sources: [D] docs/trust/index.md; [I] runtime adapters; [T] enforcement/waiver checks. Transition: “Bind also decides whether one task should use one worker or several.”</aside>
+</section>
+
+<!-- P40 · TOPOLOGY + 7B WORKER BRIEF -->
+<section class="slide" id="p40" data-act="PASS 7 · TOPOLOGY + BRIEF" data-act-name="Single by default · the 7B worker brief" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:150px;right:22px;top:126px;" aria-hidden="true">topology</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · TOPOLOGY + BRIEF</span>
+      <span class="actname">Single by default · the 7B worker brief</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Parallel must earn disjoint write sets. <span class="thin">The brief never rewrites the plan.</span></h2>
+    <p class="lede" style="margin-top:10px;">
+      Single is the default; intra-task parallel requires substantive evidence and <b>disjoint ownership</b> —
+      and <code>7B</code> emits <code>AGENTS.task.md</code>, a pointer back to the sealed revision.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cols" style="--cols:0.98fr 1.02fr;gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">intra-task topology · one task, one or more workers</span>
+        <div class="stack" style="gap:12px;">
+          <div class="card acc-green">
+            <span class="ck">single · the default</span>
+            <div class="ct">One worker, one bounded attempt</div>
+            <div class="cb">The sealed task runs as one worker against one write set — <b>no extra evidence required</b>.</div>
+          </div>
+          <div class="card acc-violet">
+            <span class="ck">parallel · must be earned</span>
+            <div class="ct">Disjoint ownership, or stay single</div>
+            <div class="cb">Requires <b>substantive evidence</b>, and the write sets must not overlap.</div>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:11px;flex-wrap:wrap;">
+              <span class="bnd-chip">worker A · write set A</span>
+              <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--green);font-weight:700;">∩ = ∅</span>
+              <span class="bnd-chip">worker B · write set B</span>
+            </div>
+          </div>
+        </div>
+        <p class="note" style="font-size:12.5px;margin-top:12px;">Topology never creates new task authority or cross-task scheduling.</p>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">7b · worker brief — linked back to the sealed revision</span>
+        <div class="code code--mac" data-lang="md" style="font-size:10.5px;line-height:1.75;">
+          <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">AGENTS.task.md — emitted by 7B</span></div><span class="c"># worker brief — names, never re-plans</span>
+<span class="k">task</span>:        <span class="n">T-20260815-health-status</span>
+<span class="k">epoch</span>:       <span class="n">&lt;authority-epoch&gt;</span>
+<span class="k">scope</span>:       <span class="n">&lt;sealed write scope&gt;</span>
+<span class="k">proof route</span>: <span class="n">tier-1 eval → path gate</span>
+<span class="k">source</span>:      <span class="n">cvg/tasks/T-20260815-health-status.md @ sha256:&lt;digest&gt;</span>
+        </div>
+        <div class="note" style="font-size:12px;margin-top:9px;">Identifiers, epoch, scope, proof route, source contract — <b>not a rewritten implementation plan</b>.</div>
+        <div class="stack" style="gap:9px;margin-top:11px;">
+          <div class="panel" style="--pk:var(--red);border-color:rgba(255,107,102,0.30);padding:10px 16px;">
+            <span class="panel-k" style="margin:0;">stale brief · refused</span>
+            <div style="font-family:var(--font-editorial);font-size:12.5px;color:var(--text-dim);margin-top:3px;">A stale brief <b style="color:var(--text);">fails the gate</b> — re-bind to refresh it against the current revision.</div>
+          </div>
+          <div class="panel" style="--pk:var(--silver);border-color:rgba(203,211,218,0.24);padding:10px 16px;">
+            <span class="panel-k" style="margin:0;">router setup · non-clobber</span>
+            <div style="font-family:var(--font-editorial);font-size:12.5px;color:var(--text-dim);margin-top:3px;">Generic router setup <b style="color:var(--text);">proposes beside human content</b> — it never clobbers it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> bind topology logic, task-brief/scaffold scripts · <b>[T]</b> non-single/disjointness, 7B + non-clobber rows</span>
+      <span class="proof">DISJOINT + NON-CLOBBER=PASS</span>
+      <span class="pgno">P<b>40</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S42+S43. Single is the default; parallel requires substantive evidence and disjoint ownership (write sets do not overlap — A ∩ B = ∅). Topology never creates new task authority or cross-task scheduling. 7B emits AGENTS.task.md: identifiers, epoch, scope, proof route, and source contract — not a rewritten implementation plan; field values here are schematic placeholders. Boundary verbatim: a stale brief fails the gate; generic router setup proposes beside human content and never clobbers it. Sources: [I] bind topology logic, task-brief/scaffold scripts; [T] non-single/disjointness, 7B and non-clobber rows. Transition: “Then adapters translate the contract into a bounded coding-CLI invocation.”</aside>
+</section>
+
+<!-- P41 · ADAPTERS -->
+<section class="slide" id="p41" data-act="PASS 7 · CODEX · CLAUDE · KIMI" data-act-name="Adapters are bridges, not authorities" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:170px;right:22px;top:126px;" aria-hidden="true">bridge</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · CODEX · CLAUDE · KIMI</span>
+      <span class="actname">Adapters are bridges, not authorities</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Adapters are execution bridges, <span class="thin">not new authorities.</span></h2>
+    <p class="lede" style="margin-top:10px;">
+      One profile feeds three adapter sockets; each selects a declared runtime, <b>closes stdin</b>,
+      <b>filters the environment</b>, and reports what it can enforce.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="bnd-fan" style="grid-template-columns:minmax(0,0.9fr) 64px minmax(0,1.1fr);row-gap:16px;">
+      <div class="bnd-src" style="grid-row:1 / span 3;">
+        <div class="card acc-violet" style="height:100%;display:flex;flex-direction:column;justify-content:center;">
+          <span class="ck">execution profile · 7A</span>
+          <div class="ct">One profile, three sockets</div>
+          <div class="cb">Revision pin, backend, budgets, path policy, capabilities — the same bound bytes drive every adapter.</div>
+          <div class="tokset" style="margin-top:12px;">
+            <span class="tok violet">revision pinned</span>
+            <span class="tok silver">policy attached</span>
+          </div>
+        </div>
+      </div>
+      <div class="bnd-l" aria-hidden="true"><i></i></div>
+      <div class="card">
+        <span class="ck">codex adapter</span>
+        <div class="ct">Codex</div>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok violet">CLASS: PREVENT · SOME WRITES</span>
+          <span class="tok silver">STDIN CLOSED</span>
+          <span class="tok silver">ENV FILTERED</span>
+        </div>
+      </div>
+      <div class="bnd-l" aria-hidden="true"><i></i></div>
+      <div class="card">
+        <span class="ck">claude adapter</span>
+        <div class="ct">Claude Code</div>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok cyan">CLASS: DETECT · POSTFLIGHT</span>
+          <span class="tok silver">STDIN CLOSED</span>
+          <span class="tok silver">ENV FILTERED</span>
+        </div>
+      </div>
+      <div class="bnd-l" aria-hidden="true"><i></i></div>
+      <div class="card">
+        <span class="ck">kimi adapter</span>
+        <div class="ct">Kimi</div>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok cyan">CLASS: DETECT · POSTFLIGHT</span>
+          <span class="tok silver">STDIN CLOSED</span>
+          <span class="tok silver">ENV FILTERED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bnd-gate">ALL THREE RETURN TO THE SAME VERIFICATION RAIL<small>tier-1 eval + path gate</small></div>
+
+    <div class="panel" style="--pk:var(--red);border-color:rgba(255,107,102,0.30);padding:11px 18px;">
+      <span class="panel-k" style="margin:0;">refusal · safe move</span>
+      <div style="font-family:var(--font-editorial);font-size:12.5px;color:var(--text-dim);margin-top:3px;">An explicit <b style="color:var(--text);">engine/profile mismatch fails before execution</b> — align the declared runtime with the profile, then re-bind.</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> engine adapters · <b>[T]</b> runtime and loop suites</span>
+      <span class="proof green">MISMATCH FAILS PRE-EXECUTION · STDIN CLOSED ×3</span>
+      <span class="pgno">P<b>41</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S44. One execution profile feeds three adapter sockets (Codex, Claude, Kimi); an adapter selects a declared runtime, closes stdin, filters environment, and reports what it can enforce; all three return to the same verification rail. Enforcement classes as recorded on P39: codex prevent (some writes); claude/kimi detect (postflight) — resolver manifest keeps the honest class. Proof verbatim: explicit engine/profile mismatch fails before execution; Codex, Claude, and Kimi receive closed stdin. Sources: [I] engine adapters; [T] runtime and loop suites. Transition: “Before the loop starts, the authorized artifacts must exist in committed state.”</aside>
+</section>
+
+<!-- P42 · COMMIT + BIND --CHECK -->
+<section class="slide" id="p42" data-act="PASS 7 · COMMIT + CHECK" data-act-name="Committed contract · the last preflight" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="ghost" style="font-size:160px;right:22px;top:128px;" aria-hidden="true">commit</div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 7 · COMMIT + CHECK</span>
+      <span class="actname">Committed contract · the last preflight</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Commit the contract, then re-verify it <span class="thin">without writing a byte.</span></h2>
+    <p class="lede" style="margin-top:10px;">
+      Worktree isolation sees <b>committed state only</b> — the sealed task and execution profile must be
+      committed before the loop, or the fresh checkout cannot see them.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div>
+      <div class="corridor">
+        <div class="rail dotted" style="--rlc:var(--silver);opacity:0.62;">
+          <span class="rl-k">dirty main tree<small>uncommitted changes</small></span>
+          <span class="rl-v">cvg/tasks/T-20260815-health-status.md + cvg/execution/ <span class="dim">— present but uncommitted</span></span>
+          <span class="rl-tag">invisible to isolation</span>
+        </div>
+        <div class="rail" style="--rlc:var(--violet);">
+          <span class="rl-k">fresh worktree<small>committed state only</small></span>
+          <span class="rl-v">sealed task + execution profile <span class="dim">— committed at</span> git commit -m "authorize and bind health status task"</span>
+          <span class="rl-tag" style="color:var(--green);">visible to the loop</span>
+        </div>
+      </div>
+      <p class="note" style="font-size:12.5px;margin-top:10px;">Committing the contract is <b>not</b> merging product work or opening a PR.</p>
+    </div>
+
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:10px;">last preflight · five inputs converge, read-only</span>
+      <div class="bnd-conv">
+        <div class="cv"><span class="cv-chip">sealed task</span><span class="cv-arr"></span></div>
+        <div class="cv"><span class="cv-chip">execution profile</span><span class="cv-arr"></span></div>
+        <div class="cv"><span class="cv-chip">repository policy</span><span class="cv-arr"></span></div>
+        <div class="cv"><span class="cv-chip">evidence</span><span class="cv-arr"></span></div>
+        <div class="cv"><span class="cv-chip">runtime capabilities</span><span class="cv-arr"></span></div>
+      </div>
+      <div class="bnd-gate" style="margin-top:4px;"><span class="cmd">cvg bind --check --task cvg/tasks/T-20260815-health-status.md</span> → CHECK_RUNTIME_CONTRACT=PASS</div>
+      <div style="margin-top:8px;text-align:center;font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.8px;color:var(--text-mute);">re-hashes all five without changing the repository — direct test verifies zero writes + current freshness</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[D]</b> docs/guides/bind-and-loop.md · <b>[I]</b> loop kernel, checker · <b>[T]</b> runtime-contract suite</span>
+      <span class="proof green">CHECK_RUNTIME_CONTRACT=PASS · ZERO WRITES</span>
+      <span class="pgno">P<b>42</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S45+S46. Worktree isolation sees committed state only; commit the sealed task and execution profile before looping (git add cvg/tasks cvg/execution; commit message verbatim from §8: “authorize and bind health status task”). Boundary verbatim: committing the contract is not merging product work or opening a PR. bind --check re-hashes task, profile, policy, evidence, and runtime capabilities without changing the repository; the direct test verifies zero writes + current freshness. Sources: [D] docs/guides/bind-and-loop.md; [I] loop kernel, checker; [T] runtime-contract suite. Transition: “Only now can Pass 8 spend a budget.”</aside>
+</section>

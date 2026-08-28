@@ -26,13 +26,14 @@ security_class: restricted_synthetic_pii
 source_action_item: (none)
 tracker_ref: (none)
 execution_backend: any
-signed_off: false
-signed_off_by: (none)
-signed_off_at: (none)
+signed_off: true
+signed_off_by: luanmorenomaciel
+signed_off_at: 2026-08-28T01:36:09Z
 accepted: false
 accepted_by: (none)
 accepted_at: (none)
 evidence_refs: []
+signed_off_sig: hmac-sha256-v3:d90e2e61:d239b1dba1cc6089a2d7c64dff66405ce5139450ee25617adbed69f6dbe80ccc
 ---
 
 # Parse Type 01 card settlement into Decimal, privacy-safe records for landing

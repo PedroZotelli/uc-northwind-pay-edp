@@ -1,22 +1,24 @@
-# Seams — Type 01 ingest → landing
+# Seams — Type 01 ingest → landing, then dlt → Gold
 
 Pass 3 Decompose. Seamwise names: **seam**, **swimlane**, **leg**.
 One owner per handoff. Papers live in `docs/`, not `cvg/docs/`.
 
 The seam is a **handoff**, not a language. **Java vs Python is not a
 seam.** Both plants read the same SFTP raw bytes; they do not own each
-other.
+other. **Bronze / Silver / Gold are legs, not new estates.**
 
 ## Steel thread
 
-**Type 01 ingest → landing.** This is the only lane for leaves tonight
-(Pass 5). Days 3–4 seams are named so the week has a map; they are not
-tonight’s Task-Specs.
+**Night 2 (signed):** Type 01 ingest → landing. Do not recut.
+
+**Night 3 (tonight):** Type 01 **dlt → Gold**. This is the only lane
+for new leaves tonight (Pass 5). Types `02`–`05` and orchestrate wait
+for Thursday.
 
 Landing facts already closed (ADRs 0001–0005): first write is
 `modern/landing/` Parquet, not SFTP; five-file package; Decimal;
 privacy dies at the parser; source lie keeps 173.44 and emits zero
-Parquet.
+Parquet. Lakehouse facts tonight: ADRs 0007–0011.
 
 ## Vocabulary
 
@@ -36,7 +38,7 @@ Two owners on one seam, or a seam with no owner, is refused.
 |---|---|
 | **Seam** | Type 01 raw intake → sanitized landing |
 | **Swimlane** | Translator (SWE) — Night 2 |
-| **When** | Tonight’s design. Product write after Consensus |
+| **When** | Night 2. **Signed.** Product write after ingest Consensus |
 | **Consumes** | Same SFTP `raw/incoming` bytes, checksum, manifest last. `contracts/types/01-card-settlement/` |
 | **Produces** | Accepted: atomic Parquet + readiness manifest in `modern/landing/`. Refused / source lie: **zero Parquet**, stable finding |
 | **Write surface** | Type 01 five-file package (`model → parser → schema → writer → handler`) and `modern/landing/` |
@@ -49,7 +51,8 @@ Two owners on one seam, or a seam with no owner, is refused.
 2. **Claim** — Type 01 parse, Decimal money, privacy at the parser, independent controls.
 3. **Emit** — landing Parquet for `valid-minimal` (net 173.45, MATCHED shape); quarantine with zero Parquet for `df-source-001` (keep 173.44) and malformed.
 
-Tonight’s leaf attaches here only.
+Night 2’s parser leaf attaches here. Night 3 may finish emit (schema /
+writer / handler) so landing exists; it does not recut this seam.
 
 ### 2. dlt → Gold
 
@@ -57,13 +60,28 @@ Tonight’s leaf attaches here only.
 |---|---|
 | **Seam** | Immutable landing → governed Gold |
 | **Swimlane** | Constructor (DE + analytics) — Night 3 |
-| **When** | Day 3. Parked in ADR 0006 |
+| **When** | **Tonight.** Unparked as ADRs 0007–0011 |
 | **Consumes** | `modern/landing/` Parquet already published. Does **not** re-parse raw |
 | **Produces** | Bronze → Silver → Gold; golden-match attached to contract and to legacy observation |
-| **Write surface** | dlt register / load, lakehouse, dbt models — **unparked on Day 3**, not chosen tonight |
-| **Must not write** | Raw files, the Type 01 parser, frozen plant, landing bytes |
+| **Write surface** | dlt register-only, local DuckLake / DuckDB, dbt Bronze / Silver / Gold, `evidence/modern/` |
+| **Must not write** | Raw files, the Type 01 parser grammar, frozen plant (`legacy/` `contracts/` `gen/` `infra/`), SFTP, Dagster, FastAPI, Types `02`–`05` |
 
-**Legs** (named, not run tonight): register landing → medallion grains → golden-match. Exact dlt role and Gold keys stay parked.
+**Legs** (ordered, observable):
+
+1. **Register** — dlt registers `modern/landing/` Parquet into local
+   DuckDB. No re-parse. No money. No privacy. Zero-Parquet batches
+   stay absent (ADR 0007, 0008).
+2. **Medallion** — Bronze (source-aligned, grain `batch_id` +
+   `source_record_number`) → Silver (same grain, conserved money) →
+   Gold (paid grain `batch_id` + `currency`). Parser already did
+   privacy + Decimal; dbt does not retokenize (ADR 0009, 0010).
+3. **Match** — attach `validation/golden-match/golden_match.py`. Two
+   questions never netted. `valid-minimal` both yes.
+   `DF-SOURCE-001` = `CONFIRMED_SOURCE_DEFECT`, keep **173.44**, no
+   Gold. Malformed classified. No tolerance. Do not rewrite the
+   referee (ADR 0011).
+
+Constructor owns this write surface. Translator does not write Gold.
 
 ### 3. Orchestrate + serve
 
@@ -85,10 +103,13 @@ Tonight’s leaf attaches here only.
 - CSV-as-input to modern
 - SFTP as modern destination
 - Type 06 (not in this drop)
-- A lakehouse named as tonight’s lane
+- A lakehouse named as a **new estate** (it is seam 2 legs)
+- Recutting seam 1 to smuggle Gold
 
 ## Handoff rule
 
 Each seam has one owner. Translator does not write Gold. Constructor
-does not rewrite landing. Orchestrator does not parse Type 01. Pass 5
-writes **one leaf on seam 1** after Consensus. No sign → no parser.
+does not rewrite landing grammar. Orchestrator does not parse Type 01.
+Pass 5 writes **Type 01 remainder + lakehouse leaves on seam 2** after
+`docs/consensus-lakehouse.md`. No lakehouse sign → no Gold (09–12
+dark). Ingest sign in `docs/consensus.md` stays canonical.

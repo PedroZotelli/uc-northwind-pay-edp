@@ -1,0 +1,949 @@
+<!-- ════════════════════════════════════════════════════════════════════
+     ACT II · THE HUMAN DESCENT · P15–P24
+     src: brf-converge.md S09–S22 (lines 313–439) · page-plan.md ACT II
+     ════════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── ACT II scoped components (a2- prefix; documented in builder report) ── */
+
+/* shared small bits */
+.a2chip { display:inline-block; font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; padding:3px 9px; border-radius:4px; border:1px solid color-mix(in srgb, var(--chc, var(--violet)) 42%, transparent); color:var(--chc, var(--violet)); background:color-mix(in srgb, var(--chc, var(--violet)) 8%, transparent); white-space:nowrap; }
+.a2gaterow { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.a2fails { font-family:var(--font-mono); font-size:9px; letter-spacing:0.4px; color:var(--red); line-height:1.5; }
+.a2fails b { color:var(--red); }
+.a2arrow { position:relative; height:2px; border-radius:2px; background:linear-gradient(90deg, var(--rule), var(--aac, var(--ac))); }
+.a2arrow::after { content:''; position:absolute; right:-1px; top:-4px; border-left:7px solid var(--aac, var(--ac)); border-top:5px solid transparent; border-bottom:5px solid transparent; }
+.a2arrow.red { --aac:var(--red); } .a2arrow.gold { --aac:var(--gold); }
+.a2arrow.green { --aac:var(--green); } .a2arrow.cyan { --aac:var(--cyan); }
+
+/* P15 · split-stage descent */
+.a2ph { border:1px solid var(--border); border-radius:16px; overflow:hidden; background:var(--surface); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05); }
+.a2ph-band { padding:15px 22px 17px; }
+.a2ph-band.above { padding-top:28px; background:linear-gradient(180deg, rgba(104,199,255,0.055), transparent 78%); }
+.a2ph-band.below { background:linear-gradient(0deg, rgba(167,139,250,0.065), transparent 78%); }
+.a2ph-tag { display:flex; align-items:baseline; gap:14px; font-family:var(--font-mono); font-size:9px; font-weight:800; letter-spacing:2.2px; text-transform:uppercase; margin-bottom:12px; }
+.a2ph-tag small { font-family:var(--font-editorial); font-style:italic; font-weight:400; letter-spacing:0.3px; text-transform:none; font-size:11px; color:var(--text-mute); }
+.a2ph-row { position:relative; display:flex; align-items:stretch; }
+.a2ph-row::before { content:''; position:absolute; left:1%; right:1%; top:50%; height:2px; opacity:0.5; border-radius:2px; }
+.a2ph-row.up::before { background:linear-gradient(90deg, var(--cyan), var(--gold)); box-shadow:0 0 10px rgba(243,182,76,0.35); }
+.a2ph-row.dn::before { background:linear-gradient(90deg, var(--violet), var(--green)); box-shadow:0 0 10px rgba(167,139,250,0.35); }
+.a2ph-barrier { display:flex; align-items:center; gap:16px; padding:9px 22px; border-top:1px solid rgba(243,182,76,0.5); border-bottom:1px solid rgba(243,182,76,0.5); background:linear-gradient(90deg, rgba(243,182,76,0.14), rgba(243,182,76,0.03) 70%); font-family:var(--font-mono); font-size:8.5px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
+.a2ph-barrier small { font-family:var(--font-editorial); font-style:italic; font-weight:400; letter-spacing:0.3px; text-transform:none; font-size:11.5px; color:var(--text-dim); }
+
+/* P16 · three lanes merging over a red floor */
+.a2merge { display:grid; grid-template-columns:1fr 42px 12px 64px 296px; column-gap:0; row-gap:16px; align-items:stretch; }
+.a2lane { --lnc:var(--violet); display:grid; grid-template-columns:132px minmax(0,1fr) auto; align-items:center; gap:18px; border:1px solid color-mix(in srgb, var(--lnc) 30%, transparent); border-left:3px solid var(--lnc); border-radius:12px; background:linear-gradient(100deg, color-mix(in srgb, var(--lnc) 8%, transparent), var(--surface) 72%); padding:12px 18px; }
+.a2lane .ln-n { font-family:var(--font-display); font-size:25px; line-height:1; color:var(--lnc); letter-spacing:-0.3px; }
+.a2lane .ln-k { font-family:var(--font-mono); font-size:7.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--text-mute); margin-top:4px; }
+.a2lane .ln-d { font-family:var(--font-editorial); font-size:12.5px; line-height:1.38; color:var(--text-dim); }
+.a2lane .ln-d b { color:var(--text); font-weight:600; }
+.a2m-arr { align-self:center; }
+.a2m-spine { grid-column:3; grid-row:1 / 4; position:relative; }
+.a2m-spine::before { content:''; position:absolute; left:50%; top:12px; bottom:12px; width:2px; background:linear-gradient(180deg, var(--cyan), var(--violet) 50%, var(--green)); opacity:0.55; border-radius:2px; }
+.a2m-node { grid-column:5; grid-row:1 / 4; align-self:center; border:1px solid rgba(167,139,250,0.45); border-top:3px solid var(--violet); border-radius:14px; padding:16px 18px; background:linear-gradient(150deg, rgba(167,139,250,0.12), var(--surface) 70%); box-shadow:0 0 40px -16px rgba(167,139,250,0.55), inset 0 1px 0 rgba(255,255,255,0.05); }
+.a2m-node .mn-k { font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--violet); }
+.a2m-node .mn-t { font-family:var(--font-display); font-size:24px; line-height:1.05; color:var(--text); margin-top:6px; letter-spacing:-0.3px; }
+.a2m-node .mn-s { font-family:var(--font-editorial); font-style:italic; font-size:11px; line-height:1.35; color:var(--text-dim); margin-top:6px; }
+.a2floor { margin-top:20px; display:flex; align-items:center; gap:18px; border:1px solid rgba(255,107,102,0.42); border-radius:11px; padding:11px 18px; background:repeating-linear-gradient(135deg, rgba(255,107,102,0.05) 0 12px, transparent 12px 24px), var(--surface); }
+.a2floor .fk { font-family:var(--font-mono); font-size:9px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--red); white-space:nowrap; }
+.a2floor .fb { font-family:var(--font-editorial); font-size:12.5px; line-height:1.4; color:var(--text-dim); }
+.a2floor .fb b { color:var(--text); font-weight:600; }
+
+/* P17 · capture fork + frontier graph */
+.a2fork-idea { width:min(330px, 82%); margin:0 auto; }
+.a2fork-br { position:relative; height:30px; margin:0 4%; }
+.a2fork-br::before { content:''; position:absolute; left:50%; top:0; width:2px; height:13px; background:var(--rule); }
+.a2fork-br i { position:absolute; top:13px; left:25%; right:25%; height:2px; background:var(--rule); }
+.a2fork-br .tk { position:absolute; top:13px; width:2px; height:15px; background:var(--rule); }
+.a2fork-br .tk::after { content:''; position:absolute; bottom:-1px; left:-3px; border-top:6px solid var(--text-mute); border-left:4px solid transparent; border-right:4px solid transparent; }
+.a2fork-br .tk.l { left:25%; } .a2fork-br .tk.r { left:calc(75% - 2px); }
+.a2fg { position:relative; width:620px; height:248px; margin:0 auto; }
+.a2fg svg { position:absolute; inset:0; }
+.a2fgn { position:absolute; width:150px; text-align:center; border-radius:9px; padding:8px 10px; font-family:var(--font-mono); font-size:9.5px; font-weight:600; letter-spacing:0.3px; line-height:1.35; border:1px solid var(--border); background:var(--surface2); color:var(--text-dim); }
+.a2fgn.live { color:var(--cyan); border-color:rgba(104,199,255,0.55); background:rgba(104,199,255,0.08); box-shadow:0 0 22px -6px rgba(104,199,255,0.55); }
+.a2fgn.wait { border-style:dashed; color:var(--text-mute); }
+.a2fgn.human { border-style:dashed; border-color:rgba(243,182,76,0.55); color:var(--gold); }
+.a2fg-legend { display:flex; justify-content:center; gap:26px; margin-top:8px; font-family:var(--font-mono); font-size:8px; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-mute); }
+.a2fg-legend .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:0; }
+.a2fg-legend .dot.on { background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+.a2fg-legend .dot.off { background:transparent; border:1px dashed var(--text-mute); }
+
+/* P18 · do-nothing balance */
+.a2bal { position:relative; height:296px; }
+.a2bal-beam { position:absolute; left:50%; top:60px; width:740px; height:4px; border-radius:2px; transform:translateX(-50%) rotate(-3.4deg); background:linear-gradient(90deg, var(--red), var(--text-mute) 58%, var(--green)); box-shadow:0 0 14px rgba(0,0,0,0.4); }
+.a2bal-pivot { position:absolute; left:50%; top:66px; transform:translateX(-50%); width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-bottom:40px solid #1b2330; }
+.a2bal-base { position:absolute; left:50%; top:106px; transform:translateX(-50%); width:120px; height:3px; border-radius:2px; background:var(--rule); }
+.a2bal-wire { position:absolute; width:2px; background:var(--text-mute); opacity:0.8; }
+.a2bal-wire.l { left:271px; top:84px; height:54px; }
+.a2bal-wire.r { left:1011px; top:40px; height:54px; }
+.a2bal-pan { position:absolute; width:352px; border-radius:13px; padding:13px 18px 12px; background:var(--surface); }
+.a2bal-pan.l { left:95px; top:140px; border:1px solid rgba(255,107,102,0.4); box-shadow:0 18px 40px -24px rgba(255,107,102,0.4); }
+.a2bal-pan.r { left:837px; top:96px; border:1px solid rgba(61,220,151,0.4); box-shadow:0 18px 40px -24px rgba(61,220,151,0.35); }
+.a2bal-pan .bp-k { font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+.a2bal-pan.l .bp-k { color:var(--red); } .a2bal-pan.r .bp-k { color:var(--green); }
+.a2bal-pan .bp-w { font-family:var(--font-display); font-size:26px; line-height:1; margin-top:5px; }
+.a2bal-pan.l .bp-w { color:var(--red); } .a2bal-pan.r .bp-w { color:var(--green); }
+.a2bal-pan .bp-i { font-family:var(--font-editorial); font-style:italic; font-size:10.5px; line-height:1.4; color:var(--text-dim); margin-top:5px; }
+
+/* P19 · altitude diagram */
+.a2g8row { position:relative; height:24px; margin-left:20px; }
+.a2g8row::before { content:''; position:absolute; left:0; top:-1px; bottom:3px; width:2px; border-radius:2px; background:linear-gradient(180deg, var(--rule), var(--violet)); opacity:0.85; }
+.a2g8row::after { content:''; position:absolute; left:-3px; bottom:-3px; border-left:4px solid transparent; border-right:4px solid transparent; border-top:7px solid var(--violet); }
+.a2g8 { position:absolute; left:16px; top:2px; font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--violet); border:1px solid rgba(167,139,250,0.4); border-radius:999px; padding:3px 10px; background:var(--bg); }
+.a2alt { position:relative; padding-left:26px; }
+.a2alt::before { content:''; position:absolute; left:8px; top:10px; bottom:10px; width:2px; border-radius:2px; background:linear-gradient(180deg, var(--silver), var(--cyan) 46%, var(--red)); opacity:0.55; }
+.a2alt-axis { position:absolute; left:0; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; font-family:var(--font-mono); font-size:7px; font-weight:700; letter-spacing:3px; color:var(--text-mute); text-transform:uppercase; }
+.a2alt-lv { position:relative; border:1px solid var(--border); border-radius:11px; background:var(--surface); padding:10px 16px; }
+.a2alt-lv .lv-k { font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+.a2alt-lv .lv-t { font-family:var(--font-display); font-size:17px; line-height:1.05; color:var(--text); margin-top:3px; }
+.a2alt-lv .lv-d { font-family:var(--font-editorial); font-style:italic; font-size:11px; line-height:1.35; color:var(--text-dim); margin-top:3px; }
+.a2alt-lv.prob { border-left:3px solid var(--silver); } .a2alt-lv.prob .lv-k { color:var(--silver); }
+.a2alt-lv.rq { border-left:3px solid var(--cyan); } .a2alt-lv.rq .lv-k { color:var(--cyan); }
+.a2alt-lv.sol { border:1px dashed rgba(255,107,102,0.55); background:linear-gradient(120deg, rgba(255,107,102,0.07), var(--surface) 70%); }
+.a2alt-lv.sol .lv-k { color:var(--red); }
+.a2alt-j { position:relative; height:24px; }
+.a2alt-j::before { content:''; position:absolute; left:50%; top:2px; bottom:6px; width:2px; background:var(--cyan); opacity:0.7; }
+.a2alt-j::after { content:''; position:absolute; left:calc(50% - 4px); bottom:0; border-top:7px solid var(--cyan); border-left:4px solid transparent; border-right:4px solid transparent; opacity:0.8; }
+.a2alt-j.red::before { background:none; border-left:2px dashed var(--red); width:0; }
+.a2alt-j.red::after { border-top-color:var(--red); }
+.a2alt-j .jl { position:absolute; left:calc(50% + 12px); top:5px; font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--red); white-space:nowrap; }
+
+/* P20 · repository terrain */
+.a2terr { border:1px solid var(--border); border-radius:14px; padding:16px 18px 14px; background:repeating-radial-gradient(circle at 82% 12%, rgba(104,199,255,0.05) 0 2px, transparent 2px 34px), repeating-radial-gradient(circle at 8% 92%, rgba(167,139,250,0.05) 0 2px, transparent 2px 40px), var(--surface); }
+.a2terr .pin-card:nth-child(2) { margin-left:30px; }
+.a2terr .pin-card:nth-child(3) { margin-left:60px; }
+.a2terr .terr-cap { font-family:var(--font-mono); font-size:7.5px; letter-spacing:1.6px; text-transform:uppercase; color:var(--text-mute); margin-bottom:10px; }
+
+/* P21 · monolith split */
+.a2dc { display:flex; align-items:center; gap:0; }
+.a2dc-mono { flex:0 0 196px; border:1px dashed var(--text-mute); border-radius:14px; padding:22px 16px; text-align:center; background:rgba(255,255,255,0.015); }
+.a2dc-mono .m-k { font-family:var(--font-mono); font-size:7.5px; font-weight:700; letter-spacing:2.4px; text-transform:uppercase; color:var(--text-mute); }
+.a2dc-mono .m-t { font-family:var(--font-display); font-size:24px; line-height:1.02; color:var(--text-dim); margin-top:6px; }
+.a2dc-mono .m-s { font-family:var(--font-editorial); font-style:italic; font-size:10.5px; color:var(--text-mute); margin-top:6px; }
+.a2dc-fan { flex:0 0 92px; align-self:stretch; position:relative; }
+.a2dc-fan svg { position:absolute; inset:0; width:100%; height:100%; }
+.a2dc-rows { flex:1; min-width:0; display:flex; flex-direction:column; gap:22px; }
+.a2dc-r { display:grid; grid-template-columns:196px 56px minmax(0,1fr); align-items:center; }
+.a2dc-seam { border:1px solid rgba(104,199,255,0.35); border-left:3px solid var(--cyan); border-radius:10px; padding:9px 13px; background:linear-gradient(100deg, rgba(104,199,255,0.09), var(--surface) 75%); }
+.a2dc-seam .s-k { font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:1.8px; color:var(--cyan); }
+.a2dc-seam .s-d { font-family:var(--font-editorial); font-style:italic; font-size:10px; color:var(--text-dim); margin-top:2px; }
+.a2dc-lane { border:1px solid rgba(104,199,255,0.22); border-radius:12px; padding:10px 14px 11px; background:linear-gradient(120deg, rgba(104,199,255,0.05), var(--surface) 70%); }
+.a2dc-lane .ll-h { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.a2dc-lane .ll-k { font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--cyan); }
+.a2dc-legs { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+.a2dc-leg { font-family:var(--font-mono); font-size:9px; font-weight:600; letter-spacing:0.4px; color:var(--text); border:1px solid rgba(104,199,255,0.3); border-radius:6px; padding:4px 10px; background:rgba(104,199,255,0.06); white-space:nowrap; }
+.a2dc-leg .dep { color:var(--cyan); font-style:normal; }
+
+/* P22 · adversary chamber */
+.a2ch { display:grid; grid-template-columns:246px 84px 318px 100px minmax(0,1fr); align-items:center; }
+.a2ch-plan { border:1px solid rgba(167,139,250,0.35); border-top:3px solid var(--violet); border-radius:13px; padding:14px 16px; background:linear-gradient(150deg, rgba(167,139,250,0.10), var(--surface) 70%); }
+.a2ch-box { position:relative; border:1.5px solid rgba(167,139,250,0.5); border-radius:16px; padding:20px 16px 14px; background:linear-gradient(160deg, rgba(167,139,250,0.10), var(--surface) 72%); box-shadow:0 0 44px -18px rgba(167,139,250,0.5); }
+.a2ch-box .ch-cap { position:absolute; top:-9px; left:18px; background:var(--bg); padding:0 8px; font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--violet); }
+.a2ch-adv { border:1px solid rgba(255,107,102,0.4); border-left:3px solid var(--red); border-radius:10px; padding:9px 13px; background:linear-gradient(100deg, rgba(255,107,102,0.09), var(--surface) 75%); }
+.a2ch-adv .a-k { font-family:var(--font-mono); font-size:8px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--red); }
+.a2ch-adv .a-t { font-family:var(--font-display); font-size:17px; color:var(--text); margin-top:3px; }
+.a2ch-adv .a-d { font-family:var(--font-editorial); font-style:italic; font-size:10px; color:var(--text-dim); margin-top:3px; }
+.a2ch-fan { position:relative; height:230px; }
+.a2ch-objs { display:flex; flex-direction:column; gap:14px; align-self:center; }
+.a2ch-obj { height:60px; overflow:hidden; border:1px solid rgba(255,107,102,0.32); border-left:3px solid var(--red); border-radius:10px; padding:8px 13px; background:linear-gradient(100deg, rgba(255,107,102,0.07), var(--surface) 75%); }
+.a2ch-obj .o-k { display:flex; align-items:center; justify-content:space-between; font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--red); }
+.a2ch-obj .o-t { font-family:var(--font-display); font-size:15px; color:var(--text); margin-top:2px; }
+
+/* P23 · DECIDED_BY crossing */
+.a2xg { display:grid; grid-template-columns:minmax(0,1fr) 60px 232px 60px minmax(0,1fr) 54px 158px; align-items:center; }
+.a2xg-stack { display:flex; flex-direction:column; gap:12px; }
+.a2xg-obj { border:1px solid rgba(255,107,102,0.32); border-left:3px solid var(--red); border-radius:10px; padding:9px 14px; background:linear-gradient(100deg, rgba(255,107,102,0.07), var(--surface) 75%); }
+.a2xg-obj .o-k { display:flex; align-items:center; justify-content:space-between; font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; color:var(--red); }
+.a2xg-obj .o-t { font-family:var(--font-display); font-size:16px; color:var(--text); margin-top:2px; }
+.a2xg-gate { text-align:center; border:1.5px solid rgba(243,182,76,0.6); border-radius:14px; padding:16px 12px; background:linear-gradient(180deg, rgba(243,182,76,0.12), var(--surface)); box-shadow:0 0 34px -12px rgba(243,182,76,0.55); }
+.a2xg-gate .g-t { font-family:var(--font-mono); font-size:13px; font-weight:800; letter-spacing:1px; color:var(--gold); }
+.a2xg-gate .g-s { font-family:var(--font-editorial); font-style:italic; font-size:10px; line-height:1.35; color:var(--text-dim); margin-top:5px; }
+.a2xg-out { display:flex; flex-direction:column; gap:14px; }
+.a2xg-dec { border-radius:11px; padding:10px 15px; }
+.a2xg-dec.fix { border:1px solid rgba(167,139,250,0.4); border-left:3px solid var(--violet); background:linear-gradient(100deg, rgba(167,139,250,0.08), var(--surface) 75%); }
+.a2xg-dec.acc { border:1px solid rgba(243,182,76,0.4); border-left:3px solid var(--gold); background:linear-gradient(100deg, rgba(243,182,76,0.08), var(--surface) 75%); }
+.a2xg-dec .d-k { font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; }
+.a2xg-dec.fix .d-k { color:var(--violet); } .a2xg-dec.acc .d-k { color:var(--gold); }
+.a2xg-dec .d-t { font-family:var(--font-display); font-size:16px; color:var(--text); margin-top:2px; }
+.a2xg-dec .d-b { font-family:var(--font-editorial); font-style:italic; font-size:10px; line-height:1.3; color:var(--text-dim); margin-top:3px; }
+.a2xg-bar { text-align:center; border:1px dashed rgba(243,182,76,0.5); border-radius:12px; padding:12px 8px; }
+.a2xg-bar .b-t { font-family:var(--font-mono); font-size:8.5px; font-weight:800; letter-spacing:1.4px; color:var(--gold); }
+.a2xg-bar .b-s { font-family:var(--font-editorial); font-style:italic; font-size:9.5px; color:var(--text-mute); margin-top:4px; }
+
+/* P24 · hashed-consent barrier */
+.a2bg-row { display:grid; grid-template-columns:minmax(0,1fr) 74px 268px 74px minmax(0,0.92fr); align-items:center; }
+.a2bg-row + .a2bg-row { margin-top:22px; }
+.a2bg-n { border:1px solid var(--border); border-radius:12px; padding:11px 14px; background:var(--surface); }
+.a2bg-n .n-k { font-family:var(--font-mono); font-size:7.5px; font-weight:800; letter-spacing:1.8px; text-transform:uppercase; }
+.a2bg-n .n-t { font-family:var(--font-display); font-size:18px; line-height:1.05; color:var(--text); margin-top:3px; }
+.a2bg-n .n-s { font-family:var(--font-editorial); font-style:italic; font-size:10px; line-height:1.32; color:var(--text-dim); margin-top:3px; }
+.a2bg-n.gold { border-color:rgba(243,182,76,0.45); } .a2bg-n.gold .n-k { color:var(--gold); }
+.a2bg-n.green { border-color:rgba(61,220,151,0.5); box-shadow:0 0 30px -14px rgba(61,220,151,0.6); } .a2bg-n.green .n-k { color:var(--green); }
+.a2bg-n.red { border-color:rgba(255,107,102,0.55); box-shadow:0 0 30px -14px rgba(255,107,102,0.55); } .a2bg-n.red .n-k { color:var(--red); }
+.a2bg-n.violet { border-color:rgba(167,139,250,0.45); } .a2bg-n.violet .n-k { color:var(--violet); }
+.a2bg-a { position:relative; }
+.a2bg-a .al { position:absolute; top:-17px; left:0; right:0; text-align:center; font-family:var(--font-editorial); font-style:italic; font-size:10px; white-space:nowrap; }
+</style>
+
+<!-- P15 · S09 · TWO PHASES -->
+<section class="slide" id="p15" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Design above, build below" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">THE DESCENT · TWO PHASES</span>
+      <span class="actname">Design above, build below</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">Design above the barrier. <span class="thin">Build below it.</span></h2>
+    <p class="lede" style="margin-top:12px;max-width:92ch;">
+      Passes 0–4 make intent precise. <b>Passes 5–8 turn accepted intent into bounded evidence.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a2ph">
+      <div class="a2ph-band above">
+        <div class="a2ph-tag" style="color:var(--cyan);">ABOVE THE BARRIER · HUMAN DESIGN — PASSES 0–4 <small>intent becomes falsifiable; gold marks the human acceptance</small></div>
+        <div class="a2ph-row up">
+          <div class="dnode human opt"><div class="dn-num">PASS 0</div><div class="dn-name">Capture</div><div class="dn-sub">optional</div></div>
+          <div class="dnode human"><div class="dn-num">PASS 1</div><div class="dn-name">Intent</div><div class="dn-sub">falsify</div></div>
+          <div class="dnode human"><div class="dn-num">PASS 2</div><div class="dn-name">Structure</div><div class="dn-sub">terrain</div></div>
+          <div class="dnode human"><div class="dn-num">PASS 3</div><div class="dn-name">Decompose</div><div class="dn-sub">seams</div></div>
+          <div class="dnode gate"><div class="dn-num">PASS 4</div><div class="dn-name">Consensus</div><div class="dn-sub">decide</div></div>
+        </div>
+      </div>
+      <div class="a2ph-barrier">⛨ THE BARRIER · PASS 4 CONSENSUS <small>a human accepts the adversarially reviewed topology — nothing crosses on model confidence</small></div>
+      <div class="a2ph-band below">
+        <div class="a2ph-tag" style="color:var(--violet);">BELOW THE BARRIER · MACHINE BUILD — PASSES 5–8 <small>accepted topology becomes bounded, receipted evidence</small></div>
+        <div class="a2ph-row dn">
+          <div class="dnode machine"><div class="dn-num">PASS 5</div><div class="dn-name">Tasking</div><div class="dn-sub">task-spec</div></div>
+          <div class="dnode machine opt"><div class="dn-num">PASS 6</div><div class="dn-name">Register</div><div class="dn-sub">opt-in</div></div>
+          <div class="dnode machine"><div class="dn-num">PASS 7</div><div class="dn-name">Bind</div><div class="dn-sub">runtime</div></div>
+          <div class="dnode machine" style="--dc:var(--green);"><div class="dn-num">PASS 8</div><div class="dn-name">Loop</div><div class="dn-sub">settle</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout gold" style="max-width:1284px;">
+      <div class="co-k">boundary · machine-led ≠ self-authorized</div>
+      <div class="co-b" style="font-size:14px;">Below the barrier the machines lead the work — but the <b>HMAC seal still belongs to Task-Spec and an explicit key holder</b>. No pass below this line authorizes itself.</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[D]</b> docs/guides/descent.md · <b>[A]</b> OPERATING.md</span>
+      <span class="proof">9 PASSES · 2 PHASES · 1 BARRIER</span>
+      <span class="pgno">P<b>15</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S09 split-stage descent: passes 0–4 human design above (cyan; Pass 4 is the gold human-acceptance gate), passes 5–8 machine build below (violet; Loop green toward settlement). Dashed nodes = optional/opt-in hops (0 Capture, 6 Register). Boundary verbatim: “machine-led” does not mean self-authorized; the HMAC seal still belongs to Task-Spec and an explicit key holder. Sources: [D] docs/guides/descent.md; [A] OPERATING.md. Transition: “Before choosing passes, Converge may choose a lane—but never waive a gate.”</aside>
+</section>
+
+<!-- P16 · S10 · LANES -->
+<section class="slide" id="p16" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Lanes route, proof stays" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">ROUTER · NOT A PASS</span>
+      <span class="actname">Lanes route, proof stays</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">FAST, NORMAL, FULL route the work. <span class="thin">They do not erase proof.</span></h2>
+    <p class="lede" style="margin-top:12px;max-width:96ch;">
+      <code>cvg lane</code> changes ceremony, model tier, and verification defaults — <b>within hard floors</b>.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a2merge">
+      <div class="a2lane" style="--lnc:var(--cyan);grid-column:1;grid-row:1;">
+        <div><div class="ln-n">FAST</div><div class="ln-k">route · light ceremony</div></div>
+        <div class="ln-d">May <b>enter at Pass 5</b> when usable evidence already exists. Smaller model tier, leaner verification defaults — <b>every gate still runs</b>.</div>
+        <span class="a2chip" style="--chc:var(--cyan);">entry · pass 5</span>
+      </div>
+      <div class="a2arrow cyan a2m-arr" style="grid-column:2;grid-row:1;"></div>
+
+      <div class="a2lane" style="grid-column:1;grid-row:2;">
+        <div><div class="ln-n">NORMAL</div><div class="ln-k">route · default</div></div>
+        <div class="ln-d">The default route. Skips <b>optional ceremony</b> — Capture and Register stay opt-in — and keeps every gate, seal, and budget.</div>
+        <span class="a2chip">skips optional ceremony</span>
+      </div>
+      <div class="a2arrow a2m-arr" style="grid-column:2;grid-row:2;"></div>
+
+      <div class="a2lane" style="--lnc:var(--green);grid-column:1;grid-row:3;">
+        <div><div class="ln-n">FULL</div><div class="ln-k">route · full ceremony</div></div>
+        <div class="ln-d">Full ceremony with <b>tier-2 refutation enabled by default</b>. Sensitive or greenfield floors can force this lane upward.</div>
+        <span class="a2chip" style="--chc:var(--green);">tier 2 · default on</span>
+      </div>
+      <div class="a2arrow green a2m-arr" style="grid-column:2;grid-row:3;"></div>
+
+      <div class="a2m-spine"></div>
+      <div class="a2arrow a2m-arr" style="grid-column:4;grid-row:2;"></div>
+      <div class="a2m-node">
+        <div class="mn-k">all lanes converge at</div>
+        <div class="mn-t">Pass 5 · Tasking</div>
+        <div class="mn-s">one tasking pass — same gates, same seals, same signed budgets</div>
+      </div>
+    </div>
+
+    <div class="a2floor">
+      <span class="fk">HARD FLOOR · NO LANE CROSSES</span>
+      <span class="fb">A lane may tighten ceremony, model tier, and verification defaults — <b>it cannot widen a signed budget or waive a gate</b>. Floors push lanes <b>stronger</b>, never weaker.</span>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> bin/cvg-classify-lane.py, skills/task-loop/scripts/loop-kernel.sh · <b>[T]</b> runtime + loop suites</span>
+      <span class="proof">LANES ROUTE · GATES HOLD</span>
+      <span class="pgno">P<b>16</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S10 lane router. Facts verbatim: FAST may enter at Pass 5; NORMAL skips optional ceremony; FULL enables tier 2 by default; sensitive/greenfield floors can force a stronger lane. `cvg lane` changes ceremony, model tier, and verification defaults within hard floors; it cannot widen a signed budget or waive a gate. The router is not a pass — the descent and its gates are unchanged. Sources: [I] bin/cvg-classify-lane.py, skills/task-loop/scripts/loop-kernel.sh; [T] runtime/loop suites. Transition: “When there is no usable brief, the descent begins with Capture.”</aside>
+</section>
+
+<!-- P17 · S11+S12 · PASS 0 CAPTURE -->
+<section class="slide" id="p17" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Capture + frontier rounds" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 0 · CAPTURE · OPTIONAL</span>
+      <span class="actname">Capture + frontier rounds</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Capture is an interview, <span class="thin">not a summarizer.</span></h2>
+    <p class="lede" style="margin-top:8px;font-size:15px;max-width:110ch;">
+      Raw idea in. <b>Owner-voice BRD or durable no-go out.</b> Frontier rounds ask every currently unblocked question together — wait once, recompute.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:minmax(0,1fr) 664px;gap:28px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">pass 0 · the fork — exactly one exit</span>
+        <div class="panel" style="padding:14px 18px;">
+          <div class="a2fork-idea">
+            <div class="a2bg-n" style="text-align:center;">
+              <div class="n-k" style="color:var(--text-mute);">IN</div>
+              <div class="n-t">one raw idea</div>
+              <div class="n-s">unshaped · owner-voice · unquantified</div>
+            </div>
+          </div>
+          <div class="a2fork-br"><i></i><span class="tk l"></span><span class="tk r"></span></div>
+          <div class="cards c2" style="gap:14px;">
+            <div class="card acc-green" style="padding:13px 16px;">
+              <span class="ck">exit · green path</span>
+              <div class="ct">BRD — owner-voice brief</div>
+              <div class="cb">Quantified pain, KPI-shaped goal, scope, provenance, owner — <b>enters Pass 1</b>.</div>
+            </div>
+            <div class="card acc-red" style="padding:13px 16px;">
+              <span class="ck">exit · valid stop</span>
+              <div class="ct">NO-GO — durable receipt</div>
+              <div class="cb">Owned, dated, specific — <b>a valid Pass 0 result</b> (next page).</div>
+            </div>
+          </div>
+          <div class="a2gaterow" style="margin-top:12px;">
+            <span class="tok green">CHECK_BRD=PASS</span>
+            <span class="a2fails">✕ draft mode may explain gaps — it <b>never authorizes</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">frontier rounds · interview control</span>
+        <div class="panel" style="padding:14px 20px;">
+          <div class="a2fg">
+            <svg viewBox="0 0 620 248" aria-hidden="true">
+              <defs>
+                <marker id="a2fg-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#59616d"/></marker>
+              </defs>
+              <g stroke="#59616d" stroke-width="1.5" opacity="0.55" fill="none">
+                <line x1="85" y1="50" x2="181" y2="102" marker-end="url(#a2fg-m)"/>
+                <line x1="310" y1="50" x2="189" y2="102" marker-end="url(#a2fg-m)"/>
+                <line x1="535" y1="50" x2="439" y2="102" marker-end="url(#a2fg-m)"/>
+                <line x1="185" y1="146" x2="306" y2="188" marker-end="url(#a2fg-m)"/>
+                <line x1="435" y1="146" x2="314" y2="188" marker-end="url(#a2fg-m)"/>
+              </g>
+            </svg>
+            <div class="a2fgn live" style="left:10px;top:6px;">quantified pain?</div>
+            <div class="a2fgn live" style="left:235px;top:6px;">KPI-shaped goal?</div>
+            <div class="a2fgn live" style="left:460px;top:6px;">provenance?</div>
+            <div class="a2fgn wait" style="left:110px;top:104px;">in / out scope</div>
+            <div class="a2fgn wait" style="left:360px;top:104px;">owner + open questions</div>
+            <div class="a2fgn human" style="left:235px;top:190px;">canonical sign-off</div>
+          </div>
+          <div class="a2fg-legend">
+            <span><span class="dot on"></span>unblocked — asked together, this round</span>
+            <span><span class="dot off"></span>blocked — recomputed after the answers land</span>
+          </div>
+          <div style="margin-top:10px;border-top:1px solid var(--rule);padding-top:9px;">
+            <span class="eyebrow" style="display:block;font-size:8px;margin-bottom:6px;">every BRD must answer</span>
+            <div class="tokset" style="gap:6px;">
+              <span class="tok silver">quantified pain</span>
+              <span class="tok silver">KPI-shaped goal</span>
+              <span class="tok silver">in / out scope</span>
+              <span class="tok silver">provenance</span>
+              <span class="tok silver">owner</span>
+              <span class="tok silver">open questions</span>
+              <span class="tok gold">canonical sign-off</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/idea-to-brd/ · <b>[T]</b> 39/39 Pass 0 rows</span>
+      <span class="proof green">CHECK_BRD=PASS · 39/39</span>
+      <span class="pgno">P<b>17</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S11+S12 Pass 0 Capture. Fork verbatim: raw idea in → owner-voice BRD or durable no-go out; gate CHECK_BRD=PASS; draft mode may explain gaps but never authorizes. Frontier rounds per S12: ask every currently unblocked question together, wait once, recompute — do not serialize questions that can be answered together. On-slide checks verbatim: quantified pain, KPI-shaped goal, in/out scope, provenance, owner, open questions, canonical sign-off. Test proof: 39/39 Pass 0 rows. Sources: [I] skills/idea-to-brd/ (SKILL.md, pass prompt, gate tests). Transition: “The fastest valid result can be an honest stop.”</aside>
+</section>
+
+<!-- P18 · S13 · DO-NOTHING TEST -->
+<section class="slide" id="p18" data-act="ACT II · THE HUMAN DESCENT" data-act-name="The do-nothing test" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">PASS 0 · NO-GO IS A RESULT</span>
+      <span class="actname">The do-nothing test</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">If inaction has no meaningful cost, <span class="thin">stop manufacturing a project.</span></h2>
+    <p class="lede" style="margin-top:10px;max-width:100ch;">
+      The do-nothing test is a kill switch — <b>a durable no-go is a successful Pass 0 outcome</b>, not a failed project.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a2bal">
+      <div class="a2bal-beam" aria-hidden="true"></div>
+      <div class="a2bal-pivot" aria-hidden="true"></div>
+      <div class="a2bal-base" aria-hidden="true"></div>
+      <div class="a2bal-wire l" aria-hidden="true"></div>
+      <div class="a2bal-wire r" aria-hidden="true"></div>
+      <div class="a2bal-pan l">
+        <div class="bp-k">cost of action</div>
+        <div class="bp-w">heavy</div>
+        <div class="bp-i">build + coordination spend · ceremony across the descent · a maintenance surface forever</div>
+      </div>
+      <div class="a2bal-pan r">
+        <div class="bp-k">cost of inaction</div>
+        <div class="bp-w">≈ 0</div>
+        <div class="bp-i">no quantified pain · no KPI at risk · the status quo stays tolerable</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:20px;align-items:stretch;">
+      <div class="rcpt" style="--rc2:var(--red);align-self:center;">
+        <span class="rc-k">no-go receipt</span>
+        <span class="rc-v">exits the descent<small>durable · owned · dated · specific</small></span>
+        <span class="rc-q">pass 0 · valid result</span>
+      </div>
+      <div class="callout red" style="padding:12px 20px;">
+        <div class="co-k">boundary · not model reluctance</div>
+        <div class="co-b" style="font-size:12.5px;">A no-go must be <b>durable, owned, dated, and specific</b> — a named human’s decision record, not a model’s hesitation. Safe next action: file the receipt; revisit only when the cost of inaction changes.</div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> Pass 0 templates and tests · kill-switch fixtures</span>
+      <span class="proof red">NO-GO = VALID RESULT</span>
+      <span class="pgno">P<b>18</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S13 do-nothing test. Core line verbatim: “If inaction has no meaningful cost, stop manufacturing a project.” Balance visual per brief: cost-of-action vs cost-of-inaction; the no-go receipt exits the descent. Boundary verbatim: a no-go must be durable, owned, dated, and specific — not model reluctance. Sources: [I] Pass 0 templates and tests. Transition: “A usable BRD enters Pass 1, where aspiration becomes falsifiable.”</aside>
+</section>
+
+<!-- P19 · S14+S15 · PASS 1 INTENT -->
+<section class="slide" id="p19" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Intent at the right altitude" data-accent="cyan">
+  <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 1 · INTENT</span>
+      <span class="actname">Intent at the right altitude</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Requirements say what must be true. <span class="thin">They do not choose architecture.</span></h2>
+    <p class="lede" style="margin-top:8px;font-size:15px;max-width:112ch;">
+      Client problem in. <b>Falsifiable tech-spec out</b> — observable behavior, constraints, and blockers; never infrastructure preferences disguised as requirements.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:minmax(0,1fr) minmax(0,1fr);gap:34px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">brd → requirements · two gates</span>
+        <div class="flow">
+          <div class="fl-node" style="--fc:var(--cyan);">
+            <div class="fl-k">IN · BRD</div>
+            <div class="fl-name">BRD claims</div>
+            <div class="fl-note">owner-voice business requirements, as captured</div>
+          </div>
+          <div class="a2g8row"><span class="a2g8">gate · interrogate</span></div>
+          <div class="fl-node" style="--fc:var(--cyan);">
+            <div class="fl-k">CLARIFIED</div>
+            <div class="fl-name">interrogated claims</div>
+            <div class="fl-note">ambiguities resolved with the owner, not around them</div>
+          </div>
+          <div class="a2g8row"><span class="a2g8">gate · crystallize</span></div>
+          <div class="fl-node" style="--fc:var(--cyan);">
+            <div class="fl-k">OUT · TECH-SPEC</div>
+            <div class="fl-name">R1 … Rn</div>
+            <div class="fl-note">numbered, falsifiable, dated requirements</div>
+          </div>
+        </div>
+        <div class="a2gaterow" style="margin-top:12px;">
+          <span class="tok green">CHECK_TECH_SPEC=PASS</span>
+          <span class="a2fails">✕ unsigned · pending · open blockers · invalid dates · ambiguous inputs — <b>fail closed</b></span>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">altitude · what, not how</span>
+        <div class="a2alt">
+          <span class="a2alt-axis" aria-hidden="true">descending altitude</span>
+          <div class="a2alt-lv prob">
+            <div class="lv-k">higher · owner problem</div>
+            <div class="lv-t">the owner’s problem</div>
+            <div class="lv-d">what hurts, for whom, and what it costs</div>
+          </div>
+          <div class="a2alt-j" aria-hidden="true"></div>
+          <div class="a2alt-lv rq">
+            <div class="lv-k">this pass · requirement</div>
+            <div class="lv-t">what must be true</div>
+            <div class="lv-d">observable behavior + constraints + blockers — falsifiable</div>
+          </div>
+          <div class="a2alt-j red" aria-hidden="true"><span class="jl">forbidden leap</span></div>
+          <div class="a2alt-lv sol">
+            <div class="lv-k">lower · premature solution</div>
+            <div class="lv-t">how we would build it</div>
+            <div class="lv-d">implementation leakage may warn — unresolved blockers still block. ✕ not this altitude.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/brd-docs-to-tech-req/ · <b>[T]</b> 24/24 rows</span>
+      <span class="proof green">CHECK_TECH_SPEC=PASS · 24/24</span>
+      <span class="pgno">P<b>19</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S14+S15 Pass 1 Intent. BRD claims pass interrogate/crystallize gates into numbered falsifiable requirements; gate CHECK_TECH_SPEC=PASS; unsigned, pending, open blockers, invalid dates, and ambiguous inputs fail closed. Altitude: owner problem → requirement → forbidden premature solution (red); implementation leakage may warn, unresolved blockers still block. Core line verbatim: “Requirements say what must be true. They do not choose architecture.” Test proof: 24/24 rows. Sources: [I] skills/brd-docs-to-tech-req/; Pass 1 gate and fixtures. Transition: “Pass 2 grounds those requirements against the system that actually exists.”</aside>
+</section>
+
+<!-- P20 · S16+S17 · PASS 2 STRUCTURE -->
+<section class="slide" id="p20" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Structure names the terrain" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 2 · STRUCTURE</span>
+      <span class="actname">Structure names the terrain</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Record what is true about the ground. <span class="thin">Leave building to the next pass.</span></h2>
+    <p class="lede" style="margin-top:8px;font-size:15px;max-width:104ch;">
+      Tech-spec plus real repository in. <b>Grounding ADRs and a shared context glossary out.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:minmax(0,1.06fr) minmax(0,0.94fr);gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">repository terrain · pinned requirements</span>
+        <div class="a2terr">
+          <div class="terr-cap">terrain · the audited repository, not the imagined one</div>
+          <div class="pin-cards">
+            <div class="pin-card" style="--pinc:var(--cyan);">
+              <span class="pinmark">A</span>
+              <div><div class="pin-t">finite loop budgets</div><div class="pin-b">terrain: <b>skills/task-loop/</b> — iterations, wall time, tokens are already bounded surfaces</div></div>
+            </div>
+            <div class="pin-card" style="--pinc:var(--violet);">
+              <span class="pinmark">B</span>
+              <div><div class="pin-t">one JSON result contract</div><div class="pin-b">terrain: <b>bin/cvg · contracts/</b> — every public form speaks one machine envelope</div></div>
+            </div>
+            <div class="pin-card" style="--pinc:var(--green);">
+              <span class="pinmark">C</span>
+              <div><div class="pin-t">read-only observation</div><div class="pin-b">terrain: <b>apps/cockpit/</b> — snapshot projections exist; no write path back</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="a2gaterow" style="margin-top:11px;">
+          <span class="tok green">CHECK_ADR=OK</span>
+          <span class="a2fails">✕ final mode rejects proposed ADRs · dangling supersedes · empty evidence · missing context</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">verb wall · altitude control</span>
+        <div class="cards c2" style="gap:14px;">
+          <div class="card acc-green" style="padding:13px 16px;">
+            <span class="ck">green · record</span>
+            <ul class="tick check dense" style="margin-top:4px;">
+              <li><b>record</b> what is true about the ground</li>
+              <li><b>name</b> terrain: surfaces, constraints, ownership</li>
+              <li><b>cite</b> evidence; mark supersession honestly</li>
+            </ul>
+          </div>
+          <div class="card acc-red" style="padding:13px 16px;">
+            <span class="ck">red · drift verbs</span>
+            <div class="tokset" style="gap:5px;margin:6px 0 8px;">
+              <span class="tok red">build</span><span class="tok red">create</span><span class="tok red">implement</span><span class="tok red">refactor</span><span class="tok red">migrate</span>
+            </div>
+            <div class="cb">belong to the next pass — <b>drift-verb fixtures prove the gate rejects them</b>.</div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:14px;padding:12px 18px;">
+          <span class="panel-k">adr structure · the grounding record</span>
+          <div class="flowchain" style="margin-top:8px;flex-wrap:wrap;row-gap:8px;">
+            <span class="fc-node" style="--fcc:var(--cyan);">Context</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--cyan);">Decision</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--cyan);">Evidence</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--cyan);">Consequences</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--violet);">status</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--violet);">supersession</span><span class="fc-arrow" style="flex-basis:22px;"></span>
+            <span class="fc-node" style="--fcc:var(--violet);">glossary</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/tech-req-to-adrs/, scaffold-adr.sh · <b>[T]</b> 38/38 rows</span>
+      <span class="proof green">CHECK_ADR=OK · 38/38</span>
+      <span class="pgno">P<b>20</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S16+S17 Pass 2 Structure. Requirement cards pinned onto the real repository terrain (skills/task-loop/, bin/cvg + contracts/, apps/cockpit/ — surfaces from the audited tree). Gate CHECK_ADR=OK; final mode rejects proposed ADRs, dangling supersedes, empty evidence, missing context. Verb wall verbatim: record what is true vs build, create, implement, refactor, migrate (left to the next pass; drift-verb and supersession fixtures discriminate). ADR structure verbatim: Context, Decision, Evidence, Consequences, status, supersession, glossary. Test proof: 38/38 rows. Sources: [I] skills/tech-req-to-adrs/, scaffold-adr.sh. Transition: “Once the terrain is explicit, Pass 3 can cut along natural seams.”</aside>
+</section>
+
+<!-- P21 · S18+S19 · PASS 3 DECOMPOSE -->
+<section class="slide" id="p21" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Decompose at plan altitude" data-accent="cyan">
+  <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">PASS 3 · DECOMPOSE</span>
+      <span class="actname">Decompose at plan altitude</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">A seam separates. A swimlane owns. <span class="thin">A leg names an observable capability state.</span></h2>
+    <p class="lede" style="margin-top:8px;font-size:15px;max-width:104ch;">
+      ADRs in. <b>One typed swimlane tree with capability legs out</b> — decomposition stays at plan altitude.
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <span class="eyebrow" style="display:block;margin:0 0 10px;">monolith → seams → swimlanes → legs</span>
+    <div class="a2dc">
+      <div class="a2dc-mono">
+        <div class="m-k">before</div>
+        <div class="m-t">one undifferentiated system</div>
+        <div class="m-s">the monolith the ADRs describe</div>
+      </div>
+      <div class="a2dc-fan" aria-hidden="true">
+        <svg viewBox="0 0 92 100" preserveAspectRatio="none">
+          <defs>
+            <marker id="a2dc-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#68C7FF"/></marker>
+          </defs>
+          <g stroke="#68C7FF" stroke-width="1.5" opacity="0.65" fill="none" vector-effect="non-scaling-stroke">
+            <line x1="4" y1="50" x2="86" y2="16" marker-end="url(#a2dc-m)"/>
+            <line x1="4" y1="50" x2="86" y2="84" marker-end="url(#a2dc-m)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="a2dc-rows">
+        <div class="a2dc-r">
+          <div class="a2dc-seam"><div class="s-k">SEAM A</div><div class="s-d">separates a responsibility</div></div>
+          <div class="a2arrow cyan" style="margin:0 6px;"></div>
+          <div class="a2dc-lane">
+            <div class="ll-h"><span class="ll-k">swimlane · owns seam A</span><span class="a2chip" style="--chc:var(--cyan);">one owner</span></div>
+            <div class="a2dc-legs"><span class="a2dc-leg">leg · capability state A1</span><span class="a2dc-leg">leg · capability state A2</span></div>
+          </div>
+        </div>
+        <div class="a2dc-r">
+          <div class="a2dc-seam"><div class="s-k">SEAM B</div><div class="s-d">separates a responsibility</div></div>
+          <div class="a2arrow cyan" style="margin:0 6px;"></div>
+          <div class="a2dc-lane">
+            <div class="ll-h"><span class="ll-k">swimlane · owns seam B</span><span class="a2chip" style="--chc:var(--cyan);">one owner</span></div>
+            <div class="a2dc-legs"><span class="a2dc-leg">leg · capability state B1 <span class="dep">⇐ depends on A2</span></span><span class="a2dc-leg">leg · capability state B2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards c3" style="gap:14px;margin-top:16px;">
+      <div class="card acc-cyan" style="padding:12px 16px;">
+        <span class="ck">grammar · noun 1</span>
+        <div class="ct">seam</div>
+        <div class="cb"><b>separates responsibility</b> — the boundary a plan may cut along.</div>
+      </div>
+      <div class="card acc-cyan" style="padding:12px 16px;">
+        <span class="ck">grammar · noun 2</span>
+        <div class="ct">swimlane</div>
+        <div class="cb"><b>owns the seam</b> — exactly one owner; custody is never shared.</div>
+      </div>
+      <div class="card acc-cyan" style="padding:12px 16px;">
+        <span class="ck">grammar · noun 3</span>
+        <div class="ct">capability leg</div>
+        <div class="cb"><b>names an observable capability state</b> — not yet an atomic Task-Spec.</div>
+      </div>
+    </div>
+
+    <div class="a2gaterow" style="margin-top:13px;">
+      <span class="tok green">CHECK_PLAN=OK</span>
+      <span class="a2fails">✕ no Mermaid · no non-goals · no legs · orphan legs · missing proof — <b>all fail</b></span>
+      <span class="note" style="font-size:11.5px;margin-left:auto;">real task IDs at this altitude = <b style="color:var(--red);font-style:normal;">altitude drift</b></span>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/reqs-to-swimlane-plans/ · <b>[T]</b> 33/33 rows</span>
+      <span class="proof green">CHECK_PLAN=OK · 33/33</span>
+      <span class="pgno">P<b>21</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S18+S19 Pass 3 Decompose. Monolith splits into seams → owning swimlanes → capability legs; one owner per seam; dependency arrows run between legs (B1 depends on A2 shown). Gate CHECK_PLAN=OK; no Mermaid, no non-goals, no legs, orphan legs, or missing proof all fail. Grammar verbatim: a seam separates responsibility; a swimlane owns it; a leg names an observable capability state. Boundary verbatim: a leg is not yet an atomic Task-Spec; real task IDs appearing here are altitude drift. Test proof: 33/33 rows. Sources: [I] skills/reqs-to-swimlane-plans/ (skill, templates, gate). Transition: “A coherent plan is still only one model’s story until an adversary attacks it.”</aside>
+</section>
+
+<!-- P22 · S20 · PASS 4 CONSENSUS -->
+<section class="slide" id="p22" data-act="ACT II · THE HUMAN DESCENT" data-act-name="The adversary chamber" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">PASS 4 · CONSENSUS</span>
+      <span class="actname">The adversary chamber</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">A different-family model <span class="thin">tries to break the plans.</span></h2>
+    <p class="lede" style="margin-top:12px;max-width:96ch;">
+      Refutation in. <b>Hardened plans, objection log, owners, decisions, and residual risk out.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a2ch">
+      <div class="a2ch-plan">
+        <span class="ck" style="font-family:var(--font-mono);font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);display:block;margin-bottom:6px;">primary-family plan</span>
+        <div style="font-family:var(--font-display);font-size:21px;line-height:1.05;color:var(--text);">one model’s story</div>
+        <div style="font-family:var(--font-editorial);font-style:italic;font-size:11px;color:var(--text-dim);margin-top:6px;">coherent — and untested by hostility</div>
+      </div>
+      <div class="a2bg-a" style="margin:0 8px;">
+        <span class="al" style="color:var(--violet);">refutation in</span>
+        <div class="a2arrow"></div>
+      </div>
+      <div class="a2ch-box">
+        <span class="ch-cap">cross-family adversary chamber</span>
+        <div class="a2ch-adv">
+          <div class="a-k">the adversary</div>
+          <div class="a-t">a different-family model</div>
+          <div class="a-d">its only job: refute the plan it was handed</div>
+        </div>
+        <div style="margin-top:10px;font-family:var(--font-editorial);font-style:italic;font-size:10.5px;color:var(--text-dim);">self-review is not review — the attacker must come from <b style="color:var(--text);font-style:normal;">another model family</b></div>
+      </div>
+      <div class="a2ch-fan" aria-hidden="true">
+        <svg viewBox="0 0 100 230" style="position:absolute;inset:0;width:100%;height:100%;">
+          <defs>
+            <marker id="a2ch-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FF6B66"/></marker>
+          </defs>
+          <g stroke="#FF6B66" stroke-width="1.5" opacity="0.6" fill="none">
+            <line x1="4" y1="115" x2="94" y2="41" marker-end="url(#a2ch-m)"/>
+            <line x1="4" y1="115" x2="94" y2="115" marker-end="url(#a2ch-m)"/>
+            <line x1="4" y1="115" x2="94" y2="189" marker-end="url(#a2ch-m)"/>
+          </g>
+        </svg>
+      </div>
+      <div class="a2ch-objs">
+        <div class="a2ch-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">unsupported claim</div></div>
+        <div class="a2ch-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">evidence gap</div></div>
+        <div class="a2ch-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">unowned residual risk</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span class="eyebrow" style="flex-shrink:0;">out</span>
+        <div class="flowchain">
+          <span class="fc-node" style="--fcc:var(--green);">hardened plans</span><span class="fc-arrow" style="flex-basis:24px;"></span>
+          <span class="fc-node" style="--fcc:var(--green);">objection log</span><span class="fc-arrow" style="flex-basis:24px;"></span>
+          <span class="fc-node" style="--fcc:var(--green);">owners</span><span class="fc-arrow" style="flex-basis:24px;"></span>
+          <span class="fc-node" style="--fcc:var(--green);">decisions</span><span class="fc-arrow" style="flex-basis:24px;"></span>
+          <span class="fc-node" style="--fcc:var(--green);">residual risk</span>
+        </div>
+      </div>
+      <div class="a2gaterow" style="margin-top:12px;">
+        <span class="tok green">CHECK_CONSENSUS=OK</span>
+        <span class="a2fails">✕ self-review · no objections · no decider · open residual risk — <b>all fail</b></span>
+        <span class="note" style="font-size:11.5px;margin-left:auto;">dispatching the adversary <b style="color:var(--text);font-style:normal;">does not close the pass</b></span>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/sketch-plans-adversarial-review/ · <b>[T]</b> 23/23 rows</span>
+      <span class="proof green">CHECK_CONSENSUS=OK · 23/23</span>
+      <span class="pgno">P<b>22</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S20 Pass 4 Consensus. Primary-family plan enters a cross-family adversary chamber; objections fan out. Core line verbatim: “Refutation in. Hardened plans, objection log, owners, decisions, and residual risk out.” Gate CHECK_CONSENSUS=OK; self-review, no objections, no decider, and open residual risk fail. Boundary verbatim: “Dispatching the adversary does not close the pass.” Objection cards are illustrative categories (unsupported claim, evidence gap, unowned residual risk) drawn from the gate’s fail vocabulary. Test proof: 23/23 rows. Sources: [I] skills/sketch-plans-adversarial-review/. Transition: “Even a fully decided review can become stale.”</aside>
+</section>
+
+<!-- P23 · S21 · RESOLUTION -->
+<section class="slide" id="p23" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Objections cross DECIDED_BY" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">PASS 4 · RESOLUTION</span>
+      <span class="actname">Objections cross DECIDED_BY</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">An objection exists <span class="thin">until a human decides it.</span></h2>
+    <p class="lede" style="margin-top:12px;max-width:96ch;">
+      The adversary proposes. <b>A named human decides FIX or ACCEPT — and owns the residual risk.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a2xg">
+      <div class="a2xg-stack">
+        <div class="a2xg-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">unsupported claim</div></div>
+        <div class="a2xg-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">evidence gap</div></div>
+        <div class="a2xg-obj"><div class="o-k">objection <span>open</span></div><div class="o-t">unowned residual risk</div></div>
+      </div>
+      <div class="a2arrow red"></div>
+      <div class="a2xg-gate">
+        <div class="g-t">DECIDED_BY</div>
+        <div class="g-s">a named human — recorded by <code style="font-family:var(--font-mono);font-style:normal;font-size:9px;color:var(--cyan);">cvg review --resolve</code></div>
+      </div>
+      <div class="a2arrow gold"></div>
+      <div class="a2xg-out">
+        <div class="a2xg-dec fix">
+          <div class="d-k">decision · fix</div>
+          <div class="d-t">the plan changes</div>
+          <div class="d-b">the diff goes back to the adversary — re-attack before the barrier</div>
+        </div>
+        <div class="a2xg-dec acc">
+          <div class="d-k">decision · accept</div>
+          <div class="d-t">risk accepted</div>
+          <div class="d-b">the named human owns the residual risk — logged, dated, carried to the barrier</div>
+        </div>
+      </div>
+      <div class="a2arrow gold"></div>
+      <div class="a2xg-bar">
+        <div class="b-t">⛨ PASS 4 BARRIER</div>
+        <div class="b-s">decided objections only</div>
+      </div>
+    </div>
+
+    <div class="callout red">
+      <div class="co-k">boundary · scrutiny ≠ consensus</div>
+      <div class="co-b" style="font-size:13.5px;">A fresh review log with unresolved findings is evidence of <b>scrutiny, not consensus</b>. Safe move: resolve every finding through <b>DECIDED_BY</b>, then re-run the consensus gate.</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> cvg review --resolve · consensus gate</span>
+      <span class="proof gold">DECIDED_BY = NAMED HUMAN</span>
+      <span class="pgno">P<b>23</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S21 Pass 4 resolution. Objection cards must cross DECIDED_BY before reaching the barrier; the adversary proposes, a named human decides FIX or ACCEPT and owns residual risk. `cvg review --resolve` records the decider. Boundary verbatim: a fresh review log with unresolved findings is evidence of scrutiny, not consensus. Sources: [I] cvg review --resolve, consensus gate. Transition: “Even a fully decided review can become stale.”</aside>
+</section>
+
+<!-- P24 · S22 · HASHED CONSENT -->
+<section class="slide" id="p24" data-act="ACT II · THE HUMAN DESCENT" data-act-name="Hashed consent" data-accent="gold">
+  <div class="aurora aurora--gold" aria-hidden="true"><b></b></div>
+  <div class="wrap">
+    <header class="shead">
+      <span class="actcap">THE BARRIER · HASHED CONSENT</span>
+      <span class="actname">Hashed consent</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2">If a reviewed plan changes, <span style="color:var(--gold);">the barrier reopens.</span></h2>
+    <p class="lede" style="margin-top:12px;max-width:92ch;">
+      Consent binds the reviewed bytes. <b>Consent does not transfer to new text.</b>
+    </p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cols" style="--cols:minmax(0,1.16fr) minmax(0,0.84fr);gap:30px;align-items:center;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:10px;">hashed consent · two outcomes</span>
+        <div class="a2bg-row">
+          <div class="a2bg-n gold">
+            <div class="n-k">reviewed plan</div>
+            <div class="n-t">bytes as reviewed</div>
+            <div class="n-s">plan digest stamped at review · sha256</div>
+          </div>
+          <div class="a2bg-a" style="margin:0 8px;"><span class="al" style="color:var(--green);">hash match</span><div class="a2arrow green"></div></div>
+          <div class="a2bg-n green">
+            <div class="n-k">gate · green</div>
+            <div class="n-t">barrier holds</div>
+            <div class="n-s">consent valid for exactly these bytes</div>
+          </div>
+          <div class="a2bg-a" style="margin:0 8px;"><div class="a2arrow"></div></div>
+          <div class="a2bg-n violet">
+            <div class="n-k">next</div>
+            <div class="n-t">Pass 5 · Tasking</div>
+            <div class="n-s">topology may become task material</div>
+          </div>
+        </div>
+        <div class="a2bg-row">
+          <div class="a2bg-n red">
+            <div class="n-k">same plan</div>
+            <div class="n-t">mutated bytes</div>
+            <div class="n-s">changed after the review was stamped</div>
+          </div>
+          <div class="a2bg-a" style="margin:0 8px;"><span class="al" style="color:var(--red);">digest mismatch</span><div class="a2arrow red"></div></div>
+          <div class="a2bg-n red">
+            <div class="n-k">gate · red</div>
+            <div class="n-t">barrier reopens</div>
+            <div class="n-s">stale consent — Pass 5 refused</div>
+          </div>
+          <div class="a2bg-a" style="margin:0 8px;"><span class="al" style="color:var(--red);">routes back</span><div class="a2arrow red"></div></div>
+          <div class="a2bg-n red">
+            <div class="n-k">safe next action</div>
+            <div class="n-t">re-attack + re-stamp</div>
+            <div class="n-s">adversary and human decide the new bytes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="--pk:var(--gold);border-color:rgba(243,182,76,0.35);padding:18px 22px;">
+        <span class="panel-k">proof at the gate</span>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:6px;">
+          <span class="stat"><span class="sv" style="--sac:var(--green);font-size:46px;">44/44</span></span>
+          <span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-mute);">conductor checkout rows</span>
+        </div>
+        <p style="font-family:var(--font-editorial);font-size:13px;line-height:1.45;color:var(--text-dim);margin-top:10px;">
+          Conductor tests <b style="color:var(--text);">discriminate matching hashes from post-review changes</b> — and refuse Pass 5 behind stale consent.
+        </p>
+        <div class="tokset" style="margin-top:12px;">
+          <span class="tok gold">HASHED CONSENT</span>
+          <span class="wribbon"><span class="rk">W</span>CHECKOUT ONLY</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> consensus gate + conductor · <b>[T]</b> 44/44 conductor checkout rows</span>
+      <span class="proof gold">HASHED CONSENT · 44/44</span>
+      <span class="pgno">P<b>24</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">S22 the barrier. Plan digest stamped at review; mutated bytes turn the gate red and route back to re-attack. Core line verbatim: “If a reviewed plan changes, the barrier reopens. Consent does not transfer to new text.” Proof verbatim: conductor tests discriminate matching hashes from post-review changes and refuse Pass 5 behind stale consent — 44/44 conductor checkout rows (uncommitted checkout; W · CHECKOUT ONLY ribbon shown). Sources: [I] consensus gate and conductor; [T] 44/44 conductor checkout rows. Transition: “Only beyond this barrier may topology become task material.”</aside>
+</section>
