@@ -26,6 +26,15 @@ ontology/output/
 
 # agent tooling (local, not repo content)
 .agents/
-.claude/
+.claude/*
 skills-lock.json
 *.egg-info/
+
+# Dagster runs in its own environment so it can never move the pyarrow that
+# wrote landing. The environment is local; its pinned requirements are tracked.
+modern/orchestration/.venv/
+modern/orchestration/.dagster_home/
+
+# .claude/* is local by default, but the repo's own skills ship with the repo.
+!.claude/skills/
+.claude/skills/find-skills

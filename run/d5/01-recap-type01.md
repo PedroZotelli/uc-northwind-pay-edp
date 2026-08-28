@@ -5,7 +5,7 @@
 - Who: instructor first, then every seat through **their** agent
 - Next: [`02-linear-register.md`](02-linear-register.md)
 
-One look at **Thursday’s disk**. Not a paid-grain quiz. Not Dagster. Keep **173.44**. Do not recut Tuesday’s ingest sign or Wednesday’s lakehouse sign.
+One look at **Thursday’s disk**. Not a paid-grain quiz. Dagster comes later, at board **D**. Keep **173.44**. Do not recut Tuesday’s ingest sign or Wednesday’s lakehouse sign.
 
 ## Prompt (verbatim)
 
@@ -13,7 +13,7 @@ One look at **Thursday’s disk**. Not a paid-grain quiz. Not Dagster. Keep **17
 Do not change any file.
 Do not generate Types 02–05.
 Do not recut any sign.
-Do not stand up Dagster.
+Do not materialise Dagster on this tile — that is board D.
 
 In the terminal (not Git): recap the Type 01 trail on this checkout.
 
@@ -30,7 +30,7 @@ Do not write any file.
 
 ## Proof
 
-All five named, or gaps named. **173.44** kept. Dagster not started.
+All five named, or gaps named. **173.44** kept. Nothing rebuilt on this tile.
 
 ## If fail
 

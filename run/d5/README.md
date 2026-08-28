@@ -1,7 +1,7 @@
 # Day 5 — follow-along
 
 Staff execute folder. Scope: [`agenda/d5.md`](../../agenda/d5.md).  
-Deck: [`presentation/d5-dark-factory.html`](../../presentation/d5-dark-factory.html) — **built**, 21 slides; Floor/Dig follow **this clock**. Identify slides by **`data-act-name`**. Stage is six doctrine slides. Floor is Thursday on disk. Dig is Type `06`.
+Deck: [`presentation/d5-dark-factory.html`](../../presentation/d5-dark-factory.html) — **built**, 28 slides; Floor/Dig follow **this clock**. Identify slides by **`data-act-name`**. Stage is six doctrine slides. Floor is Thursday on disk. Dig is Type `06`.
 
 **One Night.** House stack: Oh My Pi → OpenRouter → a workspace → DeepSeek. Grade gates, not the vendor.
 
@@ -26,7 +26,7 @@ Seams: **`ingest-landing`**, **`dlt-gold`**, **`orchestrate-serve`**. Papers: [`
 | **A · Recap** | [`01`](01-recap-type01.md) | **Execute 01** | landing · Gold MATCHED 173.45 · both questions true · loop packet · 173.44 kept |
 | **B · Register** | [`02`](02-linear-register.md) | **Execute 02** | `_linear-board.md` · settled vs queued · `cvg/swimlanes/` |
 | **C · Types** | [`03`](03-look-up-02-05.md) | **Execute 03** | eight unsigned leaves · Type 05 four packets · no modern `02`–`05` folders |
-| **D · Smoke** | [`04`](04-pipeline-smoke.md) | **Execute 04** | Type 01 Gold replay from landing · Dagster skip |
+| **D · Smoke** | [`04`](04-pipeline-smoke.md) | **Execute 04** | Type 01 Gold replay from landing · DuckDB rows · dbt green · six Dagster assets |
 | **E · Factory** | [`05`](05-type06-converge.md) | **Execute 05** | drop → 0–8 → packet · stall |
 | **Close** | [`06`](06-flywheel.md) | Flywheel | three pills from evidence · do not patch Java |
 | **staff** | [`00`](00-preflight.md) | Factory run *(Show)* | seven gates printed · 01 ACCEPTED · 06 STALLED before the room types |
@@ -59,7 +59,7 @@ Hands-On is **five boards + Close**. Chip · `run/d5/` · one tile per beat · l
 | # | File | Slice | What they do |
 |---|---|---|---|
 | 00 | [`00-preflight.md`](00-preflight.md) | staff | **Before the doors open.** `factory_e2e.py` runs the stages for 01 and 06 and prints every gate |
-| 01 | [`01-recap-type01.md`](01-recap-type01.md) | A | Disk: Type 01 Gold + loop packet. Keep 173.44. Skip Dagster |
+| 01 | [`01-recap-type01.md`](01-recap-type01.md) | A | Disk: Type 01 Gold + loop packet. Keep 173.44. Nothing rebuilt |
 | 02 | [`02-linear-register.md`](02-linear-register.md) | B | Register settled vs queued. File is truth if Linear.com is empty |
 | 03 | [`03-look-up-02-05.md`](03-look-up-02-05.md) | C | Look up remaining leaves + Type 05 legacy packets. No new modern dump |
 | 04 | [`04-pipeline-smoke.md`](04-pipeline-smoke.md) | D | Replay Type 01 Gold from landing. Do not re-run TYPE=01 if MATCHED 173.45 |
@@ -72,7 +72,7 @@ Hands-On is **five boards + Close**. Chip · `run/d5/` · one tile per beat · l
 
 | When | Trap | Do |
 |---|---|---|
-| Recap | Dagster UI / inventory quiz | Disk paths in 01. Skip hash |
+| Recap | Dagster UI / inventory quiz | Disk paths in 01. Lineage is board D |
 | Linear | Empty Linear.com = failed Thursday | File is the queue. Copy rows. Do not recut |
 | 02–05 | Implement four modern five-files | Look up. Unsigned stay dark |
 | Smoke | `make run TYPE=01` again | Recon already MATCHED 173.45. Replay Gold from landing only if you must |

@@ -10,9 +10,37 @@ nothing and edits nothing. It executes what exists, reports what does not, and s
 the first gate that refuses. Classification names are imported from
 [`validation/golden-match/golden_match.py`](../../validation/golden-match/golden_match.py) — the referee is never rewritten.
 
+### One command, the whole plant
+
+```text
+modern/scripts/night_e2e.sh
+```
+
+Eight steps, narrated, exit `0` when the Night is ready:
+
+| # | Step | Proof it prints |
+|---|---|---|
+| 1 | legacy ground truth | `MATCHED 173.45` from `evidence/B202607230000001/` |
+| 2 | emit → landing Parquet | sha `a3256309309d…` · first write is landing |
+| 3 | dlt register | one `load_id` · register only |
+| 4 | dbt build | `PASS=27 WARN=0 ERROR=0` on `tag:type_01` |
+| 5 | **the data, in DuckDB** | landing/bronze/silver row counts + the Gold row |
+| 6 | **Dagster lineage** | 6 assets materialised · gold hash recorded |
+| 7 | factory gates · type 01 | seven gates PASS → **ACCEPTED** |
+| 8 | factory gates · type 06 | stalls at Build → **CONFIRMED_LEGACY_DEFECT** |
+
+Just the gates, without the rebuild:
+
 ```text
 modern/.venv/bin/python modern/scripts/factory_e2e.py --type 01
 modern/.venv/bin/python modern/scripts/factory_e2e.py --type 06
+```
+
+Dagster on its own, including the UI the room can click through:
+
+```text
+cd modern/orchestration && .venv/bin/dagster asset materialize --select '*' -m definitions
+cd modern/orchestration && .venv/bin/dagster dev -m definitions
 ```
 
 Use **`modern/.venv`** — it has pyarrow 25, the version that wrote landing. `modern/lakehouse/.venv`
@@ -47,3 +75,5 @@ difference has a name.
   it stalls at stage 1 by design. Keep it virgin for the loop.
 - Do not `ls spec/type-06-merchant-chargeback/samples/` on the projector. One filename spoils the Night.
 - Do not commit `evidence/`. Do not patch `legacy/` to make stage 6 go green.
+- Do not install Dagster into `modern/.venv`. It lives in `modern/orchestration/.venv` so it can never
+  move the pyarrow that wrote landing. If a step breaks, the `dark-factory-triage` skill names all four failures.

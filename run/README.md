@@ -21,7 +21,7 @@ Night 1 HTML is live — [`d1-archaeologist.html`](../presentation/d1-archaeolog
 Night 2 HTML is live — [`d2-translator.html`](../presentation/d2-translator.html) · [`d2/`](d2/README.md). Identify by `data-act-name`.
 Night 3 HTML is live — [`d3-constructor.html`](../presentation/d3-constructor.html) · [`d3/`](d3/README.md) (13 beats, four boards). Type 01 Gold steel thread. Identify by `data-act-name`. J5 abstains, then they render the SA mermaids in [`plans/modern.md`](../plans/modern.md).
 Night 4 staff is live — [`d4/`](d4/README.md) (9 beats, four boards). Trail first, then remaining lanes + Type `05`. Stage live; Floor/Dig follow the clock. Identify by `data-act-name`.
-Night 5 staff is live — [`d5/`](d5/README.md) (6 beats). Recap Type 01 from disk, Linear, look up 02–05, smoke, Type `06` factory, flywheel. Identify by `data-act-name`. Deck: [`presentation/d5-dark-factory.html`](../presentation/d5-dark-factory.html) (21 slides).
+Night 5 staff is live — [`d5/`](d5/README.md) (pre-flight `00` + 6 beats). Pre-flight, recap Type 01 from disk, Linear, look up 02–05, smoke with DuckDB/dbt/Dagster, Type `06` factory, flywheel. Identify by `data-act-name`. Deck: [`presentation/d5-dark-factory.html`](../presentation/d5-dark-factory.html) (28 slides).
 
 Kits (park the Night HUD, teach, **return**): [`seamwise.html`](../presentation/seamwise.html), [`task-spec.html`](../presentation/task-spec.html).
 

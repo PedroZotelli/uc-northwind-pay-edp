@@ -335,6 +335,8 @@ body::after {
 .callout.gold   { --co-c: var(--gold);   --co-bg1: rgba(212,175,55,0.16); --co-bg2: rgba(212,175,55,0.04); --co-glow: rgba(212,175,55,0.14); }
 .callout.green  { --co-c: var(--green);  --co-bg1: rgba(63,185,80,0.12);  --co-bg2: rgba(63,185,80,0.03);  --co-glow: rgba(63,185,80,0.10); }
 .callout.cyan   { --co-c: var(--cyan);   --co-bg1: rgba(34,211,238,0.12); --co-bg2: rgba(34,211,238,0.03); --co-glow: rgba(34,211,238,0.10); }
+/* speaker notes never reach the projector, even if a reset overrides [hidden] */
+.speaker-notes, .speaker-notes[hidden] { display: none !important; }
 .callout.silver { --co-c: var(--silver-bright); --co-bg1: rgba(176,190,197,0.12); --co-bg2: rgba(176,190,197,0.03); --co-glow: rgba(176,190,197,0.10); }
 
 /* ── grids / rules / code ─────────────────────────────────────────── */
@@ -2554,7 +2556,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
               </div>
             </li>
           </ol>
-          <p class="ts-note">Not a sixth day of Type 05. Not four new modern plants. Not a Dagster tour. <b>The demos are the clock.</b></p>
+          <p class="ts-note">Not a sixth day of Type 05. Not four new modern plants. Not a Dagster product tour. <b>The demos are the clock.</b></p>
         </div>
 
       </div>
@@ -3131,7 +3133,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
         <article style="--sb:var(--cyan);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,12px);border:1px solid var(--border);border-top:3px solid var(--sb);border-radius:14px;padding:clamp(14px,1.8vh,20px) clamp(12px,1.2vw,16px);background:linear-gradient(180deg,var(--surface2),var(--surface) 80%);">
           <span style="font-family:var(--font-mono);font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#000;background:var(--sb);padding:3px 9px;border-radius:3px;align-self:flex-start;">04 · D</span>
           <div style="font-family:var(--font-display);font-size:clamp(17px,1.6vw,23px);line-height:1.05;color:var(--text);">Pipeline Smoke Test</div>
-          <div style="font-family:var(--font-editorial);font-size:clamp(12px,1.05vw,14.5px);line-height:1.35;color:var(--text-dim);">Replay Type 01 Gold from landing. Dagster skipped — lineage, not parser.</div>
+          <div style="font-family:var(--font-editorial);font-size:clamp(12px,1.05vw,14.5px);line-height:1.35;color:var(--text-dim);">Replay Type 01 Gold from landing. DuckDB rows, dbt green, Dagster lineage.</div>
           <div style="margin-top:auto;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-mute);">smoke · <b style="color:var(--cyan);">replay</b></div>
         </article>
         <article style="--sb:var(--red);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,12px);border:1px solid rgba(248,81,73,0.4);border-top:3px solid var(--sb);border-radius:14px;padding:clamp(14px,1.8vh,20px) clamp(12px,1.2vw,16px);background:linear-gradient(180deg,rgba(248,81,73,0.1),var(--surface) 70%);box-shadow:0 0 60px -28px rgba(248,81,73,0.55);">
@@ -3298,7 +3300,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
       <div class="d2-forbid" style="align-items:baseline;gap:clamp(10px,1.15vw,17px);margin-top:clamp(14px,2.2vh,22px);padding-top:clamp(12px,1.9vh,18px);border-top:1px solid var(--rule);">
         <span class="tag" style="--tag-c:var(--red);">a prompt is not a fence</span>
         <span class="tag" style="--tag-c:var(--red);">do not repair 173.44</span>
-        <span class="tag" style="--tag-c:var(--red);">do not stand up Dagster to look busy</span>
+        <span class="tag" style="--tag-c:var(--red);">Dagster is lineage, never a parser</span>
         <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Enforcement stays in the <b style="color:var(--text);font-style:normal;font-weight:600;">harness</b>. Mesh is not inside Task-Spec. Linear is the board, not the judge.</span>
       </div>
     </div>
@@ -3345,7 +3347,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
             <li class="wkr" style="--wk-c:var(--green);opacity:0.9;"><span class="wkr-d">02</span><div class="wkr-body"><div class="wkr-seat">Hands-On <b>A</b> · Execute 01</div><div class="wkr-job">landing → Gold → golden-match → packet · keep 173.44</div></div></li>
             <li class="wkr" style="--wk-c:var(--accent);opacity:0.84;"><span class="wkr-d">03</span><div class="wkr-body"><div class="wkr-seat">Hands-On <b>B</b> · Execute 02</div><div class="wkr-job">settled vs queued · this plant&rsquo;s seams · file is truth</div></div></li>
             <li class="wkr" style="--wk-c:var(--silver);opacity:0.78;"><span class="wkr-d">04</span><div class="wkr-body"><div class="wkr-seat">Hands-On <b>C</b> · Execute 03</div><div class="wkr-job">eight unsigned leaves · four Type 05 packets · no modern 02–05</div></div></li>
-            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.72;"><span class="wkr-d">05</span><div class="wkr-body"><div class="wkr-seat">Hands-On <b>D</b> · Execute 04</div><div class="wkr-job">replay Type 01 Gold from landing · Dagster skip</div></div></li>
+            <li class="wkr" style="--wk-c:var(--cyan);opacity:0.72;"><span class="wkr-d">05</span><div class="wkr-body"><div class="wkr-seat">Hands-On <b>D</b> · Execute 04</div><div class="wkr-job">replay Gold from landing · DuckDB · dbt · six Dagster assets</div></div></li>
           </ul>
         </div>
       </div>
@@ -3388,7 +3390,7 @@ body.anim-ready .slide--silent .reveal.in > *, body.anim-ready .slide--title .re
             <div style="margin-top:clamp(10px,1.6vh,14px);display:flex;flex-direction:column;">
               <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:clamp(7px,1.1vh,10px) 0;border-top:1px solid rgba(255,255,255,0.08);"><span style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.15vw,15.5px);line-height:1.35;color:var(--text-dim);"><span style="font-family:var(--font-mono);font-size:0.9em;color:var(--silver-bright);">modern/…/types/</span> holds <b style="color:var(--text);font-weight:600;">01-card-settlement only</b>. No 02–05 packages.</span><span style="font-family:var(--font-mono);font-size:9px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-mute);">leaves queued</span></div>
               <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:clamp(7px,1.1vh,10px) 0;border-top:1px solid rgba(255,255,255,0.08);"><span style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.15vw,15.5px);line-height:1.35;color:var(--text-dim);">Eight <span style="font-family:var(--font-mono);font-size:0.9em;color:var(--silver-bright);">T-20260827-*</span> leaves and the Type 01 emit / dlt / B / S / G / match leaves — <b style="color:var(--text);font-weight:600;">signed_off: false</b>.</span><span style="font-family:var(--font-mono);font-size:9px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-mute);">not cranked</span></div>
-              <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:clamp(7px,1.1vh,10px) 0;border-top:1px solid rgba(255,255,255,0.08);"><span style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.15vw,15.5px);line-height:1.35;color:var(--text-dim);">Dagster <b style="color:var(--text);font-weight:600;">not up</b>. Hash skipped Thursday, skipped again tonight. ADR 0012: lineage, not parser.</span><span style="font-family:var(--font-mono);font-size:9px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-mute);">skip</span></div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:clamp(7px,1.1vh,10px) 0;border-top:1px solid rgba(255,255,255,0.08);"><span style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.15vw,15.5px);line-height:1.35;color:var(--text-dim);">Dagster was <b style="color:var(--text);font-weight:600;">not up</b> Thursday, so the hash was skipped. It is up tonight, in its own environment. ADR 0012 holds: lineage, not parser.</span><span style="font-family:var(--font-mono);font-size:9px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-mute);">skip</span></div>
               <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:clamp(7px,1.1vh,10px) 0;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-family:var(--font-editorial);font-size:clamp(12.5px,1.15vw,15.5px);line-height:1.35;color:var(--text-dim);">Linear.com may be empty. <b style="color:var(--text);font-weight:600;">The file is the queue.</b> Do not recut the night for it.</span><span style="font-family:var(--font-mono);font-size:9px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-mute);">allowed</span></div>
             </div>
           </article>
@@ -3534,7 +3536,7 @@ fee = amount × rate
         <div>
           <div class="hs-slice">
             <span class="hs-chip" style="--sc:var(--green);">slice a · recap</span>
-            <span class="hs-range">beat 01 · Recap &amp; Trail Type 01 · disk, not Dagster</span>
+            <span class="hs-range">beat 01 · Recap &amp; Trail Type 01 · disk, nothing rebuilt</span>
           </div>
           <h2 class="slide__heading" style="font-size:clamp(30px,4.6vw,58px);">Landing. Gold. Golden-match. <span class="gradient-green">Packet.</span></h2>
           <p class="slide__body" style="max-width:74ch;">One look at Thursday&rsquo;s disk through your own agent. Name five paths or say MISSING. <b>Keep 173.44.</b> Do not <code>make run TYPE=01</code> if recon already says MATCHED 173.45.</p>
@@ -3562,8 +3564,8 @@ fee = amount × rate
         </div></div>
       </div>
       <div class="slice-lookup">
-        <div class="callout green"><div class="co-kicker">look up when</div><div class="co-body">All five named, or gaps named. Landing · Gold MATCHED 173.45 · both questions true · loop packet · <b>173.44 kept</b>. Dagster not started.</div></div>
-        <div class="callout red"><div class="co-kicker">do not</div><div class="co-body">Change any file. Generate 02–05. Recut any sign. Stand up Dagster. Share Compose port <b>2222</b>. Re-run <code>valid-minimal</code> when recon is already MATCHED.</div></div>
+        <div class="callout green"><div class="co-kicker">look up when</div><div class="co-body">All five named, or gaps named. Landing · Gold MATCHED 173.45 · both questions true · loop packet · <b>173.44 kept</b>. Nothing rebuilt on this tile.</div></div>
+        <div class="callout red"><div class="co-kicker">do not</div><div class="co-body">Change any file. Generate 02–05. Recut any sign. Materialise Dagster here — that is board D. Share Compose port <b>2222</b>. Re-run <code>valid-minimal</code> when recon is already MATCHED.</div></div>
       </div>
     </div>
   </section>
@@ -3663,10 +3665,10 @@ fee = amount × rate
         <div>
           <div class="hs-slice">
             <span class="hs-chip" style="--sc:var(--cyan);">slice d · smoke</span>
-            <span class="hs-range">beat 04 · Pipeline Smoke Test · Type 01 from landing · Dagster skip</span>
+            <span class="hs-range">beat 04 · Pipeline Smoke Test · DuckDB · dbt · Dagster</span>
           </div>
           <h2 class="slide__heading" style="font-size:clamp(30px,4.6vw,58px);">Rebuild Gold from landing. <span class="gradient-cyan">Both questions still true.</span></h2>
-          <p class="slide__body" style="max-width:74ch;">Smoke the pipeline that exists before the factory gets a new one. Landing is present, dlt registers only, Gold rebuilds, golden-match still both true. <b>Dagster is lineage, not a parser (ADR 0012) — skip the hash again.</b></p>
+          <p class="slide__body" style="max-width:74ch;">Smoke the pipeline that exists before the factory gets a new one. Landing is present, dlt registers only, Gold rebuilds, golden-match still both true. <b>Dagster is lineage, not a parser (ADR 0012)</b> — it materialises the graph and records the hash; it never parses.</p>
         </div>
         <span class="hs-run"><b>run/d5/</b> · 04</span>
       </div>
@@ -3686,16 +3688,92 @@ fee = amount × rate
         <div class="req" style="--rq-c:var(--gold);"><div class="req-inner">
           <div class="req-idx">04 · 4–6</div>
           <div class="req-name">Referee · packet · skip</div>
-          <div class="req-note"><code>golden-match.json</code> both true. Loop packet still: eval exit 0 · accepted · Dagster skip. If Dagster is not running, <b>say so</b> and skip the Gold-hash compare. Parser stays in <code>…/01-card-settlement/parser.py</code>.</div>
+          <div class="req-note"><code>golden-match.json</code> both true. Loop packet still: eval exit 0 · accepted. Then materialise the lineage — <b>six assets</b>, gold hash recorded. If Dagster will not come up, <b>say so</b> and skip the hash. Parser stays in <code>…/01-card-settlement/parser.py</code>.</div>
           <div class="req-proof">proof · <b>both true · skip named</b></div>
         </div></div>
       </div>
       <div class="slice-lookup">
-        <div class="callout cyan"><div class="co-kicker">look up when</div><div class="co-body">Landing present. Gold MATCHED 173.45, from disk or after replay. Both questions true. Dagster skipped if not up. <b>Parser path unchanged.</b></div></div>
-        <div class="callout red"><div class="co-kicker">do not</div><div class="co-body">Recut <code>consensus.md</code> or <code>consensus-lakehouse.md</code>. Rewrite <code>golden_match.py</code>. Stand up Dagster. Write FastAPI. Generate any type. Replay red → <b>do not patch Java</b>; name the gap.</div></div>
+        <div class="callout cyan"><div class="co-kicker">look up when</div><div class="co-body">Landing present. Gold MATCHED 173.45, from disk or after replay. Both questions true. Six Dagster assets materialised, or the outage named. <b>Parser path unchanged.</b></div></div>
+        <div class="callout red"><div class="co-kicker">do not</div><div class="co-body">Recut <code>consensus.md</code> or <code>consensus-lakehouse.md</code>. Rewrite <code>golden_match.py</code>. Move parsing into an asset. Write FastAPI. Generate any type. Replay red → <b>do not patch Java</b>; name the gap.</div></div>
       </div>
     </div>
   </section>
+
+  <!-- F07 · THE PROOFS — DuckDB · dbt · Dagster · one command · run/d5/00 -->
+  <section class="slide" data-act="FLOOR" data-act-name="The proofs" data-accent="cyan"
+           style="justify-content:center;">
+    <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
+    <div class="reveal" style="position:relative;z-index:2;width:100%;max-width:1720px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;">
+        <div>
+          <span class="tag" style="--tag-c:var(--cyan);">Show · what you open · one command runs all of it</span>
+          <h2 class="h2" style="margin-top:clamp(9px,1.5vh,15px);font-size:clamp(30px,4.2vw,56px);">
+            Do not take my word. <span class="gradient-cyan">Open the four.</span>
+          </h2>
+          <p class="lede" style="max-width:80ch;margin-top:clamp(10px,1.7vh,17px);">
+            <span style="font-family:var(--font-mono);font-size:0.9em;color:var(--silver-bright);">modern/scripts/night_e2e.sh</span> runs the plant end to end and prints each proof as it lands.
+            <b>Eight steps, exit 0.</b> Everything below is a thing you can query yourself afterwards.
+          </p>
+        </div>
+        <span class="hs-run"><b>run/d5/</b> · 00</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.3vw,20px);margin-top:clamp(16px,2.6vh,28px);align-items:stretch;">
+
+        <article style="position:relative;overflow:hidden;border-radius:18px;padding:clamp(14px,2.2vh,22px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 13%,transparent),rgba(17,17,20,0.7) 42%,rgba(8,8,10,0.88));border:1px solid color-mix(in srgb,var(--gold) 32%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 30px 60px -36px rgba(0,0,0,0.9);">
+          <span aria-hidden="true" style="position:absolute;top:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,transparent,var(--gold) 35%,var(--gold) 65%,transparent);"></span>
+          <span class="tag" style="--tag-c:var(--gold);align-self:flex-start;">1 · legacy</span>
+          <div style="font-family:var(--font-display);font-size:clamp(19px,1.85vw,27px);line-height:1;color:var(--text);margin-top:clamp(10px,1.6vh,14px);">PostgreSQL</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.1vw,15px);line-height:1.4;color:var(--text-dim);margin-top:8px;">The plant that already works — the referee&rsquo;s input, never modified.</p>
+          <div style="margin-top:auto;padding-top:clamp(10px,1.6vh,14px);font-family:var(--font-mono);font-size:clamp(9px,0.8vw,11px);line-height:1.5;color:var(--silver-bright);word-break:break-all;">evidence/B…001/<br>reconciliation.json<br><b style="color:var(--green);">MATCHED 173.45</b></div>
+        </article>
+
+        <article style="position:relative;overflow:hidden;border-radius:18px;padding:clamp(14px,2.2vh,22px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--cyan) 13%,transparent),rgba(17,17,20,0.7) 42%,rgba(8,8,10,0.88));border:1px solid color-mix(in srgb,var(--cyan) 32%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 30px 60px -36px rgba(0,0,0,0.9);">
+          <span aria-hidden="true" style="position:absolute;top:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan) 35%,var(--cyan) 65%,transparent);"></span>
+          <span class="tag" style="--tag-c:var(--cyan);align-self:flex-start;">2 · lakehouse</span>
+          <div style="font-family:var(--font-display);font-size:clamp(19px,1.85vw,27px);line-height:1;color:var(--text);margin-top:clamp(10px,1.6vh,14px);">DuckDB</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.1vw,15px);line-height:1.4;color:var(--text-dim);margin-top:8px;">landing 2 · bronze 2 · silver 2 · <b style="color:var(--text);font-weight:600;">gold 1</b>. Query it live.</p>
+          <div style="margin-top:auto;padding-top:clamp(10px,1.6vh,14px);font-family:var(--font-mono);font-size:clamp(9px,0.8vw,11px);line-height:1.5;color:var(--silver-bright);word-break:break-all;">ducklake/<br>northwind_modern.duckdb<br><b style="color:var(--green);">173.45 MATCHED</b></div>
+        </article>
+
+        <article style="position:relative;overflow:hidden;border-radius:18px;padding:clamp(14px,2.2vh,22px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--green) 13%,transparent),rgba(17,17,20,0.7) 42%,rgba(8,8,10,0.88));border:1px solid color-mix(in srgb,var(--green) 32%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 30px 60px -36px rgba(0,0,0,0.9);">
+          <span aria-hidden="true" style="position:absolute;top:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,transparent,var(--green) 35%,var(--green) 65%,transparent);"></span>
+          <span class="tag" style="--tag-c:var(--green);align-self:flex-start;">3 · transform</span>
+          <div style="font-family:var(--font-display);font-size:clamp(19px,1.85vw,27px);line-height:1;color:var(--text);margin-top:clamp(10px,1.6vh,14px);">dbt</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.1vw,15px);line-height:1.4;color:var(--text-dim);margin-top:8px;">Grains, privacy assertions, and the no-unexplained-delta release gate.</p>
+          <div style="margin-top:auto;padding-top:clamp(10px,1.6vh,14px);font-family:var(--font-mono);font-size:clamp(9px,0.8vw,11px);line-height:1.5;color:var(--silver-bright);word-break:break-all;">dbt run + test<br>tag:type_01<br><b style="color:var(--green);">PASS=27 ERROR=0</b></div>
+        </article>
+
+        <article style="position:relative;overflow:hidden;border-radius:18px;padding:clamp(14px,2.2vh,22px) clamp(14px,1.4vw,20px);display:flex;flex-direction:column;background:linear-gradient(160deg,color-mix(in srgb,var(--purple) 13%,transparent),rgba(17,17,20,0.7) 42%,rgba(8,8,10,0.88));border:1px solid color-mix(in srgb,var(--purple) 32%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,0.07),0 30px 60px -36px rgba(0,0,0,0.9);">
+          <span aria-hidden="true" style="position:absolute;top:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,transparent,var(--purple) 35%,var(--purple) 65%,transparent);"></span>
+          <span class="tag" style="--tag-c:var(--purple);align-self:flex-start;">4 · lineage</span>
+          <div style="font-family:var(--font-display);font-size:clamp(19px,1.85vw,27px);line-height:1;color:var(--text);margin-top:clamp(10px,1.6vh,14px);">Dagster</div>
+          <p style="font-family:var(--font-editorial);font-size:clamp(12px,1.1vw,15px);line-height:1.4;color:var(--text-dim);margin-top:8px;">Six assets across the three seams. <b style="color:var(--text);font-weight:600;">It shells out</b> — it owns no money rule.</p>
+          <div style="margin-top:auto;padding-top:clamp(10px,1.6vh,14px);font-family:var(--font-mono);font-size:clamp(9px,0.8vw,11px);line-height:1.5;color:var(--silver-bright);word-break:break-all;">dagster dev<br>-m definitions<br><b style="color:var(--green);">6 materialized</b></div>
+        </article>
+      </div>
+
+      <div style="margin-top:clamp(14px,2.2vh,22px);padding:clamp(12px,1.8vh,18px) clamp(16px,1.6vw,24px);border-radius:14px;border:1px solid var(--border);background:#060608;">
+        <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2px;text-transform:uppercase;color:var(--purple);">the lineage graph · three seams, six assets</span>
+        <div style="margin-top:clamp(9px,1.4vh,13px);display:flex;align-items:center;gap:clamp(6px,0.8vw,12px);flex-wrap:wrap;font-family:var(--font-mono);font-size:clamp(9.5px,0.85vw,12px);color:var(--text-dim);">
+          <span style="color:var(--gold);">legacy_ground_truth</span><span style="color:var(--text-mute);">╮</span>
+          <span style="color:var(--cyan);">landing_parquet</span><span style="color:var(--text-mute);">→</span>
+          <span style="color:var(--cyan);">lakehouse_registered</span><span style="color:var(--text-mute);">→</span>
+          <span style="color:var(--green);">gold_reconciliation</span><span style="color:var(--text-mute);">→</span>
+          <span style="color:var(--purple);">golden_match_verdict</span><span style="color:var(--text-mute);">→</span>
+          <span style="color:var(--purple);">gold_hash</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:clamp(10px,1.15vw,17px);margin-top:clamp(14px,2.2vh,22px);padding-top:clamp(12px,1.9vh,18px);border-top:1px solid var(--rule);">
+        <span class="tag" style="--tag-c:var(--cyan);">night_e2e.sh · exit 0</span>
+        <span class="tag" style="--tag-c:var(--purple);">ADR 0012 · lineage, not parser</span>
+        <span class="tag" style="--tag-c:var(--red);">its own venv · never moves pyarrow 25</span>
+        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Thursday skipped the gold hash because Dagster was down. <b style="color:var(--text);font-style:normal;font-weight:600;">Tonight it is recorded.</b></span>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ═══════════════ DIG · the factory ═══════════════ -->
 
@@ -3912,7 +3990,7 @@ fee = amount × rate
         <div class="req" style="--rq-c:var(--green);--rq-halo:color-mix(in srgb,var(--green) 16%,transparent);"><div class="req-inner" style="min-height:clamp(120px,17vh,170px);">
           <div class="req-idx" style="color:var(--green);">04 · smoked</div>
           <div class="req-name">Type 01 from landing</div>
-          <div class="req-note">Gold MATCHED 173.45, both questions true. Dagster <b>skipped</b>, said out loud. Parser never moved into the orchestrator.</div>
+          <div class="req-note">Gold MATCHED 173.45, both questions true. <b>Six Dagster assets</b> materialised. Parser never moved into the orchestrator.</div>
           <div class="req-proof">proof · <b>ADR 0012 held</b></div>
         </div></div>
         <div class="req" style="--rq-c:var(--red);--rq-halo:color-mix(in srgb,var(--red) 16%,transparent);"><div class="req-inner" style="min-height:clamp(120px,17vh,170px);">
@@ -3936,7 +4014,7 @@ fee = amount × rate
 
       <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:clamp(11px,1.2vw,18px);margin-top:clamp(12px,1.9vh,18px);padding-top:clamp(11px,1.7vh,16px);border-top:1px solid var(--rule);">
         <span style="font-family:var(--font-mono);font-size:clamp(8.5px,0.78vw,10px);letter-spacing:2.4px;text-transform:uppercase;color:var(--text-mute);">still untouched</span>
-        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);"><code>legacy/</code> frozen. <code>expected/</code> never rewritten. <code>golden_match.py</code> not weakened. <b style="color:var(--text);font-style:normal;font-weight:600;">173.44</b> classified, not repaired. Tue and Wed signs not recut. Dagster not stood up to look busy. The notebook still 01–05.</span>
+        <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);"><code>legacy/</code> frozen. <code>expected/</code> never rewritten. <code>golden_match.py</code> not weakened. <b style="color:var(--text);font-style:normal;font-weight:600;">173.44</b> classified, not repaired. Tue and Wed signs not recut. Dagster stayed lineage, never a parser. The notebook still 01–05.</span>
       </div>
     </div>
   </section>
