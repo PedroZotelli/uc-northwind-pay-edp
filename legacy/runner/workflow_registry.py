@@ -89,6 +89,21 @@ from type05_oracle import (
     compare_rejection as compare_type05_rejection,
     compare_sanitized_before_posting as compare_type05_sanitized,
 )
+from type06_loader import (
+    PreparedType06Load,
+    commit_type06_batch,
+    prepare_type06_sanitized_batch,
+    read_type06_committed_batch,
+)
+from type06_oracle import (
+    EXPECTED_REJECTION as TYPE06_EXPECTED_REJECTION,
+)
+from type06_oracle import (
+    Type06OracleMismatchError,
+    compare_post_db_reconciliation as compare_type06_post_db,
+    compare_rejection as compare_type06_rejection,
+    compare_sanitized_before_posting as compare_type06_sanitized,
+)
 
 
 class OracleResultLike(Protocol):
@@ -1938,11 +1953,361 @@ class Type05WorkflowAdapter(WorkflowAdapter):
         return value
 
 
+class Type06WorkflowAdapter(WorkflowAdapter):
+    """Type 06 orchestration with aggregate-only privacy-safe evidence."""
+
+    type_number = "06"
+    display_name = "Type 06"
+    scenario_batch_ids = MappingProxyType(
+        {
+            "valid-minimal": "B202607230000501",
+            "valid-boundary": "B200002290000502",
+            "malformed": "B202607230000503",
+            "legacy-miss": "B202607230000504",
+        }
+    )
+    expected_rejection = TYPE06_EXPECTED_REJECTION
+    oracle_error = Type06OracleMismatchError
+    pass_type_to_java = True
+    receipt_requires_type = True
+
+    def prepare(
+        self,
+        batch_id: str,
+        *,
+        raw: PublishedRaw,
+        configuration: RuntimeConfiguration,
+    ) -> PreparedType06Load:
+        return prepare_type06_sanitized_batch(
+            batch_id,
+            raw=raw,
+            configuration=configuration,
+        )
+
+    def commit(
+        self,
+        prepared: object,
+        *,
+        raw: PublishedRaw,
+        configuration: RuntimeConfiguration,
+        reconciliation_validator: Callable[[Mapping[str, object]], object],
+    ) -> LoadResult:
+        if not isinstance(prepared, PreparedType06Load):
+            raise TypeError("Type 06 workflow received another prepared type")
+        return commit_type06_batch(
+            prepared,
+            raw=raw,
+            configuration=configuration,
+            reconciliation_validator=reconciliation_validator,
+        )
+
+    def recover(
+        self,
+        batch_id: str,
+        *,
+        raw: PublishedRaw,
+        configuration: RuntimeConfiguration,
+    ) -> LoadResult:
+        return read_type06_committed_batch(
+            batch_id,
+            raw=raw,
+            configuration=configuration,
+        )
+
+    @staticmethod
+    def _observation(
+        *,
+        batch_id: str,
+        csv_sha256: str,
+        row_count: object,
+        original_amount: object,
+        chargeback_amount: object,
+        calculated_amount: object,
+    ) -> Mapping[str, object]:
+        return {
+            "batch_id": batch_id,
+            "calculated_amount": calculated_amount,
+            "chargeback_amount": chargeback_amount,
+            "csv_sha256": csv_sha256,
+            "original_amount": original_amount,
+            "row_count": row_count,
+            "status": "succeeded",
+        }
+
+    def prepared_observation(
+        self,
+        prepared: object,
+    ) -> Mapping[str, object]:
+        if not isinstance(prepared, PreparedType06Load):
+            raise TypeError("Type 06 workflow received another prepared type")
+        controls = prepared.stage_controls
+        return self._observation(
+            batch_id=prepared.batch_id,
+            csv_sha256=prepared.csv_sha256,
+            row_count=controls["row_count"],
+            original_amount=controls["original_amount"],
+            chargeback_amount=controls["chargeback_amount"],
+            calculated_amount=controls["calculated_amount"],
+        )
+
+    def load_observation(
+        self,
+        load: LoadResult,
+    ) -> Mapping[str, object]:
+        reconciliation = load.reconciliation
+        return self._observation(
+            batch_id=load.batch_id,
+            csv_sha256=load.csv_sha256,
+            row_count=reconciliation.get("staged_count"),
+            original_amount=reconciliation.get("staged_original_amount"),
+            chargeback_amount=reconciliation.get("staged_chargeback_amount"),
+            calculated_amount=reconciliation.get("staged_calculated_amount"),
+        )
+
+    def compare_sanitized(
+        self,
+        scenario: str | None,
+        *,
+        batch_id: str,
+        observation: Mapping[str, object],
+    ) -> OracleResultLike:
+        return cast(
+            OracleResultLike,
+            compare_type06_sanitized(
+                scenario,
+                batch_id=batch_id,
+                java_result=observation,
+            ),
+        )
+
+    def compare_post_db(
+        self,
+        scenario: str | None,
+        *,
+        reconciliation: Mapping[str, object],
+    ) -> OracleResultLike:
+        return cast(
+            OracleResultLike,
+            compare_type06_post_db(
+                scenario,
+                reconciliation=reconciliation,
+            ),
+        )
+
+    def compare_rejection(
+        self,
+        scenario: str | None,
+        *,
+        batch_id: str,
+        java_result: Mapping[str, object],
+    ) -> OracleResultLike:
+        return cast(
+            OracleResultLike,
+            compare_type06_rejection(
+                scenario,
+                batch_id=batch_id,
+                java_result=java_result,
+            ),
+        )
+
+    @staticmethod
+    def _rejection_control_fields() -> tuple[str, ...]:
+        return (
+            "computed_calculated_amount",
+            "computed_chargeback_amount",
+            "computed_original_amount",
+            "computed_row_count",
+            "declared_calculated_amount",
+            "declared_chargeback_amount",
+            "declared_original_amount",
+            "declared_row_count",
+        )
+
+    def rejection_diagnostic(
+        self,
+        java_result: Mapping[str, object],
+        *,
+        code: str,
+        configuration: RuntimeConfiguration,
+    ) -> dict[str, object]:
+        del configuration
+        if code == "INVALID_CSV_QUOTING":
+            return {
+                "file_type": self.type_number,
+                "reason": code,
+                "status": "not_run",
+            }
+        return {
+            "business_state_committed": False,
+            "file_type": self.type_number,
+            "input": "privacy-safe-java-aggregate-controls",
+            "mode": "source-parser-observation",
+            **{
+                name: java_result.get(name)
+                for name in self._rejection_control_fields()
+            },
+            "status": "completed",
+        }
+
+    def diagnostic_controls(
+        self,
+        java_result: Mapping[str, object],
+    ) -> DiagnosticControls:
+        computed_count = java_result.get("computed_row_count")
+        declared_count = java_result.get("declared_row_count")
+        computed_chargeback = java_result.get("computed_chargeback_amount")
+        declared_chargeback = java_result.get("declared_chargeback_amount")
+        return DiagnosticControls(
+            computed_count=(
+                computed_count
+                if isinstance(computed_count, int)
+                and not isinstance(computed_count, bool)
+                else None
+            ),
+            computed_net_amount=(
+                computed_chargeback
+                if isinstance(computed_chargeback, str)
+                else None
+            ),
+            declared_count=(
+                declared_count
+                if isinstance(declared_count, int)
+                and not isinstance(declared_count, bool)
+                else None
+            ),
+            declared_net_amount=(
+                declared_chargeback
+                if isinstance(declared_chargeback, str)
+                else None
+            ),
+        )
+
+    def java_evidence(
+        self,
+        java_result: Mapping[str, object],
+    ) -> dict[str, object]:
+        safe_fields: tuple[str, ...]
+        if java_result.get("status") == "succeeded":
+            safe_fields = (
+                "batch_id",
+                "calculated_amount",
+                "chargeback_amount",
+                "code",
+                "csv_file",
+                "csv_sha256",
+                "original_amount",
+                "row_count",
+                "status",
+            )
+        else:
+            safe_fields = (
+                "batch_id",
+                "code",
+                *self._rejection_control_fields(),
+                "physical_record_number",
+                "record_number",
+                "status",
+            )
+        return {
+            "file_type": self.type_number,
+            **{name: java_result.get(name) for name in safe_fields},
+        }
+
+    def raw_publication_evidence(
+        self,
+        raw: PublishedRaw,
+        *,
+        status: str,
+    ) -> dict[str, object]:
+        value = super().raw_publication_evidence(raw, status=status)
+        value.update(
+            {
+                "file_type": raw.file_type,
+                "source_controls": dict(raw.source_controls),
+            }
+        )
+        return value
+
+    def raw_intake_evidence(
+        self,
+        raw: PublishedRaw,
+        *,
+        manifest_sha256: str,
+        sha256: str,
+        status: str,
+    ) -> dict[str, object]:
+        value = super().raw_intake_evidence(
+            raw,
+            manifest_sha256=manifest_sha256,
+            sha256=sha256,
+            status=status,
+        )
+        value.update(
+            {
+                "file_type": raw.file_type,
+                "source_controls": dict(raw.source_controls),
+            }
+        )
+        return value
+
+    def postgres_load_evidence(
+        self,
+        load: LoadResult,
+        *,
+        raw: PublishedRaw,
+        status: str,
+    ) -> dict[str, object]:
+        reconciliation = load.reconciliation
+        return {
+            "batch_id": load.batch_id,
+            "csv_sha256": load.csv_sha256,
+            "file_type": raw.file_type,
+            "net_amount": load.net_amount,
+            "row_count": load.row_count,
+            "source_controls": dict(raw.source_controls),
+            "stage_controls": {
+                "calculated_amount": reconciliation.get(
+                    "staged_calculated_amount"
+                ),
+                "chargeback_amount": reconciliation.get(
+                    "staged_chargeback_amount"
+                ),
+                "currency": reconciliation.get("currency"),
+                "original_amount": reconciliation.get(
+                    "staged_original_amount"
+                ),
+                "row_count": reconciliation.get("staged_count"),
+            },
+            "status": status,
+        }
+
+    def final_status_evidence(
+        self,
+        raw: PublishedRaw,
+        *,
+        status: str,
+        code: str | None = None,
+    ) -> dict[str, object]:
+        value = super().final_status_evidence(
+            raw,
+            status=status,
+            code=code,
+        )
+        value.update(
+            {
+                "file_type": raw.file_type,
+                "source_controls": dict(raw.source_controls),
+            }
+        )
+        return value
+
+
 TYPE01_WORKFLOW = Type01WorkflowAdapter()
 TYPE02_WORKFLOW = Type02WorkflowAdapter()
 TYPE03_WORKFLOW = Type03WorkflowAdapter()
 TYPE04_WORKFLOW = Type04WorkflowAdapter()
 TYPE05_WORKFLOW = Type05WorkflowAdapter()
+TYPE06_WORKFLOW = Type06WorkflowAdapter()
 WORKFLOWS: Mapping[str, WorkflowAdapter] = MappingProxyType(
     {
         TYPE01_WORKFLOW.type_number: TYPE01_WORKFLOW,
@@ -1950,6 +2315,7 @@ WORKFLOWS: Mapping[str, WorkflowAdapter] = MappingProxyType(
         TYPE03_WORKFLOW.type_number: TYPE03_WORKFLOW,
         TYPE04_WORKFLOW.type_number: TYPE04_WORKFLOW,
         TYPE05_WORKFLOW.type_number: TYPE05_WORKFLOW,
+        TYPE06_WORKFLOW.type_number: TYPE06_WORKFLOW,
     }
 )
 

@@ -22,10 +22,19 @@
     },
     "file_type": {
       "type": "object",
-      "required": ["number"],
+      "required": [
+        "number"
+      ],
       "properties": {
         "number": {
-          "enum": ["01", "02", "03", "04", "05"]
+          "enum": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06"
+          ]
         }
       }
     },
@@ -184,6 +193,35 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "file_type": {
+            "properties": {
+              "number": {
+                "const": "06"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "csv_file": {
+            "$ref": "#/$defs/type06CsvFile"
+          },
+          "file_type": {
+            "$ref": "#/$defs/type06FileType"
+          },
+          "source_lineage": {
+            "$ref": "#/$defs/type06SourceLineage"
+          },
+          "stage_controls": {
+            "$ref": "#/$defs/type06StageControls"
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -216,7 +254,11 @@
     "type01SourceLineage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manifest_sha256", "raw_file", "raw_sha256"],
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
       "properties": {
         "manifest_sha256": {
           "$ref": "#/$defs/sha256"
@@ -233,7 +275,11 @@
     "type02SourceLineage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manifest_sha256", "raw_file", "raw_sha256"],
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
       "properties": {
         "manifest_sha256": {
           "$ref": "#/$defs/sha256"
@@ -250,7 +296,13 @@
     "type01CsvFile": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["encoding", "name", "row_count", "sha256", "size_bytes"],
+      "required": [
+        "encoding",
+        "name",
+        "row_count",
+        "sha256",
+        "size_bytes"
+      ],
       "properties": {
         "encoding": {
           "const": "UTF-8"
@@ -275,7 +327,12 @@
     "type01FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "CRD_SETTLE01"
@@ -294,7 +351,11 @@
     "type01StageControls": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["currency", "net_amount", "row_count"],
+      "required": [
+        "currency",
+        "net_amount",
+        "row_count"
+      ],
       "properties": {
         "currency": {
           "const": "BRL"
@@ -311,7 +372,13 @@
     "type02CsvFile": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["encoding", "name", "row_count", "sha256", "size_bytes"],
+      "required": [
+        "encoding",
+        "name",
+        "row_count",
+        "sha256",
+        "size_bytes"
+      ],
       "properties": {
         "encoding": {
           "const": "UTF-8"
@@ -338,7 +405,12 @@
     "type02FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "PIX_EVENTS01"
@@ -393,7 +465,11 @@
     "type03SourceLineage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manifest_sha256", "raw_file", "raw_sha256"],
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
       "properties": {
         "manifest_sha256": {
           "$ref": "#/$defs/sha256"
@@ -410,7 +486,13 @@
     "type03CsvFile": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["encoding", "name", "row_count", "sha256", "size_bytes"],
+      "required": [
+        "encoding",
+        "name",
+        "row_count",
+        "sha256",
+        "size_bytes"
+      ],
       "properties": {
         "encoding": {
           "const": "UTF-8"
@@ -437,7 +519,12 @@
     "type03FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "PAYSLIPSET03"
@@ -503,7 +590,11 @@
     "type04SourceLineage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manifest_sha256", "raw_file", "raw_sha256"],
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
       "properties": {
         "manifest_sha256": {
           "$ref": "#/$defs/sha256"
@@ -520,7 +611,13 @@
     "type04CsvFile": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["encoding", "name", "row_count", "sha256", "size_bytes"],
+      "required": [
+        "encoding",
+        "name",
+        "row_count",
+        "sha256",
+        "size_bytes"
+      ],
       "properties": {
         "encoding": {
           "const": "UTF-8"
@@ -547,7 +644,12 @@
     "type04FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "TED_SETTLE04"
@@ -617,7 +719,11 @@
     "type05SourceLineage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manifest_sha256", "raw_file", "raw_sha256"],
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
       "properties": {
         "manifest_sha256": {
           "$ref": "#/$defs/sha256"
@@ -671,7 +777,12 @@
     "type05FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "MER_FEESET05"
@@ -708,6 +819,127 @@
           "const": "BRL"
         },
         "gross_amount": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/canonicalUnsignedMoney"
+            },
+            {
+              "not": {
+                "const": "0.00"
+              }
+            }
+          ]
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "type06SourceLineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_sha256",
+        "raw_file",
+        "raw_sha256"
+      ],
+      "properties": {
+        "manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "raw_file": {
+          "type": "string",
+          "pattern": "^NW_MERCHANT_CHARGEBACK_[0-9]{8}_B[0-9]{15}\\.csv$"
+        },
+        "raw_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "type06CsvFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encoding",
+        "name",
+        "row_count",
+        "sha256",
+        "size_bytes",
+        "unicode_normalization"
+      ],
+      "properties": {
+        "encoding": {
+          "const": "UTF-8"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^NW_MERCHANT_CHARGEBACK_[0-9]{8}_B[0-9]{15}_SANITIZED\\.csv$"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000000
+        },
+        "unicode_normalization": {
+          "const": "NFC"
+        }
+      }
+    },
+    "type06FileType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
+      "properties": {
+        "code": {
+          "const": "MER_CHGBK06"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "layout_version": {
+          "const": "001"
+        },
+        "number": {
+          "const": "06"
+        }
+      }
+    },
+    "type06StageControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calculated_amount",
+        "chargeback_amount",
+        "currency",
+        "original_amount",
+        "row_count"
+      ],
+      "properties": {
+        "calculated_amount": {
+          "$ref": "#/$defs/canonicalUnsignedMoney"
+        },
+        "chargeback_amount": {
+          "$ref": "#/$defs/canonicalUnsignedMoney"
+        },
+        "currency": {
+          "const": "BRL"
+        },
+        "original_amount": {
           "allOf": [
             {
               "$ref": "#/$defs/canonicalUnsignedMoney"

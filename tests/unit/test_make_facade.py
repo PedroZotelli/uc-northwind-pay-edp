@@ -61,7 +61,7 @@ class MakeFacadeTest(unittest.TestCase):
             "clean-runtime",
         ):
             self.assertRegex(result.stdout, rf"(?m)^  {target}\s")
-        self.assertIn("TYPE=01|02|03|04|05|all", result.stdout)
+        self.assertIn("TYPE=01|02|03|04|05|06|all", result.stdout)
         self.assertIn("POLL_INTERVAL=secs", result.stdout)
         self.assertIn("MAX_BATCHES=count", result.stdout)
         self.assertIn("BATCH and BUNDLE are mutually exclusive.", result.stdout)
@@ -119,7 +119,7 @@ class MakeFacadeTest(unittest.TestCase):
     def test_all_five_types_use_generic_generation_and_runner_entrypoints(
         self,
     ) -> None:
-        for type_number in ("01", "02", "03", "04", "05"):
+        for type_number in ("01", "02", "03", "04", "05", "06"):
             with self.subTest(type_number=type_number):
                 generation = run_make(
                     "-n",
@@ -187,9 +187,9 @@ class MakeFacadeTest(unittest.TestCase):
         )
 
         self.assertEqual(generation.returncode, 0)
-        self.assertIn("for type_number in 01 02 03 04 05", generation.stdout)
+        self.assertIn("for type_number in 01 02 03 04 05 06", generation.stdout)
         self.assertEqual(scenario.returncode, 0)
-        self.assertIn("for type_number in 01 02 03 04 05", scenario.stdout)
+        self.assertIn("for type_number in 01 02 03 04 05 06", scenario.stdout)
         self.assertEqual(acceptance.returncode, 0)
         self.assertIn(
             "run_type${type_number}_suite.py",

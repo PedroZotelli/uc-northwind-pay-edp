@@ -93,6 +93,7 @@ def publish(
             if existing.is_file() and existing.read_text(encoding="ascii").split()[0] == digest:
                 shutil.rmtree(staging, ignore_errors=True)
                 return {"parquet_sha256": digest, "status": "already_published"}
+            shutil.rmtree(staging, ignore_errors=True)
             raise PublicationError(
                 "a different Parquet publication already exists for this batch"
             )

@@ -166,6 +166,40 @@ public final class ProcessorResult {
     }
 
     /**
+     * Builds a Type 06 success result from independently computed
+     * chargeback controls.
+     *
+     * @param batchId controlled batch identifier
+     * @param csvFile controlled sanitized filename
+     * @param csvSha256 lowercase CSV SHA-256
+     * @param rowCount total chargeback rows
+     * @param originalAmount canonical original-amount sum
+     * @param chargebackAmount canonical chargeback-amount sum
+     * @param calculatedAmount canonical independently calculated sum
+     * @return immutable aggregate-only result
+     */
+    public static ProcessorResult type06Succeeded(
+            String batchId,
+            String csvFile,
+            String csvSha256,
+            int rowCount,
+            String originalAmount,
+            String chargebackAmount,
+            String calculatedAmount) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("batch_id", batchId);
+        result.put("calculated_amount", calculatedAmount);
+        result.put("chargeback_amount", chargebackAmount);
+        result.put("code", null);
+        result.put("csv_file", csvFile);
+        result.put("csv_sha256", csvSha256);
+        result.put("original_amount", originalAmount);
+        result.put("row_count", rowCount);
+        result.put("status", "succeeded");
+        return new ProcessorResult(result);
+    }
+
+    /**
      * Builds the original Type 01 rejection result.
      */
     public static ProcessorResult type01Rejected(
@@ -193,6 +227,9 @@ public final class ProcessorResult {
             String batchId,
             String typeNumber,
             ProcessorException exception) {
+        if ("06".equals(typeNumber)) {
+            return type06Rejected(batchId, exception);
+        }
         if ("05".equals(typeNumber)) {
             return type05Rejected(batchId, exception);
         }
@@ -355,6 +392,42 @@ public final class ProcessorResult {
                 exception.declaredCalculatedFee());
         result.put(
                 "declared_gross_amount",
+                exception.declaredGrossAmount());
+        result.put(
+                "declared_row_count",
+                exception.declaredRowCount());
+        result.put("record_number", exception.recordNumber());
+        result.put("status", "rejected");
+        return new ProcessorResult(
+                exception.redactDiagnosticResult(result));
+    }
+
+    private static ProcessorResult type06Rejected(
+            String batchId,
+            ProcessorException exception) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("batch_id", batchId);
+        result.put("code", exception.code());
+        result.put(
+                "computed_calculated_amount",
+                exception.computedCalculatedFee());
+        result.put(
+                "computed_chargeback_amount",
+                exception.computedAssessedFee());
+        result.put(
+                "computed_original_amount",
+                exception.computedGrossAmount());
+        result.put(
+                "computed_row_count",
+                exception.computedRowCount());
+        result.put(
+                "declared_calculated_amount",
+                exception.declaredCalculatedFee());
+        result.put(
+                "declared_chargeback_amount",
+                exception.declaredAssessedFee());
+        result.put(
+                "declared_original_amount",
                 exception.declaredGrossAmount());
         result.put(
                 "declared_row_count",

@@ -26,7 +26,25 @@ ontology/output/
 
 # agent tooling (local, not repo content)
 .agents/
-.claude/
+.claude/*
 .grok/
 skills-lock.json
 *.egg-info/
+
+# Dagster runs in its own environment so it can never move the pyarrow that
+# wrote landing. The environment is local; its pinned requirements are tracked.
+modern/orchestration/.venv/
+modern/orchestration/.dagster_home/
+
+# .claude/* is local by default, but the repo's own skills ship with the repo.
+!.claude/skills/
+.claude/skills/find-skills
+
+# Ebook build artifacts and the rendered PDFs. ebook-task-spec.pdf reached
+# 111.9 MB, past GitHub's 100 MB hard limit, and blocked every push. The books
+# are built from source; they do not belong in git.
+ebooks/.trv-build/
+ebooks/brief-spec-trv/
+ebooks/ebook-task-spec.pdf
+ebooks/build/
+ebooks/*-trv.pdf

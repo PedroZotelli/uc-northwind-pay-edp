@@ -14,6 +14,7 @@ procedures, operational legacy tables, and reconciliation reporting.
 | `type03_loader.py` | Type 03 payment-slip-settlement loading |
 | `type04_loader.py` | Type 04 TED-transfer-settlement loading |
 | `type05_loader.py` | Type 05 merchant-fee-assessment loading |
+| `type06_loader.py` | Type 06 merchant-chargeback loading |
 
 The common module does not own a business layout. Each numbered loader owns
 the parsing and PostgreSQL behavior for exactly one file type.
@@ -61,13 +62,13 @@ MIGRATION_NAME = re.compile(r"^(?P<version>[0-9]{3})_[a-z0-9_]+\.sql$")
 MIGRATION_DIRECTORIES = ("migrations", "procedures")
 ```
 
-So there are ten migrations, `001`–`010`, and `002` simply lives elsewhere:
+So there are eleven migrations, `001`–`011`, and `002` simply lives elsewhere:
 
 ```text
 001  migrations/001_schemas_and_tables.sql
 002  procedures/002_type01_procedures.sql      ← the apparent gap
 003  migrations/003_multitype_control_plane.sql
-004…010  migrations/
+004…011  migrations/
 ```
 
 `migrations/` looks like it is missing `002` because it is. Nothing is absent

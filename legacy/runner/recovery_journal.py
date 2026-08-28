@@ -409,7 +409,7 @@ def _decode_journal(value: object) -> TerminalRecovery:
         or not isinstance(batch_id, str)
         or BATCH_ID_PATTERN.fullmatch(batch_id) is None
         or not isinstance(file_type, str)
-        or not re.fullmatch(r"0[1-5]", file_type)
+        or not re.fullmatch(r"0[1-6]", file_type)
         or not isinstance(raw_sha256, str)
         or SHA256_PATTERN.fullmatch(raw_sha256) is None
         or not isinstance(manifest_sha256, str)

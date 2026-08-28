@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 
 from checksum import sha256_hex
-from models import GeneratedArtifact, Type03Contract, Type05Contract
+from models import GeneratedArtifact, Type03Contract, Type05Contract, Type06Contract
 
 
 def minor_units_to_string(amount_minor: int) -> str:
@@ -51,7 +51,7 @@ def build_source_manifest(
         source_file["record_length_bytes"] = (
             contract.record_length_bytes
         )
-    if isinstance(contract, Type05Contract):
+    if isinstance(contract, (Type05Contract, Type06Contract)):
         source_file["unicode_normalization"] = (
             contract.unicode_normalization
         )

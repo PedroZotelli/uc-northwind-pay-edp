@@ -10,6 +10,7 @@ COPY contracts/types/02-instant-payment-events /contracts/types/02-instant-payme
 COPY contracts/types/03-payment-slip-settlement /contracts/types/03-payment-slip-settlement
 COPY contracts/types/04-ted-transfer-settlement /contracts/types/04-ted-transfer-settlement
 COPY contracts/types/05-merchant-fee-assessment /contracts/types/05-merchant-fee-assessment
+COPY contracts/types/06-merchant-chargeback /contracts/types/06-merchant-chargeback
 RUN mvn --batch-mode \
     -Dcontract.fixture.root=/contracts/types/01-card-settlement/main \
     -Dcontract.type02.fixture.root=/contracts/types/02-instant-payment-events/main \
