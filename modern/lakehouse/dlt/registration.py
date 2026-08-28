@@ -36,6 +36,7 @@ def landing_files(landing_root: Path, type_number: str) -> list[Path]:
         path
         for path in landing_root.rglob("*.parquet")
         if path.name.startswith(suffix)
+        and not any(part.startswith(".") for part in path.relative_to(landing_root).parts)
     )
 
 

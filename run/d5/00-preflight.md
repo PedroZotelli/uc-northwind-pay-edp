@@ -1,0 +1,49 @@
+# 00 · Pre-flight — prove the spine before the room arrives
+
+- Slide: Factory run (Dig · **Show** · before Execute 05)
+- Slice: **staff only** — not a Hands-On board
+- Who: instructor, alone, before the doors open
+- Next: [`01-recap-type01.md`](01-recap-type01.md)
+
+One command runs the Dark Factory stages for one type and prints **every gate**. It builds
+nothing and edits nothing. It executes what exists, reports what does not, and stalls the type at
+the first gate that refuses. Classification names are imported from
+[`validation/golden-match/golden_match.py`](../../validation/golden-match/golden_match.py) — the referee is never rewritten.
+
+```text
+modern/.venv/bin/python modern/scripts/factory_e2e.py --type 01
+modern/.venv/bin/python modern/scripts/factory_e2e.py --type 06
+```
+
+Use **`modern/.venv`** — it has pyarrow 25, the version that wrote landing. `modern/lakehouse/.venv`
+has pyarrow 22 and will raise `PublicationError`.
+
+## Stages and gates
+
+| Stage | Gate | Type 01 | Type 06 |
+|---|---|---|---|
+| 0 Intake | does the kit ship an oracle? **no eval, no task** | PASS | PASS |
+| 1 Ground truth | legacy ran and the observation is captured | PASS | PASS |
+| 2 Plan | three seams, one owner per handoff | PASS | PASS |
+| 3 Build | five-file package present | PASS | **STALL** — the room builds it |
+| 4 Publish | landing Parquet matches its recorded SHA-256 | PASS | skip |
+| 5 Lakehouse | dlt register-only → Bronze/Silver/Gold | PASS · 173.45 MATCHED | skip |
+| 6 Golden-match | two questions, never netted, one code | PASS | **STALL** |
+
+Exit `0` = accepted. Exit `1` = stalled. A stall is a **success state**: the gate held and the
+difference has a name.
+
+## What pre-flight must show
+
+- Type 01 reaches stage 6 and prints **ACCEPTED**. If it does not, Floor board **D** is at risk —
+  read [`04-pipeline-smoke.md`](04-pipeline-smoke.md).
+- Type 06 stalls at stage 3 (no modern package — correct, that is tonight's work) and question 2
+  answers **NO**: legacy disagrees with the contract. That is the Night's payload and it is real
+  before anyone types.
+
+## Do not
+
+- Do not run `--scenario legacy-miss`. Batch `B202607230000504` has **never** been through legacy;
+  it stalls at stage 1 by design. Keep it virgin for the loop.
+- Do not `ls spec/type-06-merchant-chargeback/samples/` on the projector. One filename spoils the Night.
+- Do not commit `evidence/`. Do not patch `legacy/` to make stage 6 go green.
