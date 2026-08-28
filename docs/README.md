@@ -23,7 +23,7 @@ Do not upload these files into NotebookLM. The brain is inbound only
 | **1** | Archaeologist | BRD + tech-spec (Pass 0–1) | none |
 | **2** | Translator (SWE) | Landing ADRs 0001–0005, **0006 parked**, `seams.md`, ingest **sign**, one parser leaf | parser may exist under `modern/ingestion/`; Parquet **not** required Tuesday |
 | **3** | Constructor (DE + analytics) | Unpark 0006 → ADRs 0007+; seam 2 legs; **`consensus-lakehouse.md`**; Type 01 lakehouse leaves | Type 01 **landing → Gold + golden-match**. Mesh **seed**. Types `02`–`05` **not** tasked |
-| **4** | Orchestrator | Remaining SWE + DE leaves (`02`–`04`, Type `05`, orchestrate). Unpark 0006 rows 8–9 | Trail first, then loop cranks with a **packet**. Linear is the board. Type `05` unattended |
+| **4** | Orchestrator | Remaining SWE + DE leaves (`02`–`04`, Type `05`, orchestrate). Unpark 0006 rows 8–9 as **0012–0013** (0006 stays the park record) | Trail first, then loop cranks with a **packet**. Linear is the board. Type `05` unattended |
 | **5** | Dark Factory | Type `06` papers when that drop arrives | Classify. Do not patch `legacy/` |
 
 **Two nights, two seats, one type** (Tue–Wed). Thursday **walks that trail**, then **generates** the rest and cranks it.
@@ -51,13 +51,15 @@ docs/
   adrs/0003-decimal-never-float.md
   adrs/0004-privacy-dies-at-the-parser.md
   adrs/0005-source-lie-kept-zero-parquet.md
-  adrs/0006-later-nights-parked.md        rows 3–7 unparked as 0007–0011; 8–9 Day 4
+  adrs/0006-later-nights-parked.md        rows 3–7 unparked as 0007–0011; 8–9 as 0012–0013
   adrs/0007-dlt-registers-landing-only.md
   adrs/0008-ducklake-duckdb-is-local.md
   adrs/0009-medallion-grains-and-keys.md
   adrs/0010-rule-split-parser-vs-dbt.md
   adrs/0011-golden-match-keys-two-questions.md
-  seams.md                               seam 1 signed; seam 2 legs tasked
+  adrs/0012-dagster-is-lineage-not-parser.md
+  adrs/0013-fastapi-readonly-approved-gold.md
+  seams.md                               seam 1 signed; seam 2 legs tasked; 8–9 unparked
   consensus.md                           ingest → landing **signed** 2026-08-25
   consensus-lakehouse.md                 dlt → Gold **signed** 2026-08-26
   tasks/T-20260825-type-01-landing-parser.md
@@ -67,6 +69,15 @@ docs/
   tasks/T-20260826-type-01-silver.md
   tasks/T-20260826-type-01-gold.md
   tasks/T-20260826-type-01-golden-match.md
+  tasks/T-20260827-type-02-ingest.md
+  tasks/T-20260827-type-02-lakehouse.md
+  tasks/T-20260827-type-03-ingest.md
+  tasks/T-20260827-type-03-lakehouse.md
+  tasks/T-20260827-type-04-ingest.md
+  tasks/T-20260827-type-04-lakehouse.md
+  tasks/T-20260827-type-05-ingest.md
+  tasks/T-20260827-type-05-lakehouse.md
+  tasks/T-20260827-orchestrate-type-01.md
 ```
 
 Day 3 product (gitignored — look up in the terminal):
@@ -118,6 +129,7 @@ here**. Do not debug the CLI in front of the room. A dated signature in
 | [`0006-later-nights-parked.md`](adrs/0006-later-nights-parked.md) | **Parked** | Rows **3–7** Day 3 (dlt, DuckLake, B/S/G grains, rule split, match keys). Rows **8–9** Day 4 (Dagster, serve). Row 10 CI = no |
 
 0006 stays as the park record. Day 3 adds **new** ADRs; it does not rewrite 0001–0005.
+Day 4 adds [`0012-dagster-is-lineage-not-parser.md`](adrs/0012-dagster-is-lineage-not-parser.md) (row 8) and [`0013-fastapi-readonly-approved-gold.md`](adrs/0013-fastapi-readonly-approved-gold.md) (row 9). It does not rewrite 0006.
 
 ---
 

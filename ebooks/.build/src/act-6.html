@@ -1,0 +1,644 @@
+<!-- ════════════════════════════════════════════════════════════════════
+     ACT VI · OPERATING SURFACES · P55–P63
+     src: brf-converge.md S61–S69 (lines 789–874) · page-plan.md ACT VI
+     mermaid: library G observation boundary (brf lines 1026–1032) on P61
+     ════════════════════════════════════════════════════════════════════ -->
+<style>
+/* ── ACT VI scoped additions (reported in build handoff) ─────────────
+   .hxm          — mono inline token inside .h2 (kit defines no h2-code style)
+   #p55 tr.behind — passes blocked behind a stale Pass 4 digest (dimmed)
+   #p58 …        — five-node symptom-chain compaction
+   .a6-fan       — P59 install fan-out grid + solid connector arrows
+   .a6-skgrid/.a6-skt — P60 compact skill tiles (dashed = optional/external) */
+.h2 .hxm { font-family: var(--font-mono); font-size: 0.76em; letter-spacing: -0.5px; color: var(--ac); }
+#p55 .tbl tr.behind td { opacity: 0.40; }
+#p58 .hf-node { padding: 13px 14px; }
+#p58 .hf-name { font-family: var(--font-mono); font-size: 14.5px; letter-spacing: -0.2px; }
+#p58 .hf-note { font-size: 10.5px; margin-top: 7px; line-height: 1.32; }
+#p58 .hf-arrow { flex: 0 0 40px; }
+.a6-fan { display: grid; grid-template-columns: 0.94fr 58px 1.06fr; gap: 15px 0; align-items: stretch; }
+.a6-fan .fan-pkg { grid-row: 1 / span 3; }
+.a6-fan-arrow { position: relative; align-self: center; justify-self: stretch; height: 2px; margin: 0 9px; border-radius: 2px; background: linear-gradient(90deg, rgba(167,139,250,0.10), var(--violet)); }
+.a6-fan-arrow::after { content: ''; position: absolute; right: -1px; top: -4px; border-left: 7px solid var(--violet); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.a6-skgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.a6-skt { border: 1px solid color-mix(in srgb, var(--skc, var(--violet)) 26%, transparent); border-top: 2px solid var(--skc, var(--violet)); border-radius: 9px; padding: 11px 13px 12px; background: var(--surface); }
+.a6-skt .sk-tag { font-family: var(--font-mono); font-size: 7.5px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--skc, var(--violet)); }
+.a6-skt .sk-name { font-family: var(--font-mono); font-size: 11px; line-height: 1.35; color: var(--text); margin-top: 6px; word-break: break-word; }
+.a6-skt.opt { border-style: dashed; }
+.a6-skt.ext { border-style: dashed; }
+.a6-skt.empty { border-style: dashed; border-color: var(--rule); border-top-color: var(--rule); background: rgba(255,255,255,0.015); }
+.a6-skt.empty .sk-tag { color: var(--text-mute); }
+.a6-skt.empty .sk-name { color: var(--text-mute); }
+</style>
+
+<!-- P55 · CONDUCTOR — cvg next reads the floor -->
+<section class="slide" id="p55" data-act="CONDUCTOR" data-act-name="Evidence to next pass" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">CONDUCTOR</span>
+      <span class="actname">Evidence to next pass</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm"><code class="hxm">cvg next</code> reads the floor. <span class="thin">It does not remember state.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Artifacts reveal the current boundary. The conductor names the owning skill and gate; <b>the gate still decides</b>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:0.72fr 1.28fr;gap:30px;">
+      <div>
+        <div class="panel" style="--pk:var(--violet);padding:17px 21px;">
+          <span class="panel-k">the floor · canonical cvg/ tree</span>
+          <div style="font-family:var(--font-mono);font-size:12px;line-height:1.9;color:var(--text-dim);margin-top:9px;">
+            <span style="color:var(--text);font-weight:700;">cvg/</span><br>
+            ├─ tasks/&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-mute);">unsigned + sealed leaves · digests</span><br>
+            └─ execution/&nbsp;<span style="color:var(--text-mute);">attempts · receipts</span>
+          </div>
+          <div style="margin-top:12px;padding-top:11px;border-top:1px solid var(--rule);font-family:var(--font-editorial);font-style:italic;font-size:12.5px;color:var(--text-dim);line-height:1.42;">
+            Every run re-reads the artifacts fresh — the conductor holds <b style="color:var(--text);font-style:normal;">no memory</b> between runs.
+          </div>
+        </div>
+
+        <div class="callout red" style="margin-top:16px;">
+          <span class="co-k">evidence presence is not verdict</span>
+          <div class="co-b" style="font-size:13.5px;">A stale Pass 4 hash displays <b>[!]</b> and blocks later passes — the conductor <b>refuses Pass 5 behind stale consent</b>. Safe action: <b>prepare / review again</b> to refresh the digest.</div>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:7px;">evidence board · read-only projection</span>
+        <table class="tbl">
+          <thead><tr><th>PASS</th><th>EVIDENCE ON THE FLOOR</th><th>OWNING SKILL</th><th>CLOSING GATE</th></tr></thead>
+          <tbody>
+            <tr><td>0 · Capture <span style="color:var(--text-mute);font-weight:400;">opt</span></td><td>BRD or no-go</td><td><code>idea-to-brd</code></td><td><code>CHECK_BRD=PASS</code></td></tr>
+            <tr><td>1 · Intent</td><td>signed BRD → falsifiable tech-spec</td><td><code>brd-docs-to-tech-req</code></td><td><code>CHECK_TECH_SPEC=PASS</code></td></tr>
+            <tr><td>2 · Structure</td><td>ADRs + glossary</td><td><code>tech-req-to-adrs</code></td><td><code>CHECK_ADR=OK</code></td></tr>
+            <tr><td>3 · Decompose</td><td>swimlane/leg tree</td><td><code>reqs-to-swimlane-plans</code></td><td><code>CHECK_PLAN=OK</code></td></tr>
+            <tr class="redline"><td>4 · Consensus ⛨</td><td>hardened plans · review record — digest stale <span class="tok red" style="font-size:8px;padding:1.5px 7px;">[!]</span></td><td><code>sketch-plans-adversarial-review</code></td><td><code>CHECK_CONSENSUS=OK</code> <span style="color:var(--red);font-family:var(--font-mono);font-size:9px;">stale</span></td></tr>
+            <tr class="behind"><td>5 · Tasking</td><td>HMAC-sealed atomic DAG</td><td><code>taskspec 3.8.x</code> external</td><td><code>TIER=1</code></td></tr>
+            <tr class="behind"><td>6 · Register <span style="font-weight:400;">opt-in</span></td><td>1:1 tracker projection</td><td><code>task-specs-to-issues</code></td><td><code>CHECK_REGISTER=OK</code></td></tr>
+            <tr class="behind"><td>7 · Bind</td><td>profile + guards + brief</td><td><code>task-to-runtime-contract</code></td><td><code>CHECK_RUNTIME_CONTRACT=PASS</code></td></tr>
+            <tr class="behind"><td>8 · Loop</td><td>named landing + evidence</td><td><code>task-loop</code></td><td><code>TASK_LOOP=*</code> → <code>ACCEPTED=1</code></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-family:var(--font-mono);font-size:8.5px;letter-spacing:0.6px;color:var(--text-mute);">
+          <span style="color:var(--red);font-weight:800;">[!]</span> stale Pass 4 digest — Pass 5 refused behind stale consent; later passes blocked until re-review
+        </div>
+
+        <div style="margin-top:14px;display:flex;align-items:center;gap:18px;border:1px solid var(--border-bright);border-radius:10px;padding:13px 18px;background:var(--surface);">
+          <span style="font-family:var(--font-mono);font-size:15px;font-weight:800;letter-spacing:1px;color:var(--violet);white-space:nowrap;">NEXT_PASS=N|DONE</span>
+          <span style="font-family:var(--font-editorial);font-style:italic;font-size:12px;color:var(--text-dim);line-height:1.35;">one token, recomputed from the floor on every run — the conductor remembers nothing</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> skills/evidence-to-next-pass/scripts/next-pass.sh · <b>[T]</b> conductor suite</span>
+      <span class="proof">NEXT_PASS=N|DONE · NO STATE</span>
+      <span class="pgno">P<b>55</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Conductor = evidence-to-next-pass skill (skills/evidence-to-next-pass/scripts/next-pass.sh) reading the canonical cvg/ tree (attested paths: cvg/tasks/, cvg/execution/). Board rows per brf §7 pass-contracts table: CHECK_BRD=PASS · CHECK_TECH_SPEC=PASS · CHECK_ADR=OK · CHECK_PLAN=OK · CHECK_CONSENSUS=OK · TIER=1 · CHECK_REGISTER=OK · CHECK_RUNTIME_CONTRACT=PASS · TASK_LOOP=* then ACCEPTED=1. Stale-consent refusal per brf S36: conductor tests discriminate matching hashes from post-review changes and refuse Pass 5 behind stale consent. Token shape NEXT_PASS=N|DONE per S61; the conductor persists no state between runs. Sources: [I] conductor skill/scripts; [T] conductor suite.</aside>
+</section>
+
+<!-- P56 · CHECKOUT ONLY — guided chat -->
+<section class="slide" id="p56" data-act="CHECKOUT ONLY" data-act-name="Guided control" data-accent="silver">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">CHECKOUT ONLY</span>
+      <span class="actname">Guided control</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;">
+      <h2 class="h2 sm" style="max-width:840px;">Guided chat adds four choices — <span class="thin">then waits.</span></h2>
+      <span class="wribbon big"><span class="rk">W</span>NOT COMMITTED</span>
+    </div>
+    <p class="lede" style="margin-top:10px;">“Uncommitted <code>cvg next --guided</code> adds <code>CONTINUE</code>, <code>EXPLAIN</code>, <code>INSPECT</code>, and <code>PAUSE</code>, then waits.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="cards c4">
+      <div class="card acc-silver" style="padding:19px 20px;">
+        <span class="ck">guided choice 01 · route</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:17px;letter-spacing:0.5px;">CONTINUE</div>
+        <div class="cb" style="font-size:11.5px;">Move to the named next pass. The owning skill runs and the pass gate still decides — the chat only routes the human.</div>
+      </div>
+      <div class="card acc-silver" style="padding:19px 20px;">
+        <span class="ck">guided choice 02 · read</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:17px;letter-spacing:0.5px;">EXPLAIN</div>
+        <div class="cb" style="font-size:11.5px;">Hear why the board looks like this: which artifacts exist, which gate is open, and what evidence is still missing.</div>
+      </div>
+      <div class="card acc-silver" style="padding:19px 20px;">
+        <span class="ck">guided choice 03 · open</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:17px;letter-spacing:0.5px;">INSPECT</div>
+        <div class="cb" style="font-size:11.5px;">Open the exact artifact paths behind a row — you read the evidence itself, never a chat reconstruction of it.</div>
+      </div>
+      <div class="card acc-silver" style="padding:19px 20px;">
+        <span class="ck">guided choice 04 · stop</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:17px;letter-spacing:0.5px;">PAUSE</div>
+        <div class="cb" style="font-size:11.5px;">Stop the session in place. Nothing is written and nothing is remembered — silence never means continue.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:17px 24px;--pk:var(--silver);">
+      <div style="display:flex;align-items:center;gap:26px;">
+        <span class="panel-k" style="margin:0;white-space:nowrap;">the same evidence board — unchanged</span>
+        <div class="flowchain" style="flex:1;justify-content:center;">
+          <span class="fc-node">cvg/ artifacts</span><span class="fc-arrow"></span>
+          <span class="fc-node">conductor reads</span><span class="fc-arrow"></span>
+          <span class="fc-node">pass gate decides</span><span class="fc-arrow"></span>
+          <span class="fc-node">NEXT_PASS=N|DONE</span>
+        </div>
+      </div>
+      <div style="margin-top:11px;padding-top:11px;border-top:1px solid var(--rule);font-family:var(--font-editorial);font-style:italic;font-size:12.5px;color:var(--text-dim);line-height:1.4;">
+        No chat state is persisted; silence never means continue. <b style="color:var(--text);font-style:normal;">Pre/post hooks and pass gates remain authoritative.</b>
+      </div>
+    </div>
+
+    <div class="tokset" style="align-items:center;">
+      <span class="tok green">44/44 CONDUCTOR CHECKOUT ROWS</span>
+      <span class="tok silver">MATRIX 57 → 60 · DIRTY TREE ONLY</span>
+      <span class="wribbon"><span class="rk">W</span>CHECKOUT ONLY</span>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[W]</b> guided-chat diff — 16 modified + 1 untracked file · <b>[T]</b> working-tree conductor suite</span>
+      <span class="proof green">44/44 CONDUCTOR · CHECKOUT-ONLY</span>
+      <span class="pgno">P<b>56</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Guided chat is an uncommitted working-tree feature (W rank: 16 modified + one untracked guided-chat contract file). Choices CONTINUE / EXPLAIN / INSPECT / PAUSE verbatim from brf S62. Proof: 44/44 checkout conductor rows green; CLI matrix 57 committed → 60 forms only in the dirty checkout — never render 60 as released until committed and release evidence refreshed. No chat state persisted; silence never means continue; pre/post hooks and pass gates remain authoritative. Sources: [W] guided-chat diff; [T] working-tree tests.</aside>
+</section>
+
+<!-- P57 · CLI — one JSON result contract -->
+<section class="slide" id="p57" data-act="CLI" data-act-name="Machine contract" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">CLI</span>
+      <span class="actname">Machine contract</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Every public form speaks <span class="thin">one machine envelope.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Global <code>--json</code> and <code>--dry-run</code> are position-independent; <b>exit code, token, mutation truth, and error remain explicit</b>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:1.02fr 0.98fr;gap:34px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:7px;">specimen · ConvergeCLIResult/v1</span>
+        <div class="code code--mac" data-lang="json" style="font-size:12px;line-height:1.78;padding-bottom:14px;"><div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">cvg compose preview --json · exit 0</span></div><span class="w">{</span>
+  <span class="k">"contract"</span>: <span class="n">"ConvergeCLIResult/v1"</span>,
+  <span class="k">"ok"</span>: <span class="g">true</span>,
+  <span class="k">"token"</span>: <span class="g">"COMPOSE=PREVIEW_READY"</span>,
+  <span class="k">"verdict"</span>: <span class="n">"PREVIEW_READY"</span>,
+  <span class="k">"exit_code"</span>: <span class="n">0</span>,
+  <span class="k">"changed"</span>: <span class="n">false</span>,
+  <span class="k">"dry_run"</span>: <span class="n">false</span>,
+  <span class="k">"data"</span>: {},
+  <span class="k">"error"</span>: <span style="color:var(--text-mute);">null</span>,
+  <span class="k">"meta"</span>: {<span class="k">"schema_version"</span>: <span class="n">1</span>, <span class="k">"cvg_version"</span>: <span class="n">"0.2.0"</span>}
+<span class="w">}</span></div>
+      </div>
+
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:7px;">the envelope, field by field</span>
+        <table class="tbl dense">
+          <thead><tr><th>FIELD</th><th>RULE</th></tr></thead>
+          <tbody>
+            <tr><td><code>contract</code></td><td>names the schema — <code>ConvergeCLIResult/v1</code></td></tr>
+            <tr><td><code>ok</code></td><td>did the contract hold — boolean, never implied</td></tr>
+            <tr><td><code>token</code></td><td>stable machine token — <code>COMPOSE=PREVIEW_READY</code></td></tr>
+            <tr><td><code>verdict</code></td><td>human-readable twin of the token</td></tr>
+            <tr><td><code>exit_code</code></td><td>process truth — 0 success · 1 refusal · nonzero safe failure</td></tr>
+            <tr><td><code>changed</code></td><td>mutation truth — did bytes move (preview: <code>false</code>)</td></tr>
+            <tr><td><code>dry_run</code></td><td>rehearsal flag — a dry run mutates nothing</td></tr>
+            <tr><td><code>data</code> / <code>error</code></td><td>payload object · explicit error or <code>null</code></td></tr>
+            <tr><td><code>meta</code></td><td><code>schema_version 1</code> · <code>cvg_version 0.2.0</code></td></tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex;gap:44px;align-items:flex-end;margin-top:22px;">
+          <div class="stat">
+            <span class="sv" style="--sac:var(--silver);font-size:46px;">60</span>
+            <span class="sk">forms · checkout matrix</span>
+            <span class="wribbon" style="margin-top:7px;font-size:7.5px;padding:2.5px 8px;"><span class="rk" style="width:13px;height:13px;font-size:8px;">W</span>CHECKOUT ONLY</span>
+          </div>
+          <div class="stat">
+            <span class="sv" style="--sac:var(--silver);font-size:46px;">239</span>
+            <span class="sk">calls covered</span>
+          </div>
+          <div class="stat">
+            <span class="sv" style="--sac:var(--green);font-size:46px;">25/25</span>
+            <span class="sk">json envelope rows</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[C]</b> contracts/converge-cli-result-v1.schema.json · cli-command-matrix.json · <b>[T]</b> JSON envelope + matrix suites</span>
+      <span class="proof green">JSON ENVELOPE 25/25</span>
+      <span class="pgno">P<b>57</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Specimen verbatim from brf §8 “Machine result shape”: ConvergeCLIResult/v1, token COMPOSE=PREVIEW_READY, verdict PREVIEW_READY, exit_code 0, changed:false (preview mutates nothing), dry_run:false, data:{}, error:null, meta schema_version 1 / cvg_version 0.2.0. Schema contracts/converge-cli-result-v1.schema.json; matrix contracts/cli-command-matrix.json. Suites: tests/test-cvg-json-envelope.sh = 25 contract rows; tests/test-cvg-json-matrix.py = 60 forms / 239 calls — checkout-only machine surface, marked W. Sources: [C] CLI result schema/matrix; [T] JSON suites.</aside>
+</section>
+
+<!-- P58 · OPERATIONS — doctors -->
+<section class="slide" id="p58" data-act="OPERATIONS" data-act-name="Diagnostics" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">OPERATIONS</span>
+      <span class="actname">Diagnostics</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Five symptoms, one broken hop. <span class="thin">The doctor names the first.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Host, evidence, plugin, runtime-contract, and setup checks turn distant symptoms into <b>one actionable upstream cause</b>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="hflow">
+      <div class="hf-node is-gate" style="--hc:var(--red);">
+        <div class="hf-head"><span class="hf-num">1</span><span class="hf-k">first cause · host</span></div>
+        <div class="hf-name">missing shellcheck</div>
+        <div class="hf-note">one absent binary on the host — everything downstream is an echo</div>
+        <div class="hf-tag"><span>DOCTOR_HOST</span></div>
+      </div>
+      <div class="hf-arrow" style="--af:var(--red);--ac:var(--red);"><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--red);">
+        <div class="hf-head"><span class="hf-num">2</span><span class="hf-k">symptom · compose</span></div>
+        <div class="hf-name">gate blocked</div>
+        <div class="hf-note">the compose gate refuses to run</div>
+        <div class="hf-tag"><span>downstream</span></div>
+      </div>
+      <div class="hf-arrow" style="--af:var(--red);--ac:var(--red);"><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--red);">
+        <div class="hf-head"><span class="hf-num">3</span><span class="hf-k">symptom · seal</span></div>
+        <div class="hf-name">unsigned task</div>
+        <div class="hf-note">no stamp — the leaf is never authorized</div>
+        <div class="hf-tag"><span>downstream</span></div>
+      </div>
+      <div class="hf-arrow" style="--af:var(--red);--ac:var(--red);"><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--red);">
+        <div class="hf-head"><span class="hf-num">4</span><span class="hf-k">symptom · bind</span></div>
+        <div class="hf-name">bind refused</div>
+        <div class="hf-note">the runtime contract rejects the handoff</div>
+        <div class="hf-tag"><span>downstream</span></div>
+      </div>
+      <div class="hf-arrow" style="--af:var(--red);--ac:var(--red);"><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--red);">
+        <div class="hf-head"><span class="hf-num">5</span><span class="hf-k">symptom · loop</span></div>
+        <div class="hf-name">loop error</div>
+        <div class="hf-note">the failure the operator actually sees — five hops later</div>
+        <div class="hf-tag"><span>downstream</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span class="eyebrow">five check families · one report</span>
+      <span class="tok violet">DOCTOR_HOST</span>
+      <span class="tok violet">DOCTOR_EVIDENCE</span>
+      <span class="tok violet">DOCTOR_PLUGIN</span>
+      <span class="tok cyan">CHECK_RUNTIME_CONTRACT=PASS</span>
+      <span class="tok silver">SETUP CHECKS</span>
+    </div>
+
+    <div class="callout red">
+      <span class="co-k">refusal · do not patch five symptoms</span>
+      <div class="co-b">The chain has <b>one upstream cause</b>. Safe action: run the Converge doctors, fix the named first cause — <b>install shellcheck</b> — then re-run the gate. The chain unblocks at its first hop.</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> bin/cvg doctor functions · <b>[T]</b> host / evidence / plugin suites</span>
+      <span class="proof">DOCTOR_HOST · EVIDENCE · PLUGIN</span>
+      <span class="pgno">P<b>58</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Symptom chain verbatim from brf S64: missing shellcheck → gate blocked → unsigned task → bind refused → loop error; the doctor points at the first cause. On-slide tokens per S64: DOCTOR_HOST, DOCTOR_EVIDENCE, DOCTOR_PLUGIN, plus the runtime-contract result CHECK_RUNTIME_CONTRACT=PASS and setup checks (bin/cvg carries routing, setup, doctors). Sources: [I] doctor functions/scripts; [T] host/evidence/plugin suites.</aside>
+</section>
+
+<!-- P59 · INSTALL — pinned tool surface -->
+<section class="slide" id="p59" data-act="INSTALL" data-act-name="Pinned tool surface" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">INSTALL</span>
+      <span class="actname">Pinned tool surface</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">One package, three homes. <span class="thin">The engines stay outside.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Copy mode pins <b>11 skills and the CLI</b> into Codex/Kimi, Claude Code, and Grok destinations; Task-Spec and Seamwise remain external.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="a6-fan">
+      <div class="panel fan-pkg" style="--pk:var(--violet);padding:18px 22px;justify-content:center;">
+        <span class="panel-k">one package · install.sh</span>
+        <div style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--text);margin-top:8px;">converge <span style="color:var(--violet);">0.2.0</span></div>
+        <div style="font-family:var(--font-editorial);font-size:12.5px;color:var(--text-dim);line-height:1.5;margin-top:10px;">
+          <code>package.json</code> + <code>.claude-plugin/</code> manifests, <b>11 skills</b>, and the <code>bin/cvg</code> referee CLI — <b>pinned copies, not engine embeds</b>.
+        </div>
+        <div class="tokset" style="margin-top:14px;">
+          <span class="tok violet">11 SKILLS</span><span class="tok violet">bin/cvg</span>
+        </div>
+      </div>
+      <div class="a6-fan-arrow"></div>
+      <div class="card acc-violet" style="padding:15px 18px;">
+        <span class="ck">codex · kimi — copy mode</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:16px;letter-spacing:-0.2px;">.agents/skills</div>
+        <div class="cb" style="font-size:11px;">Skill folders projected into the consumer repository — <b>pinned at 0.2.0</b>, updated in place on re-run.</div>
+      </div>
+      <div class="a6-fan-arrow"></div>
+      <div class="card acc-violet" style="padding:15px 18px;">
+        <span class="ck">claude code — copy mode</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:16px;letter-spacing:-0.2px;">.claude/skills</div>
+        <div class="cb" style="font-size:11px;">Same pinned surface for Claude Code consumers — <b>copies</b>, never symlinks into the source repo.</div>
+      </div>
+      <div class="a6-fan-arrow"></div>
+      <div class="card acc-violet" style="padding:15px 18px;">
+        <span class="ck">grok — copy mode</span>
+        <div class="ct" style="font-family:var(--font-mono);font-size:16px;letter-spacing:-0.2px;">.grok/skills</div>
+        <div class="cb" style="font-size:11px;">The third destination carries the identical 11 skills — <b>one package, one version</b>, three projections.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:18px;align-items:stretch;">
+      <div class="panel" style="flex:1.25;border-style:dashed;border-color:rgba(104,199,255,0.35);--pk:var(--cyan);padding:14px 20px;">
+        <span class="panel-k">engines remain external — never embedded</span>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap;">
+          <span class="tok cyan">taskspec · TASK-SPEC 3.8.x</span>
+          <span class="tok cyan">seamwise · 0.2.0</span>
+          <span style="font-family:var(--font-editorial);font-style:italic;font-size:12px;color:var(--text-dim);">binaries live outside the consumer; skills invoke them by contract.</span>
+        </div>
+      </div>
+      <div class="panel" style="flex:1;--pk:var(--green);padding:14px 20px;">
+        <span class="panel-k">local config posture</span>
+        <div class="tokset" style="margin-top:8px;">
+          <span class="tok green">0600 CONFIG</span><span class="tok green">SYMLINK-SAFE</span><span class="tok green">IDEMPOTENT</span><span class="tok green">GIT-EXCLUDED</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> install.sh, package.json, templates/ · <b>[T]</b> install + clean-room suites</span>
+      <span class="proof green">INSTALL 17/17 · CLEAN-ROOM 21/21</span>
+      <span class="pgno">P<b>59</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Destinations verbatim from brf S65: .agents/skills (Codex/Kimi), .claude/skills (Claude Code), .grok/skills (Grok); copy mode pins 11 skills + the CLI; Task-Spec 3.8.x and Seamwise 0.2.0 binaries remain external — the package embeds no engines. Proof: 17 install checks + 21 clean-room checks green; local config is 0600, symlink-safe, idempotent, Git-excluded. Sources: [I] install.sh, package.json, templates/; [T] install suite + tests/test-clean-room-install-e2e.sh.</aside>
+</section>
+
+<!-- P60 · SKILLS — routing surface -->
+<section class="slide" id="p60" data-act="SKILLS" data-act-name="Routing surface" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">SKILLS</span>
+      <span class="actname">Routing surface</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Eleven skills route intent. <span class="thin">Pass 5 stays outside.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Eight pass skills, three utilities, and <b>no mirrored Task-Spec skill</b>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="cols" style="--cols:1.42fr 0.58fr;gap:30px;">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:8px;">the package · 11 tiles · dashed = optional hop</span>
+        <div class="a6-skgrid">
+          <div class="a6-skt opt"><div class="sk-tag">pass 0 · capture · optional</div><div class="sk-name">idea-to-brd</div></div>
+          <div class="a6-skt"><div class="sk-tag">pass 1 · intent</div><div class="sk-name">brd-docs-to-tech-req</div></div>
+          <div class="a6-skt"><div class="sk-tag">pass 2 · structure</div><div class="sk-name">tech-req-to-adrs</div></div>
+          <div class="a6-skt"><div class="sk-tag">pass 3 · decompose</div><div class="sk-name">reqs-to-swimlane-plans</div></div>
+          <div class="a6-skt" style="--skc:var(--gold);"><div class="sk-tag">pass 4 · consensus · barrier ⛨</div><div class="sk-name">sketch-plans-adversarial-review</div></div>
+          <div class="a6-skt opt"><div class="sk-tag">pass 6 · register · opt-in</div><div class="sk-name">task-specs-to-issues</div></div>
+          <div class="a6-skt"><div class="sk-tag">pass 7 · bind</div><div class="sk-name">task-to-runtime-contract</div></div>
+          <div class="a6-skt"><div class="sk-tag">pass 8 · loop</div><div class="sk-name">task-loop</div></div>
+          <div class="a6-skt" style="--skc:var(--silver);"><div class="sk-tag">utility · conductor</div><div class="sk-name">evidence-to-next-pass</div></div>
+          <div class="a6-skt" style="--skc:var(--silver);"><div class="sk-tag">utility · lessons</div><div class="sk-name">pass-to-lesson</div></div>
+          <div class="a6-skt" style="--skc:var(--silver);"><div class="sk-tag">utility · authoring</div><div class="sk-name">skill-creator</div></div>
+          <div class="a6-skt empty"><div class="sk-tag">pass 5 · tasking</div><div class="sk-name">— no skill here —</div></div>
+        </div>
+      </div>
+
+      <div class="stack" style="gap:16px;">
+        <div class="a6-skt ext" style="--skc:var(--cyan);padding:16px 18px;">
+          <div class="sk-tag">external engine · not a skill</div>
+          <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--text);margin-top:8px;">taskspec <span style="color:var(--cyan);">3.8.x</span></div>
+          <div style="font-family:var(--font-editorial);font-size:12.5px;color:var(--text-dim);line-height:1.5;margin-top:9px;">
+            Pass 5 Tasking — HMAC seal, handoff, eval, acceptance — is <b>invoked by contract</b>, never vendored into the package.
+          </div>
+        </div>
+        <div class="panel" style="--pk:var(--green);padding:15px 18px;">
+          <span class="panel-k">package truth · observed</span>
+          <div style="font-family:var(--font-mono);font-size:10.5px;line-height:1.9;color:var(--text-dim);margin-top:8px;">
+            version unity — <b style="color:var(--green);">exactly 11 skills at 0.2.0</b><br>
+            package — <b style="color:var(--green);">244 files</b> · no vendored engine tree
+          </div>
+          <div class="tokset" style="margin-top:10px;"><span class="tok green">PACKAGE=READY files=244 skills=11</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[C]</b> package/plugin manifests · <b>[I]</b> skills/ · <b>[T]</b> version + package gates</span>
+      <span class="proof green">SKILLS=11 AT 0.2.0 · 244 FILES</span>
+      <span class="pgno">P<b>60</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Eleven skills at 0.2.0, named per brf §11: idea-to-brd (P0 optional Capture), brd-docs-to-tech-req (P1), tech-req-to-adrs (P2), reqs-to-swimlane-plans (P3), sketch-plans-adversarial-review (P4 consensus/barrier), task-specs-to-issues (P6 opt-in Register), task-to-runtime-contract (P7), task-loop (P8) + utilities evidence-to-next-pass, pass-to-lesson, skill-creator. Pass 5 Tasking stays with external Task-Spec 3.8.x — no mirrored Task-Spec skill. Proof: version unity finds exactly 11 skills at 0.2.0; PACKAGE=READY files=244 skills=11; no vendored engine tree. Sources: [C] package/plugin manifests; [I] skills; [T] version/package gates.</aside>
+</section>
+
+<!-- P61 · COCKPIT — read-only projection (mermaid G) -->
+<section class="slide" id="p61" data-act="COCKPIT" data-act-name="Read-only projection" data-accent="silver">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">COCKPIT</span>
+      <span class="actname">Read-only projection</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Cockpit reads one snapshot. <span class="thin">No arrow leads back.</span></h2>
+    <p class="lede" style="margin-top:10px;">“The UI renders descent, decomposition, gates, queue, attempts, receipts, health, and documents from <code>WorkspaceSnapshot 3.0</code>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="mmd frame" style="--mmd-h:250px;">
+      <pre class="mermaid">
+flowchart LR
+    W["Canonical workspace"] --> S["cvg snapshot\nWorkspaceSnapshot 3.0"] --> C["Cockpit"]
+    S --> A["Ask Converge\nephemeral ACP turn"]
+    C -. no mutation .- W
+    A -. no promotion .- W
+      </pre>
+    </div>
+
+    <div class="cols" style="--cols:1fr 1.18fr;gap:22px;">
+      <div class="panel" style="--pk:var(--silver);padding:15px 20px;">
+        <span class="panel-k">observes · eight surfaces</span>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok silver">descent</span><span class="tok silver">decomposition</span><span class="tok silver">gates</span><span class="tok silver">queue</span><span class="tok silver">attempts</span><span class="tok silver">receipts</span><span class="tok silver">health</span><span class="tok silver">documents</span>
+        </div>
+      </div>
+      <div class="panel" style="--pk:var(--green);padding:15px 20px;">
+        <span class="panel-k">security posture · enforced by the cockpit gate</span>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok green">loopback only</span><span class="tok green">explicit roots</span><span class="tok green">token + exact-origin transport</span><span class="tok green">GET-only observation</span><span class="tok green">snapshot+SHA artifact allowlist</span><span class="tok green">traversal + symlink rejection</span><span class="tok green">binary + credential rejection</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> apps/cockpit/ · bin/cvg-snapshot.py · <b>[C]</b> contracts/ui/v3/workspace-snapshot.schema.json · <b>[T]</b> Cockpit gate</span>
+      <span class="proof green">40 SERVER + 62 CLIENT · BUILD GREEN</span>
+      <span class="pgno">P<b>61</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Mermaid is the EXACT library G observation-boundary source (brf lines 1026–1032), including the dotted no-mutation / no-promotion edges — observation only, never a write arrow into canonical state. Snapshot path: bin/cvg-snapshot.py → contracts/ui/v3/workspace-snapshot.schema.json (WorkspaceSnapshot 3.0). Security posture verbatim from S67: loopback only; explicit roots; token/exact-origin transport; GET-only observation; snapshot+SHA artifact allowlist; traversal, symlink, binary, and credential rejection. Proof: 40 server tests, 62 client tests, production build green. Sources: [I] apps/cockpit/; [C] snapshot schema; [T] Cockpit gate.</aside>
+</section>
+
+<!-- P62 · COCKPIT — Ask -->
+<section class="slide" id="p62" data-act="COCKPIT" data-act-name="Ask" data-accent="silver">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">COCKPIT</span>
+      <span class="actname">Ask</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Ask explains the evidence. <span class="thin">It cannot touch it.</span></h2>
+    <p class="lede" style="margin-top:10px;">“One snapshot-bound ACP turn can <b>explain</b> artifacts; it cannot create, approve, bind, transition, or settle them.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="hflow">
+      <div class="hf-node" style="--hc:var(--silver);">
+        <div class="hf-head"><span class="hf-num">IN</span><span class="hf-k">fresh evidence</span></div>
+        <div class="hf-name" style="font-size:19px;">artifact slice + redacted history</div>
+        <div class="hf-note">a bounded slice of the current snapshot — credentials stripped before the turn begins</div>
+      </div>
+      <div class="hf-arrow"><span class="hf-al">one bounded turn</span><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--silver);">
+        <div class="hf-head"><span class="hf-num">ACP</span><span class="hf-k">snapshot-bound session</span></div>
+        <div class="hf-name" style="font-size:19px;">ephemeral ACP session</div>
+        <div class="hf-note">fixed executable, argv, cwd, and env — the session dies with the answer</div>
+        <div class="hf-tag"><span>EPHEMERAL · NO STATE</span></div>
+      </div>
+      <div class="hf-arrow"><span class="hf-al">exits here only</span><span class="hf-line"></span></div>
+      <div class="hf-node" style="--hc:var(--silver);">
+        <div class="hf-head"><span class="hf-num">OUT</span><span class="hf-k">screen only</span></div>
+        <div class="hf-name" style="font-size:19px;">answer to the screen</div>
+        <div class="hf-note">text for a human to read — nothing else receives it</div>
+        <div class="hf-tag"><span>NO WRITE-BACK</span></div>
+      </div>
+    </div>
+
+    <div class="cols" style="--cols:1fr 1.25fr;gap:22px;">
+      <div class="panel" style="--pk:var(--red);border-color:rgba(255,107,102,0.30);padding:16px 20px;">
+        <span class="panel-k">never from ask · interpretation is not proof</span>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok red">✕ CREATE</span><span class="tok red">✕ APPROVE</span><span class="tok red">✕ BIND</span><span class="tok red">✕ TRANSITION</span><span class="tok red">✕ SETTLE</span>
+        </div>
+        <div style="font-family:var(--font-editorial);font-style:italic;font-size:12px;color:var(--text-dim);margin-top:10px;line-height:1.4;">
+          Gates, seals, and receipts remain the only writers — Ask only reads.
+        </div>
+      </div>
+      <div class="panel" style="--pk:var(--silver);padding:16px 20px;">
+        <span class="panel-k">bounded by construction · controls</span>
+        <div class="tokset" style="margin-top:9px;">
+          <span class="tok silver">fixed executable / argv / cwd / env</span><span class="tok silver">permission denial</span><span class="tok silver">unsafe-tool refusal</span><span class="tok silver">bounded history + output</span><span class="tok silver">cancellation</span><span class="tok silver">stale-turn rejection</span><span class="tok silver">credential redaction</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[I]</b> apps/cockpit/ Ask services + ACP client · <b>[T]</b> server tests</span>
+      <span class="proof">EPHEMERAL ACP · NO PROMOTION</span>
+      <span class="pgno">P<b>62</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Controls verbatim from brf S68: fixed executable/argv/cwd/env, permission denial, unsafe-tool refusal, bounded history/output, cancellation, stale-turn rejection, credential redaction. Artifact slice + redacted history enter an ephemeral ACP session; the answer exits to the screen only. One snapshot-bound ACP turn can explain artifacts; it cannot create, approve, bind, transition, or settle them. Sources: [I] Cockpit Ask services + ACP client; [T] server tests.</aside>
+</section>
+
+<!-- P63 · OPERATIONS — recovery -->
+<section class="slide" id="p63" data-act="OPERATIONS" data-act-name="One safe next action" data-accent="violet">
+  <div class="aurora" aria-hidden="true"><b></b></div>
+  <div class="wrap top">
+    <header class="shead">
+      <span class="actcap">OPERATIONS</span>
+      <span class="actname">One safe next action</span>
+      <span class="spacer"></span>
+      <span class="wordmark"><svg width="13" height="13" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 72 L832 256 L832 332 L714 400 L714 338 L512 222 L310 338 L310 570 L512 686 L714 570 L714 510 L832 442 L832 652 L512 836 L192 652 L192 256 Z" fill="#A78BFA"/></svg>CONVERGE · 0.2.0</span>
+    </header>
+
+    <h2 class="h2 sm">Recovery follows tokens, <span class="thin">not optimism.</span></h2>
+    <p class="lede" style="margin-top:10px;">“Compose status emits one <code>NEXT=</code>. Loop landings preserve <b>the handoff and work that a human needs</b>.”</p>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div>
+    <span class="eyebrow" style="display:block;margin-bottom:8px;">one arrow per state · the recovery vocabulary</span>
+    <table class="tbl">
+      <thead><tr><th>STATE</th><th>WHAT THE SIGNAL MEANS</th><th>ONE SAFE NEXT ACTION</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span style="color:var(--red);">stale review</span><br><span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.4px;color:var(--text-mute);">COMPOSE</span></td>
+          <td>the recorded review digest no longer matches the current topology</td>
+          <td><code>prepare</code> / <code>review</code> again to refresh consent</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--violet);">interrupted materialize</span><br><span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.4px;color:var(--text-mute);">COMPOSE</span></td>
+          <td>finalization stopped mid-write; no half-completed receipt stands</td>
+          <td>rerun idempotently — an exact rerun is byte-identical</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--red);">EXHAUSTED</span> <span class="tok red" style="font-size:7.5px;padding:1.5px 7px;">EXIT 1</span><br><span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.4px;color:var(--text-mute);">LOOP · SIGNED BUDGET REACHED</span></td>
+          <td>budget spent before landing; handoff + worktree preserved</td>
+          <td>raise the signed budget — or split the task</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--red);">REFUTED</span><br><span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.4px;color:var(--text-mute);">TIER 2 · ACCEPTANCE</span></td>
+          <td>independent acceptance rejected the work</td>
+          <td>fix the work, then resubmit to the same gate</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--silver);">CANCELLED</span> <span class="tok silver" style="font-size:7.5px;padding:1.5px 7px;">EXIT 1</span><br><span style="font-family:var(--font-mono);font-size:8px;letter-spacing:1.4px;color:var(--text-mute);">LOOP · EXTERNAL STOP SIGNAL</span></td>
+          <td>the operator stopped the loop; written checkpoint/handoff preserved</td>
+          <td>resume from the handoff</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout red">
+      <span class="co-k">gap · current --resume</span>
+      <div class="co-b">Under worktree isolation, <b>--resume starts a fresh tree at attempt 1</b>. Never imply continuation of uncommitted work — recovery resumes from the handoff, not from the old tree.</div>
+    </div>
+    </div>
+
+    <footer class="sfoot">
+      <span class="src"><b>[D]</b> docs/guides/recovery.md · <b>[I]</b> loop kernel · exit codes per §7 terminal table</span>
+      <span class="proof">ONE NEXT= PER STATUS</span>
+      <span class="pgno">P<b>63</b> / 83</span>
+    </footer>
+  </div>
+  <aside class="speaker-notes">Recovery rows verbatim from brf S69: stale review → prepare/review again; interrupted materialize → rerun idempotently (byte-identical exact rerun per S48); EXHAUSTED → raise signed budget or split; REFUTED → fix work; CANCELLED → resume from handoff. Exit codes per §7 terminal-states table: EXHAUSTED and CANCELLED exit 1 with handoff + worktree (CANCELLED: written checkpoint/handoff) preserved. Gap callout verbatim: under worktree isolation, current --resume starts a fresh tree at attempt 1 — do not imply continuation of uncommitted work. Sources: [D] docs/guides/recovery.md; [I] loop kernel.</aside>
+</section>

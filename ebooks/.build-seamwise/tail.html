@@ -1,0 +1,42 @@
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  themeVariables: {
+    background: '#070A0F',
+    primaryColor: '#0D1828',
+    primaryBorderColor: '#2F6BFF',
+    primaryTextColor: '#F5F2EA',
+    secondaryColor: '#111720',
+    tertiaryColor: '#0A0E15',
+    lineColor: '#8D99A6',
+    textColor: '#F5F2EA',
+    mainBkg: '#0D1828',
+    nodeBorder: '#2F6BFF',
+    clusterBkg: '#0A0E15',
+    clusterBorder: '#29313A',
+    edgeLabelBackground: '#070A0F'
+  },
+  flowchart: { htmlLabels: true, curve: 'linear' }
+});
+/* Render each diagram with an explicit unique id: under headless virtual time
+ * the clock is frozen, so mermaid's Date.now()-based auto-ids collide and
+ * diagrams bleed into each other. Errors surface as visible red markers so a
+ * failed diagram can never ship silently. */
+const els = document.querySelectorAll('.mmd');
+let n = 0;
+for (const el of els) {
+  const src = el.textContent;
+  try {
+    const { svg } = await mermaid.render('sw-mmd-' + (n++), src);
+    el.textContent = '';
+    el.innerHTML = svg;
+  } catch (e) {
+    el.innerHTML = '<pre style="color:#F85149;font-family:monospace;font-size:10pt;white-space:pre-wrap;">MERMAID RENDER ERROR\n' + String(e && e.message || e).slice(0, 300) + '</pre>';
+    n++;
+  }
+}
+</script>
+</body>
+</html>
