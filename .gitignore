@@ -45,3 +45,5 @@ modern/orchestration/.dagster_home/
 ebooks/.trv-build/
 ebooks/brief-spec-trv/
 ebooks/ebook-task-spec.pdf
+ebooks/build/
+ebooks/*-trv.pdf
