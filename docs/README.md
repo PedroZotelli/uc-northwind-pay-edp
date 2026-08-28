@@ -24,13 +24,13 @@ Do not upload these files into NotebookLM. The brain is inbound only
 | **2** | Translator (SWE) | Landing ADRs 0001–0005, **0006 parked**, `seams.md`, ingest **sign**, one parser leaf | parser may exist under `modern/ingestion/`; Parquet **not** required Tuesday |
 | **3** | Constructor (DE + analytics) | Unpark 0006 → ADRs 0007+; seam 2 legs; **`consensus-lakehouse.md`**; Type 01 lakehouse leaves | Type 01 **landing → Gold + golden-match**. Mesh **seed**. Types `02`–`05` **not** tasked |
 | **4** | Orchestrator | Remaining SWE + DE leaves (`02`–`04`, Type `05`, orchestrate). Unpark 0006 rows 8–9 as **0012–0013** (0006 stays the park record) | Trail first, then loop cranks with a **packet**. Linear is the board. Type `05` unattended |
-| **5** | Dark Factory | Type `06` papers when that drop arrives | Classify. Do not patch `legacy/` |
+| **5** | Dark Factory | Type `06` papers when that drop arrives | Recap Type 01 from disk · Linear queue · look up 02–05 · smoke · **Type `06` 0–8** · flywheel. Classify. Do not patch `legacy/` |
 
 **Two nights, two seats, one type** (Tue–Wed). Thursday **walks that trail**, then **generates** the rest and cranks it.
 Do not dump Types `02`–`05` on Wednesday.
 
-Clocks: [`run/d2/`](../run/d2/README.md) · [`run/d3/`](../run/d3/README.md) · [`run/d4/`](../run/d4/README.md).
-Scope: [`agenda/d3.md`](../agenda/d3.md) · [`agenda/d4.md`](../agenda/d4.md).
+Clocks: [`run/d2/`](../run/d2/README.md) · [`run/d3/`](../run/d3/README.md) · [`run/d4/`](../run/d4/README.md) · [`run/d5/`](../run/d5/README.md).
+Scope: [`agenda/d3.md`](../agenda/d3.md) · [`agenda/d4.md`](../agenda/d4.md) · [`agenda/d5.md`](../agenda/d5.md).
 
 ---
 
@@ -94,6 +94,8 @@ Day 4 writes ([`run/d4/`](../run/d4/README.md) — trail `02` always; **dark 03�
 - Loop **packet** under `evidence/` (gitignored — open in the terminal)
 
 Keep **173.44**. Ingest sign stays canonical. Thursday **walks this folder as the trail** (requisites → problem → decisions → SWE → DE/AE → tonight), then remaining types. It does not recut Tuesday’s papers. It does not re-ask where paid lives.
+
+Day 5 recap **reads the Thursday inventory in [`agenda/d5.md`](../agenda/d5.md)** (landing, Gold, golden-match, loop packet, Type 05 four evidence dirs). Type `06` papers land only after tonight’s drop. Clock: [`run/d5/`](../run/d5/README.md).
 
 ---
 

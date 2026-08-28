@@ -61,7 +61,7 @@ Tuesday night the legacy is specified, structured, and designed as leaves.
 | 2 | [`presentation/d2-translator.html`](../presentation/d2-translator.html) — live, 34 slides, six blocks. Staff: [`run/d2/`](../run/d2/README.md) — 12 beats, five Hands-On boards |
 | 3 | [`presentation/d3-constructor.html`](../presentation/d3-constructor.html) — **live**. Identify by `data-act-name`. Staff: [`run/d3/`](../run/d3/README.md) — 13 beats, four boards |
 | 4 | Stage live. Staff: [`run/d4/`](../run/d4/README.md) — 9 beats. Trail, then factory |
-| 5 | not built. Staff stub: [`run/d5.md`](../run/d5.md) |
+| 5 | Deck live: [`presentation/d5-dark-factory.html`](../presentation/d5-dark-factory.html) — 21 slides. Staff live: [`run/d5/`](../run/d5/README.md) — 6 beats. Do not use `wrkp-dark-factory.html` as the HUD |
 
 ## What is frozen vs what the week writes
 

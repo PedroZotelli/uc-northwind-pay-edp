@@ -85,3 +85,18 @@ types:
       - UTF-8 text and embedded quotes
       - BigDecimal percentage calculation
       - HALF_UP rounding reconciliation
+
+  - number: "06"
+    status: approved-for-implementation
+    folder: 06-merchant-chargeback
+    slug: merchant-chargeback
+    name: Merchant Chargeback Adjustment
+    file_type_code: MER_CHGBK06
+    extension: .csv
+    layout_style: locale_aware_semicolon_delimited
+    purpose: Adjust merchant chargebacks with exact HALF_UP rounding.
+    coverage:
+      - semicolon delimiter and quoted fields
+      - decimal comma
+      - HALF_UP chargeback calculation
+      - legacy-plant one-cent miss is classified, never patched

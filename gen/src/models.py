@@ -815,6 +815,140 @@ class MerchantFeeBatch:
 
 
 @dataclass(frozen=True, slots=True)
+class Type06Contract:
+    """Approved Type 06 identity, transport, grammar, and size constraints."""
+
+    contract_version: int
+    type_number: str
+    code: str
+    layout_version: str
+    filename_pattern: str
+    encoding: str
+    unicode_normalization: str
+    line_ending: str
+    final_newline: str
+    delimiter: str
+    quote_character: str
+    field_count: int
+    exact_header: str
+    max_detail_rows: int
+    max_physical_record_bytes: int
+    max_source_file_bytes: int
+    registry_path: Path
+    layout_path: Path
+
+
+@dataclass(frozen=True, slots=True)
+class MerchantChargeback:
+    """One Type 06 chargeback without binary floating point."""
+
+    chargeback_id: str
+    merchant_id: str
+    merchant_tax_id: str = field(repr=False)
+    reason_code: str
+    description: str = field(repr=False)
+    original_amount_minor: int
+    rate_milli_percent: int
+    chargeback_amount_minor: int
+    business_date: str
+
+    @property
+    def calculated_amount_minor(self) -> int:
+        numerator = self.original_amount_minor * self.rate_milli_percent
+        whole, remainder = divmod(numerator, 100_000)
+        return whole + int(remainder * 2 >= 100_000)
+
+
+@dataclass(frozen=True, slots=True)
+class MerchantChargebackBatch:
+    """A deterministic Type 06 batch before byte rendering."""
+
+    file_date: str
+    batch_id: str
+    rows: tuple[MerchantChargeback, ...]
+
+    @property
+    def filename(self) -> str:
+        return f"NW_MERCHANT_CHARGEBACK_{self.file_date}_{self.batch_id}.csv"
+
+    @property
+    def row_count(self) -> int:
+        return len(self.rows)
+
+    @property
+    def original_amount_minor(self) -> int:
+        return sum(row.original_amount_minor for row in self.rows)
+
+    @property
+    def chargeback_amount_minor(self) -> int:
+        return sum(row.chargeback_amount_minor for row in self.rows)
+
+    @property
+    def calculated_amount_minor(self) -> int:
+        return sum(row.calculated_amount_minor for row in self.rows)
+
+
+@dataclass(frozen=True, slots=True)
+class Type06GeneratedBatch:
+    """Generated Type 06 bytes and declared-versus-computed controls."""
+
+    scenario: str
+    contract: Type06Contract
+    batch: MerchantChargebackBatch
+    raw_bytes: bytes = field(repr=False)
+    computed_row_count: int
+    computed_original_amount_minor: int
+    computed_chargeback_amount_minor: int
+    computed_calculated_amount_minor: int
+    declared_row_count: int
+    declared_original_amount_minor: int
+    declared_chargeback_amount_minor: int
+    declared_calculated_amount_minor: int
+    expected_contract_status: str
+    expected_violation: str | None
+
+    def source_control_values(self) -> Mapping[str, object]:
+        return {
+            "calculated_amount": minor_units_to_string(
+                self.declared_calculated_amount_minor
+            ),
+            "chargeback_amount": minor_units_to_string(
+                self.declared_chargeback_amount_minor
+            ),
+            "currency": "BRL",
+            "original_amount": minor_units_to_string(
+                self.declared_original_amount_minor
+            ),
+            "row_count": self.declared_row_count,
+        }
+
+    def receipt_control_values(self) -> Mapping[str, object]:
+        return {
+            "computed_calculated_amount": minor_units_to_string(
+                self.computed_calculated_amount_minor
+            ),
+            "computed_chargeback_amount": minor_units_to_string(
+                self.computed_chargeback_amount_minor
+            ),
+            "computed_original_amount": minor_units_to_string(
+                self.computed_original_amount_minor
+            ),
+            "computed_row_count": self.computed_row_count,
+            "currency": "BRL",
+            "declared_calculated_amount": minor_units_to_string(
+                self.declared_calculated_amount_minor
+            ),
+            "declared_chargeback_amount": minor_units_to_string(
+                self.declared_chargeback_amount_minor
+            ),
+            "declared_original_amount": minor_units_to_string(
+                self.declared_original_amount_minor
+            ),
+            "declared_row_count": self.declared_row_count,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class Type05GeneratedBatch:
     """Generated Type 05 bytes and declared-versus-computed controls."""
 

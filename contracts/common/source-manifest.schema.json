@@ -18,10 +18,19 @@
     },
     "file_type": {
       "type": "object",
-      "required": ["number"],
+      "required": [
+        "number"
+      ],
       "properties": {
         "number": {
-          "enum": ["01", "02", "03", "04", "05"]
+          "enum": [
+            "01",
+            "02",
+            "03",
+            "04",
+            "05",
+            "06"
+          ]
         }
       }
     },
@@ -165,6 +174,32 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "file_type": {
+            "properties": {
+              "number": {
+                "const": "06"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "file_type": {
+            "$ref": "#/$defs/type06FileType"
+          },
+          "source_controls": {
+            "$ref": "#/$defs/type06SourceControls"
+          },
+          "source_file": {
+            "$ref": "#/$defs/type06SourceFile"
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -197,7 +232,12 @@
     "type01FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "CRD_SETTLE01"
@@ -216,7 +256,11 @@
     "type01SourceControls": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["currency", "detail_count", "net_amount"],
+      "required": [
+        "currency",
+        "detail_count",
+        "net_amount"
+      ],
       "properties": {
         "currency": {
           "const": "BRL"
@@ -268,7 +312,12 @@
     "type02FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "PIX_EVENTS01"
@@ -352,7 +401,12 @@
     "type03FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "PAYSLIPSET03"
@@ -470,7 +524,12 @@
     "type04FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "TED_SETTLE04"
@@ -569,7 +628,12 @@
     "type05FileType": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["code", "contract_version", "layout_version", "number"],
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
       "properties": {
         "code": {
           "const": "MER_FEESET05"
@@ -649,6 +713,108 @@
         "name": {
           "type": "string",
           "pattern": "^NW_MERCHANT_FEES_[0-9]{8}_B[0-9]{15}\\.csv$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5130138
+        },
+        "unicode_normalization": {
+          "const": "NFC"
+        }
+      }
+    },
+    "type06FileType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "contract_version",
+        "layout_version",
+        "number"
+      ],
+      "properties": {
+        "code": {
+          "const": "MER_CHGBK06"
+        },
+        "contract_version": {
+          "const": 1
+        },
+        "layout_version": {
+          "const": "001"
+        },
+        "number": {
+          "const": "06"
+        }
+      }
+    },
+    "type06SourceControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calculated_amount",
+        "chargeback_amount",
+        "currency",
+        "original_amount",
+        "row_count"
+      ],
+      "properties": {
+        "calculated_amount": {
+          "$ref": "#/$defs/canonicalUnsignedMoney"
+        },
+        "chargeback_amount": {
+          "$ref": "#/$defs/canonicalUnsignedMoney"
+        },
+        "currency": {
+          "const": "BRL"
+        },
+        "original_amount": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/canonicalUnsignedMoney"
+            },
+            {
+              "not": {
+                "const": "0.00"
+              }
+            }
+          ]
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "type06SourceFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encoding",
+        "final_newline",
+        "line_ending",
+        "name",
+        "sha256",
+        "size_bytes",
+        "unicode_normalization"
+      ],
+      "properties": {
+        "encoding": {
+          "const": "UTF-8"
+        },
+        "final_newline": {
+          "const": "required"
+        },
+        "line_ending": {
+          "const": "LF"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^NW_MERCHANT_CHARGEBACK_[0-9]{8}_B[0-9]{15}\\.csv$"
         },
         "sha256": {
           "$ref": "#/$defs/sha256"

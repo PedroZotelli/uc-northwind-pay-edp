@@ -81,13 +81,16 @@ class PublishedRaw:
         """Return the legacy control plane's compatibility money scalar.
 
         Types 01-04 expose a true net amount. Type 05 has no net concept, so
-        its assessed fee is the explicit compatibility projection; the full
-        immutable ``source_controls`` mapping remains authoritative.
+        its assessed fee is the explicit compatibility projection. Type 06
+        projects chargeback amount the same way. The full immutable
+        ``source_controls`` mapping remains authoritative.
         """
 
         value = self.source_controls.get("net_amount")
         if value is None and self.file_type == "05":
             value = self.source_controls.get("assessed_fee")
+        if value is None and self.file_type == "06":
+            value = self.source_controls.get("chargeback_amount")
         if not isinstance(value, str):
             raise RawPublicationError(
                 f"Type {self.file_type} has no compatibility money control"

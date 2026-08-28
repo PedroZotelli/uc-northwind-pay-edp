@@ -21,6 +21,7 @@ from workflow_registry import (
     TYPE03_WORKFLOW,
     TYPE04_WORKFLOW,
     TYPE05_WORKFLOW,
+    TYPE06_WORKFLOW,
     workflow_for_type,
 )
 
@@ -73,6 +74,7 @@ class WorkflowRegistryTest(unittest.TestCase):
         self.assertIs(workflow_for_type("03"), TYPE03_WORKFLOW)
         self.assertIs(workflow_for_type("04"), TYPE04_WORKFLOW)
         self.assertIs(workflow_for_type("05"), TYPE05_WORKFLOW)
+        self.assertIs(workflow_for_type("06"), TYPE06_WORKFLOW)
         with self.assertRaises(ValueError):
             workflow_for_type("99")
 

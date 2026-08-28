@@ -9,7 +9,8 @@ OUTPUT ?= gen/output
 EVIDENCE ?= evidence
 POLL_INTERVAL ?= 5
 MAX_BATCHES ?= 100
-SUPPORTED_TYPES := 01 02 03 04 05
+SUPPORTED_TYPES := 01 02 03 04 05 06
+E2E_TYPES := 01 02 03 04 05
 WORKER_E2E_SUITE := tests/end-to-end/run_worker_suite.py
 
 .DEFAULT_GOAL := help
@@ -52,7 +53,7 @@ help: ## [base] List supported targets, compatibility aliases, and input variabl
 	END { \
 		print ""; \
 		print "Inputs:"; \
-		print "  TYPE=01|02|03|04|05|all  Type selector; run/gen/test-e2e accept all."; \
+		print "  TYPE=01|02|03|04|05|06|all  Type selector; run/gen/test-e2e accept all."; \
 		print "  SCENARIO=name       Canonical scenario (default: valid-minimal)."; \
 		print "  OUTPUT=path         DataGen output root (default: gen/output)."; \
 		print "  EVIDENCE=path       Worker evidence root (default: evidence)."; \
@@ -96,8 +97,8 @@ down: ## [base] Stop services without deleting volumes or evidence.
 	@docker compose down
 
 gen: ## [base] Generate one type, or the same scenario for all five types.
-	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
-		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
+	@case "$(TYPE)" in 01|02|03|04|05|06|all) ;; \
+		*) echo "TYPE must be one of 01, 02, 03, 04, 05, 06, or all" >&2; exit 2 ;; \
 	esac
 	@if [ "$(TYPE)" = "all" ]; then \
 		for type_number in $(SUPPORTED_TYPES); do \
@@ -218,8 +219,8 @@ publish: ## [base] Publish exactly one BATCH or BUNDLE through real SFTP.
 publish-raw: publish ## [base] Compatibility alias for publish.
 
 run: ## [base] Run one typed scenario, or the same scenario for all five types.
-	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
-		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
+	@case "$(TYPE)" in 01|02|03|04|05|06|all) ;; \
+		*) echo "TYPE must be one of 01, 02, 03, 04, 05, 06, or all" >&2; exit 2 ;; \
 	esac
 	@if [ "$(TYPE)" = "all" ]; then \
 		for type_number in $(SUPPORTED_TYPES); do \
@@ -236,8 +237,8 @@ run: ## [base] Run one typed scenario, or the same scenario for all five types.
 run-type: run ## [base] Compatibility alias for run.
 
 run-file: ## [base] Run one explicit typed FILE with sibling checksum and manifest.
-	@case "$(TYPE)" in 01|02|03|04|05) ;; \
-		*) echo "TYPE for run-file must be one of 01, 02, 03, 04, or 05" >&2; exit 2 ;; \
+	@case "$(TYPE)" in 01|02|03|04|05|06) ;; \
+		*) echo "TYPE for run-file must be one of 01, 02, 03, 04, 05, or 06" >&2; exit 2 ;; \
 	esac
 	@test -n "$(FILE)" || { echo "set FILE=<raw-file-path>" >&2; exit 2; }
 	@$(RUNNER_PYTHON) legacy/runner/run_type.py \
@@ -284,10 +285,11 @@ test-ontology: ## [verify] Ontology unit mapping plus live crawl smoke (skips if
 
 test-e2e: ## [verify] Run the selected live acceptance suite; TYPE=all runs 01 through 05.
 	@case "$(TYPE)" in 01|02|03|04|05|all) ;; \
+		06) echo "TYPE=06 has no typed e2e suite; use make run TYPE=06" >&2; exit 2 ;; \
 		*) echo "TYPE must be one of 01, 02, 03, 04, 05, or all" >&2; exit 2 ;; \
 	esac
 	@if [ "$(TYPE)" = "all" ]; then \
-		for type_number in $(SUPPORTED_TYPES); do \
+		for type_number in $(E2E_TYPES); do \
 			$(RUNNER_PYTHON) \
 				"tests/end-to-end/run_type$${type_number}_suite.py" \
 				|| exit $$?; \

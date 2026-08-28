@@ -13,6 +13,7 @@ from contract_loader import (
     load_type_03_contract,
     load_type_04_contract,
     load_type_05_contract,
+    load_type_06_contract,
 )
 from generators import (
     type_01_card_settlement,
@@ -20,6 +21,7 @@ from generators import (
     type_03_payment_slip_settlement,
     type_04_ted_transfer_settlement,
     type_05_merchant_fee_assessment,
+    type_06_merchant_chargeback,
 )
 from models import GeneratedArtifact, GenerationError, WrittenBundle
 
@@ -91,6 +93,17 @@ def _render_type_05(
     )
 
 
+def _render_type_06(
+    scenario: str,
+    contracts_root: Path | None,
+) -> GeneratedArtifact:
+    contract = load_type_06_contract(contracts_root)
+    return type_06_merchant_chargeback.render_scenario(
+        scenario,
+        contract=contract,
+    )
+
+
 GENERATOR_ADAPTERS = {
     "01": GeneratorAdapter(
         type_number="01",
@@ -122,6 +135,13 @@ GENERATOR_ADAPTERS = {
             type_05_merchant_fee_assessment.SUPPORTED_SCENARIOS
         ),
         render=_render_type_05,
+    ),
+    "06": GeneratorAdapter(
+        type_number="06",
+        supported_scenarios=(
+            type_06_merchant_chargeback.SUPPORTED_SCENARIOS
+        ),
+        render=_render_type_06,
     ),
 }
 

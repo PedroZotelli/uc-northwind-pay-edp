@@ -12,11 +12,12 @@ and a meeting note that contradicted all three. The work was
 The week works Types `01`–`05`. Those packs are written **in advance**
 so day one is a customer drop, not a hunt through `contracts/`. Type
 `01` is the steel thread on Day 1. Types `02`–`05` stay in the drop so
-later nights can ask them. Type `06` is not in this folder. It arrives
-on day five as the factory's unseen kit — the flywheel — and the
-**red pill**: the agent may find a numeric difference that is wrong in
-the **legacy plant**, not only in the source file. Classify it. Do not
-patch `legacy/` to make it green.
+later nights can ask them. Type `06` is authored here as
+`type-06-merchant-chargeback/` and is dropped on day five as the
+factory's unseen kit — the flywheel — and the **red pill**: the agent
+may find a numeric difference that is wrong in the **legacy plant**,
+not only in the source file. Classify it. Do not patch `legacy/` to
+make it green.
 
 Day 1 feeds **inbound prose** from this folder into the Second Brain
 ([`brain/notebooklm/`](../brain/notebooklm/README.md) — nine packs).

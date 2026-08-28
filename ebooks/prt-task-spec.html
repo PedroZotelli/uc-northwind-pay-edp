@@ -157,7 +157,7 @@ body::after {
 .dc-seg { flex: 1 1 0; height: 2px; background: rgba(255,255,255,0.14); transition: background .4s var(--spring); }
 .dc-seg.passed { background: rgba(255,255,255,0.32); }
 .dc-seg.current { background: var(--dc-c, var(--accent)); }
-@media (max-width: 900px) { .deck-counter { display: none; } }
+@media screen and (max-width: 900px) { .deck-counter { display: none; } }
 
 .deck-tracker {
   position: fixed; top: 50%; right: clamp(10px,1.1vw,16px); transform: translateY(-50%);
@@ -170,7 +170,7 @@ body::after {
 }
 .deck-tracker .dot:hover { background: rgba(255,255,255,0.5); }
 .deck-tracker .dot.current { height: 20px; border-radius: 3px; background: var(--gold); }
-@media (max-width: 900px) { .deck-tracker { display: none; } }
+@media screen and (max-width: 900px) { .deck-tracker { display: none; } }
 
 /* ── pull quote ───────────────────────────────────────────────────── */
 .pullquote {
@@ -322,7 +322,7 @@ body::after {
   font-family: var(--font-editorial); font-size: clamp(9.5px,0.89vw,11.5px); line-height: 1.35;
   color: var(--text-dim);
 }
-@media (max-width: 940px) { .artifact-aspects { grid-template-columns: 1fr; } }
+@media screen and (max-width: 940px) { .artifact-aspects { grid-template-columns: 1fr; } }
 
 /* ── horizontal flow ──────────────────────────────────────────────── */
 .hflow { display: flex; align-items: stretch; width: 100%; }
@@ -380,7 +380,7 @@ body::after {
   border-top: 5px solid transparent; border-bottom: 5px solid transparent;
   border-left: 7px solid var(--ac, var(--text-mute));
 }
-@media (max-width: 1180px) {
+@media screen and (max-width: 1180px) {
   .hflow { flex-wrap: wrap; gap: 12px; }
   .hf-node { flex: 1 1 30%; }
   .hf-arrow { display: none; }
@@ -388,7 +388,7 @@ body::after {
 
 /* ── req tiles (from d2-translator-java2py · recap cards) ─────────── */
 .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 20px); }
-@media (max-width: 900px) { .three-col { grid-template-columns: 1fr; } }
+@media screen and (max-width: 900px) { .three-col { grid-template-columns: 1fr; } }
 .req {
   position: relative; border-radius: 16px; padding: 6px;
   background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012) 45%, rgba(0,0,0,0.14)), var(--surface);
@@ -459,7 +459,7 @@ body::after {
 
 /* ── two-column layout helper ─────────────────────────────────────── */
 .cols { display: grid; grid-template-columns: var(--cols, 1fr 1fr); gap: clamp(18px,2.2vw,40px); align-items: start; }
-@media (max-width: 1080px) { .cols { grid-template-columns: 1fr; } }
+@media screen and (max-width: 1080px) { .cols { grid-template-columns: 1fr; } }
 
 /* ── numbered instrument cards (mechanisms) ───────────────────────── */
 .rmgrid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(14px,1.6vw,26px); width: 100%; }
@@ -510,7 +510,7 @@ body::after {
   background: var(--rmp, var(--rmc)); padding: 4px 11px; border-radius: 999px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.06);
 }
-@media (max-width: 1180px) { .rmgrid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media screen and (max-width: 1180px) { .rmgrid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 
 /* ── framework triptych (from d1 · Agentic Development) ───────────── */
 .trio-path {
@@ -537,7 +537,7 @@ body::after {
   font-family: var(--font-display); font-size: clamp(22px,2.4vw,36px); color: var(--text-mute);
 }
 .trio-verdict { font-family: var(--font-editorial); font-style: italic; font-size: clamp(11px,1.02vw,13.5px); color: var(--nc); margin-top: clamp(10px,1.6vh,14px); padding-top: clamp(8px,1.3vh,12px); border-top: 1px solid var(--rule); }
-@media (max-width: 1080px) { .trio-path { flex-direction: column; } .trio-arrow { display: none; } }
+@media screen and (max-width: 1080px) { .trio-path { flex-direction: column; } .trio-arrow { display: none; } }
 
 /* ── skill sheet (from d2 · cards-sheet) ──────────────────────────── */
 .skill-lines { list-style: none; }
@@ -556,7 +556,7 @@ body::after {
 .skill-name b { color: var(--sc); font-weight: 600; }
 .skill-proof { font-family: var(--font-editorial); font-size: clamp(10px,0.96vw,13px); font-style: italic; color: var(--text-dim); white-space: nowrap; }
 .skill-proof code { font-family: var(--font-mono); font-style: normal; font-size: 0.88em; color: var(--cyan); }
-@media (max-width: 1120px) { .skill-proof { display: none; } }
+@media screen and (max-width: 1120px) { .skill-proof { display: none; } }
 
 /* ── the invariant strip ──────────────────────────────────────────── */
 .invariant {
@@ -568,7 +568,7 @@ body::after {
 .inv-verb { font-family: var(--font-display); font-size: clamp(24px,2.7vw,42px); line-height: 1; color: var(--ivc, var(--text)); }
 .inv-who { font-family: var(--font-mono); font-size: clamp(8.5px,0.8vw,10.5px); font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--text-dim); margin-top: 9px; }
 .inv-gloss { font-family: var(--font-editorial); font-style: italic; font-size: clamp(11px,1.05vw,14px); color: var(--text-dim); margin-top: 7px; line-height: 1.35; }
-@media (max-width: 900px) { .invariant { grid-template-columns: 1fr; } .inv-cell { border-left: 0; border-top: 1px solid var(--rule); } .inv-cell:first-child { border-top: 0; } }
+@media screen and (max-width: 900px) { .invariant { grid-template-columns: 1fr; } .inv-cell { border-left: 0; border-top: 1px solid var(--rule); } .inv-cell:first-child { border-top: 0; } }
 
 /* ── SVG figure animation (borrowed primitives) ───────────────────── */
 .ring-breathe { transform-box: fill-box; transform-origin: center; animation: ring-breathe 9s ease-in-out infinite; }
@@ -777,7 +777,7 @@ body::after {
   text-transform: uppercase; color: var(--text-mute); white-space: nowrap;
 }
 
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
   .category-head {
     display: block;
   }
@@ -821,7 +821,7 @@ body::after {
   .category-verdict { grid-template-columns: auto 1fr; margin-top: 9px; }
   .category-verdict-next { display: none; }
 }
-@media (max-height: 780px) and (min-width: 901px) {
+@media screen and (max-height: 780px) and (min-width: 901px) {
   .category-stage { height: clamp(320px,44vh,350px); margin-top: 13px; }
   .category-external { min-height: 110px; padding-block: 11px; }
   .category-core { min-height: 204px; padding-block: 15px; }
@@ -860,8 +860,8 @@ body::after {
 .beat-foot b { color: var(--rc); font-weight: 700; letter-spacing: 1.4px; }
 .gsrc { font-family: var(--font-mono); font-size: clamp(8px,0.72vw,9.5px); line-height: 1.45; letter-spacing: .35px; color: var(--text-mute); border-top: 1px solid var(--rule); padding-top: clamp(7px,1.1vh,11px); margin-top: clamp(10px,1.6vh,16px); }
 .rail-flow { stroke-dasharray: 6 18; animation: seam-current 2.4s linear infinite; }
-@media (max-width: 1080px) { .beat-grid { grid-template-columns: 1fr; } .beat-card { min-height: 0; } }
-@media (max-height: 820px) and (min-width: 901px) {
+@media screen and (max-width: 1080px) { .beat-grid { grid-template-columns: 1fr; } .beat-card { min-height: 0; } }
+@media screen and (max-height: 820px) and (min-width: 901px) {
   .beat-card { min-height: 128px; padding-block: 11px; }
   .beat-h { font-size: clamp(18px,1.6vw,24px); }
   .beat-b { font-size: clamp(11px,1vw,13.5px); }
@@ -998,13 +998,42 @@ body::after {
 .tool-out { padding:6px 10px 7px; font:500 clamp(8.5px,.78vw,10.5px)/1.45 var(--font-mono); color:#aeb7c4; white-space:pre-wrap; overflow-wrap:anywhere; }
 .tool-out .g { color:var(--green); } .tool-out .n { color:var(--gold); } .tool-out .c { color:#4d5666; } .tool-out .w { color:var(--text); }
 
-@media (max-width:1050px) { .codex-body { grid-template-columns:1fr; } .codex-sidebar { display:none; } }
-@media (max-width:760px) { .codex-scene { grid-template-columns:1fr; } .codex-artifact { display:none; } }
-@media (max-height:820px) and (min-width:761px) {
+@media screen and (max-width:1050px) { .codex-body { grid-template-columns:1fr; } .codex-sidebar { display:none; } }
+@media screen and (max-width:760px) { .codex-scene { grid-template-columns:1fr; } .codex-artifact { display:none; } }
+@media screen and (max-height:820px) and (min-width:761px) {
   .codex-chat-scroll { padding-block:8px; } .codex-chat-inner { gap:5px; } .codex-user-bubble { padding-block:6px; }
   .codex-skill-state { padding-block:6px; } .codex-card { margin-top:4px; } .codex-card-path { display:none; }
   .codex-run-row { min-height:20px; } .codex-composer { padding-block:6px 8px; } .codex-spec-code { font-size:clamp(7.8px,.72vw,9.5px); line-height:1.34; padding-bottom:7px; }
 }
+
+/* ── S04 plate only (rt04) · five-step strip + stacked artifact windows ── */
+.s04-steps {
+  display: flex; align-items: center; gap: clamp(7px,.8vw,13px);
+  margin-top: clamp(10px,1.5vh,16px); padding: clamp(8px,1.1vh,12px) clamp(12px,1.2vw,18px);
+  border: 1px solid var(--border); border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)), var(--surface);
+}
+.s04-step { display: flex; align-items: center; gap: 8px; min-width: 0; white-space: nowrap; }
+.s04-step b {
+  display: grid; place-items: center; width: 18px; height: 18px; border-radius: 5px;
+  border: 1px solid rgba(104,199,255,.35); background: rgba(104,199,255,.08);
+  color: var(--cyan); font: 700 clamp(7.5px,.66vw,8.5px)/1 var(--font-mono);
+}
+.s04-step--user b { background: var(--cyan); border-color: transparent; color: #070A0F; }
+.s04-step span { font: 600 clamp(8px,.74vw,9.5px)/1 var(--font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-dim); }
+.s04-chev { font-style: normal; color: var(--text-mute); font: 600 clamp(9px,.8vw,11px)/1 var(--font-mono); }
+
+.rt04 .codex-scene { margin-top: clamp(10px,1.5vh,16px); }
+.rt04 .codex-stack { display: flex; flex-direction: column; gap: clamp(8px,1.2vh,12px); min-width: 0; min-height: 0; }
+.rt04 .codex-stack > .codex-artifact--plan { flex: .35 1 0; }
+.rt04 .codex-stack > .codex-artifact--leaf { flex: .65 1 0; }
+.rt04 .codex-stack .codex-artifact { padding-top: 44px; }
+.rt04 .codex-spec-code { font-size: clamp(7px,.6vw,7.6px); line-height: 1.36; padding-bottom: 8px; }
+.rt04 .codex-chat-scroll { padding-block: clamp(8px,1.1vh,11px); }
+.rt04 .codex-chat-inner { gap: clamp(6px,.9vh,9px); }
+.rt04 .codex-user-bubble { padding-block: 6px; }
+.rt04 .codex-skill-state { padding-block: 7px; }
+.rt04 .codex-run-row { min-height: 21px; }
 /* ── leaf anatomy plate (S08) ─────────────────────────────────────── */
 .leafplate { display:grid; grid-template-columns:1fr 1.42fr 1fr; column-gap:clamp(20px,2.2vw,36px); row-gap:0; margin-top:clamp(12px,1.8vh,20px); align-items:stretch; }
 .lp-band { --zc:var(--gold); grid-column:2; position:relative; min-width:0; background:linear-gradient(90deg,color-mix(in srgb,var(--zc) 7%,transparent),#0d1014 55%); border-left:1px solid rgba(120,160,220,.22); border-right:1px solid rgba(120,160,220,.22); padding:clamp(8px,1.2vh,12px) clamp(13px,1.3vw,20px) clamp(8px,1.2vh,12px) clamp(15px,1.5vw,22px); }
@@ -1034,8 +1063,8 @@ body::after {
 .lp-ann-k { font:800 clamp(7.5px,.72vw,9.5px)/1 var(--font-mono); letter-spacing:2px; text-transform:uppercase; color:var(--zc); }
 .lp-ann-q { margin-top:5px; font:italic 400 clamp(11px,1.05vw,14px)/1.3 var(--font-editorial); color:var(--text); }
 .lp-ann-n { margin-top:4px; font:italic 400 clamp(9.5px,.9vw,11.5px)/1.3 var(--font-editorial); color:var(--text-dim); }
-@media (max-width:1080px) { .leafplate { grid-template-columns:1fr; } .lp-ann, .lp-band { grid-column:1; } .lp-ann.left { text-align:left; } .lp-ann::before, .lp-ann::after { display:none; } }
-@media (max-height:820px) and (min-width:901px) { .lp-sample { display:none; } .lp-ann-n { display:none; } }
+@media screen and (max-width:1080px) { .leafplate { grid-template-columns:1fr; } .lp-ann, .lp-band { grid-column:1; } .lp-ann.left { text-align:left; } .lp-ann::before, .lp-ann::after { display:none; } }
+@media screen and (max-height:820px) and (min-width:901px) { .lp-sample { display:none; } .lp-ann-n { display:none; } }
 
 /* ── profiles towers (S11) ────────────────────────────────────────── */
 .profgrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,1.8vw,30px); align-items:end; margin-top:clamp(12px,1.9vh,22px); }
@@ -1059,8 +1088,8 @@ body::after {
 .pd-adds::before, .pd-adds::after { content:''; flex:1 1 0; height:1px; background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pc) 55%,transparent)); }
 .pd-adds::after { background:linear-gradient(90deg,color-mix(in srgb,var(--pc) 55%,transparent),transparent); }
 .prof-foot { margin-top:clamp(9px,1.4vh,13px); padding-top:clamp(7px,1.1vh,10px); border-top:1px solid var(--rule); display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-@media (max-width:1080px) { .profgrid { grid-template-columns:1fr; align-items:stretch; } }
-@media (max-height:820px) and (min-width:901px) { .pd-line { display:none; } .prof-when { display:none; } }
+@media screen and (max-width:1080px) { .profgrid { grid-template-columns:1fr; align-items:stretch; } }
+@media screen and (max-height:820px) and (min-width:901px) { .pd-line { display:none; } .prof-when { display:none; } }
 
 /* ── assembled leaf pins (S17) ────────────────────────────────────── */
 .pinmark { display:inline-grid; place-items:center; width:15px; height:15px; margin-left:7px; border-radius:50%; background:var(--pinc,var(--gold)); color:#070A0F; font:800 9px/1 var(--font-mono); vertical-align:middle; box-shadow:0 0 10px -2px var(--pinc,var(--gold)); }
@@ -1070,7 +1099,7 @@ body::after {
 .pin-t { font:400 clamp(14px,1.3vw,19px)/1.1 var(--font-display); color:var(--text); letter-spacing:-.2px; }
 .pin-b { margin-top:3px; font:italic 400 clamp(10px,.95vw,12.5px)/1.32 var(--font-editorial); color:var(--text-dim); }
 .pin-b b { color:var(--text); font-weight:600; font-style:normal; }
-@media (max-height:820px) and (min-width:901px) { .pin-b { display:none; } }
+@media screen and (max-height:820px) and (min-width:901px) { .pin-b { display:none; } }
 
 /* ── DoD matrix (S26) ─────────────────────────────────────────────── */
 .dodm { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:6px; margin-top:clamp(10px,1.5vh,14px); }
@@ -1098,8 +1127,8 @@ body::after {
 .trust-policy { margin-top:auto; padding-top:clamp(11px,1.7vh,16px); border-top:1px solid var(--rule); display:flex; flex-direction:column; gap:6px; }
 .trust-policy .pk { font:800 clamp(7.5px,.7vw,9px)/1 var(--font-mono); letter-spacing:2px; text-transform:uppercase; color:var(--text-mute); }
 .trust-policy .pv { font:400 clamp(15px,1.45vw,22px)/1.1 var(--font-display); color:var(--tc); }
-@media (max-width:1080px) { .trust-grid { grid-template-columns:1fr; } }
-@media (max-height:820px) and (min-width:901px) { .trust-num { font-size:clamp(44px,4.6vw,66px); } .trust-when { display:none; } }
+@media screen and (max-width:1080px) { .trust-grid { grid-template-columns:1fr; } }
+@media screen and (max-height:820px) and (min-width:901px) { .trust-num { font-size:clamp(44px,4.6vw,66px); } .trust-when { display:none; } }
 
 .brand-flow-shell { position:relative; padding:clamp(14px,2.2vh,24px); border:1px solid rgba(228,165,26,.2); border-radius:22px; background:linear-gradient(180deg,rgba(228,165,26,.05),rgba(13,17,23,.92)); box-shadow:0 28px 70px -42px rgba(0,0,0,.9); }
 .brand-flow-shell img { width:100%; max-height:clamp(380px,60vh,650px); object-fit:contain; display:block; }
@@ -1226,7 +1255,7 @@ body::after {
 .close-logo { width:min(300px,34vw); height:auto; margin:0 auto clamp(18px,2.6vh,28px); }
 .close-command { width:min(860px,86vw); margin:clamp(18px,2.8vh,30px) auto 0; text-align:left; }
 
-@media (max-width:1180px) {
+@media screen and (max-width:1180px) {
   .zone-grid { grid-template-columns:repeat(2,1fr); }
   .handoff-sheet { grid-template-columns:repeat(2,1fr); }
   .handoff-cell:nth-child(-n+4) { border-top:1px solid var(--rule); }
@@ -1235,7 +1264,7 @@ body::after {
   .handoff-cell:nth-child(2n+1) { border-left:0; }
   .evidence-grid { grid-template-columns:repeat(3,1fr); }
 }
-@media (max-width:900px) {
+@media screen and (max-width:900px) {
   .compare-shell,.plan-board,.seal-board,.cli-board { grid-template-columns:1fr; }
   .boundary-board,.mesh-map { grid-template-columns:1fr; }
   .boundary-lock { display:none; }
@@ -1266,7 +1295,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 }
 
 /* ── short viewports ──────────────────────────────────────────────── */
-@media (max-height: 980px) {
+@media screen and (max-height: 980px) {
   .h2 { font-size: clamp(26px,3.9vw,52px); }
   .code { padding: clamp(22px,3vh,30px) clamp(13px,1.3vw,20px) clamp(12px,1.8vh,18px); line-height: 1.7; font-size: clamp(9px,0.85vw,11.5px); }
   .code.code--mac { padding-top: 54px; }
@@ -1370,7 +1399,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 
 /* ── print: one page per plate/prose sheet, everything visible ────── */
 @media print {
-  @page { size: 1440px 900px; margin: 0; }
+  @page { size: 1440pt 900pt; margin: 0; }
   html, body { height: auto !important; overflow: visible !important; background: var(--bg) !important; }
   *, *::before, *::after {
     -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
@@ -1379,13 +1408,37 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
   body::after { display: none !important; }
   .deck { height: auto !important; overflow: visible !important; scroll-snap-type: none !important; }
   .slide {
-    height: 900px !important; overflow: hidden !important;
+    height: 900pt !important; overflow: hidden !important;
     page-break-after: always !important; break-after: page !important;
     page-break-inside: avoid !important; break-inside: avoid !important;
   }
   .slide:last-child { page-break-after: auto !important; break-after: auto !important; }
   .deck-progress, .deck-counter, .deck-tracker { display: none !important; }
   body.anim-ready .reveal > * { opacity: 1 !important; transform: none !important; }
+  /* compact the four plates that are over-tall at 1440×900 — mirrors their
+     designed short-viewport degradations */
+  .rt06 { padding-top: 22px !important; padding-bottom: 22px !important; }
+  .rt06 .h2 { margin-top: 5px !important; }
+  .rt06 .lede { margin-top: 6px !important; max-width: 110ch !important; }
+  .rt06 svg.arch { margin-top: 5px !important; }
+  .rt06 .cols { margin-top: 8px !important; }
+  .rt06 .cols .code { font-size: 10px !important; line-height: 1.55 !important; }
+  .rt06 .wrap > div:last-of-type { margin-top: 8px !important; padding-top: 8px !important; }
+  .rt08 .lp-sample, .rt08 .lp-ann-n { display: none !important; }
+  .rt31 .h2 { margin-top: 5px !important; }
+  .rt31 .lede { margin-top: 6px !important; max-width: 110ch !important; }
+  .rt31 .cols { margin-top: 8px !important; }
+  .rt31 .wrap > div:last-of-type { margin-top: 8px !important; padding-top: 8px !important; }
+  .rt31 .pin-card { padding-top: 8px !important; padding-bottom: 8px !important; }
+  .rt53 .fl-node { padding: 6px 14px !important; }
+  .rt53 .fl-name { font-size: 16px !important; margin-top: 1px !important; }
+  .rt53 .fl-note { font-size: 10.5px !important; margin-top: 1px !important; }
+  .rt53 .fl-arrow { height: 6px !important; }
+  /* S42 — the brief requires four EQUAL trust-question cards in one row;
+     the narrow-viewport wrap (3+1) is a screen-only degradation */
+  .rt42 .hflow { flex-wrap: nowrap !important; gap: clamp(8px,1vw,14px) !important; }
+  .rt42 .hf-node { flex: 1 1 0 !important; min-width: 0 !important; }
+  .rt42 .hf-arrow { display: none !important; }
 }
 </style>
 </head>
@@ -1620,12 +1673,12 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         </tr></thead>
         <tbody>
           <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--gold);">I</span> · The receipt gate</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">Why is “done” not enough?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">unease → category clarity</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">01–07</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--cyan);">II</span> · The atomic contract</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">What exactly is a Task-Spec leaf?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">clarity → inspectability</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">07–16</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--purple);">III</span> · From intent to a safe graph</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How does work become approved, atomic, and parallel?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">structure → control</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">17–24</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--gold);">IV</span> · PRE and portable execution</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">What is authorized before a worker starts?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">control → bounded motion</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">25–34</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--green);">V</span> · POST and stronger evidence</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How is a result independently accepted?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">claim → proof</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">35–44</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--purple);">VI</span> · TaskMesh</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How can many authorized leaves run without widening authority?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">proof → safe scale</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">45–59</td></tr>
-          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--gold);">VII</span> · Product surface and proof</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How is it used, shipped, and evaluated honestly?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">scale → confidence</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">60–65</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--cyan);">II</span> · The atomic contract</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">What exactly is a Task-Spec leaf?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">clarity → inspectability</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">08–17</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--purple);">III</span> · From intent to a safe graph</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How does work become approved, atomic, and parallel?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">structure → control</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">18–25</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--gold);">IV</span> · PRE and portable execution</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">What is authorized before a worker starts?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">control → bounded motion</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">26–35</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--green);">V</span> · POST and stronger evidence</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How is a result independently accepted?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">claim → proof</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">36–45</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--purple);">VI</span> · TaskMesh</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How can many authorized leaves run without widening authority?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">proof → safe scale</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">46–60</td></tr>
+          <tr><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);"><span style="color:var(--gold);">VII</span> · Product surface and proof</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text);">How is it used, shipped, and evaluated honestly?</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">scale → confidence</td><td style="padding:6px 13px;border-top:1px solid var(--rule);color:var(--text-dim);">61–66</td></tr>
         </tbody>
       </table>
 
@@ -1633,15 +1686,15 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
       <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.5vw,22px);margin-top:clamp(10px,1.6vh,16px);">
         <div class="ep-box" style="--bx-c:var(--gold);">
           <span class="ep-box-title">executive · ~25 min</span>
-          <p>Plates <b>01–06, 45, 64–65</b>. The problem, the product boundary, and the proof posture.</p>
+          <p>Plates <b>01–06, 46, 65–66</b>. The problem, the product boundary, and the proof posture.</p>
         </div>
         <div class="ep-box" style="--bx-c:var(--cyan);">
           <span class="ep-box-title">practitioner · ~90 min</span>
-          <p>Plates <b>01–44, 60, 64–65</b>. Author, seal, hand off, and independently accept a leaf.</p>
+          <p>Plates <b>01–45, 61, 65–66</b>. Author, seal, hand off, and independently accept a leaf.</p>
         </div>
         <div class="ep-box" style="--bx-c:var(--purple);">
           <span class="ep-box-title">operator · ~75 min</span>
-          <p>Plates <b>01–06, 17–24, 45–65</b>. Frontier, routing, leases, worktrees, isolation, and finish.</p>
+          <p>Plates <b>01–06, 18–25, 46–66</b>. Frontier, routing, leases, worktrees, isolation, and finish.</p>
         </div>
         <div class="ep-box" style="--bx-c:var(--green);">
           <span class="ep-box-title">full deep dive · ~3 h</span>
@@ -1920,7 +1973,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
   </section>
 
   <!-- S04 · THE DEVELOPMENT FLOW -->
-  <section class="slide" data-act="THE DEVELOPMENT FLOW" data-act-name="From chat to task file" data-accent="cyan">
+  <section class="slide rt04" data-act="THE DEVELOPMENT FLOW" data-act-name="From chat to task file" data-accent="cyan">
     <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
     <div class="wrap reveal" style="max-width:1720px;">
 
@@ -1934,7 +1987,19 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         </p>
       </div>
 
-      <div class="codex-scene" role="group" aria-label="A compact macOS-style Codex conversation sits beside a separate generated Task-Spec definition.">
+      <div class="s04-steps" role="group" aria-label="The five-step development flow: ask, skill loads, plan preview, approve, generate and check">
+        <div class="s04-step s04-step--user"><b>1</b><span>ask</span></div>
+        <i class="s04-chev" aria-hidden="true">›</i>
+        <div class="s04-step"><b>2</b><span>skill loads</span></div>
+        <i class="s04-chev" aria-hidden="true">›</i>
+        <div class="s04-step"><b>3</b><span>plan preview</span></div>
+        <i class="s04-chev" aria-hidden="true">›</i>
+        <div class="s04-step s04-step--user"><b>4</b><span>approve</span></div>
+        <i class="s04-chev" aria-hidden="true">›</i>
+        <div class="s04-step"><b>5</b><span>generate + check</span></div>
+      </div>
+
+      <div class="codex-scene" role="group" aria-label="A compact macOS-style Codex conversation sits beside two stacked code windows: the previewed TaskPlan above the generated Task-Spec definition.">
       <div class="codex-app" role="group" aria-label="A macOS-style Codex workspace showing only the Task-Spec conversation: skill loading, plan preview, approval, and checks.">
         <div class="codex-titlebar">
           <div class="codex-traffic" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -1986,6 +2051,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
                               <div class="codex-facts"><span class="codex-fact"><b>S</b> leaf</span><span class="codex-fact"><b>2</b> paths</span><span class="codex-fact"><b>0</b> files written</span></div>
                             </div>
                           </div>
+                          <div class="codex-proof-row"><span class="codex-proof">taskspec plan → TASK_PLAN=OK</span></div>
                         </div>
                       </div>
 
@@ -2018,11 +2084,24 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
         </div>
       </div>
 
-              <aside class="codex-artifact code code--mac" data-lang="yaml" style="--lang-c:var(--cyan);" aria-label="Generated Task-Spec definition, displayed outside the Codex conversation in the same code-window style as slide 9">
-                <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">tasks/T-20260826-payments-csv-export.md · generated</span></div>
-                <pre class="codex-spec-code"><span class="c"># candidate contract · generated after approval</span>
-<span class="c">---</span>
-<span class="c"># ── 1 · identity ─ task, state, format</span>
+              <div class="codex-stack">
+                <aside class="codex-artifact codex-artifact--plan code code--mac" data-lang="yaml" style="--lang-c:var(--cyan);" aria-label="TaskPlan preview composed by the agent — nothing materialized yet">
+                  <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">task-plan.yaml · preview</span></div>
+                  <pre class="codex-spec-code"><span class="c"># TaskPlan · previewed — nothing materialized</span>
+<span class="w">plan_id</span>: P-20260826-payments-csv
+<span class="w">status</span>: <span class="g">preview</span>
+<span class="w">leaves</span>:
+  - <span class="w">id</span>: T-20260826-payments-csv-export
+    <span class="w">status</span>: draft   <span class="w">format_version</span>: 3
+    <span class="n">effort</span>: S
+    <span class="s">touches_paths</span>: [src/reports/payments.py]
+    <span class="s">creates_paths</span>: [tests/test_csv_export.py]
+<span class="g">checks</span>: <span class="g">TASK_PLAN=OK</span></pre>
+                </aside>
+
+                <aside class="codex-artifact codex-artifact--leaf code code--mac" data-lang="yaml" style="--lang-c:var(--cyan);" aria-label="Generated Task-Spec definition, displayed outside the Codex conversation in the same code-window style as slide 9">
+                  <div class="mac-bar"><span class="mac-dot mac-dot--r"></span><span class="mac-dot mac-dot--y"></span><span class="mac-dot mac-dot--g"></span><span class="mac-title">tasks/T-20260826-payments-csv-export.md · generated</span></div>
+                  <pre class="codex-spec-code"><span class="c"># candidate contract · generated after approval</span>
 <span class="w">id</span>: T-20260826-payments-csv-export
 <span class="w">status</span>: <span class="g">ready</span>
 <span class="w">format_version</span>: 3
@@ -2041,7 +2120,6 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 <span class="c"># ── 5 · authorization &amp; acceptance</span>
 <span class="g">signed_off</span>: <span class="r">false</span>
 <span class="g">accepted</span>: <span class="r">false</span>
-<span class="c">---</span>
 <span class="w"># Add CSV export to the payments report</span>
 <span class="k">## Behavior</span>
 <span class="c">B-1 · report rows → equivalent CSV</span>
@@ -2049,15 +2127,16 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 <span class="c">eval_1 · verifies: [B-1]</span>
 <span class="k">## Exit Check</span>
 <span class="g">pytest -q tests/test_csv_export.py</span></pre>
-              </aside>
+                </aside>
+              </div>
       </div>
 
-      <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:clamp(11px,1.2vw,18px);margin-top:clamp(12px,1.9vh,20px);padding-top:clamp(11px,1.7vh,17px);border-top:1px solid var(--rule);">
+      <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:clamp(11px,1.2vw,18px);margin-top:clamp(9px,1.3vh,14px);padding-top:clamp(8px,1.2vh,13px);border-top:1px solid var(--rule);">
         <span class="tag" style="--tag-c:var(--cyan);">the boundary</span>
         <span style="font-family:var(--font-editorial);font-style:italic;font-size:clamp(12px,1.12vw,15.5px);color:var(--text-dim);">Codex can propose and check. <b style="color:var(--text);font-style:normal;font-weight:600;">Only after human approval may the CLI create the file</b> — and creation still grants no execution authority.</span>
       </div>
 
-      <aside class="speaker-notes">Story: read the compact Mac conversation on the left, then move outside the app to the generated artifact on the right. The first turn is ordinary intent. The explicit Skill Loaded row shows that Task-Spec, not free-form prompting, now drives the workflow. Codex inspects the repository and previews one S leaf with two paths; the plan card says zero files written. The human approves. The final Codex turn uses the remaining thread space for an execution receipt: batch, validation, and definition of done each report their own result. Then move right. The generated Task-Spec is a separate review surface using the same Mac code-window language as slide 9: traffic lights, centered file title, YAML badge, comment rails, and family-colored fields. Read its cap: ready, standard, S, two paths, Codex backend, and the two authority fields still false. Close on the boundary below the window: generation creates a candidate contract, never permission to execute or a verdict that the work is accepted. Transition: the next slide names those two later decisions as PRE and POST. Sources: SKILL.md operating loop; src/author/taskplan.py; src/author/batch-generate.sh; src/gate/validate-task-spec.sh; src/gate/definition-of-done.sh; docs/examples/task-plan.yaml.</aside>
+      <aside class="speaker-notes">Story: open on the five-step strip across the top — ask, skill loads, plan preview, approve, generate + check — the whole plate is that pipeline caught mid-run, with the two human steps chipped in solid cyan. Then read the compact Mac conversation on the left. The first turn is ordinary intent. The explicit Skill Loaded row shows that Task-Spec, not free-form prompting, now drives the workflow. Codex inspects the repository and previews one S leaf with two paths; the plan card says zero files written and the run pill reports TASK_PLAN=OK. The human approves. The final Codex turn uses the remaining thread space for an execution receipt: batch, validation, and definition of done each report their own result. Then move right, top window first: task-plan.yaml is the previewed TaskPlan the agent composed — status preview, one draft leaf, the two paths, checks passing with nothing materialized. Below it sits the generated leaf, a separate review surface in the same Mac code-window language as slide 9: traffic lights, centered file title, YAML badge, comment rails, and family-colored fields. Read its cap: ready, standard, S, two paths, Codex backend, and the two authority fields still false. Close on the boundary below the windows: generation creates a candidate contract, never permission to execute or a verdict that the work is accepted. Transition: the next slide names those two later decisions as PRE and POST. Sources: SKILL.md operating loop; src/author/taskplan.py; src/author/batch-generate.sh; src/gate/validate-task-spec.sh; src/gate/definition-of-done.sh; docs/examples/task-plan.yaml.</aside>
     </div>
   </section>
 
@@ -2075,7 +2154,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
           <p class="ep-lead">This is the entire onboarding story in one sitting: you describe a change in chat, and a reviewable task file appears — without the agent ever freelancing one into existence.</p>
           <p>Watch the left column as five beats. The user asks in one sentence. The <b>Skill Loaded</b> pill flips the session from free-form prompting to the Task-Spec <b>operating loop</b> — from here, the skill drives the CLI. The agent inspects the repository and composes a <b>TaskPlan</b>: one S leaf, two paths, and a preview that answers <code>TASK_PLAN=OK</code> while stressing that <b>no files exist yet</b>. A plan is a proposal, inspectable precisely because it has not happened.</p>
           <p>The human's “Approved” is the hard boundary. Only then does the CLI run: <b>batch</b> materializes the approved plan into a task file, <b>validate</b> checks the contract's structure, and <b>definition-of-done</b> checks that every behavior is provable. Each command leaves its own token — <code>TASK_BATCH=OK</code>, <code>VALID</code>, <code>DOD=COMPLETE</code> — so creation itself is an auditable trail, not a side effect of chat.</p>
-          <p>The right window is the artifact those commands produced. The frontmatter names identity (<code>id</code>, <code>status: ready</code>, <code>format_version: 3</code>), the graph position, the write surface (<code>touches_paths</code>, <code>creates_paths</code>), and the bounded attempt (<code>effort: S</code>, <code>budget_iterations: 15</code>, <code>execution_backend</code>). Below it sit behavior <b>B-1</b>, its eval, and the exit check. The two most important fields are the two that read <code>false</code>: <code>signed_off</code> and <code>accepted</code>.</p>
+          <p>The lower right window is the artifact those commands produced — below the TaskPlan preview it fulfills. The frontmatter names identity (<code>id</code>, <code>status: ready</code>, <code>format_version: 3</code>), the graph position, the write surface (<code>touches_paths</code>, <code>creates_paths</code>), and the bounded attempt (<code>effort: S</code>, <code>budget_iterations: 15</code>, <code>execution_backend</code>). Below it sit behavior <b>B-1</b>, its eval, and the exit check. The two most important fields are the two that read <code>false</code>: <code>signed_off</code> and <code>accepted</code>.</p>
           <p>They stay false because <b>creation never grants authority</b>. The file on disk is a real, validated, complete candidate contract — and it still confers no permission to execute and no verdict of done. Who may flip those two fields is a different question, and it has two different answers.</p>
         </div>
         <div class="ep-aside">
@@ -2085,7 +2164,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
               <li><b>The chat window</b> is the operating loop, not a transcript: ask → skill loads → plan preview → approve → generate + check.</li>
               <li><b>The plan card</b> is the anti-hallucination device: 0 files written means nothing to clean up if the human says no.</li>
               <li><b>The run rows</b> are tokens, not vibes — batch, validate, and DoD each report their own result.</li>
-              <li><b>The code window</b> is the generated leaf: frontmatter zones first, then behavior, evaluation, exit check.</li>
+              <li><b>The lower code window</b> is the generated leaf: frontmatter zones first, then behavior, evaluation, exit check.</li>
             </ul>
           </div>
           <div class="ep-box" style="--bx-c:var(--cyan);">
@@ -2270,7 +2349,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 
   <!-- S06 · THE LOOP -->
   <section class="slide rt06" data-act="THE LOOP" data-act-name="From intent to accepted" data-accent="gold">
-    <style>@media (max-height:820px){.rt06{padding-top:22px !important;padding-bottom:22px !important}.rt06 .h2{margin-top:5px !important}.rt06 .lede{margin-top:6px !important;max-width:110ch !important}.rt06 svg.arch{margin-top:5px !important}.rt06 .cols{margin-top:8px !important}.rt06 .cols .code{font-size:10px !important;line-height:1.55 !important}.rt06 .wrap > div:last-of-type{margin-top:8px !important;padding-top:8px !important}}</style>
+    <style>@media screen and (max-height:820px){.rt06{padding-top:22px !important;padding-bottom:22px !important}.rt06 .h2{margin-top:5px !important}.rt06 .lede{margin-top:6px !important;max-width:110ch !important}.rt06 svg.arch{margin-top:5px !important}.rt06 .cols{margin-top:8px !important}.rt06 .cols .code{font-size:10px !important;line-height:1.55 !important}.rt06 .wrap > div:last-of-type{margin-top:8px !important;padding-top:8px !important}}</style>
     <div class="aurora aurora--gold" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--gold);">Loop</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -2629,7 +2708,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>What exactly is a Task-Spec leaf?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>clarity</b> to <b>inspectability</b> — the task stops being a promise and becomes something you can read.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>07–16</b> · the anatomy of one leaf — frontmatter, effort, profiles, behavior, contract, guardrails, traceability, validation.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>08–17</b> · the anatomy of one leaf — frontmatter, effort, profiles, behavior, contract, guardrails, traceability, validation.</span></li>
           </ul>
         </div>
       </div>
@@ -3827,7 +3906,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
 
   <!-- S17 · THE ARTIFACT -->
   <section class="slide rt17" data-act="THE ARTIFACT" data-act-name="A complete leaf" data-accent="gold">
-    <style>.rt17 .cols{position:relative}@media (max-width:1080px),(max-height:820px) and (min-width:901px){.rt17 .rt17-links{display:none}}</style>
+    <style>.rt17 .cols{position:relative}@media screen and (max-width:1080px), screen and (max-height:820px) and (min-width:901px){.rt17 .rt17-links{display:none}}</style>
     <div class="aurora aurora--gold" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--gold);">One file</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -3958,7 +4037,7 @@ body.anim-ready .reveal.reveal-reset > * { transition: none !important; }
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>How does work become approved, atomic, and parallel?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>structure</b> to <b>control</b> — a plan a human approves before a single file exists.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>17–24</b> · the plan, the barrier, decomposition, the graph, the frontier, concurrency, closure, recovery.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>18–25</b> · the plan, the barrier, decomposition, the graph, the frontier, concurrency, closure, recovery.</span></li>
           </ul>
         </div>
       </div>
@@ -5120,7 +5199,7 @@ ID                                   KIND  SIZE  BACKEND  TITLE
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>What is authorized before a worker starts?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>control</b> to <b>bounded motion</b> — authority is sealed before execution begins.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>25–34</b> · the DoD, the PRE gate, the sealed revision, the tamper matrix, the handoff, and the runner under contract.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>26–35</b> · the DoD, the PRE gate, the sealed revision, the tamper matrix, the handoff, and the runner under contract.</span></li>
           </ul>
         </div>
       </div>
@@ -5802,7 +5881,7 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
 
   <!-- S31 · THE HANDOFF -->
   <section class="slide rt31" data-act="THE HANDOFF" data-act-name="One authorized attempt" data-accent="purple">
-    <style>@media (max-height:820px){.rt31 .h2{margin-top:5px !important}.rt31 .lede{margin-top:6px !important;max-width:110ch !important}.rt31 .cols{margin-top:8px !important}.rt31 .wrap > div:last-of-type{margin-top:8px !important;padding-top:8px !important}.rt31 .pin-card{padding-top:8px !important;padding-bottom:8px !important}}</style>
+    <style>@media screen and (max-height:820px){.rt31 .h2{margin-top:5px !important}.rt31 .lede{margin-top:6px !important;max-width:110ch !important}.rt31 .cols{margin-top:8px !important}.rt31 .wrap > div:last-of-type{margin-top:8px !important;padding-top:8px !important}.rt31 .pin-card{padding-top:8px !important;padding-bottom:8px !important}}</style>
     <div class="aurora aurora--purple" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--purple);">Packet</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -6067,21 +6146,21 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
       </div>
 
       <div class="trust-grid" style="align-items:end;margin-top:clamp(18px,3vh,34px);">
-        <div class="trust" style="--tc:var(--silver);min-height:clamp(280px,33vh,330px);">
+        <div class="trust" style="--tc:var(--silver);min-height:clamp(210px,25vh,250px);">
           <div class="trust-num" style="font-size:clamp(40px,4.2vw,64px);">L0</div>
           <div class="trust-k">read and run</div>
           <div class="trust-name">Makes the Exit Check return 0</div>
           <div class="trust-when">Given a signed spec, it understands the format and produces work that <b>passes the declared evals</b>. A plain bash loop can get here.</div>
           <div class="trust-policy"><span class="pk">unlocks</span><span class="pv">supervised, one-shot dispatch</span></div>
         </div>
-        <div class="trust" style="--tc:var(--cyan);min-height:clamp(340px,40vh,400px);">
+        <div class="trust" style="--tc:var(--cyan);min-height:clamp(250px,30vh,300px);">
           <div class="trust-num" style="font-size:clamp(40px,4.2vw,64px);">L1</div>
           <div class="trust-k">+ honor the lifecycle</div>
           <div class="trust-name">Claims the lock, reports a terminal state</div>
           <div class="trust-when">Moves the task to <b>in-progress before touching anything</b> and leaves it in a truthful terminal status on exit — so two executors can never double-pick one leaf.</div>
           <div class="trust-policy"><span class="pk">unlocks</span><span class="pv">a shared backlog</span></div>
         </div>
-        <div class="trust is-hot" style="--tc:var(--green);min-height:clamp(400px,47vh,470px);">
+        <div class="trust is-hot" style="--tc:var(--green);min-height:clamp(290px,35vh,350px);">
           <div class="trust-num" style="font-size:clamp(40px,4.2vw,64px);">L2</div>
           <div class="trust-k">+ honor the budget</div>
           <div class="trust-name">Knows when to stop</div>
@@ -6442,7 +6521,7 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>How is a result independently accepted?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>claim</b> to <b>proof</b> — the worker's word becomes evidence a gate can rerun.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>35–44</b> · the POST gate, the diff, the Goodhart guard, the receipt, the evaluator, and evidence that survives audit.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>36–45</b> · the POST gate, the diff, the Goodhart guard, the receipt, the evaluator, and evidence that survives audit.</span></li>
           </ul>
         </div>
       </div>
@@ -6500,8 +6579,8 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
           <div class="hf-tag"><span>trust is configured</span></div>
         </div>
         <div class="hf-arrow" style="--af:var(--gold);--ac:var(--green);"><span class="hf-al">all five hold</span><span class="hf-line"></span></div>
-        <div class="hf-node is-gate" style="--hc:var(--green);">
-          <div class="hf-head"><span class="hf-num">✓</span><div><div class="hf-k">terminal</div><div class="hf-name">AcceptanceRecord/v1</div></div></div>
+        <div class="hf-node is-gate" style="--hc:var(--green);flex:1.35 1 0;">
+          <div class="hf-head"><span class="hf-num">✓</span><div><div class="hf-k">terminal</div><div class="hf-name" style="font-size:clamp(14px,1.05vw,16px);letter-spacing:-0.2px;white-space:nowrap;">AcceptanceRecord/v1</div></div></div>
           <div class="hf-note">One durable object, bound to the attempt — <b>the only route to done</b>.</div>
           <div class="hf-tag"><span>attempt-bound</span></div>
         </div>
@@ -7168,7 +7247,7 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
   </section>
 
   <!-- S42 · THE EVALUATOR -->
-  <section class="slide" data-act="THE EVALUATOR" data-act-name="Who or what judges?" data-accent="purple">
+  <section class="slide rt42" data-act="THE EVALUATOR" data-act-name="Who or what judges?" data-accent="purple">
     <div class="aurora aurora--purple" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--purple);">Judge</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -7627,7 +7706,7 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>How can many authorized leaves run without widening authority?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>proof</b> to <b>safe scale</b> — many workers in motion, the same boundary around each.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>45–59</b> · the boundary, the daemon, waves, routing, leases, worktrees, isolation, and the cockpit.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>46–60</b> · the boundary, the daemon, waves, routing, leases, worktrees, isolation, and the cockpit.</span></li>
           </ul>
         </div>
       </div>
@@ -8641,7 +8720,7 @@ evals: extracted 2 · shellcheck clean · executed — behave as declared
 
   <!-- S53 · THE ROUTER -->
   <section class="slide rt53" data-act="THE ROUTER" data-act-name="Deterministic and explainable" data-accent="cyan">
-    <style>.rt53 .fl-node{padding:9px 16px}.rt53 .fl-arrow{height:9px}.rt53 .fl-name{font-size:clamp(17px,1.6vw,22px);margin-top:3px}.rt53 .fl-note{margin-top:3px}.rt53 .h2{margin-top:6px !important}.rt53 .lede{margin-top:8px !important}.rt53 .cols{margin-top:8px !important}.rt53 .wrap > div:last-of-type{margin-top:8px !important;padding-top:9px !important}@media (max-height:820px){.rt53 .fl-node{padding:6px 14px}.rt53 .fl-name{font-size:16px;margin-top:1px}.rt53 .fl-note{font-size:10.5px;margin-top:1px}.rt53 .fl-arrow{height:6px}}</style>
+    <style>.rt53 .fl-node{padding:9px 16px}.rt53 .fl-arrow{height:9px}.rt53 .fl-name{font-size:clamp(17px,1.6vw,22px);margin-top:3px}.rt53 .fl-note{margin-top:3px}.rt53 .h2{margin-top:6px !important}.rt53 .lede{margin-top:8px !important}.rt53 .cols{margin-top:8px !important}.rt53 .wrap > div:last-of-type{margin-top:8px !important;padding-top:9px !important}@media screen and (max-height:820px){.rt53 .fl-node{padding:6px 14px}.rt53 .fl-name{font-size:16px;margin-top:1px}.rt53 .fl-note{font-size:10.5px;margin-top:1px}.rt53 .fl-arrow{height:6px}}</style>
     <div class="aurora aurora--cyan" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--cyan);">Route</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -9559,7 +9638,7 @@ accepted work is on <span class="s">taskspec-mesh/run-42</span> · target branch
           <ul class="fm-list" style="margin-top:clamp(18px,2.8vh,30px);gap:clamp(10px,1.6vh,16px);">
             <li><span class="fm-n">ASKS</span><span style="font-size:clamp(13px,1.3vw,18px);"><b>How is it used, shipped, and evaluated honestly?</b></span></li>
             <li><span class="fm-n">MOVES</span><span>from <b>scale</b> to <b>confidence</b> — the story ends where the evidence can be checked.</span></li>
-            <li><span class="fm-n">SPANS</span><span>plates <b>60–65</b> · the CLI, the ecosystem, the dogfood, the evolution, and the proof.</span></li>
+            <li><span class="fm-n">SPANS</span><span>plates <b>61–66</b> · the CLI, the ecosystem, the dogfood, the evolution, and the proof.</span></li>
           </ul>
         </div>
       </div>
@@ -10275,7 +10354,7 @@ accepted work is on <span class="s">taskspec-mesh/run-42</span> · target branch
 
   <!-- S66 · CLOSE -->
   <section class="slide rt66" data-act="CLOSE" data-act-name="Make the agent earn done" data-accent="gold">
-    <style>@media (max-height:820px){.rt66 .h2{margin-top:6px !important}.rt66 .lede{margin-top:8px !important}.rt66 .wrap > div:last-of-type{margin-top:6px !important;padding-top:7px !important}}</style>
+    <style>@media screen and (max-height:820px){.rt66 .h2{margin-top:6px !important}.rt66 .lede{margin-top:8px !important}.rt66 .wrap > div:last-of-type{margin-top:6px !important;padding-top:7px !important}}</style>
     <div class="aurora aurora--gold" aria-hidden="true"><b></b></div>
     <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);font-family:var(--font-display);font-style:italic;font-size:clamp(120px,22vw,260px);line-height:.85;opacity:.03;pointer-events:none;z-index:0;white-space:nowrap;color:var(--gold);">Done</div>
     <div class="wrap reveal" style="max-width:1720px;">
@@ -10903,7 +10982,7 @@ taskspec mesh finish --run &lt;run-id&gt;</span></div>
   const tracker = document.getElementById('tracker');
   const ACCENT = { accent: 'var(--gold)', cyan: 'var(--cyan)', purple: 'var(--purple)', gold: 'var(--gold)', green: 'var(--green)', red: 'var(--red)' };
   const slides = Array.from(deck.querySelectorAll('section.slide'));
-  const plates = slides.filter((s) => !s.classList.contains('ep'));
+  const plates = slides.filter((s) => !s.classList.contains('ep') && !s.classList.contains('fm'));
   const total = plates.length;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const pad = (v) => String(v).padStart(2, '0');
@@ -10935,7 +11014,7 @@ taskspec mesh finish --run &lt;run-id&gt;</span></div>
     currentIdx = idx;
     const sl = slides[idx];
     let pi = -1;
-    for (let i = 0; i <= idx && i < slides.length; i++) { if (!slides[i].classList.contains('ep')) pi++; }
+    for (let i = 0; i <= idx && i < slides.length; i++) { if (!slides[i].classList.contains('ep') && !slides[i].classList.contains('fm')) pi++; }
     if (pi < 0) pi = 0;
     if (sl) {
       dcAct.textContent = sl.dataset.act || '';
@@ -10968,6 +11047,32 @@ taskspec mesh finish --run &lt;run-id&gt;</span></div>
   });
 
   paint(0);
+
+  /* print auto-fit: in the 1440×900pt print layout, any wrap whose content is
+     taller than the slide's usable height gets scaled down about its center so
+     nothing clips. Screen mode is untouched; transforms clear on afterprint. */
+  function fitForPrint() {
+    slides.forEach((s) => {
+      const w = s.querySelector('.wrap');
+      if (!w) return;
+      w.style.transform = '';
+      const cs = getComputedStyle(s);
+      const usable = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      const h = w.scrollHeight;
+      if (h > usable + 1) {
+        w.style.transformOrigin = '50% 50%';
+        w.style.transform = 'scale(' + (usable / h).toFixed(4) + ')';
+      }
+    });
+  }
+  function clearPrintFit() {
+    slides.forEach((s) => {
+      const w = s.querySelector('.wrap');
+      if (w) { w.style.transform = ''; w.style.transformOrigin = ''; }
+    });
+  }
+  window.addEventListener('beforeprint', fitForPrint);
+  window.addEventListener('afterprint', clearPrintFit);
 
   function activate(s) { s.classList.add('is-active'); s.querySelectorAll('.reveal').forEach(r => r.classList.add('in')); }
 

@@ -5,6 +5,7 @@ import com.northwindpay.legacy.type02.Type02Processor;
 import com.northwindpay.legacy.type03.Type03Processor;
 import com.northwindpay.legacy.type04.Type04Processor;
 import com.northwindpay.legacy.type05.Type05Processor;
+import com.northwindpay.legacy.type06.Type06Processor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,7 +47,8 @@ public final class ProcessorMain {
                                     new Type02Processor(),
                                     new Type03Processor(),
                                     new Type04Processor(),
-                                    new Type05Processor()));
+                                    new Type05Processor(),
+                                    new Type06Processor()));
                     result = dispatcher.dispatch(
                             batchId,
                             expectedType,

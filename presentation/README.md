@@ -22,7 +22,7 @@ Friday.
 
 **Live this week:** Night 1 (44), Night 2 (34), Night 3 (Constructor +
 [`run/d3/`](../run/d3/README.md)). Night 4 live ([`d4-orchestrator.html`](d4-orchestrator.html) · [`run/d4/`](../run/d4/README.md)
-— 28 slides, 9 beats, trail then factory). Identify by `data-act-name`. **Not built:** Night 5 HTML.
+— 28 slides, 9 beats, trail then factory). Identify by `data-act-name`. **Not built:** Night 5 HTML — brief [`agenda/d5.md`](../agenda/d5.md) · staff [`run/d5/`](../run/d5/README.md) (~21 slides, 6 demo beats). Do not clone `wrkp-dark-factory.html` as the HUD.
 
 ---
 
@@ -34,6 +34,7 @@ Friday.
 | [`d2-translator.html`](d2-translator.html) | Night 2 deck | Translator · java2py. **34 slides**, six blocks, five Hands-On boards (slices a–e). Identify by `data-act-name`. **Live.** | Night 2. Staff: [`run/d2/`](../run/d2/README.md) |
 | [`d3-constructor.html`](d3-constructor.html) | Night 3 deck | Constructor · DE + analytics. Six blocks, four Hands-On boards (A–D). Identify by `data-act-name`. **Live.** Lockstep with `run/d3/`. | Night 3. Staff: [`run/d3/`](../run/d3/README.md) |
 | [`d4-orchestrator.html`](d4-orchestrator.html) | Night 4 deck | Orchestrator. **28 slides**, six blocks. Identify by `data-act-name`. Lockstep with `run/d4/`. | Night 4. Staff: [`run/d4/`](../run/d4/README.md) |
+| [`d5-dark-factory.html`](d5-dark-factory.html) | Night 5 deck | Dark Factory. **21 slides**, six blocks, boards A–E + Flywheel. Identify by `data-act-name`. Lockstep with `run/d5/`. Brief [`agenda/d5.md`](../agenda/d5.md) | Night 5. Staff: [`run/d5/`](../run/d5/README.md). Do not clone `wrkp-dark-factory.html` |
 | [`seamwise.html`](seamwise.html) | Method kit | SeamWise internals. **Leave · SeamWise** parks here (Nights 2–4), then **returns** to the numbered beat | Pass 3 kit. Not the Night clock |
 | [`task-spec.html`](task-spec.html) | Method kit | Task-Spec internals. Dig **Show**, then return (Night 2: Execute 11 · Night 3: 09 · Night 4: 03–04) | Pass 5 kit. Mesh is **not** inside it |
 | [`cvg-aut-systems-spine-steps.html`](cvg-aut-systems-spine-steps.html) | Method manual | Converge spine — nine passes, two phases, one human barrier. **36 slides**, print-page layout. v7 · Converge 0.2.0 | When the room needs the kit, not the Night. Papers: [`docs/`](../docs/README.md) |

@@ -13,6 +13,7 @@ from models import (
     Type03Contract,
     Type04Contract,
     Type05Contract,
+    Type06Contract,
 )
 from paths import find_repository_root
 
@@ -640,7 +641,7 @@ def load_type_05_contract(
             "Type 05 normalization or calculation semantics are unsupported"
         )
 
-    return Type05Contract(
+    type05_contract = Type05Contract(  # returned below after field assembly
         contract_version=_require_int(
             layout.get("version"),
             field_name="version",
@@ -679,6 +680,84 @@ def load_type_05_contract(
                 layout.get("header"),
                 field_name="header",
             ).get("exact"),
+            field_name="header.exact",
+        ),
+        max_detail_rows=_require_int(
+            file_type.get("max_detail_rows"),
+            field_name="file_type.max_detail_rows",
+        ),
+        max_physical_record_bytes=_require_int(
+            file_type.get("max_physical_record_bytes"),
+            field_name="file_type.max_physical_record_bytes",
+        ),
+        max_source_file_bytes=_require_int(
+            file_type.get("max_source_file_bytes"),
+            field_name="file_type.max_source_file_bytes",
+        ),
+        registry_path=registry_path,
+        layout_path=layout_path,
+    )
+    return type05_contract
+
+
+def load_type_06_contract(
+    contracts_root: Path | None = None,
+) -> Type06Contract:
+    """Load and structurally validate the approved Type 06 contract."""
+
+    root, registry_path, entry = _load_approved_entry(
+        type_number="06",
+        contracts_root=contracts_root,
+    )
+    folder = _require_string(
+        entry.get("folder"),
+        field_name="registry.types[06].folder",
+    )
+    layout_path = root / folder / "layout.yaml"
+    layout = _load_mapping(layout_path)
+    file_type = _require_mapping(layout.get("file_type"), field_name="file_type")
+    grammar = _require_mapping(layout.get("grammar"), field_name="grammar")
+    calculation = _require_mapping(
+        layout.get("calculation"),
+        field_name="calculation",
+    )
+    type_number = _require_string(entry.get("number"), field_name="number")
+    code = _require_string(file_type.get("code"), field_name="file_type.code")
+    if calculation.get("rounding_mode") != "HALF_UP":
+        raise ContractError("Type 06 calculation semantics are unsupported")
+    return Type06Contract(
+        contract_version=_require_int(layout.get("version"), field_name="version"),
+        type_number=type_number,
+        code=code,
+        layout_version=_require_string(
+            file_type.get("layout_version"),
+            field_name="file_type.layout_version",
+        ),
+        filename_pattern=_require_string(
+            file_type.get("filename_regex"),
+            field_name="file_type.filename_regex",
+        ),
+        encoding=_require_string(
+            file_type.get("encoding"),
+            field_name="file_type.encoding",
+        ),
+        unicode_normalization="NFC",
+        line_ending=_require_string(
+            file_type.get("line_ending"),
+            field_name="file_type.line_ending",
+        ),
+        final_newline=_require_string(
+            file_type.get("final_line_ending"),
+            field_name="file_type.final_line_ending",
+        ),
+        delimiter=";",
+        quote_character='"',
+        field_count=_require_int(
+            grammar.get("field_count"),
+            field_name="grammar.field_count",
+        ),
+        exact_header=_require_string(
+            _require_mapping(layout.get("header"), field_name="header").get("exact"),
             field_name="header.exact",
         ),
         max_detail_rows=_require_int(
