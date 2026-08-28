@@ -36,37 +36,47 @@ Scope: [`agenda/d3.md`](../agenda/d3.md) · [`agenda/d4.md`](../agenda/d4.md).
 
 ## On disk now (start of Day 4)
 
-Thursday recap **reads this inventory**. Type 01 Gold papers are **not**
-pre-seeded on `main` — they exist only if Wednesday’s worktree wrote them.
-If they are missing, name the gap; do not dump Types `02`–`05`.
+Thursday recap **reads this inventory**. Type 01 Gold **source and papers
+are on this checkout**. Landing Parquet, DuckDB, and `evidence/modern/`
+are gitignored — open them in the **terminal**.
 
 ```text
 docs/
   README.md                              this map
-  brd-type-01-card-settlement.md         Pass 0 Capture     Day 1 · exists
-  tech-spec-type-01-card-settlement.md    Pass 1 Intent      Day 1 · exists
+  brd-type-01-card-settlement.md         Pass 0 Capture     Day 1
+  tech-spec-type-01-card-settlement.md    Pass 1 Intent      Day 1
   CONTEXT.md                             glossary           Day 2
   adrs/0001-first-write-is-landing-parquet.md
   adrs/0002-type-01-five-file-package.md
   adrs/0003-decimal-never-float.md
   adrs/0004-privacy-dies-at-the-parser.md
   adrs/0005-source-lie-kept-zero-parquet.md
-  adrs/0006-later-nights-parked.md        rows 3–7 open Day 3; 8–9 Day 4
-  seams.md                               three seams named; only seam 1 tasked
+  adrs/0006-later-nights-parked.md        rows 3–7 unparked as 0007–0011; 8–9 Day 4
+  adrs/0007-dlt-registers-landing-only.md
+  adrs/0008-ducklake-duckdb-is-local.md
+  adrs/0009-medallion-grains-and-keys.md
+  adrs/0010-rule-split-parser-vs-dbt.md
+  adrs/0011-golden-match-keys-two-questions.md
+  seams.md                               seam 1 signed; seam 2 legs tasked
   consensus.md                           ingest → landing **signed** 2026-08-25
-  tasks/T-20260825-type-01-landing-parser.md   signed_off: false
-  tasks/_state.yaml                      total 1
+  consensus-lakehouse.md                 dlt → Gold **signed** 2026-08-26
+  tasks/T-20260825-type-01-landing-parser.md
+  tasks/T-20260826-type-01-landing-emit.md
+  tasks/T-20260826-type-01-dlt-register.md
+  tasks/T-20260826-type-01-bronze.md
+  tasks/T-20260826-type-01-silver.md
+  tasks/T-20260826-type-01-gold.md
+  tasks/T-20260826-type-01-golden-match.md
 ```
 
-**Not on disk yet**
+Day 3 product (gitignored — look up in the terminal):
 
-Day 3 writes (room / worktree — do not pre-seed on `main`):
+- `modern/landing/B202607230000001/` Parquet + manifest
+- `modern/lakehouse/ducklake/northwind_modern.duckdb` Bronze / Silver / Gold
+- `evidence/modern/B202607230000001/golden-match.json` both questions yes
+- `evidence/modern/B202607230000004/golden-match.json` `CONFIRMED_SOURCE_DEFECT` · 173.44 kept · no Parquet
 
-- `adrs/0007-*.md` … lakehouse facts (dlt register-only, DuckLake local, B/S/G grains, match keys)
-- `consensus-lakehouse.md` — Pass 4 addendum. **Do not overwrite** `consensus.md`
-- Type 01 lakehouse leaves under `tasks/` (emit if no Parquet; dlt; Bronze; Silver; Gold; golden-match)
-
-Day 4 writes ([`run/d4/`](../run/d4/README.md) — **dark 03–08** if Gold is missing):
+Day 4 writes ([`run/d4/`](../run/d4/README.md) — trail `02` always; **dark 03–08** only if Gold is missing):
 
 - Remaining type lanes in [`seams.md`](seams.md); ADRs for 0006 rows **8–9** (Dagster lineage, optional read-only serve)
 - Remaining SWE + DE leaves (`02`–`04`, Type `05`, orchestrate) with evals
@@ -84,7 +94,7 @@ Keep **173.44**. Ingest sign stays canonical. Thursday **walks this folder as th
 | 1 | Intent | [`tech-spec-type-01-card-settlement.md`](tech-spec-type-01-card-settlement.md) | Same |
 | 2 | Structure | `adrs/` + `CONTEXT.md` | Day 2 landing 0001–0005 + park 0006 ([`run/d2/08-structure.md`](../run/d2/08-structure.md)). Day 3: SA mermaids ([`run/d3/04-prompt-sa-plan.md`](../run/d3/04-prompt-sa-plan.md)), then unpark rows 3–7 as 0007+ ([`run/d3/06-structure.md`](../run/d3/06-structure.md)). Do not recut 0001–0005 |
 | 3 | Decompose | [`seams.md`](seams.md) | Day 2 named three seams; tasked seam 1 ([`run/d2/09-decompose.md`](../run/d2/09-decompose.md)). Day 3 writes **seam 2 legs** (register → medallion → match) ([`run/d3/07-decompose.md`](../run/d3/07-decompose.md)). Day 4 cuts remaining type lanes + orchestrate |
-| 4 | Consensus | [`consensus.md`](consensus.md) · `consensus-lakehouse.md` | Day 2 ingest sign ([`run/d2/10-consensus.md`](../run/d2/10-consensus.md)). Day 3 lakehouse sign ([`run/d3/08-consensus.md`](../run/d3/08-consensus.md)). No lakehouse sign → **skip Gold** (`run/d3` 09–12 dark) |
+| 4 | Consensus | [`consensus.md`](consensus.md) · [`consensus-lakehouse.md`](consensus-lakehouse.md) | Day 2 ingest sign **canonical**. Day 3 lakehouse sign **canonical** (2026-08-26). Do not recut ingest |
 | 5 | Tasking | `tasks/` | Day 2: one parser leaf ([`run/d2/11-taskspec.md`](../run/d2/11-taskspec.md)). Day 3: Type 01 remainder + lakehouse leaves ([`run/d3/09-taskspec.md`](../run/d3/09-taskspec.md)). Day 4: remaining SWE + DE (`02`–`04`, Type `05`, orchestrate) |
 | 6 | Register | opt-in / `cvg/` | Day 3 Mesh is **seed**. Factory Register is Day 4 ([`run/d4/04-generate-queue.md`](../run/d4/04-generate-queue.md)) |
 | 7 | Bind | harness, not a doc | Shown Day 2 fail-closed; **still on** Days 3–4 |
